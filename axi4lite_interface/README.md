@@ -1,7 +1,5 @@
 # AXI 4 Lite Slave Interface
 
-
-
 ### Block Function
 This folder contains the source code for a parameterizable AXI 4 Lite Slave Interface, originally developed at DESY with a wrapper developed at FNAL.
 
