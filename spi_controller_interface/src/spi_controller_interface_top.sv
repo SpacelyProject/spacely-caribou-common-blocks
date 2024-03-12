@@ -269,6 +269,7 @@ always_comb begin
   if (spi_busy == 1'b1 && done == 1'b1) begin
     spi_busy_c = 1'b0;
     temp_spi_data_len_c = '0; // Need to reset this or else SPI will get triggered again
+    fpga_reg_spi_data_len_c = '0; // [lucahhot]: Need to resest this to 0 so the AXI user knows when a SPI transaction has finished
 
     // [lucahhot]: Load in first value of spi_read_buffer into fpga_reg_spi_read_data so it's ready to be sent out by AXI
     if (temp_WnR == 1'b0) begin
@@ -280,19 +281,19 @@ always_comb begin
 
   // [lucahhot]: AXI writes to fpga_regs
   if (fpga_regs_wrByteStrobe[FPGA_SPI_WR] == 4'b1111) begin
-    fpga_reg_spi_read_write = fpga_regs_dout[0]; 
+    fpga_reg_spi_read_write_c = fpga_regs_dout[0]; 
     if (spi_busy == 1'b0)
       temp_WnR_c = fpga_reg_dout[0];
   end
 
   if (fpga_regs_wrByteStrobe[FPGA_SPI_ADDRESS] == 4'b1111) begin
-    fpga_reg_spi_address = fpga_regs_dout[9:0]; 
+    fpga_reg_spi_address_c = fpga_regs_dout[9:0]; 
     if (spi_busy == 1'b0)
       temp_spi_address_c = fpga_regs_dout[9:0];
   end
 
   if (fpga_regs_wrByteStrobe[FPGA_SPI_DATA_LENGTH] == 4'b1111) begin
-    fpga_reg_spi_data_len = fpga_regs_dout[7:0]; 
+    fpga_reg_spi_data_len_c = fpga_regs_dout[7:0]; 
     if (spi_busy == 1'b0 && fpga_regs_dout[7:0] != '0) begin
       temp_spi_data_len_c = fpga_regs_dout[7:0];
       // [lucahhot]: When this register is written to, trigger SPI transaction
@@ -301,7 +302,7 @@ always_comb begin
   end
 
   if (fpga_regs_wrByteStrobe[FPGA_SPI_WRITE_DATA] == 4'b1111) begin
-    fpga_reg_spi_write_data = fpga_regs_dout; 
+    fpga_reg_spi_write_data_c = fpga_regs_dout; 
     // [lucahhot]: Write data to spi_command_buffer in addition to the fpga_reg (spi_command_buffer should not be full)
     if (spi_command_full == 1'b0) begin
       spi_command_din = fpga_regs_dout;
