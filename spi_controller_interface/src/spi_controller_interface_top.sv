@@ -10,20 +10,11 @@ module spi_controller_interface_top #(
   parameter integer C_S_AXI_ADDR_WIDTH  = 11,
 ) (
 
-  integer FPGA_REGISTER_N = 5;
-
-  // [lucahhot]: AXI register mapping 
-  localparam byte unsigned FPGA_SPI_WR = 1;
-  localparam byte unsigned FPGA_SPI_ADDRESS = 2;
-  localparam byte unsigned FPGA_SPI_DATA_LEN = 3;
-  localparam byte unsigned FPGA_SPI_WRITE_DATA = 4;
-  localparam byte unsigned FPGA_SPI_READ_DATA = 5;
-
   // Ports to/from spi_controller to lpgtbFpga
   input   logic   poci,
   output  logic   pico,
   output  logic   cs_b,
-  output  logic   spi_clk
+  output  logic   spi_clk,
 
   //////////////////////////////
 	//    AXI BUS SIGNALS       //
@@ -91,6 +82,15 @@ module spi_controller_interface_top #(
   input wire  S_AXI_RREADY
   
 );
+
+localparam integer FPGA_REGISTER_N = 5;
+
+// [lucahhot]: AXI register mapping 
+localparam byte unsigned FPGA_SPI_WR = 1;
+localparam byte unsigned FPGA_SPI_ADDRESS = 2;
+localparam byte unsigned FPGA_SPI_DATA_LEN = 3;
+localparam byte unsigned FPGA_SPI_WRITE_DATA = 4;
+localparam byte unsigned FPGA_SPI_READ_DATA = 5;
 
 logic [C_S_AXI_DATA_WIDTH-1:0] reg_wrdout,
 logic [((C_S_AXI_DATA_WIDTH-1)/8):0] reg_wrByteStrobe [FPGA_REGISTER_N-1:0],
