@@ -15,9 +15,9 @@ to handle the serializing and de-serializing of data to and from SPROCKET3/3A.
 | FPGA_REGISTER_N           | 5     | Number of addressable registers in the SPI controller interface. |
 
 ### How to Instantiate
-This block needs to be instatiated on a top-level that will connect with the SPI peripheral on SPROCKET3/3A. Besides that block, it does not interact with any other blocks.
+The block spi_controller_interface_top needs to be instatiated on a top-level that will connect with the SPI peripheral on SPROCKET3/3A. Besides that block, it does not interact with any other blocks.
 
-This block does requires axi4lite_interface_top (which includes axi4lite_slave_interface and mem_regs), fifo, and spi_controller (last 2 are in the same folder as this block).
+This block does require axi4lite_interface_top (which includes axi4lite_slave_interface and mem_regs), fifo, spi_controller, and spi_controller_interface (the last three blocks are found within this directory).
 
 ### Block Diagram
 

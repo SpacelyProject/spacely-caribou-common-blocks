@@ -4,8 +4,6 @@
 // Author: Luc Ah-Hot
 // Last updated: 03/05/24
 
-`include "axi_globals.sv"
-
 module spi_controller (
     // Input clock from AXI interface
     input   logic   axi_clk, 

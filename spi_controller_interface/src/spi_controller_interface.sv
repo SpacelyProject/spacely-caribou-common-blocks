@@ -1,9 +1,9 @@
-// SPI Interface wrapper that contains spi_controller and the spi_command/read_command buffers
+// SPI Interface that contains spi_controller and the spi_command/read_command buffers
 
 // Author: Luc Ah-Hot
 // Last updated: 03/11/24
 
-module spi_controller_interface_top #(
+module spi_controller_interface #(
 	// Width of S_AXI data bus
   parameter integer C_S_AXI_DATA_WIDTH  = 32,
   // Width of S_AXI address bus
