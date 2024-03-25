@@ -18,7 +18,7 @@ module axi4lite_interface_top #(
     output [C_S_AXI_DATA_WIDTH-1:0] reg_wrdout,
     output [((C_S_AXI_DATA_WIDTH-1)/8):0] reg_wrByteStrobe [FPGA_REGISTER_N-1:0],
     output  reg_rdStrobe [FPGA_REGISTER_N-1:0],
-    input  [C_S_AXI_DATA_WIDTH-1:0] reg_rddin [REGISTER_N-1:0],
+    input  [C_S_AXI_DATA_WIDTH-1:0] reg_rddin [FPGA_REGISTER_N-1:0],
 	
 	//////////////////////////////
 	//    AXI BUS SIGNALS       //
