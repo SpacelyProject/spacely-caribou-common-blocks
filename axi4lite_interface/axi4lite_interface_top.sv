@@ -88,6 +88,12 @@ module axi4lite_interface_top #(
 
 	);
 	
+    localparam AXI_DATA_BYTES = ((C_S_AXI_DATA_WIDTH-1)/8)+1;
+    localparam AXI_ADDR_LSB = ($clog2(C_S_AXI_DATA_WIDTH)-3);
+    localparam AXI_REG_ADDR_WIDTH = C_S_AXI_ADDR_WIDTH-AXI_ADDR_LSB;
+
+    
+
 	logic [C_S_AXI_DATA_WIDTH-1:0]  axi_mem_rdata;
 	logic [C_S_AXI_DATA_WIDTH-1:0]  axi_mem_wdata;
 	logic [AXI_REG_ADDR_WIDTH-1:0]  axi_mem_rdAddr;
@@ -145,13 +151,13 @@ module axi4lite_interface_top #(
 	// REG INTERFACE:
 
 	// Output to the register being written to from mem_wrdin from the AXI master
-	.reg_wrdout(fpga_regs_dout),
+	.reg_wrdout(reg_wrdout),
 	// This is the value of mem_wrByteStrobe when axi_wren_fpgaregs is high, else all zeros
-	.reg_wrByteStrobe(fpga_regs_wrByteStrobe), 
+	.reg_wrByteStrobe(reg_wrByteStrobe), 
 	// Read enable signal for every single FPGA register
-	.reg_rdStrobe(fpga_regs_rdStrobe), 
+	.reg_rdStrobe(reg_rdStrobe), 
 	// Input for the registers to be passed to mem_rddout and sent back to the AXI master
-	.reg_rddin(fpga_regs_din),
+	.reg_rddin(reg_rddin),
 
 	// MEM INTERFACE
 	

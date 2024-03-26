@@ -5,9 +5,11 @@
 
 module spi_controller_interface #(
 	// Width of S_AXI data bus
-  parameter integer C_S_AXI_DATA_WIDTH  = 32,
+  parameter integer C_S_AXI_DATA_WIDTH=32,
   // Width of S_AXI address bus
-  parameter integer C_S_AXI_ADDR_WIDTH  = 11,
+  parameter integer C_S_AXI_ADDR_WIDTH=11,
+  //Size of FIFO Buffer
+ parameter integer FIFO_BUFFER_SIZE
 ) (
 
   // Ports to/from spi_controller to lpgtbFpga
@@ -92,10 +94,14 @@ localparam byte unsigned FPGA_SPI_DATA_LEN = 3;
 localparam byte unsigned FPGA_SPI_WRITE_DATA = 4;
 localparam byte unsigned FPGA_SPI_READ_DATA = 5;
 
-logic [C_S_AXI_DATA_WIDTH-1:0] reg_wrdout,
-logic [((C_S_AXI_DATA_WIDTH-1)/8):0] reg_wrByteStrobe [FPGA_REGISTER_N-1:0],
-logic  reg_rdStrobe [FPGA_REGISTER_N-1:0],
-logic  [C_S_AXI_DATA_WIDTH-1:0] reg_rddin [REGISTER_N-1:0],
+   logic [C_S_AXI_DATA_WIDTH-1:0] reg_wrdout;
+  
+   logic [((C_S_AXI_DATA_WIDTH-1)/8):0] reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
+   
+   logic 				reg_rdStrobe [FPGA_REGISTER_N-1:0];
+   
+   logic [C_S_AXI_DATA_WIDTH-1:0] 	reg_rddin [FPGA_REGISTER_N-1:0];
+   
 
 // Instantiate the AXI Interface
 // NOTE: This block should be included from spacely-caribou-common-blocks/axi4lite_interface
@@ -136,8 +142,8 @@ axi4lite_interface_top #(
 
 // [lucahhot]: Register instantiation for spi_interace
 // [lucahhot]: Will be taking in inputs combinationally in order to correctly assign FIFO signals so we need a set of combinational registers that map to fpga_regs
-logic                          fpga_reg_spi_read_write fpga_reg_spi_read_write_c;
-logic [9:0]                    fpga_reg_spi_address, fpga_reg_spi_addres_c;
+logic                          fpga_reg_spi_read_write, fpga_reg_spi_read_write_c;
+logic [9:0]                    fpga_reg_spi_address, fpga_reg_spi_address_c;
 logic [7:0]                    fpga_reg_spi_data_len, fpga_reg_spi_data_len_c;
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_write_data, fpga_reg_spi_write_data_c;
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_read_data;
@@ -209,7 +215,7 @@ always_ff @(posedge S_AXI_ACLK) begin
   if (~S_AXI_ARESETN) begin
     // [lucahhot]: Reseting spi_interface fpga_regs
     fpga_reg_spi_read_write <= '0;
-    fpga_reg_spi_spi_address <= '0;
+    fpga_reg_spi_address <= '0;
     fpga_reg_spi_data_len <= '0;
     fpga_reg_spi_write_data <= '0;
     fpga_reg_spi_read_data <= '0;
@@ -236,11 +242,11 @@ always_ff @(posedge S_AXI_ACLK) begin
 end
 
 // [lucahhot]: Assign fpga_regs combinationally (all registers are readable)
-assign fpga_regs_din[FPGA_SPI_WR] = fpga_reg_spi_read_write;
-assign fpga_regs_din[FPGA_SPI_ADDRESS] = fpga_reg_spi_address;
-assign fpga_regs_din[FPGA_SPI_DATA_LEN] = fpga_reg_spi_data_len;
-assign fpga_regs_din[FPGA_SPI_WRITE_DATA] = fpga_reg_spi_write_data;
-assign fpga_reg_din[FPGA_SPI_READ_DATA] = fpga_reg_spi_read_data;
+assign reg_rddin[FPGA_SPI_WR] = fpga_reg_spi_read_write;
+assign reg_rddin[FPGA_SPI_ADDRESS] = fpga_reg_spi_address;
+assign reg_rddin[FPGA_SPI_DATA_LEN] = fpga_reg_spi_data_len;
+assign reg_rddin[FPGA_SPI_WRITE_DATA] = fpga_reg_spi_write_data;
+assign reg_rddin[FPGA_SPI_READ_DATA] = fpga_reg_spi_read_data;
 
 // [lucahhot]: fpga_reg_spi_read_data is driven by the head of spi_read_buffer FIFO (read enable set in the combinational loop below)
 assign fpga_reg_spi_read_data = spi_read_dout;
@@ -261,8 +267,8 @@ always_comb begin
   temp_spi_address_c = temp_spi_address;
   temp_spi_data_len_c = temp_spi_data_len;
   fpga_reg_spi_read_write_c = fpga_reg_spi_read_write;
-  fpga_reg_spi_addres_c = fpga_reg_spi_address;
-  fgpa_reg_spi_data_len_c = fpga_reg_spi_data_len;
+  fpga_reg_spi_address_c = fpga_reg_spi_address;
+  fpga_reg_spi_data_len_c = fpga_reg_spi_data_len;
   fpga_reg_spi_write_data_c = fpga_reg_spi_write_data;
 
   // [lucahhot]: Reset spi_busy after "done" signal from spi_controller has been asserted
@@ -280,32 +286,32 @@ always_comb begin
   end
 
   // [lucahhot]: AXI writes to fpga_regs
-  if (fpga_regs_wrByteStrobe[FPGA_SPI_WR] == 4'b1111) begin
-    fpga_reg_spi_read_write_c = fpga_regs_dout[0]; 
+  if (reg_wrByteStrobe[FPGA_SPI_WR] == 4'b1111) begin
+    fpga_reg_spi_read_write_c = reg_wrdout[0]; 
     if (spi_busy == 1'b0)
-      temp_WnR_c = fpga_reg_dout[0];
+      temp_WnR_c = reg_wrdout[0];
   end
 
-  if (fpga_regs_wrByteStrobe[FPGA_SPI_ADDRESS] == 4'b1111) begin
-    fpga_reg_spi_address_c = fpga_regs_dout[9:0]; 
+  if (reg_wrByteStrobe[FPGA_SPI_ADDRESS] == 4'b1111) begin
+    fpga_reg_spi_address_c = reg_wrdout[9:0]; 
     if (spi_busy == 1'b0)
-      temp_spi_address_c = fpga_regs_dout[9:0];
+      temp_spi_address_c = reg_wrdout[9:0];
   end
 
-  if (fpga_regs_wrByteStrobe[FPGA_SPI_DATA_LENGTH] == 4'b1111) begin
-    fpga_reg_spi_data_len_c = fpga_regs_dout[7:0]; 
-    if (spi_busy == 1'b0 && fpga_regs_dout[7:0] != '0) begin
-      temp_spi_data_len_c = fpga_regs_dout[7:0];
+  if (reg_wrByteStrobe[FPGA_SPI_DATA_LEN] == 4'b1111) begin
+    fpga_reg_spi_data_len_c = reg_wrdout[7:0]; 
+    if (spi_busy == 1'b0 && reg_wrdout[7:0] != '0) begin
+      temp_spi_data_len_c = reg_wrdout[7:0];
       // [lucahhot]: When this register is written to, trigger SPI transaction
       spi_busy_c = 1'b1;
     end
   end
 
-  if (fpga_regs_wrByteStrobe[FPGA_SPI_WRITE_DATA] == 4'b1111) begin
-    fpga_reg_spi_write_data_c = fpga_regs_dout; 
+  if (reg_wrByteStrobe[FPGA_SPI_WRITE_DATA] == 4'b1111) begin
+    fpga_reg_spi_write_data_c = reg_wrdout; 
     // [lucahhot]: Write data to spi_command_buffer in addition to the fpga_reg (spi_command_buffer should not be full)
     if (spi_command_full == 1'b0) begin
-      spi_command_din = fpga_regs_dout;
+      spi_command_din = reg_wrdout;
       spi_command_wr_en = 1'b1;
     end
   end
@@ -314,7 +320,7 @@ always_comb begin
 
   // [lucahhot]: We need to pop a new value from the spi_read_buffer FIFO everytime AXI tries to read fpga_reg_read_data
   //       Note: This can only go through if the SPI read has completed as spi_controller may still be reading into a data element that has not yet been pushed into spi_read_buffer
-  if (fpga_regs_rdStrobe[FPGA_SPI_READ_DATA] == 4'b1111 && spi_busy == 1'b0) begin
+  if (reg_rdStrobe[FPGA_SPI_READ_DATA] == 4'b1111 && spi_busy == 1'b0) begin
     // [lucahhot]: If spi_read_empty == 1'b1 it means we have read the entire buffer and nothing will happen
     if (spi_read_empty == 1'b0)
       spi_read_rd_en = 1'b1;
@@ -323,7 +329,9 @@ always_comb begin
 end
 
 // [lucahhot]: Instantiate SPI master controller to send configuration instructions to SPI slave on SP3A/SP3 chip
-spi_controller spi_controller_inst (
+spi_controller #(
+.C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
+)  spi_controller_inst  (
   .axi_clk(S_AXI_ACLK),
   .reset_b(S_AXI_ARESETN),
   .WnR(temp_WnR),

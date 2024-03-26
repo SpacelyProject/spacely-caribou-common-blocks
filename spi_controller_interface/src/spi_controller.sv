@@ -4,7 +4,10 @@
 // Author: Luc Ah-Hot
 // Last updated: 03/05/24
 
-module spi_controller (
+module spi_controller #(
+// Width of S_AXI data bus
+  parameter integer C_S_AXI_DATA_WIDTH=32
+) (
     // Input clock from AXI interface
     input   logic   axi_clk, 
 
@@ -21,9 +24,9 @@ module spi_controller (
     input   logic [C_S_AXI_DATA_WIDTH-1:0] spi_command_dout,
 
     // I/O to spi_read_buffer
-    output  logic   spi_read_wr_en;
-    input   logic   spi_read_full;
-    output  logic [C_S_AXI_DATA_WIDTH-1:0] spi_read_din;
+    output  logic   spi_read_wr_en,
+    input   logic   spi_read_full,
+    output  logic [C_S_AXI_DATA_WIDTH-1:0] spi_read_din,
 
     // Inputs/Outputs to generic_spi_peripheral on SP3 
     output  logic   pico,
@@ -73,7 +76,7 @@ logic [$clog2(C_S_AXI_DATA_WIDTH)-1:0] read_buffer_counter, read_buffer_counter_
 logic [7:0] poci_counter, poci_counter_c; 
 
 // Clocking values from combinational variables to registered variables
-always_ff (posedge axi_clk or negedge reset_b) begin
+always_ff @(posedge axi_clk or negedge reset_b) begin
     if (!reset_b) begin
 
         // Reset state 

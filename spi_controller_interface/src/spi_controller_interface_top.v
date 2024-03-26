@@ -5,9 +5,11 @@
 
 module spi_controller_interface_top #(
 // Width of S_AXI data bus
-  parameter integer C_S_AXI_DATA_WIDTH  = 32,
+  parameter integer C_S_AXI_DATA_WIDTH=32,
   // Width of S_AXI address bus
-  parameter integer C_S_AXI_ADDR_WIDTH  = 11,
+  parameter integer C_S_AXI_ADDR_WIDTH=11,
+  //Length of SPI FIFO Buffer
+  parameter integer FIFO_BUFFER_SIZE=100
 ) (
     
     // Ports to/from spi_controller to lpgtbFpga
@@ -85,7 +87,8 @@ module spi_controller_interface_top #(
 // Instantiate spi_controller_interface
 spi_controller_interface #(
    .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
-   .C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH) 
+   .C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH),
+   .FIFO_BUFFER_SIZE(FIFO_BUFFER_SIZE)
 ) spi_controller_interface_inst (
     .poci(poci),
     .pico(pico),
