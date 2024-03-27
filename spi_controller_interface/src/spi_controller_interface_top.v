@@ -9,7 +9,7 @@ module spi_controller_interface_top #(
   // Width of S_AXI address bus
   parameter integer C_S_AXI_ADDR_WIDTH=11,
   //Length of SPI FIFO Buffer
-  parameter integer FIFO_BUFFER_SIZE=100
+  parameter integer FIFO_BUFFER_SIZE=10
 ) (
     
     // Ports to/from spi_controller to lpgtbFpga

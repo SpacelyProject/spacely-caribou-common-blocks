@@ -94,13 +94,10 @@ localparam byte unsigned FPGA_SPI_DATA_LEN = 3;
 localparam byte unsigned FPGA_SPI_WRITE_DATA = 4;
 localparam byte unsigned FPGA_SPI_READ_DATA = 5;
 
-   logic [C_S_AXI_DATA_WIDTH-1:0] reg_wrdout;
-  
-   logic [((C_S_AXI_DATA_WIDTH-1)/8):0] reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
-   
-   logic 				reg_rdStrobe [FPGA_REGISTER_N-1:0];
-   
-   logic [C_S_AXI_DATA_WIDTH-1:0] 	reg_rddin [FPGA_REGISTER_N-1:0];
+logic [C_S_AXI_DATA_WIDTH-1:0]        reg_wrdout;
+logic [((C_S_AXI_DATA_WIDTH-1)/8):0]  reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
+logic                                 reg_rdStrobe [FPGA_REGISTER_N-1:0];
+logic [C_S_AXI_DATA_WIDTH-1:0] 	      reg_rddin [FPGA_REGISTER_N-1:0];
    
 
 // Instantiate the AXI Interface

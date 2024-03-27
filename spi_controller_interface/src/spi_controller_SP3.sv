@@ -4,7 +4,7 @@
 // Author: Luc Ah-Hot
 // Last updated: 03/05/24
 
-module spi_controller #(
+module spi_controller_SP3 #(
 // Width of S_AXI data bus
   parameter integer C_S_AXI_DATA_WIDTH=32
 ) (
@@ -15,7 +15,7 @@ module spi_controller #(
 
     // Inputs from fpga_regs
     input   logic   WnR,
-    input   logic [3:0] spi_address,
+    input   logic [9:0] spi_address,
     input   logic [7:0] spi_data_len,
 
     // I/O to spi_command_buffer
