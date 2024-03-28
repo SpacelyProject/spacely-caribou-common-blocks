@@ -14,9 +14,16 @@ This block decodes transmissions from lpgbt-based transmitters over SFP+
 ### How to Instantiate
 Instantiate lpgbtfpga_top.v as a Verilog block in a block design.
 
-((What should high-speed pins be connected to?))
+Steps to include all source files in your Vivado project:
+1. Include the "lpGBT" folder.
+2. Include the file "lpGBT/mgt_ip/xlx_ku_mgt_10g24.vhd"
+3. Include the folder "lpGBT/mgt_ip/hptd_ip_core"
+4. Include the axi4lite interface folder.
+5. Finally, include all the constraints in the "lpGBT/constraints" folder.
 
-The output pins in the I/O data below provide the decoded data from the lpgbt at 40MHz. These should be connected to a second PL block which can process this data.
+The output pins in the I/O table below provide the decoded data from the lpgbt at 40MHz. These should be connected to a second PL block which can process this data.
+
+The input signals and high-speed clock pins are connected to the MGT PHY and external Si5341B oscillator chip. The exact connections are defined in the constraints file lpGBT/constraints/kcu105_physical.xdc
 
 ### Block Diagram
 
