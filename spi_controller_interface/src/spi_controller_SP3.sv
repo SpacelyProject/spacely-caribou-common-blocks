@@ -2,7 +2,7 @@
 // SPI Controller to communicate with the Generic SPI Peripheral on SP3_Digital on SPROCKET3 chip
 
 // Author: Luc Ah-Hot
-// Last updated: 03/05/24
+// Last updated: 03/28/24
 
 module spi_controller_SP3 #(
 // Width of S_AXI data bus

@@ -31,6 +31,7 @@ Refer to /Documents/Projects/S/SParkDream/SParkDream Reference.pptx on the Fermi
 | fpga_reg_spi_read_write       | 1          | Y    | Y    | If SPI command is a read or write command.  |
 | fpga_reg_spi_address          | 10         | Y    | Y    | Address of SPI command transaction (for both read or write).  |
 | fpga_reg_spi_data_len         | 8          | Y    | Y    | Length of data bits being written (for SPI write) or expected to be read back (for SPI read). This should NOT be 0!  **The assignment of this register will be the trigger for any SPI operation.** Re-assigning a new value to this register during an existing SPI operation will NOT interrupt the SPI operation, it will still get written to the register however. After a SPI operation has completed, this register will be set to 0 so the AXI user can read this register to know if a SPI operation has finished. |
+| fpga_reg_spi_opcode_group     | 2          | Y    | Y     | Group number the SPI operation is referring to: Internal Status Regs (00), GPGenerator Short Group (01), Pattern Signals Group (10), lpGBT Config Parameters (11). This is only necessary for the spi_controller_interface interacting with SP3A. It can be ignored for SP3. |
 | fpga_reg_spi_write_data       | {C_S_AXI_DATA_WIDTH}  | Y | Y | Data written to this register will be pushed into spi_command_buffer which holds SPI write data until all the data has been transmitted over AXI and is ready to be send over SPI. |   
 | fpga_reg_spi_read_data        | {C_S_AXI_DATA_WIDTH}  | Y | N | Read from this register to read back data sent over from SPI peripheral on chip to spi_controller. Depending on the length of data expected to read back, there might be a need to read from this register multiple times. Everytime it is read, spi_read_buffer will pop a new value and assign it to the register for the subsequent AXI read (unless it is empty). |
 
@@ -59,6 +60,8 @@ spi_address,0x8,0x3FF,True,True
 
 spi_data_len,0xC,0xFF,True,True
 
-spi_write_data,0x10,0xFFFFFFFF,True,True
+spi_opcode_group,0x10,0x3,True,True
 
-spi_read_data,0x14,0xFFFFFFFF,True,False
+spi_write_data,0x14,0xFFFFFFFF,True,True
+
+spi_read_data,0x18,0xFFFFFFFF,True,False

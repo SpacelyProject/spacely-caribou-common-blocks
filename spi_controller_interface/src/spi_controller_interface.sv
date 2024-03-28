@@ -1,7 +1,7 @@
 // SPI Interface that contains spi_controller and the spi_command/read_command buffers
 
 // Author: Luc Ah-Hot
-// Last updated: 03/11/24
+// Last updated: 03/28/24
 
 module spi_controller_interface #(
 	// Width of S_AXI data bus
@@ -342,8 +342,30 @@ always_comb begin
 
 end
 
-// [lucahhot]: Instantiate SPI master controller to send configuration instructions to SPI slave on SP3A/SP3 chip
-spi_controller_SP3 #(
+// [lucahhot]: Instantiate SPI controller to send configuration instructions to SPI peripheral on SP3 chip
+// spi_controller_SP3 #(
+// .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
+// )  spi_controller_inst  (
+//   .axi_clk(S_AXI_ACLK),
+//   .reset_b(S_AXI_ARESETN),
+//   .WnR(temp_WnR),
+//   .spi_address(temp_spi_address),
+//   .spi_data_len(temp_spi_data_len),
+//   .spi_command_rd_en(spi_command_rd_en),
+//   .spi_command_empty(spi_command_empty),
+//   .spi_command_dout(spi_command_dout),
+//   .spi_read_wr_en(spi_read_wr_en),
+//   .spi_read_full(spi_read_full),
+//   .spi_read_din(spi_read_din),
+//   .pico(pico),
+//   .cs_b(cs_b),
+//   .spi_clk(spi_clk),
+//   .poci(poci),
+//   .done(done)
+// );
+
+// [lucahhot]: Instantiate SPI controller to send configuration instructions to SPI peripheral on SP3A chip
+spi_controller_SP3A #(
 .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
 )  spi_controller_inst  (
   .axi_clk(S_AXI_ACLK),
@@ -351,6 +373,7 @@ spi_controller_SP3 #(
   .WnR(temp_WnR),
   .spi_address(temp_spi_address),
   .spi_data_len(temp_spi_data_len),
+  .spi_opcode_group(temp_spi_opcode_group),
   .spi_command_rd_en(spi_command_rd_en),
   .spi_command_empty(spi_command_empty),
   .spi_command_dout(spi_command_dout),
