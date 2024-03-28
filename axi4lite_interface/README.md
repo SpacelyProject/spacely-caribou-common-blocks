@@ -14,9 +14,12 @@ This block supports {REGISTER_N}-many registers of width {C_S_AXI_DATA_WIDTH}.
 | REGISTER_N     | 6 | Number of adddressable registers in the design. |
 
 ### How to Instantiate
-This is NOT an independent reusable block. 
 
-Instantiate axi4lite_interface_top.sv in one of your blocks, or use the code from one of the sub-blocks. I don't care, I'm just a README.
+This is NOT an independent reusable block. It is intended to be a building block used within other Common Blocks.
+
+Instantiate axi4lite_interface_top.sv in one of your blocks. You cannot directly add it to the block diagram, because Vivado only accepts verilog (not SV) as blocks.
+
+TBD: Create a pure Verilog wrapper of this block so that it can be instantiated in a block diagram. (The current top uses SV constructs like 2D array ports, so it cannot simply be changed from .v to .sv
 
 ### Block Diagram
 
