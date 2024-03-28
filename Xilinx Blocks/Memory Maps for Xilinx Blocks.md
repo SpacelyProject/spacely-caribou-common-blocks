@@ -4,11 +4,22 @@ This file contains memory maps for common Xilinx blocks which you can copy and p
 
 As a reminder, the format for mem_map.txt lines is:
 
-(register name),(IP Base Address),(Register Address Offset),(# Bits),(Bool Readable?),(Bool Writeable?)
+*BASE (IP Base Address)
+
+(register name),(Register Address Offset),(bitmask),(Bool Readable?),(Bool Writeable?)
 
 ## mem_map.txt for AXI GPIO
-data,(BASE),0x0,(GPIO Pins),True,True
 
-direction,(BASE),0x4,(GPIO Pins),True,True
+Source: https://docs.amd.com/v/u/en-US/pg144-axi-gpio
 
-Where (GPIO Pins) is the number of GPIO pins used in your design.
+Note: The mask of 0xFFFFFFFF allows the full width of 32 bits to be controlled via GPIO.
+
+*BASE (IP Base Address)
+
+data,0x0,0xFFFFFFFF,True,True
+
+direction,0x4,0xFFFFFFFF,True,True
+
+
+
+
