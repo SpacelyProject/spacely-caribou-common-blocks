@@ -1,23 +1,26 @@
 `timescale 1ns / 1ps
 
 module mem_regs #(
-        parameter int unsigned REGISTER_N = 16,
-        parameter int unsigned REG_DATA_WIDTH = 32
+        parameter int unsigned REGISTER_N=16,
+        parameter int unsigned REG_DATA_WIDTH=32,
+	parameter int unsigned REG_ADDR_WIDTH=11
     )(
         // REG INTERFACE:
-        output [REG_DATA_WIDTH-1:0] reg_wrdout,
+        output [REG_DATA_WIDTH-1:0] 	  reg_wrdout,
         output [((REG_DATA_WIDTH-1)/8):0] reg_wrByteStrobe [REGISTER_N-1:0],
-        output  reg_rdStrobe [REGISTER_N-1:0],
-        input  [REG_DATA_WIDTH-1:0] reg_rddin [REGISTER_N-1:0],
+        output 				  reg_rdStrobe [REGISTER_N-1:0],
+        input [REG_DATA_WIDTH-1:0] 	  reg_rddin [REGISTER_N-1:0],
         // MEM INTERFACE
-        input   mem_wrSelect,
-        input   mem_rdSelect,
-        output [REG_DATA_WIDTH-1:0] mem_rddout,
-        input  [REG_DATA_WIDTH-1:0] mem_wrdin,
-        input  [$clog2(REGISTER_N)-1:0] mem_rdAddr,
-        input  [$clog2(REGISTER_N)-1:0] mem_wrAddr,
-        input  [((REG_DATA_WIDTH-1)/8):0] mem_wrByteStrobe,
-        input                       mem_rdStrobe
+        input 				  mem_wrSelect,
+        input 				  mem_rdSelect,
+        output [REG_DATA_WIDTH-1:0] 	  mem_rddout,
+        input [REG_DATA_WIDTH-1:0] 	  mem_wrdin,
+       // Note, we use ADDR_WIDTH here even if it's larger than log2(REGISTER_N). We may have a few inefficient address bits, but at least it works for
+       // the case where REGISTER_N = 1 (log2=0)
+        input [REG_ADDR_WIDTH-1:0] 	  mem_rdAddr,
+        input [REG_ADDR_WIDTH-1:0] 	  mem_wrAddr,
+        input [((REG_DATA_WIDTH-1)/8):0]  mem_wrByteStrobe,
+        input 				  mem_rdStrobe
     );
 
     logic [REG_DATA_WIDTH-1:0] mem_rddout_i;

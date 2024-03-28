@@ -46,3 +46,11 @@ The input signals and high-speed clock pins are connected to the MGT PHY and ext
 ((This table needs to be completed))
 
 Note, the AXI bus is always excluded from this table because its presence is assumed by the memory architecture.
+
+### mem_map.txt
+
+*BASE (Base IP Address)
+
+uplinkRst,0x0,0x1,True,True
+
+mgt_rxpolarity,0x0,0x2,True,True

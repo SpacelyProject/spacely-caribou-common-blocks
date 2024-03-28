@@ -145,7 +145,8 @@ module axi4lite_interface_top #(
 	// Register Demultiplexer
 	mem_regs #(
 	.REGISTER_N(FPGA_REGISTER_N),
-	.REG_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
+	.REG_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
+	.REG_ADDR_WIDTH(AXI_REG_ADDR_WIDTH)
 	) mem_regs_inst (
 
 	// REG INTERFACE:
@@ -170,9 +171,9 @@ module axi4lite_interface_top #(
 	// This data is what the AXI interface is requesting to write (an AXI write instruction from the peary server)
 	.mem_wrdin(axi_mem_wdata), 
 	// Read address requested by the master
-	.mem_rdAddr(axi_mem_rdAddr[$clog2(FPGA_REGISTER_N)-1:0]), 
+	.mem_rdAddr(axi_mem_rdAddr[AXI_REG_ADDR_WIDTH-1:0]), 
 	// Write address requested by the master
-	.mem_wrAddr(axi_mem_wrAddr[$clog2(FPGA_REGISTER_N)-1:0]), 
+	.mem_wrAddr(axi_mem_wrAddr[AXI_REG_ADDR_WIDTH-1:0]), 
 	// This signal indicate which byte lanes hold valid data (one write strobe for every byte) (should be 4 bits wide for data width of 32 bits)
 	.mem_wrByteStrobe(axi_mem_wrByteStrobe), 
 	// Equivalent to the slave register read enable signal (when valid read address is available and the slave
