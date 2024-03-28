@@ -17,6 +17,7 @@ module spi_controller_SP3A #(
     input   logic   WnR,
     input   logic [9:0] spi_address,
     input   logic [7:0] spi_data_len,
+    input   logic [1:0] spi_opcode_group,
 
     // I/O to spi_command_buffer
     output  logic   spi_command_rd_en,
@@ -48,13 +49,20 @@ assign spi_clk = axi_clk;
 typedef enum logic[2:0] {
     IDLE=0,
     SETUP=1.
-    ZERO=2,
-    WE=3,
-    OPCODE_GROUP=4,                       
-    SEND_ADDRESS=5,
+    SEND_ADDRESS=2,
+    OPCODE_GROUP=3,
+    WE=4,                       
+    ZERO=5,
     SEND_DATA=6,
     RECEIVE_DATA=7
 } state;
+
+//////////////////////////
+// CREATING THE OPCODE  //
+//////////////////////////
+
+// We need to send over an opcode to the SPI peripheral on pico in the following format:
+// {Address (8-bits)} {Opcode Group (2-bits)} {WE (1-bit)} {0} + {Any data for SPI writes}
 
 // Holds our next state for the next clock cycle
 state current_state, next_state;
@@ -81,10 +89,10 @@ logic [$clog2(C_S_AXI_DATA_WIDTH)-1:0] read_buffer_counter, read_buffer_counter_
 logic [7:0] poci_counter, poci_counter_c; 
 
 // Setup counter to count 2 cycles of spi_clk
-logic [1:0] setup_counter, setup_counter_c;
+logic setup_counter, setup_counter_c;
 
 // Opcode group counter to count 2 cycle of spi_clk
-logic [1:0] opcode_group_counter, opcode_group_counter_c;
+logic opcode_group_counter, opcode_group_counter_c;
 
 // Clocking values from combinational variables to registered variables
 always_ff @(posedge axi_clk or negedge reset_b) begin
@@ -138,40 +146,225 @@ always_comb begin
     read_buffer_data_c = read_buffer_data;
     read_buffer_counter_c = read_buffer_counter;
     poci_counter_c = poci_counter;
+    setup_counter_c = setup_counter;
+    opcode_group_counter_c = opcode_group_counter;
 
     case(current_state) 
 
         // *** IDLE STATE ***
         IDLE: begin
+            // IDLE internal register values (same as reset)
+    
+            command_buffer_data_c = '0;
+            command_buffer_counter_c = '0;
+            address_counter_c = '0;
+            pico_counter_c = '0;
+            read_buffer_data_c = '0;
+            read_buffer_counter_c = '0;
+            poci_counter_c = '0;
+            setup_counter_c = '0;
+            opcode_group_counter_c = '0;
+
+            // If spi_data_len is NOT 0, this triggers the start sending SPI command
+            if (spi_data_len == 0)
+                next_state = IDLE;
+            else begin
+                next_state = SETUP;
+                // Start the SPI command by sending the WnR bit over pico and setting cs_b to low (active-low signal)
+                cs_b = 1'b0;
+                pico = 1'b0; // After cs_b is asserted, the first 2 values of pico are not important and not read by the SPI peripheral
+            end
         end // case: IDLE
         
         // *** SETUP STATE ***
         SETUP: begin
+            // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
+            if (spi_data_len == 0)
+                next_state = IDLE;
+            else begin
+                // Constantly assert cs_b
+                cs_b = 1'b0;
+                setup_counter_c = setup_counter + 1'b1;
+                pico = 1'b0;
+                // After 2 setup cycles, move on to the ZERO state
+                if (setup_counter == 1'b1) begin
+                    next_state = SEND_ADDRESS; // NOTE: SP3A_spi_slave_register_files expects the address first (versus the zero bit)
+                    // Set address_counter with top most bit of address (address is 8 bits)
+                    address_counter_c = 7; 
+                end else 
+                    next_state = SETUP;
+            end
         end // case: SETUP
-
-        // *** ZERO STATE ***
-        ZERO: begin
-        end // case: ZERO
-
-        // *** WE STATE ***
-        WE: begin
-        end // case: WE
+        
+        // *** SEND_ADDRESS ***
+        SEND_ADDRESS: begin
+            // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
+            if (spi_data_len == 0)
+                next_state = IDLE;
+            else begin
+                // Constantly assert cs_b
+                cs_b = 1'b0;
+                // Send the address over pico (sent in BIG-ENDIAN order)
+                pico = spi_address[address_counter];
+                address_counter_c = address_counter - 1;
+                // Check if the next decrement of address counter will be below 0 and if that's the case, switch to OPCODE_GROUP
+                if (address_counter - 1 < 0) begin
+                    next_state = OPCODE_GROUP;
+                    opcode_group_counter_c = 1'b1;
+                end else begin
+                    next_state = SEND_ADDRESS;
+                end
+            end
+        end // case: SEND_ADDRESS
 
         // *** OPCODE_GROUP STATE ***
         OPCODE_GROUP: begin
+            // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
+            if (spi_data_len == 0)
+                next_state = IDLE;
+            else begin
+                // Constantly assert cs_b
+                cs_b = 1'b0;
+                // Send the opcode group over pico (sent in BIG-ENDIAN order)
+                pico = spi_opcode_group[opcode_group_counter];
+                opcode_group_counter_c = opcode_group_counter + 1'b1;
+                // Check if the next decrement of opcode group counter will be below 0 and if that's the case, switch to WE
+                if (opcode_group_counter - 1 < 0) begin
+                    next_state = WE;
+                end else begin
+                    next_state = OPCODE_GROUP;
+                end
+            end
         end // case: OPCODE_GROUP
 
-        // *** SEND_ADDRESS ***
-        SEND_ADDRESS: begin
-        end // case: SEND_ADDRESS
+        // *** WE STATE ***
+        WE: begin
+            // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
+            if (spi_data_len == 0)
+                next_state = IDLE;
+            else begin
+                // Constantly assert cs_b
+                cs_b = 1'b0;
+                // The WE bit will be set to the value of WnR
+                pico = WnR;
+                next_state = ZERO; 
+            end
+        end // case: WE
+
+        // *** ZERO STATE ***
+        ZERO: begin
+            // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
+            if (spi_data_len == 0)
+                next_state = IDLE;
+            else begin
+                // Constantly assert cs_b
+                cs_b = 1'b0;
+                // Send a zero bit
+                pico = 1'b0;
+                // Determine if this is a read or write SPI operation to go to SEND_DATA or RECEIVE_DATA
+                if (WnR == 1'b1) begin
+                    next_state = SEND_DATA;
+                    // Load first data word from spi_command_buffer into command_buffer_data (buffer should never be empty at this stage)
+                    if (spi_command_empty == 1'b0) begin 
+                        command_buffer_data_c = spi_command_dout;
+                        spi_command_rd_en = 1'b1;
+                        command_buffer_counter_c = 31;
+                    end
+                end else begin
+                    next_state = RECEIVE_DATA;
+                    read_buffer_counter = 31;
+                end
+            end
+        end // case: ZERO
 
         // *** SEND_DATA ***
         SEND_DATA: begin
+            // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
+            if (spi_data_len == 0)
+                next_state = IDLE;
+            else begin
+                // Constantly assert cs_b
+                cs_b = 1'b0;
+                // If the next bit in command_buffer_data does not cause us to exceed spi_data_len, then send the bit
+                if (pico_counter + 1 < spi_data_len) begin
+                    pico = command_buffer_data[command_buffer_counter];
+                    // Increment pico_counter
+                    pico_counter_c = pico_counter + 1;
+                    // Check if command buffer counter needs to be reset and we need to load in a new data word from spi_command_buffer
+                    if (command_buffer_counter - 1 < 0) begin
+                        command_buffer_counter_c = 31;
+                        command_buffer_data_c = spi_command_dout;
+                        spi_command_rd_en = 1'b1;
+                    end else 
+                        // Else decrement command_buffer_counter
+                        command_buffer_counter_c = command_buffer_counter - 1;
+                    next_state = SEND_DATA;
+                end else begin
+                    // After sending all the data, go back to IDLE state
+                    next_state = IDLE;
+                    // Make sure to de-assert cs_b to signal the end of the write transaction
+                    cs_b = 1'b1;
+                    // Assert done for 1 clock cycle to indicate that the SPI write has finished
+                    done = 1'b1;
+                end
+            end
         end // case: SEND_DATA
 
         // *** RECEIVE_DATA ***
         RECEIVE_DATA: begin
+            // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
+            if (spi_data_len == 0)
+                next_state = IDLE;
+            else begin
+                // Constantly assert cs_b
+                cs_b = 1'b0;
+                // If the next bit being written into read_buffer_data does not cause us to exceed spi_data_len, then write the bit from poci
+                if (poci_counter + 1 < spi_data_len) begin
+                    read_buffer_data_c[read_buffer_counter] = poci;
+                    // Incremenet poci counter
+                    poci_counter_c = poci_counter + 1;
+                    // Check if read buffer counter needs to be reset and we need to push the current data word to spi_read_buffer
+                    if (read_buffer_counter - 1 < 0) begin
+                        read_buffer_counter_c = 31;
+                        spi_read_wr_en = 1'b1;
+                        spi_read_din = read_buffer_data;
+                        // Reset read_buffer_data to 0
+                        read_buffer_data_c = '0;
+                    end else
+                        // Else decrement read_buffer_counter
+                        read_buffer_counter_c = read_buffer_counter - 1;
+                    next_state = RECEIVE_DATA;
+                end else begin
+                    // After receiving all the data, go back to IDLE state
+                    next_state = IDLE;
+                    // Make sure to de-assert cs_b to signal the end of the read transaction
+                    cs_b = 1'b1;
+                    // Assert done for 1 clock cycle to indicate that the SPI read has finished
+                    done = 1'b1;
+                end
+            end
         end // case: RECEIVE_DATA
+
+        default: begin
+            // Outputs
+            spi_command_rd_en = 1'b0;
+            spi_read_wr_en = 1'b0;
+            spi_read_din = '0;
+            pico = 1'b0;
+            cs_b = 1'b1;
+            done = 1'b0;
+
+            // Internal registers
+            command_buffer_data_c = 'X;
+            command_buffer_counter_c = 'X;
+            address_counter_c = 'X;
+            pico_counter_c = 'X;
+            read_buffer_data_c = 'X;
+            read_buffer_counter_c = 'X;
+            poci_counter_c = 'X;
+            setup_counter_c = 'X;
+            opcode_group_counter_c = 'X;
+        end
 
     endcase
 end

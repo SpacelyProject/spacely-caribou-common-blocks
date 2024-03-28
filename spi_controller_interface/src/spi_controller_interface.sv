@@ -85,14 +85,15 @@ module spi_controller_interface #(
   
 );
 
-localparam integer FPGA_REGISTER_N = 5;
+localparam integer FPGA_REGISTER_N = 6;
 
 // [lucahhot]: AXI register mapping 
 localparam byte unsigned FPGA_SPI_WR = 1;
 localparam byte unsigned FPGA_SPI_ADDRESS = 2;
 localparam byte unsigned FPGA_SPI_DATA_LEN = 3;
-localparam byte unsigned FPGA_SPI_WRITE_DATA = 4;
-localparam byte unsigned FPGA_SPI_READ_DATA = 5;
+localparam byte unsigned FPGA_SPI_OPCODE_GROUP = 4
+localparam byte unsigned FPGA_SPI_WRITE_DATA = 5;
+localparam byte unsigned FPGA_SPI_READ_DATA = 6;
 
 logic [C_S_AXI_DATA_WIDTH-1:0]        reg_wrdout;
 logic [((C_S_AXI_DATA_WIDTH-1)/8):0]  reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
@@ -142,6 +143,7 @@ axi4lite_interface_top #(
 logic                          fpga_reg_spi_read_write, fpga_reg_spi_read_write_c;
 logic [9:0]                    fpga_reg_spi_address, fpga_reg_spi_address_c;
 logic [7:0]                    fpga_reg_spi_data_len, fpga_reg_spi_data_len_c;
+logic [1:0]                    fpga_reg_spi_opcode_group, fpga_reg_spi_opcode_group;
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_write_data, fpga_reg_spi_write_data_c;
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_read_data;
 
@@ -204,6 +206,7 @@ assign spi_read_reset = ~S_AXI_ARESETN;
 logic temp_WnR, temp_WnR_c;
 logic [9:0] temp_spi_address, temp_spi_address_c;
 logic [7:0] temp_spi_data_len, temp_spi_data_len_c;
+logic [1:0] temp_spi_opcode_group, temp_spi_opcode_group_c;
 
 // [lucahhot]: Flag to indicate if spi_controller is currently in the process of going through a SPI transaction
 logic spi_busy, spi_busy_c;
@@ -216,10 +219,12 @@ always_ff @(posedge S_AXI_ACLK) begin
     fpga_reg_spi_data_len <= '0;
     fpga_reg_spi_write_data <= '0;
     fpga_reg_spi_read_data <= '0;
+    fpga_reg_spi_opcode_group <= '0;
     // [lucahhot]: Reseting temporary registers
     temp_WnR <= '0;
     temp_spi_address <= '0;
     temp_spi_data_len <= '0;
+    temp_spi_opcode_group <= '0;
     // [lucahhot]: Reseting spi_busy flag
     spi_busy <= '0;
   end
@@ -229,10 +234,12 @@ always_ff @(posedge S_AXI_ACLK) begin
     fpga_reg_spi_address <= fpga_reg_spi_address_c;
     fpga_reg_spi_data_len <= fpga_reg_spi_data_len_c;
     fpga_reg_spi_write_data <= fpga_reg_spi_write_data_c;
+    fpga_reg_spi_opcode_group <= fpga_reg_spi_opcode_group_c;
 
     temp_WnR <= temp_WnR_c;
     temp_spi_address <= temp_spi_address_c;
     temp_spi_data_len <= temp_spi_data_len_c;
+    temp_spi_opcode_group <= temp_spi_opcode_group_c;
 
     spi_busy <= spi_busy_c;
   end
@@ -244,6 +251,7 @@ assign reg_rddin[FPGA_SPI_ADDRESS] = fpga_reg_spi_address;
 assign reg_rddin[FPGA_SPI_DATA_LEN] = fpga_reg_spi_data_len;
 assign reg_rddin[FPGA_SPI_WRITE_DATA] = fpga_reg_spi_write_data;
 assign reg_rddin[FPGA_SPI_READ_DATA] = fpga_reg_spi_read_data;
+assign reg_rddin[FPGA_SPI_OPCODE_GROUP] = fpga_reg_spi_opcode_group;
 
 // [lucahhot]: fpga_reg_spi_read_data is driven by the head of spi_read_buffer FIFO (read enable set in the combinational loop below)
 assign fpga_reg_spi_read_data = spi_read_dout;
@@ -263,10 +271,13 @@ always_comb begin
   temp_WnR_c = temp_WnR;
   temp_spi_address_c = temp_spi_address;
   temp_spi_data_len_c = temp_spi_data_len;
+  temp_spi_opcode_group_c = temp_spi_opcode_group;
+
   fpga_reg_spi_read_write_c = fpga_reg_spi_read_write;
   fpga_reg_spi_address_c = fpga_reg_spi_address;
   fpga_reg_spi_data_len_c = fpga_reg_spi_data_len;
   fpga_reg_spi_write_data_c = fpga_reg_spi_write_data;
+  fpga_reg_spi_opcode_group_c = fpga_reg_spi_opcode_group;
 
   // [lucahhot]: Reset spi_busy after "done" signal from spi_controller has been asserted
   if (spi_busy == 1'b1 && done == 1'b1) begin
@@ -304,6 +315,12 @@ always_comb begin
     end
   end
 
+  if (reg_wrByteStrobe[FPGA_SPI_OPCODE_GROUP] == 4'b1111) begin
+    fpga_reg_spi_opcode_group_c = reg_wrdout[1:0];
+    if (spi_busy == 1'b0)
+      temp_spi_opcode_group_c = reg_wrdout[1:0];
+  end
+
   if (reg_wrByteStrobe[FPGA_SPI_WRITE_DATA] == 4'b1111) begin
     fpga_reg_spi_write_data_c = reg_wrdout; 
     // [lucahhot]: Write data to spi_command_buffer in addition to the fpga_reg (spi_command_buffer should not be full)
@@ -326,7 +343,7 @@ always_comb begin
 end
 
 // [lucahhot]: Instantiate SPI master controller to send configuration instructions to SPI slave on SP3A/SP3 chip
-spi_controller #(
+spi_controller_SP3 #(
 .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
 )  spi_controller_inst  (
   .axi_clk(S_AXI_ACLK),

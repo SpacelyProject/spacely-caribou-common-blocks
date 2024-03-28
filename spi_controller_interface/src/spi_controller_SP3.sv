@@ -147,7 +147,7 @@ always_comb begin
                 // Start the SPI command by sending the WnR bit over pico and setting cs_b to low (active-low signal)
                 cs_b = 1'b0;
                 pico = WnR;
-                // Set address_counter with top most bit of address
+                // Set address_counter with top most bit of address (address is 10 bits)
                 address_counter_c = 9; 
             end
         end // case: IDLE
@@ -158,6 +158,8 @@ always_comb begin
             if (spi_data_len == 0)
                 next_state = IDLE;
             else begin
+                // Constantly assert cs_b
+                cs_b = 1'b0;
                 // Send the address over pico (sent in BIG-ENDIAN order)
                 pico = spi_address[address_counter];
                 address_counter_c = address_counter - 1;
@@ -186,6 +188,8 @@ always_comb begin
             if (spi_data_len == 0)
                 next_state = IDLE;
             else begin
+                // Constantly assert cs_b
+                cs_b = 1'b0;
                 // If the next bit in command_buffer_data does not cause us to exceed spi_data_len, then send the bit
                 if (pico_counter + 1 < spi_data_len) begin
                     pico = command_buffer_data[command_buffer_counter];
@@ -216,6 +220,8 @@ always_comb begin
             if (spi_data_len == 0)
                 next_state = IDLE;
             else begin
+                // Constantly assert cs_b
+                cs_b = 1'b0;
                 // If the next bit being written into read_buffer_data does not cause us to exceed spi_data_len, then write the bit from poci
                 if (poci_counter + 1 < spi_data_len) begin
                     read_buffer_data_c[read_buffer_counter] = poci;
