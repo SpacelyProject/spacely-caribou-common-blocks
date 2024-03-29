@@ -56,6 +56,14 @@ logic [1:0] spi_opcode_group;
 assign spi_command_reset = ~reset_b;
 assign spi_read_reset = ~reset_b;
 
+// [lucahhot]: Will toggle poci up and down for sample "data" from the SPI peripheral
+always begin
+  poci = 1'b0;
+  #(PERIOD);
+  poci = 1'b1;
+  #(PERIOD);
+end
+
 // [lucahhot]: FIFO instantiation to hold SPI command data coming in from AXI bus (excluding R/W bit and SPI address)
 fifo #(
   .FIFO_BUFFER_SIZE(FIFO_BUFFER_SIZE),
@@ -120,9 +128,6 @@ task initialize; //Intial Signal Values for Testbench
 
     //Reset
     reset_b = 1'b1;
-
-    //SPI
-    poci = 1'b0; // [lucahhot]: Data from the SPI peripheral will always be 0 for testing purposes
 
     // FIFO control signals
     spi_command_din = '0;
