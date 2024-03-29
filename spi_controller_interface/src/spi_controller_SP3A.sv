@@ -48,7 +48,7 @@ assign spi_clk = axi_clk;
 // Need more states than spi_controller_SP3 and SPI operations are a lot more complicated
 typedef enum logic[2:0] {
     IDLE=0,
-    SETUP=1.
+    SETUP=1,
     SEND_ADDRESS=2,
     OPCODE_GROUP=3,
     WE=4,                       
@@ -189,7 +189,7 @@ always_comb begin
                 // After 2 setup cycles, move on to the ZERO state
                 if (setup_counter == 1'b1) begin
                     next_state = SEND_ADDRESS; // NOTE: SP3A_spi_slave_register_files expects the address first (versus the zero bit)
-                    // Set address_counter with top most bit of address (address is 8 bits)
+                    // Set address_counter with top most bit of address (address is 8 bits even though the vector is 10 bits wide)
                     address_counter_c = 7; 
                 end else 
                     next_state = SETUP;
@@ -272,7 +272,7 @@ always_comb begin
                     end
                 end else begin
                     next_state = RECEIVE_DATA;
-                    read_buffer_counter = 31;
+                    read_buffer_counter_c = 31;
                 end
             end
         end // case: ZERO
