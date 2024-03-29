@@ -4,7 +4,7 @@
 // Author: Luc Ah-Hot
 // Last updated: 03/28/24
 
-`timescale 1ps/1ps
+`timescale 1ns/1ps
 
 module spi_controller_SP3A_tb;
 
@@ -22,10 +22,10 @@ integer testnum; //Test Identifier
 //CLK Generation
 logic clock;
 always begin
-    clock = 1'b0;
-    #(PERIOD/2);
-    clock = 1'b1;
-    #(PERIOD/2);
+  clock = 1'b0;
+  #(PERIOD/2);
+  clock = 1'b1;
+  #(PERIOD/2);
 end
 
 // SPI command FIFO signals
@@ -45,6 +45,16 @@ logic [C_S_AXI_DATA_WIDTH-1:0] spi_read_din;
 logic spi_read_empty;
 logic spi_read_rd_en;
 logic [C_S_AXI_DATA_WIDTH-1:0] spi_read_dout;
+
+// [lucahhot]: Wires for spi_controller_inst
+logic pico, cs_b, spi_clk, poci, done, reset_b;
+logic WnR;
+logic [9:0] spi_address;
+logic [7:0] spi_data_len;
+logic [1:0] spi_opcode_group;
+
+assign spi_command_reset = ~reset_b;
+assign spi_read_reset = ~reset_b;
 
 // [lucahhot]: FIFO instantiation to hold SPI command data coming in from AXI bus (excluding R/W bit and SPI address)
 fifo #(
@@ -78,13 +88,6 @@ fifo #(
   .empty(spi_read_empty)
 );
 
-// [lucahhot]: Wires for spi_controller_inst
-logic pico, cs_b, spi_clk, poci, done, reset_b;
-logic WnR;
-logic [9:0] spi_address;
-logic [7:0] spi_data_len;
-logic [1:0] spi_opcode_group;
-
 // [lucahhot]: Instantiate SPI controller to send configuration instructions to SPI peripheral on SP3A chip
 spi_controller_SP3A #(
 .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
@@ -109,7 +112,7 @@ spi_controller_SP3A #(
 );
 
 task initialize; //Intial Signal Values for Testbench
-begin
+  begin
     //Internal Testbench Signals
     testcase = ".";
     testnum = 0;
@@ -131,17 +134,16 @@ begin
     spi_address = '0;
     spi_data_len = '0;
     spi_opcode_group = '0;
-    
-end
+  end
 endtask
 
 // [lucahhot]: Task to load in SPI registers and FIFOs with appropriate information
 task sendSPICommand;
-    input logic         input_WnR;   
-    input logic [9:0]   input_spi_address;
-    input logic [7:0]   input_spi_data_len;
-    input logic [1:0]   input_spi_opcode_group;  
-    input logic [191:0] input_data;
+  input logic         input_WnR;   
+  input logic [9:0]   input_spi_address;
+  input logic [7:0]   input_spi_data_len;
+  input logic [1:0]   input_spi_opcode_group;  
+  input logic [191:0] input_data;
 begin
 
   // Temp variables
@@ -149,35 +151,39 @@ begin
   logic [4:0] word_counter;
   logic [7:0] write_counter;
 
+  @(posedge clock);
+
   temp_word = '0;
-  word_counter = 31;
-  write_counter = input_spi_data_len;
+  word_counter = 0;
+  write_counter = 0;
 
   // [lucahhot]: Start loading the write data for SPI write operations into the spi_command_buffer
   if (input_WnR == 1'b1) begin
-      while (write_counter >= 0) begin
-          // [lucahhot]: Write 1 bit into a temp word vector from input_data
-          temp_word[word_counter] = input_data[write_counter-1];
-          write_counter++;
-          // Check if we need to push a temp word if it's full
-          if (word_counter - 1 < 0) begin
-              word_counter = 31;
-              spi_command_din = temp_word;
-              spi_command_wr_en = 1'b1;
-              @(posedge clock);
-              temp_word = '0;
-          end else begin
-              word_counter--;
-          end
-      end
-      // [lucahhot]: Check if we need to push the current temp_word (which is not 32 bits long)
-      if (word_counter < 31) begin
-          word_counter = 31;
+    while (write_counter < input_spi_data_len) begin
+      // [lucahhot]: Write 1 bit into a temp word vector from input_data
+      temp_word[word_counter] = input_data[write_counter];
+      // Check if we need to push a temp word if it's full
+      if (word_counter == 31) begin
+          word_counter = 0;
           spi_command_din = temp_word;
           spi_command_wr_en = 1'b1;
           @(posedge clock);
           temp_word = '0;
+          spi_command_wr_en = 1'b0;
+      end else begin
+          word_counter++;
       end
+      write_counter++;
+    end
+    // [lucahhot]: Check if we need to push the current temp_word (which is not 32 bits long)
+    if (word_counter > 0) begin
+        word_counter = 0;
+        spi_command_din = temp_word;
+        spi_command_wr_en = 1'b1;
+        @(posedge clock);
+        temp_word = '0;
+        spi_command_wr_en = 1'b0;
+    end
   end 
 
   // Load all the inputs into spi_controller_SP3A ports
@@ -190,20 +196,57 @@ end
 endtask
 
 initial begin
-    initialize();
-    //Test 0; Reset
-    @(posedge clock);
-    reset_b = 1'b0;
-    @(posedge clock);
-    reset_b = 1'b1;
+  initialize();
+  //Test 0; Reset
+  @(posedge clock);
+  reset_b = 1'b0;
+  @(posedge clock);
+  reset_b = 1'b1;
+  @(posedge clock);
 
-    @(posedge clock);
+  // Test1: write global_counter_period
+  testnum = 1;
+  testcase = "Write Global Counter Period to SPI";
+  @(posedge clock);
+  // Opcode = 12'b01_01_0000_1010
+  sendSPICommand(1'b1, 10'b00_0000_1010, 8'd14, 2'b01, 14'b11_0000_1000_1111);
+  @(posedge clock);
 
-    // Test1: write global_counter_period
-    testnum = 1;
-    testcase = "Write Global Counter Period to SPI";
-    // Opcode = 12'b01_01_0000_1010
-    sendSPICommand(1'b1, 10'b00_0000_1010, 8'd14, 2'b01, 14'b11_0000_1000_1111);
+  // Wait until the done signal from the spi_controller is set
+  wait(done == 1'b1);
+  // Reset spi_data_len to not trigger another SPI transaction
+  spi_data_len = '0;
+
+  // Test2: set test patterns
+  testnum = 2;
+  testcase = "Set DACclr Test Pattern";
+  // Opcode = 12'b01_10_0000_0000
+  sendSPICommand(1'b1, 10'b00_0000_0000, 8'd192, 2'b10, {{170'd0, 12'b110011001100, 10'b1010101010}});
+  
+  wait(done == 1'b1);
+  spi_data_len = '0;
+
+  // Test3: set FullReadout
+  testnum = 3;
+  testcase = "Set FullReadout";
+  // Opcode = 12'b01_00_0000_1111
+  sendSPICommand(1'b1, 10'b00_0000_1111, 8'd192, 2'b00, 192'b1);
+
+  wait(done == 1'b1);
+  spi_data_len = '0;
+
+  // Test4: read global_counter_period
+  testnum = 4;
+  testcase = "Read Global Counter Period to SPI";
+  @(posedge clock);
+  // Opcode = 12'b00_01_0000_1010
+  sendSPICommand(1'b0, 10'b00_0000_1010, 8'd14, 2'b01, 14'b11_0000_1000_1111);
+  @(posedge clock);
+
+  wait(done == 1'b1);
+  spi_data_len = '0;
+
+  $finish;
 
 end
 endmodule

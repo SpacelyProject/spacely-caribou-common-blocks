@@ -189,8 +189,7 @@ always_comb begin
                 // After 2 setup cycles, move on to the ZERO state
                 if (setup_counter == 1'b1) begin
                     next_state = SEND_ADDRESS; // NOTE: SP3A_spi_slave_register_files expects the address first (versus the zero bit)
-                    // Set address_counter with top most bit of address (address is 8 bits even though the vector is 10 bits wide)
-                    address_counter_c = 7; 
+                    address_counter_c = 0; 
                 end else 
                     next_state = SETUP;
             end
@@ -206,11 +205,11 @@ always_comb begin
                 cs_b = 1'b0;
                 // Send the address over pico (sent in BIG-ENDIAN order)
                 pico = spi_address[address_counter];
-                address_counter_c = address_counter - 1;
-                // Check if the next decrement of address counter will be below 0 and if that's the case, switch to OPCODE_GROUP
-                if (address_counter - 1 < 0) begin
+                address_counter_c = address_counter + 1;
+                // Check to see if address_counter == 7 and switch to OPCODE_GROUP if so
+                if (address_counter == 7) begin
                     next_state = OPCODE_GROUP;
-                    opcode_group_counter_c = 1'b1;
+                    opcode_group_counter_c = 0;
                 end else begin
                     next_state = SEND_ADDRESS;
                 end
@@ -227,9 +226,9 @@ always_comb begin
                 cs_b = 1'b0;
                 // Send the opcode group over pico (sent in BIG-ENDIAN order)
                 pico = spi_opcode_group[opcode_group_counter];
-                opcode_group_counter_c = opcode_group_counter + 1'b1;
-                // Check if the next decrement of opcode group counter will be below 0 and if that's the case, switch to WE
-                if (opcode_group_counter - 1 < 0) begin
+                opcode_group_counter_c = opcode_group_counter + 1;
+                // Check to see if opcode_group_counter == 1 and switch to WE if so
+                if (opcode_group_counter == 1) begin
                     next_state = WE;
                 end else begin
                     next_state = OPCODE_GROUP;
@@ -268,11 +267,11 @@ always_comb begin
                     if (spi_command_empty == 1'b0) begin 
                         command_buffer_data_c = spi_command_dout;
                         spi_command_rd_en = 1'b1;
-                        command_buffer_counter_c = 31;
+                        command_buffer_counter_c = 0;
                     end
                 end else begin
                     next_state = RECEIVE_DATA;
-                    read_buffer_counter_c = 31;
+                    read_buffer_counter_c = 0;
                 end
             end
         end // case: ZERO
@@ -286,18 +285,18 @@ always_comb begin
                 // Constantly assert cs_b
                 cs_b = 1'b0;
                 // If the next bit in command_buffer_data does not cause us to exceed spi_data_len, then send the bit
-                if (pico_counter + 1 < spi_data_len) begin
+                if (pico_counter < spi_data_len) begin
                     pico = command_buffer_data[command_buffer_counter];
                     // Increment pico_counter
                     pico_counter_c = pico_counter + 1;
                     // Check if command buffer counter needs to be reset and we need to load in a new data word from spi_command_buffer
-                    if (command_buffer_counter - 1 < 0) begin
-                        command_buffer_counter_c = 31;
+                    if (command_buffer_counter == 31) begin
+                        command_buffer_counter_c = 0;
                         command_buffer_data_c = spi_command_dout;
                         spi_command_rd_en = 1'b1;
                     end else 
                         // Else decrement command_buffer_counter
-                        command_buffer_counter_c = command_buffer_counter - 1;
+                        command_buffer_counter_c = command_buffer_counter + 1;
                     next_state = SEND_DATA;
                 end else begin
                     // After sending all the data, go back to IDLE state
@@ -319,22 +318,30 @@ always_comb begin
                 // Constantly assert cs_b
                 cs_b = 1'b0;
                 // If the next bit being written into read_buffer_data does not cause us to exceed spi_data_len, then write the bit from poci
-                if (poci_counter + 1 < spi_data_len) begin
+                if (poci_counter < spi_data_len) begin
                     read_buffer_data_c[read_buffer_counter] = poci;
                     // Incremenet poci counter
                     poci_counter_c = poci_counter + 1;
                     // Check if read buffer counter needs to be reset and we need to push the current data word to spi_read_buffer
-                    if (read_buffer_counter - 1 < 0) begin
-                        read_buffer_counter_c = 31;
+                    if (read_buffer_counter == 31) begin
+                        read_buffer_counter_c = 0;
                         spi_read_wr_en = 1'b1;
                         spi_read_din = read_buffer_data;
                         // Reset read_buffer_data to 0
                         read_buffer_data_c = '0;
                     end else
                         // Else decrement read_buffer_counter
-                        read_buffer_counter_c = read_buffer_counter - 1;
+                        read_buffer_counter_c = read_buffer_counter + 1;
                     next_state = RECEIVE_DATA;
                 end else begin
+                    // Check if we need to push the current temp_word (which is not 32 bits long)
+                    if (read_buffer_counter > 0) begin
+                        read_buffer_counter_c = 0;
+                        spi_read_wr_en = 1'b1;
+                        spi_read_din = read_buffer_data;
+                        // Reset read_buffer_data to 0
+                        read_buffer_data_c = '0;
+                    end
                     // After receiving all the data, go back to IDLE state
                     next_state = IDLE;
                     // Make sure to de-assert cs_b to signal the end of the read transaction
