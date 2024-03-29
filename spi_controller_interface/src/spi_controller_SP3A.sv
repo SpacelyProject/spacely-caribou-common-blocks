@@ -313,7 +313,7 @@ always_comb begin
         RECEIVE_DATA: begin
             // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
             if (spi_data_len == 0)
-                next_state = IDLE;
+                next_state = IDLE; 
             else begin
                 // Constantly assert cs_b
                 cs_b = 1'b0;
