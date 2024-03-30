@@ -7,9 +7,9 @@ module store_dataframe # (
 )(
     
     // SIGNALS FROM LPGBT
-    input logic [233:0] uplinkUserData_i,
-    input logic         uplinkrdy_i,
-    input logic         clk40_i,
+    input wire [233:0]                          uplinkUserData_i,
+    input wire                                  uplinkrdy_i,
+    input wire                                  clk40_i,
 
     //////////////////////////////
 	//    AXI BUS SIGNALS       //
@@ -51,26 +51,26 @@ module store_dataframe # (
     );
 
     // AXI Interface Signals
-    logic [C_S_AXI_DATA_WIDTH-1:0]          reg_wrdout;
-    logic [((C_S_AXI_DATA_WIDTH-1)/8):0]    reg_wrByteStrobe    [FPGA_REGISTER_N-1:0];
-    logic                                   reg_rdStrobe        [FPGA_REGISTER_N-1:0];
-    logic [C_S_AXI_DATA_WIDTH-1:0]          reg_rddin           [FPGA_REGISTER_N-1:0];
+    wire [C_S_AXI_DATA_WIDTH-1:0]               reg_wrdout;
+    wire [((C_S_AXI_DATA_WIDTH-1)/8):0]         reg_wrByteStrobe    [FPGA_REGISTER_N-1:0];
+    wire                                        reg_rdStrobe        [FPGA_REGISTER_N-1:0];
+    wire [C_S_AXI_DATA_WIDTH-1:0]               reg_rddin           [FPGA_REGISTER_N-1:0];
 
     // FIFO Signals
-    logic           fifo_rd_en;
-    logic           rdStrobe_buffer;
-    logic           lpgbt_rd_en[2:0];
-    logic           fifo_wr_en;
-    logic [233:0]   dout;
-    logic           full;
-    logic           empty;
+    wire            fifo_rd_en;
+    reg             rdStrobe_buffer;
+    reg             lpgbt_rd_en[2:0];
+    wire            fifo_wr_en;
+    wire [233:0]    dout;
+    wire            full;
+    wire            empty;
 
     assign fifo_rd_en = ~rdStrobe_buffer & reg_rdStrobe[9];
 
     assign fifo_wr_en = uplinkrdy_i & lpgbt_rd_en[2];
 
     // negated reset signal
-    logic RST;
+    wire RST;
     assign RST = ~S_AXI_ARESETN;
 
     // AXI Registers
