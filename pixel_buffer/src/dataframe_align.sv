@@ -1,3 +1,5 @@
+// NOT READY
+
 function [20:0] mask_gen(
     input  [ 4:0] sel_end,
     input  [ 4:0] sel_start
@@ -14,15 +16,15 @@ module update_push (
 
     input  logic [20:0] buffer_in,
     input  logic [ 5:0] bits_in_buffer_in,
-    input  logic [15:0] data_in
+    input  logic [7:0] data_in
     );
     
     wire [20:0] data_in_ext;
-    assign data_in_ext = {{5{1'b0}}, data_in};
+    assign data_in_ext = {{13{1'b0}}, data_in};
 
-    assign buffer_out = mask_gen(bits_in_buffer_in - 5,0) & (data_in_ext >> (21 - bits_in_buffer_in));
-    assign bits_in_buffer_out = bits_in_buffer_in - 5;
-    assign data_out = (mask_gen(20,bits_in_buffer_in) & (data_in_ext << bits_in_buffer_in)) | (mask_gen(bits_in_buffer_in-1, 0) & buffer_in);
+    assign buffer_out           = data_in_ext >> (21-bits_in_buffer_in);
+    assign bits_in_buffer_out   = bits_in_buffer_in - 13;
+    assign data_out             = buffer_in << (21-bits_in_buffer_in) | data_in_ext >> ;
 
 endmodule
 
