@@ -1,7 +1,8 @@
 module store_dataframe # (
 
     parameter C_S_AXI_DATA_WIDTH = 32,  // AXI Data Bus Width
-    parameter C_S_AXI_ADDR_WIDTH = 11   // AXI Address Bus Width
+    parameter C_S_AXI_ADDR_WIDTH = 11,  // AXI Address Bus Width
+    parameter FPGA_REGISTER_N    = 10
 
 )(
     
@@ -53,7 +54,7 @@ module store_dataframe # (
     logic [C_S_AXI_DATA_WIDTH-1:0]          reg_wrdout;
     logic [((C_S_AXI_DATA_WIDTH-1)/8):0]    reg_wrByteStrobe    [FPGA_REGISTER_N-1:0];
     logic                                   reg_rdStrobe        [FPGA_REGISTER_N-1:0];
-    logic [C_S_AXI_DATA_WIDTH-1:0]          reg_rddin           [REGISTER_N-1:0];
+    logic [C_S_AXI_DATA_WIDTH-1:0]          reg_rddin           [FPGA_REGISTER_N-1:0];
 
     // FIFO Signals
     logic           fifo_rd_en;

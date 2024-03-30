@@ -1,0 +1,41 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Sat Mar 30 16:15:55 2024
+# Process ID: 1704090
+# Current directory: /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks
+# Command line: vivado
+# Log file: /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/vivado.log
+# Journal file: /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/vivado.jou
+# Running On: metal.fnal.gov, OS: Linux, CPU Frequency: 3300.000 MHz, CPU Physical cores: 4, Host memory: 33240 MB
+#-----------------------------------------------------------
+start_gui
+xhub::refresh_catalog [xhub::get_xstores xilinx_board_store]
+create_project data_frame_store /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store -part xczu9eg-ffvb1156-2-e
+set_property board_part xilinx.com:zcu102:part0:3.4 [current_project]
+add_files -norecurse {/fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/src/dataframe_store.sv /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_slave_interface.sv /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/axi4lite_interface/mem_regs.sv /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_interface_top.sv}
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+create_ip -name fifo_generator -vendor xilinx.com -library ip -version 13.2 -module_name dataframe_fifo
+set_property -dict [list CONFIG.Component_Name {dataframe_fifo} CONFIG.Fifo_Implementation {Independent_Clocks_Block_RAM} CONFIG.synchronization_stages {3} CONFIG.INTERFACE_TYPE {Native} CONFIG.Input_Data_Width {234} CONFIG.Input_Depth {512} CONFIG.Output_Data_Width {234} CONFIG.Output_Depth {512} CONFIG.Use_Embedded_Registers {false} CONFIG.Reset_Type {Asynchronous_Reset} CONFIG.Full_Flags_Reset_Value {0} CONFIG.Data_Count_Width {9} CONFIG.Write_Data_Count_Width {9} CONFIG.Read_Data_Count_Width {9} CONFIG.Full_Threshold_Assert_Value {509} CONFIG.Full_Threshold_Negate_Value {508} CONFIG.FIFO_Implementation_wach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wach {15} CONFIG.Empty_Threshold_Assert_Value_wach {14} CONFIG.FIFO_Implementation_wdch {Common_Clock_Block_RAM} CONFIG.FIFO_Implementation_wrch {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_wrch {15} CONFIG.Empty_Threshold_Assert_Value_wrch {14} CONFIG.FIFO_Implementation_rach {Common_Clock_Distributed_RAM} CONFIG.Full_Threshold_Assert_Value_rach {15} CONFIG.Empty_Threshold_Assert_Value_rach {14} CONFIG.FIFO_Implementation_rdch {Common_Clock_Block_RAM} CONFIG.FIFO_Implementation_axis {Common_Clock_Block_RAM} CONFIG.Enable_Safety_Circuit {true}] [get_ips dataframe_fifo]
+generate_target {instantiation_template} [get_files /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.srcs/sources_1/ip/dataframe_fifo/dataframe_fifo.xci]
+update_compile_order -fileset sources_1
+generate_target all [get_files  /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.srcs/sources_1/ip/dataframe_fifo/dataframe_fifo.xci]
+catch { config_ip_cache -export [get_ips -all dataframe_fifo] }
+export_ip_user_files -of_objects [get_files /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.srcs/sources_1/ip/dataframe_fifo/dataframe_fifo.xci] -no_script -sync -force -quiet
+create_ip_run [get_files -of_objects [get_fileset sources_1] /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.srcs/sources_1/ip/dataframe_fifo/dataframe_fifo.xci]
+launch_runs dataframe_fifo_synth_1 -jobs 4
+wait_on_run dataframe_fifo_synth_1
+export_simulation -of_objects [get_files /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.srcs/sources_1/ip/dataframe_fifo/dataframe_fifo.xci] -directory /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.ip_user_files/sim_scripts -ip_user_files_dir /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.ip_user_files -ipstatic_source_dir /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.ip_user_files/ipstatic -lib_map_path [list {modelsim=/fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.cache/compile_simlib/modelsim} {questa=/fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.cache/compile_simlib/questa} {xcelium=/fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.cache/compile_simlib/xcelium} {vcs=/fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.cache/compile_simlib/vcs} {riviera=/fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.cache/compile_simlib/riviera}] -use_ip_compiled_libs -force -quiet
+wait_on_run dataframe_fifo_synth_1
+synth_design -rtl -rtl_skip_mlo -name rtl_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+synth_design -rtl -rtl_skip_mlo -name rtl_1
+refresh_design
+update_compile_order -fileset sources_1
+refresh_design
+refresh_design
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1

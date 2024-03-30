@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Sat Mar 30 16:45:30 2024
+# Process ID: 1712094
+# Current directory: /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.runs/synth_1
+# Command line: vivado -log store_dataframe.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source store_dataframe.tcl
+# Log file: /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.runs/synth_1/store_dataframe.vds
+# Journal file: /fasic_home/jchuenoh/fermi/spacely-caribou-common-blocks/pixel_buffer/vivado/data_frame_store/data_frame_store.runs/synth_1/vivado.jou
+# Running On: metal.fnal.gov, OS: Linux, CPU Frequency: 3300.000 MHz, CPU Physical cores: 4, Host memory: 33240 MB
+#-----------------------------------------------------------
+source store_dataframe.tcl -notrace

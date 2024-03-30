@@ -1,0 +1,2 @@
+dataframe_fifo.v,verilog,xil_defaultlib,../../../../data_frame_store.gen/sources_1/ip/dataframe_fifo/sim/dataframe_fifo.v,
+glbl.v,Verilog,xil_defaultlib,glbl.v
