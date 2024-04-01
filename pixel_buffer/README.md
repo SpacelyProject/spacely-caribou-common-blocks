@@ -1,11 +1,7 @@
-# Pixel Buffer
+# Dataframe buffer
 
 ### Block Function
-This block takes in the 448-bit dataframes from lpgbt and does two things.
-1. Stores the raw dataframes into BRAM
-2. Stores the 21-bit, aligned, and zero-suppressed pixels into BRAM.  
-This block also provides a FIFO interface to read out both raw dataframes and pixels.  
-Note: aligning is necessary because lpgbt gives data from the arrays in 16 bits chunks, while each pixel is 21 bits (11 bit address and 10 bit value)
+The dataframe buffer takes in raw 234-bit dataframes from the lpgbt and stores them into a BRAM FIFO. The block then allows read out of the FIFO through the AXI bus by splitting the 234-bit dataframe into eight 32-bit registers.
 
 ### Configurable Parameters
 
@@ -15,7 +11,10 @@ Note: aligning is necessary because lpgbt gives data from the arrays in 16 bits 
 | C_S_AXI_ADDR_WIDTH        | 11  | Width in bits of the AXI memory addresses. Should be the same across the design. | 
 
 ### How to Instantiate
-Connect it to lpgbt. Remember that the block uses two types of BRAM, so include the necessary .xci files.
+This block only needs to connect to lpgbt. The readout of the FIFO is done through AXI4.
+
+### How to Read FIFO
+The 234-bit dataframe is split into eight seperate AXI registers for readout. The block will advance the read pointer of the FIFO for every unique read of register[9]. In other words, multiple consecutive reads to register[9] will only increment the read pointer once. The idea is that the AXI master reads register[2:9] in a sequential manner to get the entire dataframe. Once register[9] is read, the block assumes that register[2:8] have also been read, and increments the read pointer.
 
 ### Block Diagram
 
@@ -24,21 +23,53 @@ Connect it to lpgbt. Remember that the block uses two types of BRAM, so include 
 
 | Register Name | Reg Width | R? | W? | Function |
 | ------------- | --------- | -- | -- | ------------------------------------ | 
-| df_num_elem   | 7         | Y  | N  | Number of elements in the dataframe FIFO |
-| df_data_out   | 448       | Y  | N  | Output data of dataframe FIFO. Address is automatically incremented upon read request |
-| pix_num_elem  | 9         | Y  | N  | Number of elements in the pixel FIFO |
-| pix_data_out  | 22        | Y  | N  | Output data of dataframe FIFO. Address is automatically incremented upon read request |
-
-### Pixel FIFO Zero Suppression
-
-To avoid filling up the pixel FIFO with zero pixels, we count consecutive zero pixels and write a single zero-pixel spacer into the FIFO. Notice that each pixel is 21 bits, but the output of the pixel FIFO is 22 bits. When <code>pix_data_out[21]</code> is 0, <code>pix_data_out[20:0]</code> is actual pixel data. When <code>pix_data_out[21]</code> is 1, <code>pix_data_out[20:0]</code> is the number of consecutive zero pixels that have been counted.
+| lpgbt_rd_en   | 1         | Y  | Y  | Control signal that determines whether the block receives data from lpgbt. 1 = read, 0 = stop |
+| full          | 1         | Y  | N  | FIFO full signal |
+| empty         | 1         | Y  | N  | FIFO empty signal |
+| dataframe[ 31:  0] | 32   | Y  | N  | 32-bit chunks of dataframe |
+| dataframe[ 63: 32] | 32   | Y  | N  | 32-bit chunks of dataframe |
+| dataframe[ 95: 64] | 32   | Y  | N  | 32-bit chunks of dataframe |
+| dataframe[127: 96] | 32   | Y  | N  | 32-bit chunks of dataframe |
+| dataframe[159:128] | 32   | Y  | N  | 32-bit chunks of dataframe |
+| dataframe[191:160] | 32   | Y  | N  | 32-bit chunks of dataframe |
+| dataframe[223:192] | 32   | Y  | N  | 32-bit chunks of dataframe |
+| dataframe[233:224] | 10   | Y  | N  | 10-bit chunks of dataframe (zero-extended) |
 
 
 ### I/O Table 
 
 | Signal Name       | Bit width + direction          | Clock   | I/O Function and connection guidance |
 | -------------     | ------------------------------ | ------- | ------------------------------------ | 
-| data_in           | 448b input    | lpgbt clock   | Dataframes from lpgbt |
-| data_valid        | 1b input      | lpgbt clock   | Dataframe valid signal from lpgbt |
+| uplinkUserData_i  | 234-bit input                  | lpgbt   | 234-bit dataframe from lpgbt       |
+| uplinkrdy_i       | 1-bit input                    | lpgbt   | Data valid signal from lpgbt       |
+| clk40_i           | 1-bit input                    | lpgbt   | lpgbt clock                        |
 
 Note, the AXI bus is always excluded from this table because its presence is assumed by the memory architecture.
+
+### mem_map.txt
+
+Note: Assumes an AXI data width of 32b (standard for SP3/SP3A)
+
+*BASE (IP Base Address)
+
+lpgbt_rd_en,0x4,0x1,True,True
+
+empty,0x8,0x1,True,False
+
+full,0x8,0x2,True,False
+
+data_frame[0],0xc, 0xffffffff, True, False
+
+data_frame[1],0x10, 0xffffffff, True, False
+
+data_frame[2],0x14, 0xffffffff, True, False
+
+data_frame[3],0x18, 0xffffffff, True, False
+
+data_frame[4],0x1c, 0xffffffff, True, False
+
+data_frame[5],0x20, 0xffffffff, True, False
+
+data_frame[6],0x24, 0xffffffff, True, False
+
+data_frame[7],0x28, 0x3ff, True, False

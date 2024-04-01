@@ -85,7 +85,7 @@ module store_dataframe # (
     // 8 : dataframe[223:192]
     // 9 : dataframe[233:224] (zero extended)
 
-    // NOTE: FIFO is advanced every time logicister 9 is read
+    // NOTE: FIFO is advanced every time register 9 is read
 
     assign logic_rddin[0] = {{31{1'b0}}, lpgbt_rd_en[2]};
     assign logic_rddin[1] = {{30{1'b0}}, full, empty};
