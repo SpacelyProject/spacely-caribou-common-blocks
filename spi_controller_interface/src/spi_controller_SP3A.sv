@@ -2,7 +2,7 @@
 // SPI Controller to communicate with the SP3A_spi_slave_register_files block on the SP3A chip. 
 
 // Author: Luc Ah-Hot
-// Last updated: 03/28/24
+// Last updated: 03/29/24
 
 module spi_controller_SP3A #(
 // Width of S_AXI data bus

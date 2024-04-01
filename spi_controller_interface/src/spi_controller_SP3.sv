@@ -45,10 +45,11 @@ assign spi_clk = axi_clk;
 
 // Define states for SPI controller operations
 typedef enum logic[2:0] {
-    IDLE=0,                       
-    SEND_ADDRESS=1,
-    SEND_DATA=2,
-    RECEIVE_DATA=3
+    IDLE=0,      
+    SEND_WNR=1,                 
+    SEND_ADDRESS=2,
+    SEND_DATA=3,
+    RECEIVE_DATA=4
 } state;
 
 // Holds our next state for the next clock cycle
@@ -143,14 +144,26 @@ always_comb begin
             if (spi_data_len == 0)
                 next_state = IDLE;
             else begin
-                next_state = SEND_ADDRESS;
-                // Start the SPI command by sending the WnR bit over pico and setting cs_b to low (active-low signal)
+                next_state = SEND_WNR;
+                // Start the SPI command by setting cs_b to low (active-low signal)
                 cs_b = 1'b0;
-                pico = WnR;
-                // Set address_counter with top most bit of address (address is 10 bits)
-                address_counter_c = 9; 
             end
         end // case: IDLE
+
+        // *** SEND_WNR STATE ***
+        SEND_WNR: begin
+            // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
+            if (spi_data_len == 0)
+                next_state = IDLE;
+            else begin
+                // Constantly assert cs_b
+                cs_b = 1'b0;
+                next_state = SEND_ADDRESS;
+                // Send the WnR bit over pico 
+                pico = WnR;
+                address_counter_c = 0;
+            end
+        end // case: SEND_WNR
 
         // *** SEND_ADDRESS STATE ***
         SEND_ADDRESS: begin
@@ -162,20 +175,20 @@ always_comb begin
                 cs_b = 1'b0;
                 // Send the address over pico (sent in BIG-ENDIAN order)
                 pico = spi_address[address_counter];
-                address_counter_c = address_counter - 1;
-                // Check if the next decrement of address counter will be below 0 and if that's the case, switch to SEND_DATA or RECEIVE_DATA depending on the value of WnR
-                if (address_counter - 1 < 0) begin
+                address_counter_c = address_counter + 1;
+                // Check to see if address_counter == 9 and if that's the case, switch to SEND_DATA or RECEIVE_DATA depending on the value of WnR
+                if (address_counter == 9) begin
                     if (WnR == 1'b1) begin
                         next_state = SEND_DATA;
                         // Load first data word from spi_command_buffer into command_buffer_data (buffer should never be empty at this stage)
                         if (spi_command_empty == 1'b0) begin 
                             command_buffer_data_c = spi_command_dout;
                             spi_command_rd_en = 1'b1;
-                            command_buffer_counter_c = 31;
+                            command_buffer_counter_c = 0;
                         end
                     end else begin
                         next_state = RECEIVE_DATA;
-                        read_buffer_counter = 31;
+                        read_buffer_counter_c = 0;
                     end
                 end else 
                     next_state = SEND_ADDRESS;
@@ -191,18 +204,18 @@ always_comb begin
                 // Constantly assert cs_b
                 cs_b = 1'b0;
                 // If the next bit in command_buffer_data does not cause us to exceed spi_data_len, then send the bit
-                if (pico_counter + 1 < spi_data_len) begin
+                if (pico_counter < spi_data_len) begin
                     pico = command_buffer_data[command_buffer_counter];
                     // Increment pico_counter
                     pico_counter_c = pico_counter + 1;
                     // Check if command buffer counter needs to be reset and we need to load in a new data word from spi_command_buffer
-                    if (command_buffer_counter - 1 < 0) begin
-                        command_buffer_counter_c = 31;
+                    if (command_buffer_counter == 31) begin
+                        command_buffer_counter_c = 0;
                         command_buffer_data_c = spi_command_dout;
                         spi_command_rd_en = 1'b1;
                     end else 
                         // Else decrement command_buffer_counter
-                        command_buffer_counter_c = command_buffer_counter - 1;
+                        command_buffer_counter_c = command_buffer_counter + 1;
                     next_state = SEND_DATA;
                 end else begin
                     // After sending all the data, go back to IDLE state
@@ -223,22 +236,30 @@ always_comb begin
                 // Constantly assert cs_b
                 cs_b = 1'b0;
                 // If the next bit being written into read_buffer_data does not cause us to exceed spi_data_len, then write the bit from poci
-                if (poci_counter + 1 < spi_data_len) begin
+                if (poci_counter < spi_data_len) begin
                     read_buffer_data_c[read_buffer_counter] = poci;
                     // Incremenet poci counter
                     poci_counter_c = poci_counter + 1;
                     // Check if read buffer counter needs to be reset and we need to push the current data word to spi_read_buffer
-                    if (read_buffer_counter - 1 < 0) begin
-                        read_buffer_counter_c = 31;
+                    if (read_buffer_counter == 31) begin
+                        read_buffer_counter_c = 0;
                         spi_read_wr_en = 1'b1;
                         spi_read_din = read_buffer_data;
                         // Reset read_buffer_data to 0
                         read_buffer_data_c = '0;
                     end else
                         // Else decrement read_buffer_counter
-                        read_buffer_counter_c = read_buffer_counter - 1;
+                        read_buffer_counter_c = read_buffer_counter + 1;
                     next_state = RECEIVE_DATA;
                 end else begin
+                    // Check if we need to push the current temp_word (which is not 32 bits long)
+                    if (read_buffer_counter > 0) begin
+                        read_buffer_counter_c = 0;
+                        spi_read_wr_en = 1'b1;
+                        spi_read_din = read_buffer_data;
+                        // Reset read_buffer_data to 0
+                        read_buffer_data_c = '0;
+                    end
                     // After receiving all the data, go back to IDLE state
                     next_state = IDLE;
                     // Make sure to de-assert cs_b to signal the end of the read transaction

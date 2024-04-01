@@ -1,12 +1,12 @@
 
-// Testbench for spi_controller_SP3A
+// Testbench for spi_controller_SP3
 
 // Author: Luc Ah-Hot
-// Last updated: 03/29/24
+// Last updated: 03/30/24
 
 `timescale 1ns/1ps
 
-module spi_controller_SP3A_tb;
+module spi_controller_SP3_tb;
 
 // Parameters to be used
 parameter PERIOD = 10; //100MHz
@@ -51,7 +51,6 @@ logic pico, cs_b, spi_clk, poci, done, reset_b;
 logic WnR;
 logic [9:0] spi_address;
 logic [7:0] spi_data_len;
-logic [1:0] spi_opcode_group;
 
 assign spi_command_reset = ~reset_b;
 assign spi_read_reset = ~reset_b;
@@ -96,8 +95,8 @@ fifo #(
   .empty(spi_read_empty)
 );
 
-// [lucahhot]: Instantiate SPI controller to send configuration instructions to SPI peripheral on SP3A chip
-spi_controller_SP3A #(
+// [lucahhot]: Instantiate SPI controller to send configuration instructions to SPI peripheral on SP3 chip
+spi_controller_SP3 #(
 .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
 )  spi_controller_inst  (
   .axi_clk(clock),
@@ -105,7 +104,6 @@ spi_controller_SP3A #(
   .WnR(WnR),
   .spi_address(spi_address),
   .spi_data_len(spi_data_len),
-  .spi_opcode_group(spi_opcode_group),
   .spi_command_rd_en(spi_command_rd_en),
   .spi_command_empty(spi_command_empty),
   .spi_command_dout(spi_command_dout),
@@ -138,7 +136,6 @@ task initialize; //Intial Signal Values for Testbench
     WnR = '0;
     spi_address = '0;
     spi_data_len = '0;
-    spi_opcode_group = '0;
   end
 endtask
 
@@ -147,7 +144,6 @@ task sendSPICommand;
   input logic         input_WnR;   
   input logic [9:0]   input_spi_address;
   input logic [7:0]   input_spi_data_len;
-  input logic [1:0]   input_spi_opcode_group;  
   input logic [191:0] input_data;
 begin
 
@@ -194,8 +190,8 @@ begin
   // Load all the inputs into spi_controller_SP3A ports
   WnR = input_WnR;
   spi_address = input_spi_address;
+  @(posedge clock);
   spi_data_len = input_spi_data_len; // [lucahhot]: This assignment should trigger the SPI transaction (assuming not zero)
-  spi_opcode_group = input_spi_opcode_group;
 
 end
 endtask
@@ -213,50 +209,35 @@ initial begin
   testnum = 1;
   testcase = "Write Global Counter Period to SPI";
   @(posedge clock);
-  // Opcode = 12'b01_01_0000_1010
-  sendSPICommand(1'b1, 10'b00_0000_1010, 8'd14, 2'b01, 14'b11_0000_1000_1111);
+  sendSPICommand(1'b1, 10'b00_1001_0110, 8'd14, 14'b11_0000_1000_1111);
   @(posedge clock);
 
-  // Wait until the done signal from the spi_controller is set
   wait(done == 1'b1);
-  // Reset spi_data_len to not trigger another SPI transaction
   spi_data_len = '0;
 
   // Test2: set test patterns
   testnum = 2;
   testcase = "Set DACclr Test Pattern";
-  // Opcode = 12'b01_10_0000_0000
-  sendSPICommand(1'b1, 10'b00_0000_0000, 8'd192, 2'b10, {{170'd0, 12'b110011001100, 10'b1010101010}});
+  sendSPICommand(1'b1, 10'b00_1001_0110, 8'd192, {{170'd0, 12'b110011001100, 10'b1010101010}});
   
   wait(done == 1'b1);
   spi_data_len = '0;
 
-  // Test3: set FullReadout
+  // Test3: read global_counter_period
   testnum = 3;
-  testcase = "Set FullReadout";
-  // Opcode = 12'b01_00_0000_1111
-  sendSPICommand(1'b1, 10'b00_0000_1111, 8'd192, 2'b00, 192'b1);
-
-  wait(done == 1'b1);
-  spi_data_len = '0;
-
-  // Test4: read global_counter_period
-  testnum = 4;
   testcase = "Read Global Counter Period to SPI";
   @(posedge clock);
-  // Opcode = 12'b00_01_0000_1010
-  sendSPICommand(1'b0, 10'b00_0000_1010, 8'd14, 2'b01, 192'd0);
+  sendSPICommand(1'b0, 10'b00_1001_0110, 8'd14, 192'd0);
   @(posedge clock);
 
   wait(done == 1'b1);
   spi_data_len = '0;
 
-  // Test5: read DACclr pattern
-  testnum = 5;
+  // Test4: read DACclr pattern
+  testnum = 4;
   testcase = "Read DACclr pattern to SPI";
   @(posedge clock);
-  // Opcode = 12'b00_10_0000_0000
-  sendSPICommand(1'b0, 10'b00_0000_0000, 8'd192, 2'b10, 192'd0);
+  sendSPICommand(1'b0, 10'b00_1001_0110, 8'd192, 192'd0);
   @(posedge clock);
 
   wait(done == 1'b1);
@@ -265,4 +246,5 @@ initial begin
   $finish;
 
 end
+
 endmodule
