@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="jchuenoh" Host="metal.fnal.gov" Pid="1710125" HostCore="4" HostMemory="32461032">
-    </Process>
-</ProcessHandle>
