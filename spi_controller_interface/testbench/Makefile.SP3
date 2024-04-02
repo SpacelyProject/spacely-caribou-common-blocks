@@ -1,0 +1,34 @@
+DESIGN = spi_controller_SP3
+TOP_MODULE = $(DESIGN)_tb
+WORK_LIB = work
+XRUN = xrun
+
+# INPUTS_DIR = /home/luc/SPROCKET3/spacely-caribou-common-blocks/spi_controller_interface
+INPUTS_DIR = /home/luc/SPROCKET3/spacely-caribou-common-blocks/spi_controller_interface
+HDL_DIR = $(INPUTS_DIR)/src
+TB_BASE_DIR = $(INPUTS_DIR)/testbench
+
+CAD_LIBS := /asic/Library/TSMC/TSMC65_Merged/Digital/Front_End/verilog/tcbn65lp_200a
+
+# [@manuelbv]: Main TB directory path
+VPATH := $(TB_BASE_DIR)
+
+# [@manuelbv]: Testbench source
+V_SOURCES := $(TB_BASE_DIR)/$(DESIGN)_tb.sv
+
+# [@manuelbv]: RTL sources
+V_RTL_SOURCES := $(V_SOURCES)
+V_RTL_SOURCES += $(HDL_DIR)/fifo.sv
+V_RTL_SOURCES += $(HDL_DIR)/spi_controller_SP3.sv
+
+.SUFFIXES: .v .sv
+
+setup: $(WORK_LIB)
+
+run-post-rtl: $(V_RTL_SOURCES)
+	$(XRUN) -access rwc -gui -ALLOWREDEFINITION $^
+.PHONY: run-post-rtl
+
+clean:
+	rm -rf xcelium.d xrun* *.vcd waves.shm *.diag *.err
+.PHONY: clean
