@@ -323,7 +323,7 @@ always_comb begin
                     // Incremenet poci counter
                     poci_counter_c = poci_counter + 1;
                     // Check if read buffer counter needs to be reset and we need to push the current data word to spi_read_buffer
-                    if (read_buffer_counter == 31) begin
+                    if (read_buffer_counter == 31 && spi_read_full == 1'b0) begin
                         read_buffer_counter_c = 0;
                         spi_read_wr_en = 1'b1;
                         spi_read_din = read_buffer_data;
@@ -335,7 +335,7 @@ always_comb begin
                     next_state = RECEIVE_DATA;
                 end else begin
                     // Check if we need to push the current temp_word (which is not 32 bits long)
-                    if (read_buffer_counter > 0) begin
+                    if (read_buffer_counter > 0 && spi_read_full == 1'b0) begin
                         read_buffer_counter_c = 0;
                         spi_read_wr_en = 1'b1;
                         spi_read_din = read_buffer_data;

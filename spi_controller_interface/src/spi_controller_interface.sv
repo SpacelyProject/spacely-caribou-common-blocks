@@ -9,7 +9,7 @@ module spi_controller_interface #(
   // Width of S_AXI address bus
   parameter integer C_S_AXI_ADDR_WIDTH=11,
   //Size of FIFO Buffer
- parameter integer FIFO_BUFFER_SIZE
+ parameter integer FIFO_BUFFER_SIZE=10
 ) (
 
   // Ports to/from spi_controller to lpgtbFpga
@@ -88,12 +88,12 @@ module spi_controller_interface #(
 localparam integer FPGA_REGISTER_N = 6;
 
 // [lucahhot]: AXI register mapping 
-localparam byte unsigned FPGA_SPI_WR = 1;
-localparam byte unsigned FPGA_SPI_ADDRESS = 2;
-localparam byte unsigned FPGA_SPI_DATA_LEN = 3;
-localparam byte unsigned FPGA_SPI_OPCODE_GROUP = 4;
-localparam byte unsigned FPGA_SPI_WRITE_DATA = 5;
-localparam byte unsigned FPGA_SPI_READ_DATA = 6;
+localparam byte unsigned FPGA_SPI_WR = 0;
+localparam byte unsigned FPGA_SPI_ADDRESS = 1;
+localparam byte unsigned FPGA_SPI_DATA_LEN = 2;
+localparam byte unsigned FPGA_SPI_OPCODE_GROUP = 3;
+localparam byte unsigned FPGA_SPI_WRITE_DATA = 4;
+localparam byte unsigned FPGA_SPI_READ_DATA = 5;
 
 logic [C_S_AXI_DATA_WIDTH-1:0]        reg_wrdout;
 logic [((C_S_AXI_DATA_WIDTH-1)/8):0]  reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
