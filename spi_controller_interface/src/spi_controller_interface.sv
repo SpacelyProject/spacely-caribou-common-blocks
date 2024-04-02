@@ -91,7 +91,7 @@ localparam integer FPGA_REGISTER_N = 6;
 localparam byte unsigned FPGA_SPI_WR = 1;
 localparam byte unsigned FPGA_SPI_ADDRESS = 2;
 localparam byte unsigned FPGA_SPI_DATA_LEN = 3;
-localparam byte unsigned FPGA_SPI_OPCODE_GROUP = 4
+localparam byte unsigned FPGA_SPI_OPCODE_GROUP = 4;
 localparam byte unsigned FPGA_SPI_WRITE_DATA = 5;
 localparam byte unsigned FPGA_SPI_READ_DATA = 6;
 
@@ -143,7 +143,7 @@ axi4lite_interface_top #(
 logic                          fpga_reg_spi_read_write, fpga_reg_spi_read_write_c;
 logic [9:0]                    fpga_reg_spi_address, fpga_reg_spi_address_c;
 logic [7:0]                    fpga_reg_spi_data_len, fpga_reg_spi_data_len_c;
-logic [1:0]                    fpga_reg_spi_opcode_group, fpga_reg_spi_opcode_group;
+logic [1:0]                    fpga_reg_spi_opcode_group, fpga_reg_spi_opcode_group_c;
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_write_data, fpga_reg_spi_write_data_c;
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_read_data;
 
