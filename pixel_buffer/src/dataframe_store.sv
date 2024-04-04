@@ -2,7 +2,7 @@ module store_dataframe # (
 
     parameter C_S_AXI_DATA_WIDTH = 32,  // AXI Data Bus Width
     parameter C_S_AXI_ADDR_WIDTH = 11,  // AXI Address Bus Width
-    parameter FPGA_logicISTER_N    = 10
+    parameter FPGA_REGISTER_N    = 10
 
 )(
     
@@ -51,10 +51,10 @@ module store_dataframe # (
     );
 
     // AXI Interface Signals
-    logic [C_S_AXI_DATA_WIDTH-1:0]               logic_wrdout;
-    logic [((C_S_AXI_DATA_WIDTH-1)/8):0]         logic_wrByteStrobe    [FPGA_logicISTER_N-1:0];
-    logic                                        logic_rdStrobe        [FPGA_logicISTER_N-1:0];
-    logic [C_S_AXI_DATA_WIDTH-1:0]               logic_rddin           [FPGA_logicISTER_N-1:0];
+    logic [C_S_AXI_DATA_WIDTH-1:0]               reg_wrdout;
+    logic [((C_S_AXI_DATA_WIDTH-1)/8):0]         reg_wrByteStrobe    [FPGA_REGISTER_N-1:0];
+    logic                                        reg_rdStrobe        [FPGA_REGISTER_N-1:0];
+    logic [C_S_AXI_DATA_WIDTH-1:0]               reg_rddin           [FPGA_REGISTER_N-1:0];
 
     // FIFO Signals
     logic            fifo_rd_en;
@@ -65,7 +65,7 @@ module store_dataframe # (
     logic            full;
     logic            empty;
 
-    assign fifo_rd_en = ~rdStrobe_buffer & logic_rdStrobe[9];
+    assign fifo_rd_en = ~rdStrobe_buffer & reg_rdStrobe[9];
 
     assign fifo_wr_en = uplinkrdy_i & lpgbt_rd_en[2];
 
@@ -87,16 +87,16 @@ module store_dataframe # (
 
     // NOTE: FIFO is advanced every time register 9 is read
 
-    assign logic_rddin[0] = {{31{1'b0}}, lpgbt_rd_en[2]};
-    assign logic_rddin[1] = {{30{1'b0}}, full, empty};
-    assign logic_rddin[2] = dout[ 31:  0];
-    assign logic_rddin[3] = dout[ 63: 32];
-    assign logic_rddin[4] = dout[ 95: 64];
-    assign logic_rddin[5] = dout[127: 96];
-    assign logic_rddin[6] = dout[159:128];
-    assign logic_rddin[7] = dout[191:160];
-    assign logic_rddin[8] = dout[223:192];
-    assign logic_rddin[9] = {{22{1'b0}}, dout[233:224]};
+    assign reg_rddin[0] = {{31{1'b0}}, lpgbt_rd_en[2]};
+    assign reg_rddin[1] = {{30{1'b0}}, full, empty};
+    assign reg_rddin[2] = dout[ 31:  0];
+    assign reg_rddin[3] = dout[ 63: 32];
+    assign reg_rddin[4] = dout[ 95: 64];
+    assign reg_rddin[5] = dout[127: 96];
+    assign reg_rddin[6] = dout[159:128];
+    assign reg_rddin[7] = dout[191:160];
+    assign reg_rddin[8] = dout[223:192];
+    assign reg_rddin[9] = {{22{1'b0}}, dout[233:224]};
     
     always @ (posedge S_AXI_ACLK) begin
 
@@ -107,9 +107,9 @@ module store_dataframe # (
 
         end else begin
 
-            if(logic_wrByteStrobe[0][0] == 1) lpgbt_rd_en[0] <= logic_wrdout[0];
+            if(reg_wrByteStrobe[0][0] == 1) lpgbt_rd_en[0] <= reg_wrdout[0];
 
-            rdStrobe_buffer <= logic_rdStrobe[9];
+            rdStrobe_buffer <= reg_rdStrobe[9];
 
         end
 
@@ -125,17 +125,17 @@ module store_dataframe # (
     axi4lite_interface_top #(
         .C_S_AXI_DATA_WIDTH (C_S_AXI_DATA_WIDTH),
         .C_S_AXI_ADDR_WIDTH (C_S_AXI_ADDR_WIDTH),
-        .FPGA_logicISTER_N    (FPGA_logicISTER_N)
+        .FPGA_REGISTER_N    (FPGA_REGISTER_N)
     ) AXI0 (
         
         ///////////////////////////
         // logic INTERFACE SIGNALS //
         ///////////////////////////
 	
-        .logic_wrdout          (logic_wrdout),
-        .logic_wrByteStrobe    (logic_wrByteStrobe),
-        .logic_rdStrobe        (logic_rdStrobe),
-        .logic_rddin           (logic_rddin),
+        .reg_wrdout          (reg_wrdout),
+        .reg_wrByteStrobe    (reg_wrByteStrobe),
+        .reg_rdStrobe        (reg_rdStrobe),
+        .reg_rddin           (reg_rddin),
 	
         //////////////////////////////
         //    AXI BUS SIGNALS       //
@@ -172,7 +172,7 @@ module store_dataframe # (
         .full           (full),             // output logic full
 
         .rd_clk         (S_AXI_ACLK),       // input logic rd_clk
-        .rd_en          (logic_rdStrobe[9]),  // input logic rd_en
+        .rd_en          (reg_rdStrobe[9]),  // input logic rd_en
         .dout           (dout),             // output logic [21 : 0] dout
         .empty          (empty),            // output logic empty
 
