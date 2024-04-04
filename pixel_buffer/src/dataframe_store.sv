@@ -2,7 +2,7 @@ module store_dataframe # (
 
     parameter C_S_AXI_DATA_WIDTH = 32,  // AXI Data Bus Width
     parameter C_S_AXI_ADDR_WIDTH = 11,  // AXI Address Bus Width
-    parameter FPGA_logicISTER_N  = 11
+    parameter FPGA_REGISTER_N    = 11
 
 )(
     
