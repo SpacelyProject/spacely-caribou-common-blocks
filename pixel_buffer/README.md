@@ -11,7 +11,10 @@ The dataframe buffer takes in raw 234-bit dataframes from the lpgbt and stores t
 | C_S_AXI_ADDR_WIDTH        | 11  | Width in bits of the AXI memory addresses. Should be the same across the design. | 
 
 ### How to Instantiate
-This block only needs to connect to lpgbt. The readout of the FIFO is done through AXI4.
+Instantiate /src/dataframe_store_verilog.v as an RTL module. This block only needs to connect to lpgbt. The readout of the FIFO is done through AXI4.
+
+When importing into Vivado, be sure to include sources from both /src/ and /ip/ subdirectories.
+
 
 ### How to Read FIFO
 The 234-bit dataframe is split into eight seperate AXI registers for readout. The block will advance the read pointer of the FIFO for every unique read of register[9]. In other words, multiple consecutive reads to register[9] will only increment the read pointer once. The idea is that the AXI master reads register[2:9] in a sequential manner to get the entire dataframe. Once register[9] is read, the block assumes that register[2:8] have also been read, and increments the read pointer.  
