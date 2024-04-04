@@ -46,3 +46,19 @@ Refer to /Documents/Projects/S/SParkDream/SParkDream Reference.pptx on the Fermi
 
 
 Note, the AXI bus is always excluded from this table because its presence is assumed by the memory architecture.
+
+### mem_map.txt
+
+Note: Assumes an AXI data width of 32b (standard for SP3/SP3A)
+
+*BASE (IP Base Address)
+
+spi_read_write,0x4,0x1,True,True
+
+spi_address,0x8,0x3FF,True,True
+
+spi_data_len,0xC,0xFF,True,True
+
+spi_write_data,0x10,0xFFFFFFFF,True,True
+
+spi_read_data,0x14,0xFFFFFFFF,True,False

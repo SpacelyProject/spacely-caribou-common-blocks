@@ -1,4 +1,5 @@
-module lpgbtfpga_top #(
+
+module lpgbtfpga_with_interface #(
     // Width of S_AXI data bus
     parameter integer C_S_AXI_DATA_WIDTH  = 32,
     // Width of S_AXI address bus
@@ -90,38 +91,106 @@ module lpgbtfpga_top #(
 
 );
 
-   lpgbtfpga_with_interface inst1 (.SMA_MGT_REFCLK_P(SMA_MGT_REFCLK_P),
-    .SMA_MGT_REFCLK_N(SMA_MGT_REFCLK_N),
-    .USER_CLOCK_P(USER_CLOCK_P),
-    .USER_CLOCK_N(USER_CLOCK_N),
-    .SFP0_RX_P(SFP0_RX_P),
-    .SFP0_RX_N(SFP0_RX_N),
-    .clk40_o(clk40_o),
-    .uplinkrdy_o(uplinkrdy_o),
-    .uplinkUserData_o(uplinkUserData_o),
-    .uplinkFEC_o(uplinkFEC_o),
-    .S_AXI_ACLK(S_AXI_ACLK),
-    .S_AXI_ARESETN(S_AXI_ARESETN),
-    .S_AXI_AWADDR(S_AXI_AWADDR),
-    .S_AXI_AWPROT(S_AXI_AWPROT),
-    .S_AXI_AWVALID(S_AXI_AWVALID),
-    .S_AXI_AWREADY(S_AXI_AWREADY),
-    .S_AXI_WDATA(S_AXI_WDATA),
-    .S_AXI_WSTRB(S_AXI_WSTRB),
-    .S_AXI_WVALID(S_AXI_WVALID),
-    .S_AXI_WREADY(S_AXI_WREADY),
-    .S_AXI_BRESP(S_AXI_BRESP),
-    .S_AXI_BVALID(S_AXI_BVALID),
-    .S_AXI_BREADY(S_AXI_BREADY),
-    .S_AXI_ARADDR(S_AXI_ARADDR),
-    .S_AXI_ARPROT(S_AXI_ARPROT),
-    .S_AXI_ARVALID(S_AXI_ARVALID),
-    .S_AXI_ARREADY(S_AXI_ARREADY),
-    .S_AXI_RDATA(S_AXI_RDATA),
-    .S_AXI_RRESP(S_AXI_RRESP),
-    .S_AXI_RVALID(S_AXI_RVALID),
-    .S_AXI_RREADY(S_AXI_RREADY));
+    //NOTE: We don't actually need 2x registers for this block. 
+    //But if you try to instantiate a multi-bit array where it only has one bit,
+    //it makes Vivado uncomfortable. 
 
-endmodule //lpgbtfpga_top
+    wire [C_S_AXI_DATA_WIDTH-1:0] reg_wrdout;
 
-  
+    reg [((C_S_AXI_DATA_WIDTH-1)/8):0] reg_wrByteStrobe [1:0];
+
+    reg 				reg_rdStrobe [1:0];
+
+    wire [C_S_AXI_DATA_WIDTH-1:0] 	reg_rddin [1:0];
+
+
+    // Instantiate the AXI Interface
+    // NOTE: This block should be included from spacely-caribou-common-blocks/axi4lite_interface
+    axi4lite_interface_top #(
+    .FPGA_REGISTER_N(2),
+    .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
+    .C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH)
+    ) axi4lite_interface_inst (
+
+        .reg_wrdout(reg_wrdout),
+        .reg_wrByteStrobe(reg_wrByteStrobe),
+        .reg_rdStrobe(reg_rdStrobe),
+        .reg_rddin(reg_rddin),
+
+        .S_AXI_ACLK(S_AXI_ACLK),
+        .S_AXI_ARESETN(S_AXI_ARESETN),
+        .S_AXI_AWADDR(S_AXI_AWADDR),
+        .S_AXI_AWPROT(S_AXI_AWPROT),
+        .S_AXI_AWVALID(S_AXI_AWVALID),
+        .S_AXI_AWREADY(S_AXI_AWREADY),
+        .S_AXI_WDATA(S_AXI_WDATA),
+        .S_AXI_WSTRB(S_AXI_WSTRB),
+        .S_AXI_WVALID(S_AXI_WVALID),
+        .S_AXI_WREADY(S_AXI_WREADY),
+        .S_AXI_BRESP(S_AXI_BRESP),
+        .S_AXI_BVALID(S_AXI_BVALID),
+        .S_AXI_BREADY(S_AXI_BREADY),
+        .S_AXI_ARADDR(S_AXI_ARADDR),
+        .S_AXI_ARPROT(S_AXI_ARPROT),
+        .S_AXI_ARVALID(S_AXI_ARVALID),
+        .S_AXI_ARREADY(S_AXI_ARREADY),
+        .S_AXI_RDATA(S_AXI_RDATA),
+        .S_AXI_RRESP(S_AXI_RRESP),
+        .S_AXI_RVALID(S_AXI_RVALID),
+        .S_AXI_RREADY(S_AXI_RREADY)
+
+    );
+
+    /////////////////////////////////
+    //  LPGBTFPGA CORE LOGIC       //
+    /////////////////////////////////
+
+   //Signals that are supplied from AXI control register.
+   wire 				uplinkRst_i;
+   wire 				mgt_rxpolarity_i;
+   
+
+
+    //Instantiate the core of the lpgbtfpga module.
+    lpgbtfpga_zcu102_10g24_top (.SMA_MGT_REFCLK_P(SMA_MGT_REFCLK_P),
+        .SMA_MGT_REFCLK_N(SMA_MGT_REFCLK_N),
+        .USER_CLOCK_P(USER_CLOCK_P),
+        .USER_CLOCK_N(USER_CLOCK_N),
+        .SFP0_RX_P(SFP0_RX_P),
+        .SFP0_RX_N(SFP0_RX_N),
+        .clk40_o(clk40_o),
+        .uplinkrdy_o(uplinkrdy_o),
+        .uplinkUserData_o(uplinkUserData_o),
+        .uplinkRst_i(uplinkRst_i),
+        .unplinkFEC_o(uplinkFEC_o),
+        .mgt_rxpolarity_i(mgt_rxpolarity_i));
+
+
+    //lpgbtfpga control registers
+    reg [C_S_AXI_DATA_WIDTH-1:0] 	control;
+
+    //register read/write logic.
+    always @(posedge S_AXI_ACLK) begin
+        if (~S_AXI_ARESETN) begin
+            control <= 0;
+        end
+        else begin
+            if(reg_wrByteStrobe[0] > 0) control <= reg_wrdout;
+        end
+    end
+
+    //Allow readback of control
+    assign reg_rddin[0] = control;
+
+
+    //Generate control signals from control register.
+    assign uplinkRst_i = control[0];
+    assign mgt_rxpolarity_i = control[1];
+
+
+
+
+
+
+endmodule // lpgbtfpga_top
+
