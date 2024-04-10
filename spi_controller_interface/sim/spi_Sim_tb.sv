@@ -1,1 +1,0 @@
-/fasic_home/lucahhot/Documents/spacely-caribou-common-blocks/spi_controller_interface/vivado/spi_controller_interface/spi_controller_interface.srcs/sim_1/imports/sim/spi_Sim_tb.sv
