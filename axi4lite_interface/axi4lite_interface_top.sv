@@ -89,15 +89,15 @@ module axi4lite_interface_top #(
 	);
 	
     localparam AXI_DATA_BYTES = ((C_S_AXI_DATA_WIDTH-1)/8)+1;
-    localparam AXI_ADDR_LSB = ($clog2(C_S_AXI_DATA_WIDTH)-3);
-    localparam AXI_REG_ADDR_WIDTH = C_S_AXI_ADDR_WIDTH-AXI_ADDR_LSB;
+    localparam AXI_ADDR_LSB = ($clog2(C_S_AXI_DATA_WIDTH)-3); // 2
+    localparam AXI_REG_ADDR_WIDTH = C_S_AXI_ADDR_WIDTH-AXI_ADDR_LSB; // 9
     
-	localparam byte unsigned FPGA_REG_ADDR_WIDTH = ($clog2(FPGA_REGISTER_N));
+	localparam byte unsigned FPGA_REG_ADDR_WIDTH = ($clog2(FPGA_REGISTER_N)); // 3
 
 	logic [C_S_AXI_DATA_WIDTH-1:0]  axi_mem_rdata;
 	logic [C_S_AXI_DATA_WIDTH-1:0]  axi_mem_wdata;
 	logic [AXI_REG_ADDR_WIDTH-1:0]  axi_mem_rdAddr;
-	logic [AXI_REG_ADDR_WIDTH-1:0]  axi_mem_wrAddr;
+	logic [AXI_REG_ADDR_WIDTH-1:0]  axi_mem_wrAddr; // [lucahhot]: This has already been modified for 4-byte addressable registers (0x4 = 1, 0x8 = 2, etc), 9 bits wide
 	logic [AXI_DATA_BYTES-1:0]      axi_mem_wrByteStrobe;
 	logic                           axi_mem_rdStrobe;
 	
@@ -143,13 +143,13 @@ module axi4lite_interface_top #(
 	logic axi_rden_fpgaregs;
 
 	// Select write to FPGA registers (registers controlled by the AXI interface)
-	always_comb begin
+	always_comb begin		 // axi_mem_wrAddr[8:3] has to be zeros or else axi_wren_fpgaregs is set to 0
 		if (~|axi_mem_wrAddr[AXI_REG_ADDR_WIDTH-1:FPGA_REG_ADDR_WIDTH]) axi_wren_fpgaregs = 1'b1;
 		else axi_wren_fpgaregs = 1'b0;
 	end
 
 	// Select read to FPGA registers (registers controlled by the AXI interface)
-	always_comb begin
+	always_comb begin	    
 		if (~|axi_mem_rdAddr[AXI_REG_ADDR_WIDTH-1:FPGA_REG_ADDR_WIDTH]) axi_rden_fpgaregs = 1'b1;
 		else axi_rden_fpgaregs = 1'b0;
 	end
@@ -158,8 +158,7 @@ module axi4lite_interface_top #(
 	// Register Demultiplexer
 	mem_regs #(
 	.REGISTER_N(FPGA_REGISTER_N),
-	.REG_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
-	.REG_ADDR_WIDTH(AXI_REG_ADDR_WIDTH)
+	.REG_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
 	) mem_regs_inst (
 
 	// REG INTERFACE:

@@ -69,9 +69,9 @@ initial begin
 	#200ns
 	
     
-    //Send 0x1 to spi_read_write (address 0x4)
+    //Send 0x1 to spi_read_write (address == ?)
     #500ns
-    addr = 4;
+    addr = 0;
     data = 1;
     master_agent.AXI4LITE_WRITE_BURST(base_addr + addr,0,data,resp);
     

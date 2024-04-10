@@ -106,7 +106,7 @@ logic [C_S_AXI_DATA_WIDTH-1:0] 	      reg_rddin [FPGA_REGISTER_N-1:0];
 axi4lite_interface_top #(
 .FPGA_REGISTER_N(FPGA_REGISTER_N),
 .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
-.C_S_AXI_ADDR_WIDTH(C_S_AXI_DATA_WIDTH)
+.C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH)
 ) axi4lite_interface_inst (
   
   .reg_wrdout(reg_wrdout),
