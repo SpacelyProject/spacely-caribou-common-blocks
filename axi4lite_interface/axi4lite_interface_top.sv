@@ -158,7 +158,8 @@ module axi4lite_interface_top #(
 	// Register Demultiplexer
 	mem_regs #(
 	.REGISTER_N(FPGA_REGISTER_N),
-	.REG_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
+	.REG_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
+	.REG_ADDR_WIDTH(AXI_REG_ADDR_WIDTH)
 	) mem_regs_inst (
 
 	// REG INTERFACE:

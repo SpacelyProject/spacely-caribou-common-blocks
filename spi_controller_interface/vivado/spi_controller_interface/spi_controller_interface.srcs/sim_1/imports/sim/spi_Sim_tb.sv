@@ -69,7 +69,7 @@ initial begin
 	#200ns
 	
     
-    //Send 0x1 to spi_read_write (address == ?)
+    //Send 0x1 to spi_read_write (address == 0x0)
     #500ns
     addr = 0;
     data = 1;

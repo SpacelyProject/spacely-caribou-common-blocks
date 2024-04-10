@@ -2,7 +2,8 @@
 
 module mem_regs #(
         parameter int unsigned REGISTER_N=16,
-        parameter int unsigned REG_DATA_WIDTH=32
+        parameter int unsigned REG_DATA_WIDTH=32,
+        parameter int unsigned REG_ADDR_WIDTH=9
     )(
         // REG INTERFACE:
         output [REG_DATA_WIDTH-1:0] 	  reg_wrdout,
@@ -16,8 +17,8 @@ module mem_regs #(
         input [REG_DATA_WIDTH-1:0] 	  mem_wrdin,
        // Note, we use ADDR_WIDTH here even if it's larger than log2(REGISTER_N). We may have a few inefficient address bits, but at least it works for
        // the case where REGISTER_N = 1 (log2=0)
-        input [$clog2(REGISTER_N)-1:0] 	  mem_rdAddr,
-        input [$clog2(REGISTER_N)-1:0] 	  mem_wrAddr,
+        input [REG_ADDR_WIDTH-1:0] 	  mem_rdAddr,
+        input [REG_ADDR_WIDTH-1:0] 	  mem_wrAddr,
         input [((REG_DATA_WIDTH-1)/8):0]  mem_wrByteStrobe,
         input 				  mem_rdStrobe
     );
