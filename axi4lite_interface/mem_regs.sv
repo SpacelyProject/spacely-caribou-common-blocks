@@ -3,7 +3,7 @@
 module mem_regs #(
         parameter int unsigned REGISTER_N=16,
         parameter int unsigned REG_DATA_WIDTH=32,
-	parameter int unsigned REG_ADDR_WIDTH=11
+        parameter int unsigned REG_ADDR_WIDTH=9
     )(
         // REG INTERFACE:
         output [REG_DATA_WIDTH-1:0] 	  reg_wrdout,

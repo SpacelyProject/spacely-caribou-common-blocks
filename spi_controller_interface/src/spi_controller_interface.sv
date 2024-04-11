@@ -106,7 +106,7 @@ logic [C_S_AXI_DATA_WIDTH-1:0] 	      reg_rddin [FPGA_REGISTER_N-1:0];
 axi4lite_interface_top #(
 .FPGA_REGISTER_N(FPGA_REGISTER_N),
 .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
-.C_S_AXI_ADDR_WIDTH(C_S_AXI_DATA_WIDTH)
+.C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH)
 ) axi4lite_interface_inst (
   
   .reg_wrdout(reg_wrdout),
@@ -218,7 +218,6 @@ always_ff @(posedge S_AXI_ACLK) begin
     fpga_reg_spi_address <= '0;
     fpga_reg_spi_data_len <= '0;
     fpga_reg_spi_write_data <= '0;
-    fpga_reg_spi_read_data <= '0;
     fpga_reg_spi_opcode_group <= '0;
     // [lucahhot]: Reseting temporary registers
     temp_WnR <= '0;

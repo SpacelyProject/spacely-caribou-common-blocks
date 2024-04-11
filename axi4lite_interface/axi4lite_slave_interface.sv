@@ -11,7 +11,7 @@
     input  [C_S_AXI_DATA_WIDTH-1:0] axi_mem_rdata,
     output [C_S_AXI_DATA_WIDTH-1:0] axi_mem_wdata,
     output [C_S_AXI_ADDR_WIDTH-($clog2(C_S_AXI_DATA_WIDTH)-3)-1:0]  axi_mem_rdAddr,
-    output [C_S_AXI_ADDR_WIDTH-($clog2(C_S_AXI_DATA_WIDTH)-3)-1:0]  axi_mem_wrAddr,
+    output [C_S_AXI_ADDR_WIDTH-($clog2(C_S_AXI_DATA_WIDTH)-3)-1:0]  axi_mem_wrAddr, // [lucahhot]: 9 bits wide now
     output [((C_S_AXI_DATA_WIDTH-1)/8):0] axi_mem_wrByteStrobe,
     //output                      axi_mem_rdEnable,
     output                      axi_mem_rdStrobe,
@@ -95,6 +95,7 @@
   // local parameter for addressing 32 bit / 64 bit C_S_AXI_DATA_WIDTH
   // ADDR_LSB is used for addressing 32/64 bit registers/memories
   // ADDR_LSB = 2 for 32 bits (n downto 2)
+  // [lucahhot]: So S_AXI_AWADDR = 4 will be equal to 1 in axi_mem_wrAddr, S_AXI_AWADDR = 8 will be equal to 2 in axi_mem_wrAddr etc...
   // ADDR_LSB = 3 for 64 bits (n downto 3)
   localparam integer ADDR_LSB = ($clog2(C_S_AXI_DATA_WIDTH)-3);
   localparam integer OPT_MEM_ADDR_BITS = C_S_AXI_ADDR_WIDTH - ADDR_LSB;
@@ -207,7 +208,7 @@
   // and the slave is ready to accept the write address and write data.
   assign slv_reg_wren = axi_wready && S_AXI_WVALID && axi_awready && S_AXI_AWVALID;
 
-  // [lucahhot]: Address loaded in is not a full C_S_AXI_ADDR_WIDTH??? Not sure why there are extra bits in the address input then
+  // [lucahhot]: Refer to ADDR_LSB declaration for explanation of bit splicing for the addresses
   assign axi_mem_wrAddr = axi_awaddr[C_S_AXI_ADDR_WIDTH-1:ADDR_LSB]; 
 
   genvar byte_index;
