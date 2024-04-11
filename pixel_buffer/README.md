@@ -1,7 +1,7 @@
 # Dataframe buffer
 
 ### Block Function
-The dataframe buffer takes in raw 234-bit dataframes from the lpgbt and stores them into a BRAM FIFO. The block then allows read out of the FIFO through the AXI bus by splitting the 234-bit dataframe into eight 32-bit registers.
+The dataframe buffer takes in raw 234-bit dataframes from the lpgbt and stores them into a BRAM FIFO. The block then allows read out of the FIFO through the AXI bus by splitting the 234-bit dataframe into eight 32-bit registers. Also counts the number of FEC errors detected.
 
 ### Configurable Parameters
 
@@ -17,7 +17,8 @@ When importing into Vivado, be sure to include sources from both /src/ and /ip/ 
 
 
 ### How to Read FIFO
-The 234-bit dataframe is split into eight seperate AXI registers for readout. The block will advance the read pointer of the FIFO for every unique read of register[9]. In other words, multiple consecutive reads to register[9] will only increment the read pointer once. The idea is that the AXI master reads register[2:9] in a sequential manner to get the entire dataframe. Once register[9] is read, the block assumes that register[2:8] have also been read, and increments the read pointer.
+The 234-bit dataframe is split into eight seperate AXI registers for readout. The block will advance the read pointer of the FIFO for every unique read of register[9]. In other words, multiple consecutive reads to register[9] will only increment the read pointer once. The idea is that the AXI master reads register[2:9] in a sequential manner to get the entire dataframe. Once register[9] is read, the block assumes that register[2:8] have also been read, and increments the read pointer.  
+To reset the FEC error counter, write to the LSB of register [10]. This will reset the counter to 0.
 
 ### Block Diagram
 
@@ -37,6 +38,7 @@ The 234-bit dataframe is split into eight seperate AXI registers for readout. Th
 | dataframe[191:160] | 32   | Y  | N  | 32-bit chunks of dataframe |
 | dataframe[223:192] | 32   | Y  | N  | 32-bit chunks of dataframe |
 | dataframe[233:224] | 10   | Y  | N  | 10-bit chunks of dataframe (zero-extended) |
+| err_counter   | 32        | Y  | Y  | 32-bit counter for number of FEC errors |
 
 
 ### I/O Table 
@@ -46,6 +48,7 @@ The 234-bit dataframe is split into eight seperate AXI registers for readout. Th
 | uplinkUserData_i  | 234-bit input                  | lpgbt   | 234-bit dataframe from lpgbt       |
 | uplinkrdy_i       | 1-bit input                    | lpgbt   | Data valid signal from lpgbt       |
 | clk40_i           | 1-bit input                    | lpgbt   | lpgbt clock                        |
+| uplinkFEC_i       | 1-bit input                    | lpgbt   | FEC error signal                   |
 
 Note, the AXI bus is always excluded from this table because its presence is assumed by the memory architecture.
 
@@ -76,3 +79,5 @@ data_frame[5],0x20, 0xffffffff, True, False
 data_frame[6],0x24, 0xffffffff, True, False
 
 data_frame[7],0x28, 0x3ff, True, False
+
+err_counter, 0x2c, 0xffffffff, True, True
