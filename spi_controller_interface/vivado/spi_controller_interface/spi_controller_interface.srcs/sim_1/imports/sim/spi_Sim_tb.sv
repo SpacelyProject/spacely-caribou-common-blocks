@@ -68,18 +68,40 @@ initial begin
     wait (aresetn == 1'b1);
 	#200ns
 	
+    // WRITING TO global_counter_period (same as Test1 in spi_controller_SP3A_tb.sv)
     
-    //Send 0x1 to spi_read_write (address == 0x0)
+    //Send 1'b1 to spi_read_write (register address = 0x0)
     #500ns
     addr = 0;
     data = 1;
     master_agent.AXI4LITE_WRITE_BURST(base_addr + addr,0,data,resp);
     
-    // //Send 0x0 to the AXI GPIO Data register 1
-    // #200ns
-    // addr = 0;
-    // data = 0;
-    // master_agent.AXI4LITE_WRITE_BURST(base_addr + addr,0,data,resp);
+    //Send 10'b00_0000_1010 to spi_address (register address = 0x4)
+    #200ns
+    addr = 4;
+    data = 10'b00_0000_1010;
+    master_agent.AXI4LITE_WRITE_BURST(base_addr + addr,0,data,resp);
+
+    // Send 2'b01 to spi_opcode (register address = 0xC)
+    #200ns
+    addr = 12;
+    data = 2'b01;
+    master_agent.AXI4LITE_WRITE_BURST(base_addr + addr,0,data,resp);
+
+    // Send 14'b11_0000_1000_1111 to spi_write_data (register address = 0x10)
+    // Only writing 1 word of data to spi_command_buffer
+    #200ns
+    addr = 16;
+    data = 14'b11_0000_1000_1111;
+    master_agent.AXI4LITE_WRITE_BURST(base_addr + addr,0,data,resp);
+
+    // Send 8'd14 to spi_data_len (register address = 0x8) 
+    // THIS IS REGISTER IS WRITTEN LAST TO TRIGGER SPI WRITE
+    #200ns
+    addr = 8;
+    data = 8'd14;
+    master_agent.AXI4LITE_WRITE_BURST(base_addr + addr,0,data,resp);
+
 	
     // // Switch in OFF position
     // switch_1 = 0;
