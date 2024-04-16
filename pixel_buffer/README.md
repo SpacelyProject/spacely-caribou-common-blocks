@@ -17,7 +17,7 @@ When importing into Vivado, be sure to include sources from both /src/ and /ip/ 
 
 
 ### How to Read FIFO
-The 234-bit dataframe is split into eight seperate AXI registers for readout. The block will advance the read pointer of the FIFO for every unique read of register[9]. In other words, multiple consecutive reads to register[9] will only increment the read pointer once. The idea is that the AXI master reads register[2:9] in a sequential manner to get the entire dataframe. Once register[9] is read, the block assumes that register[2:8] have also been read, and increments the read pointer.  
+The 234-bit dataframe is split into eight seperate AXI registers for readout. The block will advance the read pointer of the FIFO every time register[9] is read. The idea is that the AXI master reads register[2:9] in a sequential manner to get the entire dataframe. Once register[9] is read, the block assumes that register[2:8] have also been read, and increments the read pointer.  
 To reset the FEC error counter, write to the LSB of register [10]. This will reset the counter to 0.
 
 ### Block Diagram
