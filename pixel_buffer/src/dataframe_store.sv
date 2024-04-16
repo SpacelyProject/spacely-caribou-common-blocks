@@ -2,7 +2,7 @@ module store_dataframe # (
 
     parameter C_S_AXI_DATA_WIDTH = 32,  // AXI Data Bus Width
     parameter C_S_AXI_ADDR_WIDTH = 11,  // AXI Address Bus Width
-    parameter FPGA_REGISTER_N    = 10
+    parameter FPGA_REGISTER_N    = 11
 
 )(
     
@@ -10,43 +10,44 @@ module store_dataframe # (
     input logic [233:0]                          uplinkUserData_i,
     input logic                                  uplinkrdy_i,
     input logic                                  clk40_i,
+    input logic                                  uplinkFEC_i,
 
     //////////////////////////////
 	//    AXI BUS SIGNALS       //
 	//////////////////////////////
 
     // Global Signals
-    input logic                                  S_AXI_ACLK,
-    input logic                                  S_AXI_ARESETN,
+    input logic                                 S_AXI_ACLK,
+    input logic                                 S_AXI_ARESETN,
 
     // Write Address Channel
-    input logic [C_S_AXI_ADDR_WIDTH-1 : 0]       S_AXI_AWADDR,   // Write Address
-    input logic [2 : 0]                          S_AXI_AWPROT,   // Write Protection
-    input logic                                  S_AXI_AWVALID,  // Write Address Valid
-    output logic                                 S_AXI_AWREADY,  // Write Address Channel Ready
+    input logic [C_S_AXI_ADDR_WIDTH-1 : 0]      S_AXI_AWADDR,   // Write Address
+    input logic [2 : 0]                         S_AXI_AWPROT,   // Write Protection
+    input logic                                 S_AXI_AWVALID,  // Write Address Valid
+    output logic                                S_AXI_AWREADY,  // Write Address Channel Ready
 
     // Write Data Channel
-    input logic [C_S_AXI_DATA_WIDTH-1 : 0]       S_AXI_WDATA,    // Write Data
-    input logic [(C_S_AXI_DATA_WIDTH/8)-1 : 0]   S_AXI_WSTRB,    // Write Strobe
-    input logic                                  S_AXI_WVALID,   // Write Data Valid
-    output logic                                 S_AXI_WREADY,   // Write Data Channel Ready
+    input logic [C_S_AXI_DATA_WIDTH-1 : 0]      S_AXI_WDATA,    // Write Data
+    input logic [(C_S_AXI_DATA_WIDTH/8)-1 : 0]  S_AXI_WSTRB,    // Write Strobe
+    input logic                                 S_AXI_WVALID,   // Write Data Valid
+    output logic                                S_AXI_WREADY,   // Write Data Channel Ready
 
     // Write Response Channel
-    output logic [1 : 0]                         S_AXI_BRESP,    // Write Response
-    output logic                                 S_AXI_BVALID,   // Write Response Valid
-    input logic                                  S_AXI_BREADY,   // Write Response Channel Ready
+    output logic [1 : 0]                        S_AXI_BRESP,    // Write Response
+    output logic                                S_AXI_BVALID,   // Write Response Valid
+    input logic                                 S_AXI_BREADY,   // Write Response Channel Ready
 
     // Read Address Channel
-    input logic [C_S_AXI_ADDR_WIDTH-1 : 0]       S_AXI_ARADDR,   // Read Address
-    input logic [2 : 0]                          S_AXI_ARPROT,   // Read Protection
-    input logic                                  S_AXI_ARVALID,  // Read Address Valid
-    output logic                                 S_AXI_ARREADY,  // Read Address Channel Ready
+    input logic [C_S_AXI_ADDR_WIDTH-1 : 0]      S_AXI_ARADDR,   // Read Address
+    input logic [2 : 0]                         S_AXI_ARPROT,   // Read Protection
+    input logic                                 S_AXI_ARVALID,  // Read Address Valid
+    output logic                                S_AXI_ARREADY,  // Read Address Channel Ready
 
     // Read Data Channel
-    output logic [C_S_AXI_DATA_WIDTH-1 : 0]      S_AXI_RDATA,    // Ready Data
-    output logic [1 : 0]                         S_AXI_RRESP,    // Read Response
-    output logic                                 S_AXI_RVALID,   // Read Data Valid
-    input logic                                  S_AXI_RREADY    // Read Data Channel Ready
+    output logic [C_S_AXI_DATA_WIDTH-1 : 0]     S_AXI_RDATA,    // Ready Data
+    output logic [1 : 0]                        S_AXI_RRESP,    // Read Response
+    output logic                                S_AXI_RVALID,   // Read Data Valid
+    input logic                                 S_AXI_RREADY    // Read Data Channel Ready
     
     );
 
@@ -69,6 +70,11 @@ module store_dataframe # (
 
     assign fifo_wr_en = uplinkrdy_i & lpgbt_rd_en[2];
 
+    // FEC Error Counter Signals
+    logic                                       err_rd_en;
+    logic [C_S_AXI_DATA_WIDTH-1:0]              err_counter;
+    assign err_rd_en = ~err_empty;
+    
     // negated reset signal
     logic RST;
     assign RST = ~S_AXI_ARESETN;
@@ -84,6 +90,7 @@ module store_dataframe # (
     // 7 : dataframe[191:160]
     // 8 : dataframe[223:192]
     // 9 : dataframe[233:224] (zero extended)
+    // A : FEC Error Counter
 
     // NOTE: FIFO is advanced every time register 9 is read
 
@@ -102,19 +109,38 @@ module store_dataframe # (
 
         if (!S_AXI_ARESETN) begin
 
-            lpgbt_rd_en[0] <= 0;
+            lpgbt_rd_en[0]  <= 0;
             rdStrobe_buffer <= 0;
+            err_counter     <= 0;
 
         end else begin
 
-            if(reg_wrByteStrobe[0][0] == 1) lpgbt_rd_en[0] <= reg_wrdout[0];
+            if(logic_wrByteStrobe[0][0] == 1) begin
+                // writing to LSB of register 0 sets enable signal
+                lpgbt_rd_en[0] <= logic_wrdout[0];
+            end
 
+            // rdStrobe buffer prevents consecutive reads to register 9
+            // from incrementing the fifo
             rdStrobe_buffer <= reg_rdStrobe[9];
+
+            if(logic_wrByteStrobe[10][0]) begin
+                // writing to LSB of err_counter reset the counter
+                err_counter <= 0;
+            end
+
+            else if (err_rd_en && (err_counter != {C_S_AXI_DATA_WIDTH{1'b1}})) begin
+                // if error fifo is not empty -> new error was written into fifo
+                // increment counter if counter is not full
+                err_counter <= err_counter + 1;
+            end
 
         end
 
     end
 
+    // 2 FF synchronizer for enable signal
+    // AXI clk -> lpgbt clk
     always @ (posedge clk40_i) begin
 
         lpgbt_rd_en[2] <= lpgbt_rd_en[1];
@@ -175,6 +201,22 @@ module store_dataframe # (
         .rd_en          (reg_rdStrobe[9]),  // input logic rd_en
         .dout           (dout),             // output logic [21 : 0] dout
         .empty          (empty),            // output logic empty
+
+        .rst            (RST),              // input logic rst
+        .wr_rst_busy    (),                 // output logic wr_rst_busy
+        .rd_rst_busy    ()                  // output logic rd_rst_busy
+    );
+
+    error_fifo ERR_FIFO (
+        .wr_clk         (clk40_i),          // input logic wr_clk
+        .wr_en          (uplinkFEC_i),       // input logic wr_en
+        .din            (1'b1), // input logic [21 : 0] din
+        .full           (err_full),             // output logic full
+
+        .rd_clk         (S_AXI_ACLK),       // input logic rd_clk
+        .rd_en          (err_rd_en),  // input logic rd_en
+        .dout           (),             // output logic [21 : 0] dout
+        .empty          (err_empty),            // output logic empty
 
         .rst            (RST),              // input logic rst
         .wr_rst_busy    (),                 // output logic wr_rst_busy

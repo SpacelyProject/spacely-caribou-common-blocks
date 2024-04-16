@@ -184,11 +184,19 @@ module lpgbtfpga_with_interface #(
 
 
     //Generate control signals from control register.
-    assign uplinkRst_i = control[0];
-    assign mgt_rxpolarity_i = control[1];
+    //assign uplinkRst_i = control[0];
+    //assign mgt_rxpolarity_i = control[1];
 
 
+    xpm_cdc_single cdc_uplinkRst (.dest_out(uplinkRst_i),
+                                  .dest_clk(clk40_o),
+                                  .src_clk(S_AXI_ACLK),
+                                  .src_in(control[0]));
 
+    xpm_cdc_single cdc_mgt_rxpolarity (.dest_out(mgt_rxpolarity_i),
+                                  .dest_clk(clk40_o),
+                                  .src_clk(S_AXI_ACLK),
+                                  .src_in(control[1]));
 
 
 
