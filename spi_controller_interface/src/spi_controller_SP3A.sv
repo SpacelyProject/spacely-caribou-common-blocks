@@ -88,9 +88,6 @@ logic [$clog2(C_S_AXI_DATA_WIDTH)-1:0] read_buffer_counter, read_buffer_counter_
 // Counter to count how many bits of data we have read (important to read the correct amount of bits according to spi_data_len)
 logic [7:0] poci_counter, poci_counter_c; 
 
-// Setup counter to count 2 cycles of spi_clk
-logic setup_counter, setup_counter_c;
-
 // Opcode group counter to count 2 cycle of spi_clk
 logic opcode_group_counter, opcode_group_counter_c;
 
@@ -109,7 +106,6 @@ always_ff @(posedge axi_clk or negedge reset_b) begin
         read_buffer_data <= '0;
         read_buffer_counter <= '0;
         poci_counter <= '0;
-        setup_counter <= '0;
         opcode_group_counter <= '0;
 
     end else begin
@@ -122,7 +118,6 @@ always_ff @(posedge axi_clk or negedge reset_b) begin
         read_buffer_data <= read_buffer_data_c;
         read_buffer_counter <= read_buffer_counter_c;
         poci_counter <= poci_counter_c;
-        setup_counter <= setup_counter_c;
         opcode_group_counter <= opcode_group_counter_c;
 
     end
@@ -146,7 +141,6 @@ always_comb begin
     read_buffer_data_c = read_buffer_data;
     read_buffer_counter_c = read_buffer_counter;
     poci_counter_c = poci_counter;
-    setup_counter_c = setup_counter;
     opcode_group_counter_c = opcode_group_counter;
 
     case(current_state) 
@@ -162,7 +156,6 @@ always_comb begin
             read_buffer_data_c = '0;
             read_buffer_counter_c = '0;
             poci_counter_c = '0;
-            setup_counter_c = '0;
             opcode_group_counter_c = '0;
 
             // If spi_data_len is NOT 0, this triggers the start sending SPI command
@@ -172,7 +165,8 @@ always_comb begin
                 next_state = SETUP;
                 // Start the SPI command by sending the WnR bit over pico and setting cs_b to low (active-low signal)
                 cs_b = 1'b0;
-                pico = 1'b0; // After cs_b is asserted, the first 2 values of pico are not important and not read by the SPI peripheral
+                pico = 1'b0; // After cs_b is asserted, the first 2 values of pico are not important and not read by the SPI peripheral 
+                             // This assignment of 0 to pico counts for the first cycle
             end
         end // case: IDLE
         
@@ -184,14 +178,10 @@ always_comb begin
             else begin
                 // Constantly assert cs_b
                 cs_b = 1'b0;
-                setup_counter_c = setup_counter + 1'b1;
                 pico = 1'b0;
-                // After 2 setup cycles, move on to the ZERO state
-                if (setup_counter == 1'b1) begin
-                    next_state = SEND_ADDRESS; // NOTE: SP3A_spi_slave_register_files expects the address first (versus the zero bit)
-                    address_counter_c = 0; 
-                end else 
-                    next_state = SETUP;
+                // After 1 cycle of SETUP, we have already completed the 2 cycles of setup and can send the address
+                next_state = SEND_ADDRESS; // NOTE: SP3A_spi_slave_register_files expects the address first (versus the zero bit)
+                address_counter_c = 0; 
             end
         end // case: SETUP
         
@@ -369,7 +359,6 @@ always_comb begin
             read_buffer_data_c = 'X;
             read_buffer_counter_c = 'X;
             poci_counter_c = 'X;
-            setup_counter_c = 'X;
             opcode_group_counter_c = 'X;
         end
 

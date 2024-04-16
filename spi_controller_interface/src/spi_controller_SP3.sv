@@ -147,23 +147,26 @@ always_comb begin
                 next_state = SEND_WNR;
                 // Start the SPI command by setting cs_b to low (active-low signal)
                 cs_b = 1'b0;
+                pico = WnR; // Send the WnR bit over pico straight away
+                next_state = SEND_ADDRESS;
+                address_counter_c = 0;
             end
         end // case: IDLE
 
-        // *** SEND_WNR STATE ***
-        SEND_WNR: begin
-            // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
-            if (spi_data_len == 0)
-                next_state = IDLE;
-            else begin
-                // Constantly assert cs_b
-                cs_b = 1'b0;
-                next_state = SEND_ADDRESS;
-                // Send the WnR bit over pico 
-                pico = WnR;
-                address_counter_c = 0;
-            end
-        end // case: SEND_WNR
+        // // *** SEND_WNR STATE ***
+        // SEND_WNR: begin
+        //     // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
+        //     if (spi_data_len == 0)
+        //         next_state = IDLE;
+        //     else begin
+        //         // Constantly assert cs_b
+        //         cs_b = 1'b0;
+        //         next_state = SEND_ADDRESS;
+        //         // Send the WnR bit over pico 
+        //         pico = WnR;
+        //         address_counter_c = 0;
+        //     end
+        // end // case: SEND_WNR
 
         // *** SEND_ADDRESS STATE ***
         SEND_ADDRESS: begin
