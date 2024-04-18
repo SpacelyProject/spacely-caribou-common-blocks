@@ -21,7 +21,7 @@ This block does require axi4lite_interface_top (which includes axi4lite_slave_in
 
 ### Block Diagram
 
-Refer to /Documents/Projects/S/SParkDream/SParkDream Reference.pptx on the Fermi Sharepoint for an un-updated block diagram of spi_controller. 
+Refer to /Documents/Projects/S/SParkDream/SParkDream Reference.pptx on the Fermi Sharepoint for the block diagram of spi_controller_SP3/SP3A and spi_controller_interface. 
 
 
 ### AXI Memory Table 
