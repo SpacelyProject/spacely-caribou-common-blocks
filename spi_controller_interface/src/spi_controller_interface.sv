@@ -284,12 +284,8 @@ always_comb begin
     temp_spi_data_len_c = '0; // Need to reset this or else SPI will get triggered again
     fpga_reg_spi_data_len_c = '0; // [lucahhot]: Need to resest this to 0 so the AXI user knows when a SPI transaction has finished
 
-    // [lucahhot]: Load in first value of spi_read_buffer into fpga_reg_spi_read_data so it's ready to be sent out by AXI
-    if (temp_WnR == 1'b0) begin
-      // [lucahhot]: spi_read_buffer should not be empty at this point
-      if (spi_read_empty == 1'b0)
-        spi_read_rd_en = 1'b1;
-    end
+    // [lucahhot]: At this point, if it is a SPI read, the head of the FIFO buffer is already at spi_read_dout so there is no need to 
+    //             pre-load a value at spi_read_dout since it's already there and currently being assigned to fpga_reg_spi_read_data.
   end
 
   // [lucahhot]: AXI writes to fpga_regs
@@ -333,8 +329,8 @@ always_comb begin
 
   // [lucahhot]: We need to pop a new value from the spi_read_buffer FIFO everytime AXI tries to read fpga_reg_read_data
   //       Note: This can only go through if the SPI read has completed as spi_controller may still be reading into a data element that has not yet been pushed into spi_read_buffer
-  if (reg_rdStrobe[FPGA_SPI_READ_DATA] == 4'b1111 && spi_busy == 1'b0) begin
-    // [lucahhot]: If spi_read_empty == 1'b1 it means we have read the entire buffer and nothing will happen
+  if (reg_rdStrobe[FPGA_SPI_READ_DATA] == 1'b1 && spi_busy == 1'b0) begin
+    // [lucahhot]: If spi_read_empty == 1'b1 it means we have read the entire buffer (all the data has been transmitted) and nothing will happen
     if (spi_read_empty == 1'b0)
       spi_read_rd_en = 1'b1;
   end
