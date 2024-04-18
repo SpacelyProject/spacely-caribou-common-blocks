@@ -21,6 +21,10 @@ This block does require axi4lite_interface_top (which includes axi4lite_slave_in
 
 ### Block Diagram
 
+<img width="1173" alt="Screenshot 2024-04-18 at 2 16 50 PM" src="https://github.com/Fermilab-Microelectronics/spacely-caribou-common-blocks/assets/92898337/cc50a264-5322-4e3a-a661-e5586ddee485">
+
+
+
 Refer to /Documents/Projects/S/SParkDream/SParkDream Reference.pptx on the Fermi Sharepoint for the block diagram of spi_controller_SP3/SP3A and spi_controller_interface. 
 
 
