@@ -74,6 +74,8 @@ module store_dataframe # (
     logic                                       err_rd_en;
     logic [C_S_AXI_DATA_WIDTH-1:0]              err_counter;
     assign err_rd_en = ~err_empty;
+    logic                                       err_wr_en;
+    assign err_wr_en = uplinkFEC_i & uplinkrdy_i;
     
     // negated reset signal
     logic RST;
@@ -104,6 +106,7 @@ module store_dataframe # (
     assign reg_rddin[7] = dout[191:160];
     assign reg_rddin[8] = dout[223:192];
     assign reg_rddin[9] = {{22{1'b0}}, dout[233:224]};
+    assign reg_rddin[10] = err_counter;
     
     always @ (posedge S_AXI_ACLK) begin
 
@@ -115,16 +118,16 @@ module store_dataframe # (
 
         end else begin
 
-            if(logic_wrByteStrobe[0][0] == 1) begin
+            if(reg_wrByteStrobe[0][0] == 1) begin
                 // writing to LSB of register 0 sets enable signal
-                lpgbt_rd_en[0] <= logic_wrdout[0];
+                lpgbt_rd_en[0] <= reg_wrdout[0];
             end
 
             // rdStrobe buffer prevents consecutive reads to register 9
             // from incrementing the fifo
             rdStrobe_buffer <= reg_rdStrobe[9];
 
-            if(logic_wrByteStrobe[10][0]) begin
+            if(reg_wrByteStrobe[10][0]) begin
                 // writing to LSB of err_counter reset the counter
                 err_counter <= 0;
             end
@@ -209,7 +212,7 @@ module store_dataframe # (
 
     error_fifo ERR_FIFO (
         .wr_clk         (clk40_i),          // input logic wr_clk
-        .wr_en          (uplinkFEC_i),       // input logic wr_en
+        .wr_en          (err_wr_en),       // input logic wr_en
         .din            (1'b1), // input logic [21 : 0] din
         .full           (err_full),             // output logic full
 
