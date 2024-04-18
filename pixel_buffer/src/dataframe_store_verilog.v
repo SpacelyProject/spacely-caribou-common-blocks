@@ -2,7 +2,7 @@ module store_dataframe_verilog # (
 
     parameter C_S_AXI_DATA_WIDTH = 32,  // AXI Data Bus Width
     parameter C_S_AXI_ADDR_WIDTH = 11,  // AXI Address Bus Width
-    parameter FPGA_REGISTER_N    = 10
+    parameter FPGA_REGISTER_N    = 11
 
 )(
     
@@ -10,6 +10,7 @@ module store_dataframe_verilog # (
     input wire [233:0]                          uplinkUserData_i,
     input wire                                  uplinkrdy_i,
     input wire                                  clk40_i,
+    input wire                                  uplinkFEC_i,
 
     //////////////////////////////
 	//    AXI BUS SIGNALS       //
@@ -61,6 +62,7 @@ module store_dataframe_verilog # (
         .uplinkUserData_i   (uplinkUserData_i),
         .uplinkrdy_i        (uplinkrdy_i),
         .clk40_i            (clk40_i),
+        .uplinkFEC_i        (uplinkFEC_i),
         .S_AXI_ACLK         (S_AXI_ACLK),
         .S_AXI_ARESETN      (S_AXI_ARESETN),
         .S_AXI_AWADDR       (S_AXI_AWADDR),   
