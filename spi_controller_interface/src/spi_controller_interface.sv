@@ -1,7 +1,7 @@
 // SPI Interface that contains spi_controller and the spi_command/read_command buffers
 
 // Author: Luc Ah-Hot
-// Last updated: 03/28/24
+// Last updated: 04/23/24
 
 module spi_controller_interface #(
 	// Width of S_AXI data bus
@@ -85,7 +85,7 @@ module spi_controller_interface #(
   
 );
 
-localparam integer FPGA_REGISTER_N = 6;
+localparam integer FPGA_REGISTER_N = 7;
 
 // [lucahhot]: AXI register mapping 
 localparam byte unsigned FPGA_SPI_WR = 0;
@@ -94,6 +94,7 @@ localparam byte unsigned FPGA_SPI_DATA_LEN = 2;
 localparam byte unsigned FPGA_SPI_OPCODE_GROUP = 3;
 localparam byte unsigned FPGA_SPI_WRITE_DATA = 4;
 localparam byte unsigned FPGA_SPI_READ_DATA = 5;
+localparam byte unsigned FPGA_CLOCK_DIVIDE_FACTOR = 6;
 
 logic [C_S_AXI_DATA_WIDTH-1:0]        reg_wrdout;
 logic [((C_S_AXI_DATA_WIDTH-1)/8):0]  reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
@@ -146,6 +147,7 @@ logic [7:0]                    fpga_reg_spi_data_len, fpga_reg_spi_data_len_c;
 logic [1:0]                    fpga_reg_spi_opcode_group, fpga_reg_spi_opcode_group_c;
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_write_data, fpga_reg_spi_write_data_c;
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_read_data;
+logic [4:0]                    fpga_reg_clock_divide_factor, fpga_reg_clock_divide_factor_c; // [lucahhot]: Shouldn't need to divide by more than 2^31 = 2.1 billion
 
 // SPI command FIFO signals
 logic spi_command_reset;
@@ -208,6 +210,9 @@ logic [9:0] temp_spi_address, temp_spi_address_c;
 logic [7:0] temp_spi_data_len, temp_spi_data_len_c;
 logic [1:0] temp_spi_opcode_group, temp_spi_opcode_group_c;
 
+// [lucahhot]: Temp register so that the clock divider factor can be set after a SPI transaction is complete
+logic [4:0] temp_clock_divide_factor, temp_clock_divide_factor_c;
+
 // [lucahhot]: Flag to indicate if spi_controller is currently in the process of going through a SPI transaction
 logic spi_busy, spi_busy_c;
 
@@ -219,13 +224,17 @@ always_ff @(posedge S_AXI_ACLK) begin
     fpga_reg_spi_data_len <= '0;
     fpga_reg_spi_write_data <= '0;
     fpga_reg_spi_opcode_group <= '0;
+    fpga_reg_clock_divide_factor <= '0;
     // [lucahhot]: Reseting temporary registers
     temp_WnR <= '0;
     temp_spi_address <= '0;
     temp_spi_data_len <= '0;
     temp_spi_opcode_group <= '0;
+    temp_clock_divide_factor <= '0;
     // [lucahhot]: Reseting spi_busy flag
     spi_busy <= '0;
+    // [lucahhot]: Reseting the divider_reset
+    divider_reset <= '0;
   end
   else begin
     // [lucahhot]: Assigning spi fpga_regs except for fpga_reg_spi_read_data (assigned from spi_read_buffer directly)
@@ -234,13 +243,16 @@ always_ff @(posedge S_AXI_ACLK) begin
     fpga_reg_spi_data_len <= fpga_reg_spi_data_len_c;
     fpga_reg_spi_write_data <= fpga_reg_spi_write_data_c;
     fpga_reg_spi_opcode_group <= fpga_reg_spi_opcode_group_c;
+    fpga_reg_clock_divide_factor <= fpga_reg_clock_divide_factor_c;
 
     temp_WnR <= temp_WnR_c;
     temp_spi_address <= temp_spi_address_c;
     temp_spi_data_len <= temp_spi_data_len_c;
     temp_spi_opcode_group <= temp_spi_opcode_group_c;
+    temp_clock_divide_factor <= temp_clock_divide_factor_c;
 
     spi_busy <= spi_busy_c;
+    divider_reset <= divider_reset_c;
   end
 end
 
@@ -251,12 +263,16 @@ assign reg_rddin[FPGA_SPI_DATA_LEN] = fpga_reg_spi_data_len;
 assign reg_rddin[FPGA_SPI_WRITE_DATA] = fpga_reg_spi_write_data;
 assign reg_rddin[FPGA_SPI_READ_DATA] = fpga_reg_spi_read_data;
 assign reg_rddin[FPGA_SPI_OPCODE_GROUP] = fpga_reg_spi_opcode_group;
+assign reg_ddine[FPGA_CLOCK_DIVIDE_FACTOR] = fpga_reg_clock_divide_factor;
 
 // [lucahhot]: fpga_reg_spi_read_data is driven by the head of spi_read_buffer FIFO (read enable set in the combinational loop below)
 assign fpga_reg_spi_read_data = spi_read_dout;
 
 // [lucahhot]: Wire to connect done signal from spi_controller
 logic done;
+
+// [lucahhot]: Divide reset signal to reset the clock_divider when the clock divide factor is changed
+logic divider_reset, divider_reset_c;
 
 // [lucahhot]: Using a combinational process to handle AXI read/writes to the spi_controller
 always_comb begin
@@ -271,12 +287,17 @@ always_comb begin
   temp_spi_address_c = temp_spi_address;
   temp_spi_data_len_c = temp_spi_data_len;
   temp_spi_opcode_group_c = temp_spi_opcode_group;
+  temp_clock_divide_factor_c = temp_clock_divide_factor;
 
   fpga_reg_spi_read_write_c = fpga_reg_spi_read_write;
   fpga_reg_spi_address_c = fpga_reg_spi_address;
   fpga_reg_spi_data_len_c = fpga_reg_spi_data_len;
   fpga_reg_spi_write_data_c = fpga_reg_spi_write_data;
   fpga_reg_spi_opcode_group_c = fpga_reg_spi_opcode_group;
+  fpga_reg_clock_divide_factor_c = fpga_reg_clock_divide_factor;
+
+  // [lucahhot]: divider_reset should by default be 0
+  divider_reset_c = 1'b0;
 
   // [lucahhot]: Reset spi_busy after "done" signal from spi_controller has been asserted
   if (spi_busy == 1'b1 && done == 1'b1) begin
@@ -286,6 +307,9 @@ always_comb begin
 
     // [lucahhot]: At this point, if it is a SPI read, the head of the FIFO buffer is already at spi_read_dout so there is no need to 
     //             pre-load a value at spi_read_dout since it's already there and currently being assigned to fpga_reg_spi_read_data.
+    // [lucahhot]: Assign temp_clock_divide_factor_c to fpga_reg_clock_divide_factor once SPI transaction is complete
+    temp_clock_divide_factor_c = fpga_reg_clock_divide_factor;
+    divider_reset_c = 1'b1;
   end
 
   // [lucahhot]: AXI writes to fpga_regs
@@ -325,6 +349,15 @@ always_comb begin
     end
   end
 
+  if (reg_wrByteStrobe[FPGA_CLOCK_DIVIDE_FACTOR] == 4'b1111) begin
+    fpga_reg_clock_divide_factor_c = reg_wrdout[4:0];
+    if (spi_busy == 1'b0) begin
+      temp_clock_divide_factor_c = reg_wrdout[4:0];
+      // [lucahhot]: Reset the clock divider when the clock divide factor is changed
+      divider_reset_c = 1'b1;
+    end
+  end
+
   // *** SPI READS ***
 
   // [lucahhot]: We need to pop a new value from the spi_read_buffer FIFO everytime AXI tries to read fpga_reg_read_data
@@ -341,7 +374,6 @@ end
 // spi_controller_SP3 #(
 // .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
 // )  spi_controller_inst  (
-//   .axi_clk(S_AXI_ACLK),
 //   .reset_b(S_AXI_ARESETN),
 //   .WnR(temp_WnR),
 //   .spi_address(temp_spi_address),
@@ -363,7 +395,6 @@ end
 spi_controller_SP3A #(
 .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
 )  spi_controller_inst  (
-  .axi_clk(S_AXI_ACLK),
   .reset_b(S_AXI_ARESETN),
   .WnR(temp_WnR),
   .spi_address(temp_spi_address),
@@ -380,6 +411,14 @@ spi_controller_SP3A #(
   .spi_clk(spi_clk),
   .poci(poci),
   .done(done)
+);
+
+// [lucahhot]: Instantiate clock divider for spi_clk
+clock_divider clock_divider_inst (
+  .input_clock(S_AXI_ACLK),
+  .divider_reset(divider_reset),
+  .clock_divider_factor(temp_clock_divide_factor),
+  .output_clock(spi_clk)
 );
 
 endmodule
