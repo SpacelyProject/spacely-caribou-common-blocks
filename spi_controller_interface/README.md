@@ -21,8 +21,8 @@ This block does require axi4lite_interface_top (which includes axi4lite_slave_in
 
 ### Block Diagram
 <br>
-<img width="1185" alt="Screenshot 2024-04-18 at 3 34 17 PM" src="https://github.com/Fermilab-Microelectronics/spacely-caribou-common-blocks/assets/92898337/ceb1b3fc-b4dc-4908-8e9b-e63b5def2055">
-<img width="1049" alt="Screenshot 2024-04-18 at 3 33 08 PM" src="https://github.com/Fermilab-Microelectronics/spacely-caribou-common-blocks/assets/92898337/1d2a3db2-31d1-48d8-a8b4-030fcf67fa2e">
+<img width="1238" alt="Screenshot 2024-04-25 at 3 11 44 PM" src="https://github.com/Fermilab-Microelectronics/spacely-caribou-common-blocks/assets/92898337/6774dfd0-ab2d-443d-a9e4-2be4c4b76bea">
+<img width="1232" alt="Screenshot 2024-04-25 at 3 31 50 PM" src="https://github.com/Fermilab-Microelectronics/spacely-caribou-common-blocks/assets/92898337/50a5c794-eead-478f-8746-47db71188403">
 
 ### AXI Memory Table 
 
