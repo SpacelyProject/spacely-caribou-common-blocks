@@ -97,7 +97,7 @@ initial begin
     // Send 5'd1 to clock_divide_factor (register address = 0x18)
     #200ns
     addr = 24;
-    data = 5'd1;
+    data = 5'd2;
     master_agent.AXI4LITE_WRITE_BURST(base_addr + addr,0,data,resp);
 
     // Send 8'd14 to spi_data_len (register address = 0x8) 

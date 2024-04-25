@@ -263,7 +263,7 @@ assign reg_rddin[FPGA_SPI_DATA_LEN] = fpga_reg_spi_data_len;
 assign reg_rddin[FPGA_SPI_WRITE_DATA] = fpga_reg_spi_write_data;
 assign reg_rddin[FPGA_SPI_READ_DATA] = fpga_reg_spi_read_data;
 assign reg_rddin[FPGA_SPI_OPCODE_GROUP] = fpga_reg_spi_opcode_group;
-assign reg_ddine[FPGA_CLOCK_DIVIDE_FACTOR] = fpga_reg_clock_divide_factor;
+assign reg_rddin[FPGA_CLOCK_DIVIDE_FACTOR] = fpga_reg_clock_divide_factor;
 
 // [lucahhot]: fpga_reg_spi_read_data is driven by the head of spi_read_buffer FIFO (read enable set in the combinational loop below)
 assign fpga_reg_spi_read_data = spi_read_dout;
@@ -307,9 +307,13 @@ always_comb begin
 
     // [lucahhot]: At this point, if it is a SPI read, the head of the FIFO buffer is already at spi_read_dout so there is no need to 
     //             pre-load a value at spi_read_dout since it's already there and currently being assigned to fpga_reg_spi_read_data.
-    // [lucahhot]: Assign temp_clock_divide_factor_c to fpga_reg_clock_divide_factor once SPI transaction is complete
-    temp_clock_divide_factor_c = fpga_reg_clock_divide_factor;
-    divider_reset_c = 1'b1;
+
+    // [lucahhot]: Assign temp_clock_divide_factor_c to fpga_reg_clock_divide_factor once SPI transaction is complete (only if 
+    //             temp_clock_divide_factor != fpga_reg_clock_divide_factor)
+    if (temp_clock_divide_factor_c != fpga_reg_clock_divide_factor) begin
+      fpga_reg_clock_divide_factor_c = temp_clock_divide_factor;
+      divider_reset_c = 1'b1;
+    end
   end
 
   // [lucahhot]: AXI writes to fpga_regs
@@ -416,6 +420,7 @@ spi_controller_SP3A #(
 // [lucahhot]: Instantiate clock divider for spi_clk
 clock_divider clock_divider_inst (
   .input_clock(S_AXI_ACLK),
+  .reset(S_AXI_ARESETN),
   .divider_reset(divider_reset),
   .clock_divider_factor(temp_clock_divide_factor),
   .output_clock(spi_clk)

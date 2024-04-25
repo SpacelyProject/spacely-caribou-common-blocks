@@ -5,6 +5,7 @@
 
 module clock_divider (
     input   logic           input_clock,
+    input   logic           reset,
     input   logic           divider_reset,
     input   logic  [4:0]    clock_divider_factor,
     output  logic           output_clock
@@ -22,17 +23,23 @@ logic calculated_output_clock;
 assign output_clock = (clock_divider_factor == 0) ? input_clock : calculated_output_clock;
 
 always_ff @(posedge input_clock or posedge divider_reset) begin
+    // Global reset
+    if (~reset) begin
+        counter <= 0;
+        calculated_output_clock <= 0; 
     // Resets counter and clock output when changing the divider factor
-    if (divider_reset) begin
+    end else if (divider_reset) begin
         counter <= 0;
         calculated_output_clock <= 0;
-    end else if (counter == (2**(clock_divider_factor) - 1)) begin
-        counter <= 0;
     end else begin
-        counter <= counter + 1;
+        if (counter == (2**(clock_divider_factor) - 1)) begin
+        counter <= 0;
+        end else begin
+            counter <= counter + 1;
+        end
+        // Toggle clock
+        calculated_output_clock <= (counter < ((2**(clock_divider_factor)) >> 1)) ? 1'b1 : 1'b0;
     end
-    // Toggle clock
-    calculated_output_clock <= (counter < ((2**(clock_divider_factor)) >> 1)) ? 1'b1 : 1'b0;
 end
 
 endmodule
