@@ -12,7 +12,7 @@ to handle the serializing and de-serializing of data to and from SPROCKET3/3A.
 | ------------- | ----------------------- | ------- |
 | C_S_AXI_DATA_WIDTH        | 32    | Width in bits of the AXI bus, also width in bits of each data register. Should be in the range 8~32 b for correct operation. |
 | C_S_AXI_ADDR_WIDTH        | 11    | Width in bits of the AXI memory addresses. Should be the same across the design. | 
-| FPGA_REGISTER_N           | 5     | Number of addressable registers in the SPI controller interface. |
+| FPGA_REGISTER_N           | 7     | Number of addressable registers in the SPI controller interface. |
 
 ### How to Instantiate
 The block spi_controller_interface_top needs to be instatiated on a top-level that will connect with the SPI peripheral on SPROCKET3/3A. Besides that block, it does not interact with any other blocks.
