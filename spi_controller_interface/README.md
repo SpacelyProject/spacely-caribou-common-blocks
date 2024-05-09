@@ -56,9 +56,15 @@ Note: Assumes an AXI data width of 32b (standard for SP3/SP3A)
 *BASE (IP Base Address)
 
 spi_read_write,0x0,0x1,True,True
+
 spi_address,0x4,0x3F,True,True
+
 spi_data_len.0x8,0xFF,True,True
+
 spi_opcode_code,0xC,0xFF,True,True
+
 spi_write_data,0x10,0xFFFFFFFF,True,True
+
 spi_read_data,0x14,0xFFFFFFFF,True,False
+
 clock_divide_factor,0x18,0x1F,True,True
