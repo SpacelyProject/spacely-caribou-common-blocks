@@ -35,6 +35,7 @@ This block does require axi4lite_interface_top (which includes axi4lite_slave_in
 | fpga_reg_spi_write_data       | {C_S_AXI_DATA_WIDTH}  | Y | Y | Data written to this register will be pushed into spi_command_buffer which holds SPI write data until all the data has been transmitted over AXI and is ready to be send over SPI. |   
 | fpga_reg_spi_read_data        | {C_S_AXI_DATA_WIDTH}  | Y | N | Read from this register to read back data sent over from SPI peripheral on chip to spi_controller. Depending on the length of data expected to read back, there might be a need to read from this register multiple times. Everytime it is read, spi_read_buffer will pop a new value and assign it to the register for the subsequent AXI read (unless it is empty). |
 | fpga_reg_clock_divide_factor | 5           | Y     | Y    | This register specifies the divide factor the clock_divider is to use to divide S_AX_CLK to generate spi_clk. It will divide by 2^N where N is the the divide factor being written to the register. spi_clk will only be updated to a new clock divide factor is SPI is not busy; if this register is written to during a SPI transaction, spi_clk will only be updated with the new divide factor after the SPI transaction has completed to not interfere with it. 
+| fpga_reg_spi_done | 1 | Y | N | This register indicates whether the current SPI transaction is done or not. It will be set to 1 when the SPI transaction has concluded or been fully sent, and remain high until the next SPI transaction is triggered. | 
 
 
 ### I/O Table 
@@ -55,13 +56,18 @@ Note: Assumes an AXI data width of 32b (standard for SP3/SP3A)
 
 *BASE (IP Base Address)
 
-| Register Name         | Register Address Offset   | Bit Mask      | Readable | Writable |
-| -------------         | -----------------------   | --------      | -------- | -------- |
-| spi_read_write        | 0x0                       | 0x1           | True     | True     |  
-| spi_address           | 0x4                       | 0x3F          | True     | True     |
-| spi_data_len          | 0x8                       | 0xFF          | True     | True     |
-| spi_opcode_group      | 0xC                       | 0x3           | True     | True     |
-| spi_write_data        | 0x10                      | 0xFFFFFFFF    | True     | True     |
-| spi_read_data         | 0x14                      | 0xFFFFFFFF    | True     | False    |
-| clock_divide_factor   | 0x18                      | 0x1F          | True     | True     |
+spi_read_write,0x0,0x1,True,True
 
+spi_address,0x4,0x3F,True,True
+
+spi_data_len.0x8,0xFF,True,True
+
+spi_opcode_code,0xC,0xFF,True,True
+
+spi_write_data,0x10,0xFFFFFFFF,True,True
+
+spi_read_data,0x14,0xFFFFFFFF,True,False
+
+clock_divide_factor,0x18,0x1F,True,True
+
+spi_done,0x1C,0x1,True,False

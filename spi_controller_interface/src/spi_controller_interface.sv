@@ -85,7 +85,7 @@ module spi_controller_interface #(
   
 );
 
-localparam integer FPGA_REGISTER_N = 7;
+localparam integer FPGA_REGISTER_N = 8;
 
 // [lucahhot]: AXI register mapping 
 localparam byte unsigned FPGA_SPI_WR = 0;
@@ -95,6 +95,7 @@ localparam byte unsigned FPGA_SPI_OPCODE_GROUP = 3;
 localparam byte unsigned FPGA_SPI_WRITE_DATA = 4;
 localparam byte unsigned FPGA_SPI_READ_DATA = 5;
 localparam byte unsigned FPGA_CLOCK_DIVIDE_FACTOR = 6;
+localparam byte unsigned FPGA_SPI_DONE = 7;
 
 logic [C_S_AXI_DATA_WIDTH-1:0]        reg_wrdout;
 logic [((C_S_AXI_DATA_WIDTH-1)/8):0]  reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
@@ -148,6 +149,7 @@ logic [1:0]                    fpga_reg_spi_opcode_group, fpga_reg_spi_opcode_gr
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_write_data, fpga_reg_spi_write_data_c;
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_read_data;
 logic [4:0]                    fpga_reg_clock_divide_factor, fpga_reg_clock_divide_factor_c; // [lucahhot]: Shouldn't need to divide by more than 2^31 = 2.1 billion
+logic                          fpga_reg_spi_done, fpga_reg_spi_done_c; // [lucahhot]: Flag to indicate when a SPI transaction has completed (cannot be written to)
 
 // SPI command FIFO signals
 logic spi_command_reset;
@@ -225,6 +227,7 @@ always_ff @(posedge S_AXI_ACLK) begin
     fpga_reg_spi_write_data <= '0;
     fpga_reg_spi_opcode_group <= '0;
     fpga_reg_clock_divide_factor <= '0;
+    fpga_reg_clock_divide_done <= '0;
     // [lucahhot]: Reseting temporary registers
     temp_WnR <= '0;
     temp_spi_address <= '0;
@@ -244,6 +247,7 @@ always_ff @(posedge S_AXI_ACLK) begin
     fpga_reg_spi_write_data <= fpga_reg_spi_write_data_c;
     fpga_reg_spi_opcode_group <= fpga_reg_spi_opcode_group_c;
     fpga_reg_clock_divide_factor <= fpga_reg_clock_divide_factor_c;
+    fpga_reg_spi_done <= fpga_reg_spi_done_c; // [lucahhot]: This will be assigned by logic in this module so it cannot be written to by a Spacely user
 
     temp_WnR <= temp_WnR_c;
     temp_spi_address <= temp_spi_address_c;
@@ -264,6 +268,7 @@ assign reg_rddin[FPGA_SPI_WRITE_DATA] = fpga_reg_spi_write_data;
 assign reg_rddin[FPGA_SPI_READ_DATA] = fpga_reg_spi_read_data;
 assign reg_rddin[FPGA_SPI_OPCODE_GROUP] = fpga_reg_spi_opcode_group;
 assign reg_rddin[FPGA_CLOCK_DIVIDE_FACTOR] = fpga_reg_clock_divide_factor;
+assign reg_rddin[FPGA_SPI_DONE] = fpga_reg_spi_done;
 
 // [lucahhot]: fpga_reg_spi_read_data is driven by the head of spi_read_buffer FIFO (read enable set in the combinational loop below)
 assign fpga_reg_spi_read_data = spi_read_dout;
@@ -295,6 +300,7 @@ always_comb begin
   fpga_reg_spi_write_data_c = fpga_reg_spi_write_data;
   fpga_reg_spi_opcode_group_c = fpga_reg_spi_opcode_group;
   fpga_reg_clock_divide_factor_c = fpga_reg_clock_divide_factor;
+  fpga_reg_spi_done_c = fpga_reg_spi_done;
 
   // [lucahhot]: divider_reset should by default be 0
   divider_reset_c = 1'b0;
@@ -304,6 +310,7 @@ always_comb begin
     spi_busy_c = 1'b0;
     temp_spi_data_len_c = '0; // Need to reset this or else SPI will get triggered again
     fpga_reg_spi_data_len_c = '0; // [lucahhot]: Need to resest this to 0 so the AXI user knows when a SPI transaction has finished
+    fpga_reg_spi_done_c = 1'b1; // [lucahhot]: This is so that we know when a SPI transaction has finished on the Spacely level
 
     // [lucahhot]: At this point, if it is a SPI read, the head of the FIFO buffer is already at spi_read_dout so there is no need to 
     //             pre-load a value at spi_read_dout since it's already there and currently being assigned to fpga_reg_spi_read_data.
@@ -333,8 +340,8 @@ always_comb begin
     fpga_reg_spi_data_len_c = reg_wrdout[7:0]; 
     if (spi_busy == 1'b0 && reg_wrdout[7:0] != '0) begin
       temp_spi_data_len_c = reg_wrdout[7:0];
-      // [lucahhot]: When this register is written to, trigger SPI transaction
-      spi_busy_c = 1'b1;
+      spi_busy_c = 1'b1; // [lucahhot]: When this register is written to, trigger SPI transaction
+      fpga_reg_spi_done_c = 1'b0; // [lucahhot]: When SPI is busy, the fpga done register should have a 0 inside
     end
   end
 

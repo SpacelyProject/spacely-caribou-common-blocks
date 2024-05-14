@@ -304,7 +304,7 @@ always_comb begin
                 // If the next bit being written into read_buffer_data does not cause us to exceed spi_data_len, then write the bit from poci
                 if (poci_counter < spi_data_len) begin
                     read_buffer_data_c[read_buffer_counter] = poci;
-                    // Incremenet poci counter
+                    // Increment poci counter
                     poci_counter_c = poci_counter + 1;
                     // Check if read buffer counter needs to be reset and we need to push the current data word to spi_read_buffer
                     if (read_buffer_counter == 31 && spi_read_full == 1'b0) begin
