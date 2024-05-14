@@ -227,7 +227,7 @@ always_ff @(posedge S_AXI_ACLK) begin
     fpga_reg_spi_write_data <= '0;
     fpga_reg_spi_opcode_group <= '0;
     fpga_reg_clock_divide_factor <= '0;
-    fpga_reg_clock_divide_done <= '0;
+    fpga_reg_spi_done <= '0;
     // [lucahhot]: Reseting temporary registers
     temp_WnR <= '0;
     temp_spi_address <= '0;
