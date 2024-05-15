@@ -21,7 +21,7 @@ module configRegOut_interface #(
   parameter integer CLK_DIVIDER = 100                 // Clock divider
 	)(
 
-	integer FPGA_REGISTER_N = 2
+  integer FPGA_REGISTER_N = 2,
 
   /////////////////////////////////////////////////////
   // INTERNAL SIGNALS MAPPED TO FPGA PINS VIA .XDC   //
@@ -100,10 +100,10 @@ module configRegOut_interface #(
   input wire  S_AXI_RREADY
 	);
 
-	logic [C_S_AXI_DATA_WIDTH-1:0]                reg_wrdout,
-  logic [((C_S_AXI_DATA_WIDTH-1)/8):0]          reg_wrByteStrobe [FPGA_REGISTER_N-1:0],
-  logic                                         reg_rdStrobe [FPGA_REGISTER_N-1:0],
-  logic  [C_S_AXI_DATA_WIDTH-1:0]               reg_rddin [REGISTER_N-1:0],
+  logic [C_S_AXI_DATA_WIDTH-1:0]                reg_wrdout;
+  logic [((C_S_AXI_DATA_WIDTH-1)/8):0]          reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
+  logic                                         reg_rdStrobe [FPGA_REGISTER_N-1:0];
+  logic  [C_S_AXI_DATA_WIDTH-1:0]               reg_rddin [REGISTER_N-1:0];
 
   localparam CLK_DIVIDER_LOG = $clog2(CLK_DIVIDER);
   reg [CLK_DIVIDER_LOG-1:0] clk_counter;                        // Counter to divide S_AXI_ACLK frequency
@@ -183,7 +183,7 @@ module configRegOut_interface #(
         end
       end else begin // at PositiveEdge of ConfigClk
         if(cyc_counter == CONFIG_REG_WIDTH) begin
-          assign reg2[0] <= configOut;
+          assign reg2[0] = configOut;
           assign reg_rddin[1] = reg2;
         end
       end
