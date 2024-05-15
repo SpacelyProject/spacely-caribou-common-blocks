@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------
-// Author       : Neha Kharwadkar (nehak@fnal.gov), Benjamin C. Parpillon
+// Author       : Neha Kharwadkar (nehak@fnal.gov)
 // Created      : 2024-04-xx
 // ------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------
@@ -9,23 +9,20 @@
 // ------------------------------------------------------------------------------------
 // Revisions  :
 // Date        Author                 Description
-// 2024-04-xx  Benjamin C. Parpillon  Created
-// 2025-05-12  Neha Kharwadkar        Updated
+// 2025-05-12  Neha Kharwadkar        Created
 // ------------------------------------------------------------------------------------
 
 
-module ConfigRegOut #(
+module ConfigRegOut_top #(
   parameter integer C_S_AXI_DATA_WIDTH  = 32,         // Width of S_AXI data bus
   parameter integer C_S_ADDR_WIDTH  = 11,             // Width of S_AXI address bus
   parameter integer CONFIG_REG_WIDTH = 5164,          // Width of Config/Shift Register
   parameter integer CLK_DIVIDER = 100                 // Clock divider
-	)(
-
-	integer FPGA_REGISTER_N = 2
+)(
 
   /////////////////////////////////////////////////////
   // INTERNAL SIGNALS MAPPED TO FPGA PINS VIA .XDC   //
-	/////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
 
   output reg SuperpixSel,                             // From FPGA - Logic 0 selects Superpixel_v1, logic 1 selects Superpixel_v2
   output reg ConfigClk,                               // From FPGA - Clock signal - from 1Hz to 1MHz.
@@ -34,11 +31,11 @@ module ConfigRegOut #(
   output reg ConfigLoad,                              // From FPGA - The shift register state is loaded to ParallelOut
   input  reg ConfigOut,                               // To FPGA - Shift-register serial data out.
 
-	/////////////////////////////////////////////////////
-	//    AXI BUS SIGNALS                              //
-	/////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
+  //    AXI BUS SIGNALS                              //
+  /////////////////////////////////////////////////////
 
-	//	Global Clock Signal
+  //	Global Clock Signal
   input wire  S_AXI_ACLK,
   // Global Reset Signal. This Signal is Active LOW
   input wire  S_AXI_ARESETN,
@@ -100,93 +97,39 @@ module ConfigRegOut #(
   input wire  S_AXI_RREADY
 	);
 
-	logic [C_S_AXI_DATA_WIDTH-1:0]                reg_wrdout,
-  logic [((C_S_AXI_DATA_WIDTH-1)/8):0]          reg_wrByteStrobe [FPGA_REGISTER_N-1:0],
-  logic                                         reg_rdStrobe [FPGA_REGISTER_N-1:0],
-  logic  [C_S_AXI_DATA_WIDTH-1:0]               reg_rddin [REGISTER_N-1:0],
-
-  localparam CLK_DIVIDER_LOG = $clog2(CLK_DIVIDER);
-  reg [CLK_DIVIDER_LOG-1:0] clk_counter;                        // Counter to divide S_AXI_ACLK frequency
-  reg [12:0]                cyc_counter = 13'd0;
-
-	// Instantiate the AXI Interface
-	// NOTE: This block should be included from spacely-caribou-common-blocks/axi4lite_interface
-	axi4lite_interface_top #(
-	  .FPGA_REGISTER_N(FPGA_REGISTER_N),
-	  .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
-	  .C_S_AXI_ADDR_WIDTH(C_S_AXI_DATA_WIDTH)
-	) axi4lite_interface_inst (
-
-		.reg_wrdout(reg_wrdout),
-		.reg_wrByteStrobe(reg_wrByteStrobe),
-		.reg_rdStrobe(reg_rdStrobe),
-		.reg_rddin(reg_rddin),
-
-		.S_AXI_ACLK(S_AXI_ACLK),
-		.S_AXI_ARESETN(S_AXI_ARESETN),
-		.S_AXI_AWADDR(S_AXI_AWADDR),
-		.S_AXI_AWPROT(S_AXI_AWPROT),
-		.S_AXI_AWVALID(S_AXI_AWVALID),
-		.S_AXI_AWREADY(S_AXI_AWREADY),
-		.S_AXI_WDATA(S_AXI_WDATA),
-		.S_AXI_WSTRB(S_AXI_WSTRB),
-		.S_AXI_WVALID(S_AXI_WVALID),
-		.S_AXI_WREADY(S_AXI_WREADY),
-		.S_AXI_BRESP(S_AXI_BRESP),
-		.S_AXI_BVALID(S_AXI_BVALID),
-		.S_AXI_BREADY(S_AXI_BREADY),
-		.S_AXI_ARADDR(S_AXI_ARADDR),
-		.S_AXI_ARPROT(S_AXI_ARPROT),
-		.S_AXI_ARVALID(S_AXI_ARVALID),
-		.S_AXI_ARREADY(S_AXI_ARREADY),
-		.S_AXI_RDATA(S_AXI_RDATA),
-		.S_AXI_RRESP(S_AXI_RRESP),
-		.S_AXI_RVALID(S_AXI_RVALID),
-		.S_AXI_RREADY(S_AXI_RREADY)
-		);
-
-	logic  [C_S_AXI_DATA_WIDTH-1:0] reg1;
-	logic  [C_S_AXI_DATA_WIDTH-1:0] reg2;
-
-	always_ff @(posedge S_AXI_ACLK) begin
-	  if (~S_AXI_ARESETN) begin
-			reg1 <= 0;
-			reg2 <= 0;
-		end
-		else begin
-      // Allow writes to reg1 only.
-			if(reg_wrByteStrobe[0][0] == 1) reg1[7:0]   <= reg_wrdout;
-			if(reg_wrByteStrobe[0][1] == 1) reg1[15:8]  <= reg_wrdout;
-			if(reg_wrByteStrobe[0][2] == 1) reg1[23:16] <= reg_wrdout;
-			if(reg_wrByteStrobe[0][3] == 1) reg1[31:24] <= reg_wrdout;
-
-      assign SuperpixSel = reg1[0];
-      assign Reset_not   = reg1[1];
-
-      if(clk_counter == CLK_DIVIDER - 1) begin
-        ConfigClk = ~ConfigClk;                          // Toggle ConfigClk
-        clk_counter <= 0;                                // Reset Clk Counter
-      end else begin
-        clk_counter <= clk_counter + 1;                  // Increment Clk Counter
-      end
-
-      // At the FallingEdge of ConfigClk
-      if (~ConfigClk) begin
-        if(!Reset_not) begin
-          cyc_counter <= 13'd0;
-        end else begin
-          if(cyc_counter < CONFIG_REG_WIDTH) begin
-            configIn = reg1[2];
-            reg1[2] = 0;
-            cyc_counter <= cyc_counter + 1;
-          end
-        end
-      end else begin // at PositiveEdge of ConfigClk
-        if(cyc_counter == CONFIG_REG_WIDTH) begin
-          assign reg2[0] <= configOut;
-          assign reg_rddin[1] = reg2;
-        end
-      end
-		end
-	end
-endmodule
+  // Instantiate ConfigRegOut
+  ConfigRegOut #(
+    .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
+    .C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH),
+    .CONFIG_REG_WIDTH(CONFIG_REG_WIDTH),
+    .CLK_DIVIDER(CLK_DIVIDER)
+  ) ConfigRegOut_inst (
+    .SuperPixSel(SuperPixSel),
+    .ConfigClk(ConfigClk),
+    .Reset_not(Reset_not),
+    .ConfigIn(ConfigIn),
+    .ConfigLoad(ConfigLoad),
+    .ConfigOut(ConfigOut),
+    .S_AXI_ACLK(S_AXI_ACLK),
+    .S_AXI_ARESETN(S_AXI_ARESETN),
+    .S_AXI_AWADDR(S_AXI_AWADDR),
+    .S_AXI_AWPROT(S_AXI_AWPROT),
+    .S_AXI_AWVALID(S_AXI_AWVALID),
+    .S_AXI_AWREADY(S_AXI_AWREADY),
+    .S_AXI_WDATA(S_AXI_WDATA),
+    .S_AXI_WSTRB(S_AXI_WSTRB),
+    .S_AXI_WVALID(S_AXI_WVALID),
+    .S_AXI_WREADY(S_AXI_WREADY),
+    .S_AXI_BRESP(S_AXI_BRESP),
+    .S_AXI_BVALID(S_AXI_BVALID),
+    .S_AXI_BREADY(S_AXI_BREADY),
+    .S_AXI_ARADDR(S_AXI_ARADDR),
+    .S_AXI_ARPROT(S_AXI_ARPROT),
+    .S_AXI_ARVALID(S_AXI_ARVALID),
+    .S_AXI_ARREADY(S_AXI_ARREADY),
+    .S_AXI_RDATA(S_AXI_RDATA),
+    .S_AXI_RRESP(S_AXI_RRESP),
+    .S_AXI_RVALID(S_AXI_RVALID),
+    .S_AXI_RREADY(S_AXI_RREADY)
+  );
+  endmodule
