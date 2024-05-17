@@ -14,7 +14,7 @@
 // ------------------------------------------------------------------------------------
 
 
-module configRegOut_interface #(
+module configReg_interface #(
   parameter integer C_S_AXI_DATA_WIDTH  = 32,         // Width of S_AXI data bus
   parameter integer C_S_ADDR_WIDTH  = 11,             // Width of S_AXI address bus
   parameter integer CONFIG_REG_WIDTH = 5164,          // Width of Config/Shift Register
