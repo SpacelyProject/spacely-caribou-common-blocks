@@ -15,7 +15,7 @@
 
 module configReg_interface_top #(
   parameter integer C_S_AXI_DATA_WIDTH  = 32,         // Width of S_AXI data bus
-  parameter integer C_S_ADDR_WIDTH  = 11,             // Width of S_AXI address bus
+  parameter integer C_S_AXI_ADDR_WIDTH  = 11,             // Width of S_AXI address bus
   parameter integer CONFIG_REG_WIDTH = 5164,          // Width of Config/Shift Register
   parameter integer CLK_DIVIDER = 100                 // Clock divider
 )(
@@ -29,7 +29,7 @@ module configReg_interface_top #(
   output reg Reset_not,                               // From FPGA - Active low reset
   output reg ConfigIn,                                // From FPGA - Shift-register serial data in. ConfigClk domain
   output reg ConfigLoad,                              // From FPGA - The shift register state is loaded to ParallelOut
-  input  reg ConfigOut,                               // To FPGA - Shift-register serial data out.
+  input  wire ConfigOut,                               // To FPGA - Shift-register serial data out.
 
   /////////////////////////////////////////////////////
   //    AXI BUS SIGNALS                              //
@@ -104,7 +104,7 @@ module configReg_interface_top #(
     .CONFIG_REG_WIDTH(CONFIG_REG_WIDTH),
     .CLK_DIVIDER(CLK_DIVIDER)
   ) configReg_interface_inst (
-    .SuperPixSel(SuperPixSel),
+    .SuperpixSel(SuperpixSel),
     .ConfigClk(ConfigClk),
     .Reset_not(Reset_not),
     .ConfigIn(ConfigIn),

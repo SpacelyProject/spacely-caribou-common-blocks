@@ -16,23 +16,21 @@
 
 module configReg_interface #(
   parameter integer C_S_AXI_DATA_WIDTH  = 32,         // Width of S_AXI data bus
-  parameter integer C_S_ADDR_WIDTH  = 11,             // Width of S_AXI address bus
+  parameter integer C_S_AXI_ADDR_WIDTH  = 11,         // Width of S_AXI address bus
   parameter integer CONFIG_REG_WIDTH = 5164,          // Width of Config/Shift Register
   parameter integer CLK_DIVIDER = 100                 // Clock divider
 	)(
 
-  integer FPGA_REGISTER_N = 2,
-
   /////////////////////////////////////////////////////
   // INTERNAL SIGNALS MAPPED TO FPGA PINS VIA .XDC   //
-	/////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
 
   output reg SuperpixSel,                             // From FPGA - Logic 0 selects Superpixel_v1, logic 1 selects Superpixel_v2
   output reg ConfigClk,                               // From FPGA - Clock signal - from 1Hz to 1MHz.
   output reg Reset_not,                               // From FPGA - Active low reset
   output reg ConfigIn,                                // From FPGA - Shift-register serial data in. ConfigClk domain
   output reg ConfigLoad,                              // From FPGA - The shift register state is loaded to ParallelOut
-  input  reg ConfigOut,                               // To FPGA - Shift-register serial data out.
+  input  wire ConfigOut,                              // To FPGA - Shift-register serial data out.
 
 	/////////////////////////////////////////////////////
 	//    AXI BUS SIGNALS                              //
@@ -100,10 +98,12 @@ module configReg_interface #(
   input wire  S_AXI_RREADY
 	);
 
+  localparam integer FPGA_REGISTER_N = 2;
+
   logic [C_S_AXI_DATA_WIDTH-1:0]                reg_wrdout;
   logic [((C_S_AXI_DATA_WIDTH-1)/8):0]          reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
   logic                                         reg_rdStrobe [FPGA_REGISTER_N-1:0];
-  logic  [C_S_AXI_DATA_WIDTH-1:0]               reg_rddin [REGISTER_N-1:0];
+  logic [C_S_AXI_DATA_WIDTH-1:0]                reg_rddin [FPGA_REGISTER_N-1:0];
 
   localparam CLK_DIVIDER_LOG = $clog2(CLK_DIVIDER);
   reg [CLK_DIVIDER_LOG-1:0] clk_counter;                        // Counter to divide S_AXI_ACLK frequency
@@ -160,8 +160,8 @@ module configReg_interface #(
 			if(reg_wrByteStrobe[0][2] == 1) reg1[23:16] <= reg_wrdout;
 			if(reg_wrByteStrobe[0][3] == 1) reg1[31:24] <= reg_wrdout;
 
-      assign SuperpixSel = reg1[0];
-      assign Reset_not   = reg1[1];
+      SuperpixSel = reg1[0];
+      Reset_not   = reg1[1];
 
       if(clk_counter == CLK_DIVIDER - 1) begin
         ConfigClk = ~ConfigClk;                          // Toggle ConfigClk
@@ -176,15 +176,15 @@ module configReg_interface #(
           cyc_counter <= 13'd0;
         end else begin
           if(cyc_counter < CONFIG_REG_WIDTH) begin
-            configIn = reg1[2];
+            ConfigIn = reg1[2];
             reg1[2] = 0;
             cyc_counter <= cyc_counter + 1;
           end
         end
       end else begin // at PositiveEdge of ConfigClk
         if(cyc_counter == CONFIG_REG_WIDTH) begin
-          assign reg2[0] = configOut;
-          assign reg_rddin[1] = reg2;
+          reg2[0] = ConfigOut;
+          reg_rddin[1] = reg2;
         end
       end
 		end
