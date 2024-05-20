@@ -266,7 +266,7 @@ module configReg_interface #(
             current_state <= WAIT_STATE;
             processing_fifo_data <= 0;
           end
-
+        end
         WAIT_STATE: begin
           if(~ConfigClk) begin
             if(wait_counter > 0) begin
