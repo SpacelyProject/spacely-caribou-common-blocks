@@ -15,20 +15,22 @@
 
 module configReg_interface_top #(
   parameter integer C_S_AXI_DATA_WIDTH  = 32,         // Width of S_AXI data bus
-  parameter integer C_S_AXI_ADDR_WIDTH  = 11,             // Width of S_AXI address bus
+  parameter integer C_S_AXI_ADDR_WIDTH  = 11,         // Width of S_AXI address bus
   parameter integer CONFIG_REG_WIDTH = 5164,          // Width of Config/Shift Register
-  parameter integer CLK_DIVIDER = 100                 // Clock divider
+  parameter integer CLK_DIVIDER = 100,                // Clock divider
+  parameter integer BUFFER_DEPTH= 100                 // Equals to max packets SW can send in 1 ConfigClk cycle
+
 )(
 
   /////////////////////////////////////////////////////
   // INTERNAL SIGNALS MAPPED TO FPGA PINS VIA .XDC   //
   /////////////////////////////////////////////////////
 
-  output reg SuperpixSel,                             // From FPGA - Logic 0 selects Superpixel_v1, logic 1 selects Superpixel_v2
-  output reg ConfigClk,                               // From FPGA - Clock signal - from 1Hz to 1MHz.
-  output reg Reset_not,                               // From FPGA - Active low reset
-  output reg ConfigIn,                                // From FPGA - Shift-register serial data in. ConfigClk domain
-  output reg ConfigLoad,                              // From FPGA - The shift register state is loaded to ParallelOut
+  output wire SuperpixSel,                             // From FPGA - Logic 0 selects Superpixel_v1, logic 1 selects Superpixel_v2
+  output wire ConfigClk,                               // From FPGA - Clock signal - from 1Hz to 1MHz.
+  output wire Reset_not,                               // From FPGA - Active low reset
+  output wire ConfigIn,                                // From FPGA - Shift-register serial data in. ConfigClk domain
+  output wire ConfigLoad,                              // From FPGA - The shift register state is loaded to ParallelOut
   input  wire ConfigOut,                               // To FPGA - Shift-register serial data out.
 
   /////////////////////////////////////////////////////

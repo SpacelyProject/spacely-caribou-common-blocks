@@ -12,31 +12,32 @@
 // 2024-04-xx  Benjamin C. Parpillon  Created
 // 2025-05-12  Neha Kharwadkar        Updated
 // ------------------------------------------------------------------------------------
-
+`timescale 1 ns/ 1 ps
 
 module configReg_interface #(
   parameter integer C_S_AXI_DATA_WIDTH  = 32,         // Width of S_AXI data bus
   parameter integer C_S_AXI_ADDR_WIDTH  = 11,         // Width of S_AXI address bus
   parameter integer CONFIG_REG_WIDTH = 5164,          // Width of Config/Shift Register
-  parameter integer CLK_DIVIDER = 100                 // Clock divider
+  parameter integer CLK_DIVIDER = 100,                // Clock divider
+  parameter integer BUFFER_DEPTH= 100                 // Equals to max packets SW can send in 1 ConfigClk cycle
 	)(
 
   /////////////////////////////////////////////////////
   // INTERNAL SIGNALS MAPPED TO FPGA PINS VIA .XDC   //
   /////////////////////////////////////////////////////
 
-  output reg SuperpixSel,                             // From FPGA - Logic 0 selects Superpixel_v1, logic 1 selects Superpixel_v2
-  output reg ConfigClk,                               // From FPGA - Clock signal - from 1Hz to 1MHz.
-  output reg Reset_not,                               // From FPGA - Active low reset
-  output reg ConfigIn,                                // From FPGA - Shift-register serial data in. ConfigClk domain
-  output reg ConfigLoad,                              // From FPGA - The shift register state is loaded to ParallelOut
+  output reg  SuperpixSel,                            // From FPGA - Logic 0 selects Superpixel_v1, logic 1 selects Superpixel_v2
+  output reg  ConfigClk,                              // From FPGA - Clock signal - from 1Hz to 1MHz.
+  output reg  Reset_not,                              // From FPGA - Active low reset
+  output reg  ConfigIn,                               // From FPGA - Shift-register serial data in. ConfigClk domain
+  output reg  ConfigLoad,                             // From FPGA - The shift register state is loaded to ParallelOut
   input  wire ConfigOut,                              // To FPGA - Shift-register serial data out.
 
-	/////////////////////////////////////////////////////
-	//    AXI BUS SIGNALS                              //
-	/////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////
+  //    AXI BUS SIGNALS                              //
+  /////////////////////////////////////////////////////
 
-	//	Global Clock Signal
+  // Global Clock Signal
   input wire  S_AXI_ACLK,
   // Global Reset Signal. This Signal is Active LOW
   input wire  S_AXI_ARESETN,
@@ -105,13 +106,46 @@ module configReg_interface #(
   logic                                         reg_rdStrobe [FPGA_REGISTER_N-1:0];
   logic [C_S_AXI_DATA_WIDTH-1:0]                reg_rddin [FPGA_REGISTER_N-1:0];
 
-  localparam CLK_DIVIDER_LOG = $clog2(CLK_DIVIDER);
-  reg [CLK_DIVIDER_LOG-1:0] clk_counter;                        // Counter to divide S_AXI_ACLK frequency
-  reg [12:0]                cyc_counter = 13'd0;
+  // CLK divider
+  localparam integer CLK_DIVIDER_LOG            = $clog2(CLK_DIVIDER);
+  reg [CLK_DIVIDER_LOG-1:0]                     clk_counter;
 
-	// Instantiate the AXI Interface
-	// NOTE: This block should be included from spacely-caribou-common-blocks/axi4lite_interface
-	axi4lite_interface_top #(
+  // Wait counter
+  reg [$clog2(CONFIG_REG_WIDTH)-1:0]            wait_counter;
+
+  // FIFO buffer
+  reg [C_S_AXI_DATA_WIDTH-1:0]                  fifo [BUFFER_DEPTH-1:0];
+  reg [$clog2(BUFFER_DEPTH)-1:0]                fifo_head;
+  reg [$clog2(BUFFER_DEPTH)-1:0]                fifo_tail;
+  reg [$clog2(BUFFER_DEPTH)-1:0]                fifo_count;
+  logic [C_S_AXI_DATA_WIDTH-1:0]                fifo_data;
+  reg                                           processing_fifo_data;
+
+  // Register to hold previous value of reg_wrdout
+  logic [C_S_AXI_DATA_WIDTH-1:0]                prev_reg_wrdout;
+
+  // Opcodes
+  localparam [1:0] OPCODE_RESET     = 2'b00;
+  localparam [1:0] OPCODE_CONFIGIN  = 2'b01;
+  localparam [1:0] OPCODE_WAIT      = 2'b10;
+  localparam [1:0] OPCODE_CONFIGOUT = 2'b11;
+
+  // FSM States
+  typedef enum reg [2:0] {
+    IDLE_STATE          = 3'b000,
+    RESET_STATE         = 3'b001,
+    RESET_STATE_DONE    = 3'b110,
+    CONFIGIN_STATE      = 3'b010,
+    CONFIGIN_DONE_STATE = 3'b011,
+    WAIT_STATE          = 3'b100,
+    CONFIGOUT_STATE     = 3'b101
+    } state_t;
+
+   state_t current_state, next_state;
+
+   // Instantiate the AXI Interface
+   // NOTE: This block should be included from spacely-caribou-common-blocks/axi4lite_interface
+   axi4lite_interface_top #(
 	  .FPGA_REGISTER_N(FPGA_REGISTER_N),
 	  .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
 	  .C_S_AXI_ADDR_WIDTH(C_S_AXI_DATA_WIDTH)
@@ -148,45 +182,112 @@ module configReg_interface #(
 	logic  [C_S_AXI_DATA_WIDTH-1:0] reg1;
 	logic  [C_S_AXI_DATA_WIDTH-1:0] reg2;
 
-	always_ff @(posedge S_AXI_ACLK) begin
-	  if (~S_AXI_ARESETN) begin
-			reg1 <= 0;
-			reg2 <= 0;
-		end
-		else begin
-      // Allow writes to reg1 only.
-			if(reg_wrByteStrobe[0][0] == 1) reg1[7:0]   <= reg_wrdout;
-			if(reg_wrByteStrobe[0][1] == 1) reg1[15:8]  <= reg_wrdout;
-			if(reg_wrByteStrobe[0][2] == 1) reg1[23:16] <= reg_wrdout;
-			if(reg_wrByteStrobe[0][3] == 1) reg1[31:24] <= reg_wrdout;
-
-      SuperpixSel = reg1[0];
-      Reset_not   = reg1[1];
-
+  // CLK DIVIDER
+  always @(posedge S_AXI_ACLK or negedge S_AXI_ARESETN) begin
+    if(~S_AXI_ARESETN) begin
+      clk_counter <= 0;
+      ConfigClk   <= 0;
+    end else begin
       if(clk_counter == CLK_DIVIDER - 1) begin
-        ConfigClk = ~ConfigClk;                          // Toggle ConfigClk
-        clk_counter <= 0;                                // Reset Clk Counter
+        ConfigClk <= ~ConfigClk;
+        clk_counter <= 0;
       end else begin
-        clk_counter <= clk_counter + 1;                  // Increment Clk Counter
+        clk_counter <= clk_counter + 1;
+      end
+    end
+  end
+
+  // Main FSM and FIFO logic
+  always @(posedge S_AXI_ACLK or negedge S_AXI_ARESETN) begin
+    if(~S_AXI_ARESETN) begin
+      prev_reg_wrdout <= 0;
+      fifo_head <= 0;
+      fifo_tail <= 0;
+      fifo_count <= 0;
+      fifo_data <= 0;
+      current_state <= IDLE_STATE;
+      processing_fifo_data <= 0;
+      Reset_not <= 1;
+      wait_counter <= 0;
+    end else begin
+      if(reg_wrdout != prev_reg_wrdout && (fifo_count < BUFFER_DEPTH)) begin
+        fifo[fifo_head] <= reg_wrdout;
+        fifo_head <= fifo_head + 1;
+        fifo_count <= fifo_count + 1;
+        prev_reg_wrdout <= reg_wrdout;
       end
 
-      // At the FallingEdge of ConfigClk
-      if (~ConfigClk) begin
-        if(!Reset_not) begin
-          cyc_counter <= 13'd0;
-        end else begin
-          if(cyc_counter < CONFIG_REG_WIDTH) begin
-            ConfigIn = reg1[2];
-            reg1[2] = 0;
-            cyc_counter <= cyc_counter + 1;
+      case(current_state)
+        IDLE_STATE: begin
+          if(~ConfigClk) begin
+            if(!processing_fifo_data  && fifo_count > 0) begin
+              fifo_data <= fifo[fifo_tail];
+              fifo_tail <= fifo_tail + 1;
+              fifo_count <= fifo_count - 1;
+              processing_fifo_data <= 1;
+              if(reg_wrByteStrobe[0][0] == 1) reg1[7:0]   <= fifo_data[7:0];
+		          if(reg_wrByteStrobe[0][1] == 1) reg1[15:8]  <= fifo_data[15:8];
+		          if(reg_wrByteStrobe[0][2] == 1) reg1[23:16] <= fifo_data[23:16];
+		          if(reg_wrByteStrobe[0][3] == 1) reg1[31:24] <= fifo_data[31:24];
+
+		          case(reg1[1:0])
+		            OPCODE_RESET: current_state     <= RESET_STATE;
+		            OPCODE_CONFIGIN : current_state <= CONFIGIN_STATE;
+		            OPCODE_WAIT: current_state      <= WAIT_STATE;
+		            OPCODE_CONFIGOUT: current_state <= CONFIGOUT_STATE;
+		            default: current_state          <= IDLE_STATE;
+		          endcase
+		        end
+		      end
+		    end
+        RESET_STATE: begin
+          if(~ConfigClk) begin
+            SuperpixSel <= reg1[2];
+            Reset_not <= 0;       // De-assert Reset_not at the negative edge of ConfigClk
+            current_state <= RESET_STATE_DONE;
           end
         end
-      end else begin // at PositiveEdge of ConfigClk
-        if(cyc_counter == CONFIG_REG_WIDTH) begin
-          reg2[0] = ConfigOut;
-          reg_rddin[1] = reg2;
+        RESET_STATE_DONE: begin
+          if(~ConfigClk) begin
+            Reset_not <= 1;       // Assert Reset_not at the negative edge of ConfigClk
+            current_state <= CONFIGIN_STATE;
+            processing_fifo_data <= 0;
+          end
         end
+        CONFIGIN_STATE: begin
+          if(~ConfigClk) begin
+            ConfigIn <= reg1[3];  // Set ConfigIn based upon reg1[3]
+            current_state <= CONFIGIN_DONE_STATE;
+          end
+        end
+        CONFIGIN_DONE_STATE: begin
+          if(~ConfigClk) begin
+            ConfigIn <= 0;        // Clear ConfigIn after 1 ConfigClk cycle
+            current_state <= WAIT_STATE;
+            processing_fifo_data <= 0;
+          end
+
+        WAIT_STATE: begin
+          if(~ConfigClk) begin
+            if(wait_counter > 0) begin
+              wait_counter <= wait_counter - 1;
+            end else begin
+              current_state <= CONFIGOUT_STATE;
+              processing_fifo_data = 0;
+            end
+          end
+        end
+        CONFIGOUT_STATE: begin
+          if(ConfigClk) begin
+            reg_rddin[0] <= ConfigOut;
+            processing_fifo_data <= 0;
+            current_state <= IDLE_STATE;
+          end
+        end
+        default : begin
+          current_state <= IDLE_STATE;
+        end
+        endcase
       end
-		end
-	end
-endmodule
+    end
+  endmodule
