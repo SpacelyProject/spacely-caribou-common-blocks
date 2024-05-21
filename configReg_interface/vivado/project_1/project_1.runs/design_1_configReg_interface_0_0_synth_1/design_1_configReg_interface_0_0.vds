@@ -1,0 +1,287 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Tue May 21 11:52:45 2024
+# Process ID: 65925
+# Current directory: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/design_1_configReg_interface_0_0_synth_1
+# Command line: vivado -log design_1_configReg_interface_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_configReg_interface_0_0.tcl
+# Log file: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/design_1_configReg_interface_0_0_synth_1/design_1_configReg_interface_0_0.vds
+# Journal file: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/design_1_configReg_interface_0_0_synth_1/vivado.jou
+# Running On: fasic-beast1.fnal.gov, OS: Linux, CPU Frequency: 1248.913 MHz, CPU Physical cores: 32, Host memory: 540748 MB
+#-----------------------------------------------------------
+source design_1_configReg_interface_0_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2998.168 ; gain = 2.023 ; free physical = 181753 ; free virtual = 371015
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/asic/cad/Xilinx/Vivado/2022.1/data/ip'.
+Command: synth_design -top design_1_configReg_interface_0_0 -part xczu9eg-ffvb1156-2-e -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu9eg'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu9eg'
+INFO: [Device 21-403] Loading part xczu9eg-ffvb1156-2-e
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 67375
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:08 . Memory (MB): peak = 3248.195 ; gain = 219.812 ; free physical = 176705 ; free virtual = 366326
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'design_1_configReg_interface_0_0' [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/ip/design_1_configReg_interface_0_0/synth/design_1_configReg_interface_0_0.v:53]
+INFO: [Synth 8-6157] synthesizing module 'configReg_interface_top' [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/src/configReg_interface_top.v:16]
+INFO: [Synth 8-6157] synthesizing module 'configReg_interface' [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/src/configReg_interface.sv:17]
+INFO: [Synth 8-6157] synthesizing module 'axi4lite_interface_top' [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/axi4lite_interface/axi4lite_interface_top.sv:5]
+INFO: [Synth 8-6157] synthesizing module 'axi4lite_slave_interface' [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/axi4lite_interface/axi4lite_slave_interface.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'axi4lite_slave_interface' (0#1) [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/axi4lite_interface/axi4lite_slave_interface.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'mem_regs' [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/axi4lite_interface/mem_regs.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'mem_regs' (0#1) [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/axi4lite_interface/mem_regs.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'axi4lite_interface_top' (0#1) [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/axi4lite_interface/axi4lite_interface_top.sv:5]
+INFO: [Synth 8-226] default block is never used [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/src/configReg_interface.sv:233]
+INFO: [Synth 8-6155] done synthesizing module 'configReg_interface' (0#1) [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/src/configReg_interface.sv:17]
+INFO: [Synth 8-6155] done synthesizing module 'configReg_interface_top' (0#1) [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/src/configReg_interface_top.v:16]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_configReg_interface_0_0' (0#1) [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/ip/design_1_configReg_interface_0_0/synth/design_1_configReg_interface_0_0.v:53]
+WARNING: [Synth 8-7137] Register fifo_reg in module configReg_interface has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code 
+WARNING: [Synth 8-7137] Register reg1_reg in module configReg_interface has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/src/configReg_interface.sv:228]
+WARNING: [Synth 8-7137] Register SuperpixSel_reg in module configReg_interface has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/src/configReg_interface.sv:245]
+WARNING: [Synth 8-7137] Register ConfigIn_reg in module configReg_interface has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/src/configReg_interface.sv:259]
+WARNING: [Synth 8-7137] Register reg_rddin_reg[0] in module configReg_interface has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/src/configReg_interface.sv:157]
+WARNING: [Synth 8-4767] Trying to implement RAM 'fifo_reg' in registers. Block RAM or DRAM implementation is not possible; see log for reasons.
+Reason is one or more of the following :
+	1: RAM is sensitive to asynchronous reset signal. this RTL style is not supported. 
+RAM "fifo_reg" dissolved into registers
+WARNING: [Synth 8-3848] Net ConfigLoad in module/entity configReg_interface does not have driver. [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/src/configReg_interface.sv:33]
+WARNING: [Synth 8-3848] Net reg_rddin[1] in module/entity configReg_interface does not have driver. [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/imports/src/configReg_interface.sv:107]
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[2] in module axi4lite_slave_interface is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[1] in module axi4lite_slave_interface is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[0] in module axi4lite_slave_interface is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[2] in module axi4lite_slave_interface is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[1] in module axi4lite_slave_interface is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[0] in module axi4lite_slave_interface is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ConfigLoad in module configReg_interface is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 3322.148 ; gain = 293.766 ; free physical = 177691 ; free virtual = 367323
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 3339.949 ; gain = 311.566 ; free physical = 177665 ; free virtual = 367298
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 3339.949 ; gain = 311.566 ; free physical = 177665 ; free virtual = 367298
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.04 . Memory (MB): peak = 3339.949 ; gain = 0.000 ; free physical = 177608 ; free virtual = 367241
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3486.852 ; gain = 0.000 ; free physical = 177565 ; free virtual = 367199
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.16 ; elapsed = 00:00:00.06 . Memory (MB): peak = 3509.668 ; gain = 22.816 ; free physical = 177562 ; free virtual = 367196
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:17 ; elapsed = 00:00:22 . Memory (MB): peak = 3509.668 ; gain = 481.285 ; free physical = 177773 ; free virtual = 367409
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu9eg-ffvb1156-2-e
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:17 ; elapsed = 00:00:22 . Memory (MB): peak = 3509.668 ; gain = 481.285 ; free physical = 177772 ; free virtual = 367407
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:17 ; elapsed = 00:00:22 . Memory (MB): peak = 3509.668 ; gain = 481.285 ; free physical = 177769 ; free virtual = 367404
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'configReg_interface'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              IDLE_STATE |                              000 |                              000
+             RESET_STATE |                              001 |                              001
+        RESET_STATE_DONE |                              010 |                              110
+          CONFIGIN_STATE |                              011 |                              010
+     CONFIGIN_DONE_STATE |                              100 |                              011
+              WAIT_STATE |                              101 |                              100
+         CONFIGOUT_STATE |                              110 |                              101
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'current_state_reg' using encoding 'sequential' in module 'configReg_interface'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:18 ; elapsed = 00:00:24 . Memory (MB): peak = 3509.668 ; gain = 481.285 ; free physical = 177642 ; free virtual = 367288
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   13 Bit       Adders := 1     
+	   2 Input    7 Bit       Adders := 5     
++---Registers : 
+	               32 Bit    Registers := 107   
+	               13 Bit    Registers := 1     
+	                7 Bit    Registers := 4     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 11    
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 5     
+	   7 Input   32 Bit        Muxes := 1     
+	   2 Input    7 Bit        Muxes := 2     
+	   7 Input    7 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 2     
+	   7 Input    3 Bit        Muxes := 1     
+	   4 Input    3 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 114   
+	   7 Input    1 Bit        Muxes := 13    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 2520 (col length:168)
+BRAMs: 1824 (col length: RAMB18 168 RAMB36 84)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[2] in module axi4lite_interface_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[1] in module axi4lite_interface_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_AWPROT[0] in module axi4lite_interface_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[2] in module axi4lite_interface_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[1] in module axi4lite_interface_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port S_AXI_ARPROT[0] in module axi4lite_interface_top is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ConfigLoad in module configReg_interface is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:22 ; elapsed = 00:00:29 . Memory (MB): peak = 3509.668 ; gain = 481.285 ; free physical = 177703 ; free virtual = 367360
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:36 ; elapsed = 00:00:51 . Memory (MB): peak = 3826.367 ; gain = 797.984 ; free physical = 176591 ; free virtual = 366276
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:36 ; elapsed = 00:00:51 . Memory (MB): peak = 3827.359 ; gain = 798.977 ; free physical = 176587 ; free virtual = 366272
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:36 ; elapsed = 00:00:52 . Memory (MB): peak = 3846.391 ; gain = 818.008 ; free physical = 176574 ; free virtual = 366260
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:41 ; elapsed = 00:00:57 . Memory (MB): peak = 3855.301 ; gain = 826.918 ; free physical = 176482 ; free virtual = 366162
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:41 ; elapsed = 00:00:57 . Memory (MB): peak = 3855.301 ; gain = 826.918 ; free physical = 176481 ; free virtual = 366162
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:41 ; elapsed = 00:00:57 . Memory (MB): peak = 3855.301 ; gain = 826.918 ; free physical = 176480 ; free virtual = 366160
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:41 ; elapsed = 00:00:57 . Memory (MB): peak = 3855.301 ; gain = 826.918 ; free physical = 176480 ; free virtual = 366160
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:41 ; elapsed = 00:00:57 . Memory (MB): peak = 3855.301 ; gain = 826.918 ; free physical = 176478 ; free virtual = 366159
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:41 ; elapsed = 00:00:57 . Memory (MB): peak = 3855.301 ; gain = 826.918 ; free physical = 176478 ; free virtual = 366159
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |CARRY8 |     4|
+|2     |LUT1   |    17|
+|3     |LUT2   |    48|
+|4     |LUT3   |    19|
+|5     |LUT4   |    29|
+|6     |LUT5   |    26|
+|7     |LUT6   |   245|
+|8     |MUXF7  |    48|
+|9     |MUXF8  |    24|
+|10    |FDCE   |    82|
+|11    |FDPE   |     1|
+|12    |FDRE   |   431|
+|13    |FDSE   |     1|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:41 ; elapsed = 00:00:57 . Memory (MB): peak = 3855.301 ; gain = 826.918 ; free physical = 176478 ; free virtual = 366159
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 8 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:38 ; elapsed = 00:00:53 . Memory (MB): peak = 3855.301 ; gain = 657.199 ; free physical = 176512 ; free virtual = 366192
+Synthesis Optimization Complete : Time (s): cpu = 00:00:41 ; elapsed = 00:00:57 . Memory (MB): peak = 3855.305 ; gain = 826.918 ; free physical = 176511 ; free virtual = 366191
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3867.270 ; gain = 0.000 ; free physical = 176588 ; free virtual = 366269
+INFO: [Netlist 29-17] Analyzing 76 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3923.066 ; gain = 0.000 ; free physical = 176495 ; free virtual = 366178
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete, checksum: 9b9de49
+INFO: [Common 17-83] Releasing license: Synthesis
+34 Infos, 23 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:56 ; elapsed = 00:01:10 . Memory (MB): peak = 3923.066 ; gain = 924.898 ; free physical = 176665 ; free virtual = 366348
+INFO: [Common 17-1381] The checkpoint '/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/design_1_configReg_interface_0_0_synth_1/design_1_configReg_interface_0_0.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP design_1_configReg_interface_0_0, cache-ID = c5f66990b9c51879
+INFO: [Coretcl 2-1174] Renamed 4 cell refs.
+INFO: [Common 17-1381] The checkpoint '/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/design_1_configReg_interface_0_0_synth_1/design_1_configReg_interface_0_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file design_1_configReg_interface_0_0_utilization_synth.rpt -pb design_1_configReg_interface_0_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue May 21 11:54:20 2024...

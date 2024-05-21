@@ -1,0 +1,1256 @@
+/*
+
+Xilinx Vivado v2022.1 (64-bit) [Major: 2022, Minor: 1]
+SW Build: 3526262 on Mon Apr 18 15:47:01 MDT 2022
+IP Build: 3524634 on Mon Apr 18 20:55:01 MDT 2022
+
+Process ID (PID): 60594
+License: Customer
+Mode: GUI Mode
+
+Current time: 	Tue May 21 11:17:56 CDT 2024
+Time zone: 	Central Standard Time (America/Chicago)
+
+OS: Scientific Linux release 7.9 (Nitrogen)
+OS Version: 3.10.0-1160.105.1.el7.x86_64
+OS Architecture: amd64
+Available processors (cores): 88
+
+Display: 8
+Screen size: 1920x1080
+Screen resolution (DPI): 100
+Available screens: 1
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+Scale size: 12
+
+Java version: 	11.0.11 64-bit
+Java home: 	/asic/cad/Xilinx/Vivado/2022.1/tps/lnx64/jre11.0.11_9
+Java executable: 	/asic/cad/Xilinx/Vivado/2022.1/tps/lnx64/jre11.0.11_9/bin/java
+Java arguments: 	[-Dsun.java2d.pmoffscreen=false, -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2, -Dsun.java2d.xrender=false, -Djdk.gtk.version=2, -Dsun.java2d.uiScale.enabled=false, -Xverify:none, -Dswing.aatext=true, -XX:-UsePerfData, -Djdk.map.althashing.threshold=512, -XX:StringTableSize=4072, --add-opens=java.desktop/com.sun.awt=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.base/java.nio=ALL-UNNAMED, --add-opens=java.desktop/sun.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/java.awt.event=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.base/java.nio=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.table=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.desktop/sun.awt.shell=ALL-UNNAMED, --add-exports=java.base/sun.security.action=ALL-UNNAMED, --add-exports=java.desktop/sun.font=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED, -XX:NewSize=60m, -XX:MaxNewSize=60m, -Xms256m, -Xmx3072m, -Xss5m, -Xrs]
+Java initial memory (-Xms): 	256 MB
+Java maximum memory (-Xmx):	 3 GB
+
+
+User name: 	nehak
+User home directory: /fasic_home/nehak
+User working directory: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /asic/cad/Xilinx/Vivado
+HDI_APPROOT: /asic/cad/Xilinx/Vivado/2022.1
+RDI_DATADIR: /asic/cad/Xilinx/Vivado/2022.1/data
+RDI_BINDIR: /asic/cad/Xilinx/Vivado/2022.1/bin
+
+Vivado preferences file: /fasic_home/nehak/.Xilinx/Vivado/2022.1/vivado.xml
+Vivado preferences directory: /fasic_home/nehak/.Xilinx/Vivado/2022.1/
+Vivado layouts directory: /fasic_home/nehak/.Xilinx/Vivado/2022.1/data/layouts
+PlanAhead jar file: 	/asic/cad/Xilinx/Vivado/2022.1/lib/classes/planAhead.jar
+Vivado log file: 	/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/vivado.log
+Vivado journal file: 	/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/vivado.jou
+Engine tmp dir: 	./.Xil/Vivado-60594-fasic-beast1.fnal.gov
+
+Xilinx Environment Variables
+----------------------------
+XILINX: /asic/cad/Xilinx/Vivado/2022.1/ids_lite/ISE
+XILINXD_LICENSE_FILE: 2100@xilinx-lic
+XILINX_DSP: /asic/cad/Xilinx/Vivado/2022.1/ids_lite/ISE
+XILINX_HLS: /asic/cad/Xilinx/Vitis_HLS/2022.1
+XILINX_PLANAHEAD: /asic/cad/Xilinx/Vivado/2022.1
+XILINX_VITIS: 
+XILINX_VIVADO: /asic/cad/Xilinx/Vivado/2022.1
+XILINX_VIVADO_HLS: /asic/cad/Xilinx/Vivado/2022.1
+
+
+GUI allocated memory:	256 MB
+GUI max memory:		3,072 MB
+Engine allocated memory: 5,932 MB
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+selectButton(PAResourceEtoH.GettingStartedView_CREATE_NEW_PROJECT, "Create Project"); // y
+// Run Command: PAResourceCommand.PACommandNames_NEW_PROJECT
+// HMemoryUtils.trashcanNow. Engine heap size: 5,937 MB. GUI used memory: 62 MB. Current time: 5/21/24, 11:17:57 AM CDT
+selectButton("NEXT", "Next >"); // JButton
+selectButton("NEXT", "Next >"); // JButton
+selectButton("NEXT", "Next >"); // JButton
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, "Add Files"); // a
+// Elapsed time: 13 seconds
+String[] filenames31467 = {"/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface.sv", "/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface_top.v"};
+setFileChooser(filenames31467);
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, "Add Files"); // a
+// Elapsed time: 15 seconds
+String[] filenames16706 = {"/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_interface_top.sv", "/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_slave_interface.sv", "/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/mem_regs.sv"};
+setFileChooser(filenames16706);
+// Elapsed time: 19 seconds
+selectTable(PAResourceQtoS.SrcChooserTable_SRC_CHOOSER_TABLE, "VSourceFile ; 3 ; axi4lite_interface_top.sv ; xil_defaultlib ; Synthesis & Simulation ; /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface", 2, "VSourceFile", 0); // bQ
+selectButton(RDIResource.AbstractCombinedPanel_REMOVE_SELECTED_ELEMENTS, "Remove"); // D
+selectTable(PAResourceQtoS.SrcChooserTable_SRC_CHOOSER_TABLE, "VSourceFile ; 3 ; axi4lite_slave_interface.sv ; xil_defaultlib ; Synthesis & Simulation ; /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface", 2, "axi4lite_slave_interface.sv", 2); // bQ
+selectButton(RDIResource.AbstractCombinedPanel_REMOVE_SELECTED_ELEMENTS, "Remove"); // D
+selectTable(PAResourceQtoS.SrcChooserTable_SRC_CHOOSER_TABLE, "VSourceFile ; 3 ; mem_regs.sv ; xil_defaultlib ; Synthesis & Simulation ; /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface", 2, "mem_regs.sv", 2); // bQ
+selectButton(RDIResource.AbstractCombinedPanel_REMOVE_SELECTED_ELEMENTS, "Remove"); // D
+selectTable(PAResourceQtoS.SrcChooserTable_SRC_CHOOSER_TABLE, "VSourceFile ; 1 ; configReg_interface.sv ; xil_defaultlib ; Synthesis & Simulation ; /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src", 0, "configReg_interface.sv", 2); // bQ
+selectButton(RDIResource.AbstractCombinedPanel_REMOVE_SELECTED_ELEMENTS, "Remove"); // D
+selectTable(PAResourceQtoS.SrcChooserTable_SRC_CHOOSER_TABLE, "VSourceFile ; 1 ; configReg_interface_top.v ; xil_defaultlib ; Synthesis & Simulation ; /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src", 0, "configReg_interface_top.v", 2); // bQ
+selectButton(RDIResource.AbstractCombinedPanel_REMOVE_SELECTED_ELEMENTS, "Remove"); // D
+selectButton("NEXT", "Next >"); // JButton
+// WARNING: HEventQueue.dispatchEvent() is taking  1001 ms.
+// [GUI Memory]: 75 MB (+76143kb) [00:01:45]
+// [Engine Memory]: 5,945 MB (+6082247kb) [00:01:45]
+// [GUI Memory]: 81 MB (+2334kb) [00:01:45]
+// [GUI Memory]: 110 MB (+26136kb) [00:01:46]
+selectButton("NEXT", "Next >"); // JButton
+selectTab(PAResourceOtoP.PartChooser_TABBED_PANE, (HResource) null, "Boards", 1); // i
+// [GUI Memory]: 227 MB (+117044kb) [00:01:51]
+// HMemoryUtils.trashcanNow. Engine heap size: 5,963 MB. GUI used memory: 159 MB. Current time: 5/21/24, 11:19:32 AM CDT
+selectTreeTable(PAResourceAtoD.BoardChooser_BOARD_TABLE, "Zynq UltraScale+ ZCU102 Evaluation Board ; Zynq UltraScale+ ZCU102 Evaluation Board ; Zynq UltraScale+ ZCU102 Evaluation Board ; xilinx.com ; 3.4 ; xczu9eg-ffvb1156-2-e ; 1156 ; 1.1 ; 328 ; 274080 ; 548160 ; 912 ; 0 ; 2520 ; 24 ; 0 ; 0 ; 0 ; 0 ; 0 ; 0 ; 24 ; 0 ; 0 ; 0 ; 0 ; 0 ; 0 ; 0 ; 4 ;  ; 0 ;  ;  ; 0 ;  ;  ; 0 ; 100 ; 100 ; E ; 0.825 ; 0.850 ; 0.876", 25, "Zynq UltraScale+ ZCU102 Evaluation Board", 0, false); // ah
+openHTML ("www.xilinx.com/zcu102"); // ah
+// WARNING: HEventQueue.dispatchEvent() is taking  1001 ms.
+selectButton("NEXT", "Next >"); // JButton
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: FLOW_ADDED
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_ADD
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_DASHBOARD_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_NEW
+// Tcl Message: create_project project_1 /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1 -part xczu9eg-ffvb1156-2-e 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified 
+// TclEventType: PROJECT_NEW
+// WARNING: HEventQueue.dispatchEvent() is taking  2125 ms.
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/asic/cad/Xilinx/Vivado/2022.1/data/ip'. 
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: create_project: Time (s): cpu = 00:00:15 ; elapsed = 00:00:06 . Memory (MB): peak = 7753.648 ; gain = 12.363 ; free physical = 189593 ; free virtual = 378078 
+// TclEventType: BOARD_MODIFIED
+// Tcl Message: set_property board_part xilinx.com:zcu102:part0:3.4 [current_project] 
+selectButton("FINISH", "Finish"); // JButton
+// 'g' command handler elapsed time: 111 seconds
+dismissDialog("Create Project"); // bA
+dismissDialog("New Project"); // f
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, IP Integrator, Create Block Design]", 6, false); // n
+// Run Command: PAResourceCommand.PACommandNames_CREATE_NEW_DIAGRAM
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Create Block Design"); // aX
+// TclEventType: LOAD_FEATURE
+// Tcl Message: create_bd_design "design_1" 
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd>  
+// TclEventType: RSB_OPEN_DIAGRAM
+closeView(PAResourceOtoP.PAViews_PROJECT_SUMMARY, "Project Summary"); // v
+// Tcl Message: create_bd_design: Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 7778.449 ; gain = 6.660 ; free physical = 190063 ; free virtual = 378551 
+dismissDialog("Create Block Design"); // bA
+// HMemoryUtils.trashcanNow. Engine heap size: 6,044 MB. GUI used memory: 72 MB. Current time: 5/21/24, 11:20:07 AM CDT
+// Tcl Message: update_compile_order -fileset sources_1 
+selectButton(PAResourceQtoS.SystemBuilderView_ADD_IP, (String) null); // D
+// WARNING: HEventQueue.dispatchEvent() is taking  1491 ms.
+setText("PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE_SEARCH_FIELD", "zy"); // OverlayTextField
+setText("PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE_SEARCH_FIELD", "zyn"); // OverlayTextField
+setText("PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE_SEARCH_FIELD", "zynq"); // OverlayTextField
+selectTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, "Zynq UltraScale+ MPSoC", 0, "Zynq UltraScale+ MPSoC", 0, false); // L
+expandTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, "Zynq UltraScale+ MPSoC", 0); // L
+selectTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, "Zynq UltraScale+ MPSoC", 0, "Zynq UltraScale+ MPSoC", 0, false, false, false, false, false, true); // L - Double Click
+// Tcl Message: startgroup 
+// Tcl Message: create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e:3.4 zynq_ultra_ps_e_0 
+// TclEventType: LOAD_FEATURE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: endgroup 
+dismissDialog("Add IP"); // bA
+// JavaFX intialization before: 1716308426225
+// JavaFX initialization after: 1716308426613
+// WARNING: HTimer (Open addressing views timer) is taking 478ms to process. Increasing delay to 1300 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 7,290 MB. GUI used memory: 75 MB. Current time: 5/21/24, 11:20:27 AM CDT
+// [Engine Memory]: 7,381 MB (+1193813kb) [00:02:49]
+// Run Command: PAResourceCommand.PACommandNames_CUSTOMIZE_RSB_BLOC
+// WARNING: HEventQueue.dispatchEvent() is taking  1883 ms.
+dismissDialog("Re-customize IP"); // N
+selectButton("PS-PL Configuration", "PS-PL Configuration"); // j
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_GENERAL_TREE, "PS-PL Interfaces ; PS-PL Interfaces", 1, "PS-PL Interfaces", 0, true); // aq - Node
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_GENERAL_TREE, "PS-PL Interfaces ; PS-PL Interfaces", 1); // aq
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_GENERAL_TREE, "Master Interface ; Master Interface", 2); // aq
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_GENERAL_TREE, "AXI HPM0 LPD ; PSU USE M AXI GP2", 5, "PSU USE M AXI GP2", 1, true); // aq - Node
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_GENERAL_TREE, "AXI HPM0 FPD ; PSU USE M AXI GP0", 3, "PSU USE M AXI GP0", 1, true); // aq - Node
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a
+dismissDialog("Re-customize IP"); // r
+selectButton(PAResourceQtoS.RSBApplyAutomationBar_RUN_BLOCK_AUTOMATION, "Run Block Automation"); // g
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Run Block Automation"); // O
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: apply_bd_automation -rule xilinx.com:bd_rule:zynq_ultra_ps_e -config {apply_board_preset "1" }  [get_bd_cells zynq_ultra_ps_e_0] 
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+// Tcl Message: apply_bd_automation: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 9480.711 ; gain = 0.000 ; free physical = 189864 ; free virtual = 378369 
+dismissDialog("Run Block Automation"); // bA
+// Run Command: PAResourceCommand.PACommandNames_CUSTOMIZE_RSB_BLOC
+// WARNING: HEventQueue.dispatchEvent() is taking  3206 ms.
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+dismissDialog("Re-customize IP"); // N
+selectButton("PS-PL Configuration", "PS-PL Configuration"); // j
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_GENERAL_TREE, "PS-PL Interfaces ; PS-PL Interfaces", 1); // aq
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_GENERAL_TREE, "Master Interface ; Master Interface", 2); // aq
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_GENERAL_TREE, "AXI HPM1 FPD ; PSU USE M AXI GP1", 4, "PSU USE M AXI GP1", 1, true); // aq - Node
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Re-customize IP"); // r
+// Tcl Command: 'set_property -dict [list CONFIG.PSU__USE__M_AXI_GP1 {0}] [get_bd_cells zynq_ultra_ps_e_0]'
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// Tcl Message: set_property -dict [list CONFIG.PSU__USE__M_AXI_GP1 {0}] [get_bd_cells zynq_ultra_ps_e_0] 
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+dismissDialog("Customize IP"); // bA
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 170, 211, 1192, 504, false, false, false, true, false); // hw - Popup Trigger
+selectMenu(PAResourceQtoS.SelectMenu_HIGHLIGHT, "Highlight"); // ao
+selectMenuItem(PAResourceQtoS.SystemBuilderMenu_ADD_IP, "Add IP..."); // ar
+// Elapsed time: 11 seconds
+setText("PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE_SEARCH_FIELD", "AXI inter"); // OverlayTextField
+selectTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, "AXI Interconnect", 1, "AXI Interconnect", 0, false); // L
+selectTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, "AXI Interconnect", 1, "AXI Interconnect", 0, false); // L
+expandTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, "AXI Interconnect", 1); // L
+selectTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, "AXI Interconnect", 1, "AXI Interconnect", 0, false, false, false, false, false, true); // L - Double Click
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: startgroup 
+// Tcl Message: create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_interconnect_0 
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: endgroup 
+dismissDialog("Add IP"); // bA
+// Run Command: PAResourceCommand.PACommandNames_CUSTOMIZE_RSB_BLOC
+// Elapsed time: 13 seconds
+selectComboBox("Number of Master Interfaces (NUM_MI)", "1", 0); // bZ
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// Tcl Command: 'set_property -dict [list CONFIG.NUM_MI {1}] [get_bd_cells axi_interconnect_0]'
+dismissDialog("Re-customize IP"); // r
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: REPORT_IP_STATUS_STALE
+// Tcl Message: set_property -dict [list CONFIG.NUM_MI {1}] [get_bd_cells axi_interconnect_0] 
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+selectButton(PAResourceQtoS.RSBApplyAutomationBar_RUN_CONNECTION_AUTOMATION, "Run Connection Automation"); // g
+// HMemoryUtils.trashcanNow. Engine heap size: 7,448 MB. GUI used memory: 141 MB. Current time: 5/21/24, 11:22:27 AM CDT
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Run Connection Automation"); // O
+// TclEventType: XGUI_UPDATE_GUI_ELEMENT
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_ADD_OBJECT
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: XGUI_RESET_GUI_ELEMENT
+// Tcl Message: apply_bd_automation -rule xilinx.com:bd_rule:clkrst -config { Clk {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Freq {100} Ref_Clk0 {} Ref_Clk1 {} Ref_Clk2 {}}  [get_bd_pins axi_interconnect_0/ACLK] 
+// Elapsed time: 13 seconds
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 134, 307, 1192, 504, false, false, false, true, false); // hw - Popup Trigger
+selectMenu(PAResourceQtoS.SystemBuilderView_PINNING, "Pinning"); // ao
+selectMenu(PAResourceQtoS.SystemBuilderView_EXPAND_COLLAPSE, "Expand/Collapse"); // ao
+selectMenuItem(PAResourceQtoS.SystemBuilderMenu_CREATE_PORT, "Create Port..."); // ar
+// Elapsed time: 16 seconds
+setText(PAResourceAtoD.CreateRSBPortDialog_PORT_NAME, "ConfigOut_0"); // aa
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Create Port"); // bs
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: create_bd_port -dir I ConfigOut_0 
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 166, 326, 1192, 504, false, false, false, true, false); // hw - Popup Trigger
+selectMenu(PAResourceQtoS.SystemBuilderView_EXPAND_COLLAPSE, "Expand/Collapse"); // ao
+selectMenuItem(PAResourceQtoS.SystemBuilderMenu_CREATE_PORT, "Create Port..."); // ar
+selectComboBox(PAResourceAtoD.CreateRSBPortDialog_DIRECTION, "Output", 1); // e
+setText(PAResourceAtoD.CreateRSBPortDialog_PORT_NAME, "SuperpixSel_0"); // aa
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Create Port"); // bs
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: create_bd_port -dir O SuperpixSel_0 
+// Elapsed time: 10 seconds
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 52, 367, 1192, 504, false, false, false, true, false); // hw - Popup Trigger
+selectMenu(PAResourceQtoS.SystemBuilderView_PINNING, "Pinning"); // ao
+selectMenu(PAResourceQtoS.SystemBuilderView_EXPAND_COLLAPSE, "Expand/Collapse"); // ao
+selectMenuItem(PAResourceQtoS.SystemBuilderMenu_CREATE_PORT, "Create Port..."); // ar
+selectComboBox(PAResourceAtoD.CreateRSBPortDialog_DIRECTION, "Output", 1); // e
+setText(PAResourceAtoD.CreateRSBPortDialog_PORT_NAME, "ConfigClk_0"); // aa
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Create Port"); // bs
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: create_bd_port -dir O ConfigClk_0 
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 80, 396, 1192, 504, false, false, false, true, false); // hw - Popup Trigger
+selectMenu(PAResourceQtoS.SystemBuilderView_EXPAND_COLLAPSE, "Expand/Collapse"); // ao
+selectMenuItem(PAResourceQtoS.SystemBuilderMenu_CREATE_PORT, "Create Port..."); // ar
+selectComboBox(PAResourceAtoD.CreateRSBPortDialog_DIRECTION, "Output", 1); // e
+setText(PAResourceAtoD.CreateRSBPortDialog_PORT_NAME, "Reset_not_0"); // aa
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Create Port"); // bs
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: create_bd_port -dir O Reset_not_0 
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 73, 371, 1192, 504, false, false, false, true, false); // hw - Popup Trigger
+selectMenu(PAResourceQtoS.SystemBuilderView_PINNING, "Pinning"); // ao
+selectMenu(PAResourceQtoS.SystemBuilderView_PINNING, "Pinning"); // ao
+selectMenu(PAResourceQtoS.SystemBuilderView_PINNING, "Pinning"); // ao
+selectMenu(PAResourceQtoS.SystemBuilderView_EXPAND_COLLAPSE, "Expand/Collapse"); // ao
+selectMenu(PAResourceQtoS.SystemBuilderView_EXPAND_COLLAPSE, "Expand/Collapse"); // ao
+selectMenuItem(PAResourceQtoS.SystemBuilderMenu_CREATE_PORT, "Create Port..."); // ar
+selectComboBox(PAResourceAtoD.CreateRSBPortDialog_DIRECTION, "Output", 1); // e
+// Elapsed time: 11 seconds
+setText(PAResourceAtoD.CreateRSBPortDialog_PORT_NAME, "ConfigIn_0"); // aa
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Create Port"); // bs
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: create_bd_port -dir O ConfigIn_0 
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 210, 335, 1192, 504, false, false, false, true, false); // hw - Popup Trigger
+selectMenu(PAResourceQtoS.SystemBuilderView_PINNING, "Pinning"); // ao
+selectMenu(PAResourceQtoS.SystemBuilderView_EXPAND_COLLAPSE, "Expand/Collapse"); // ao
+selectMenuItem(PAResourceQtoS.SystemBuilderMenu_CREATE_PORT, "Create Port..."); // ar
+selectComboBox(PAResourceAtoD.CreateRSBPortDialog_DIRECTION, "Output", 1); // e
+setText(PAResourceAtoD.CreateRSBPortDialog_PORT_NAME, "ConfigOut_0"); // aa
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// HOptionPane Error: 'A port named 'ConfigOut_0' already exists. Please enter another name. (Vivado)'
+selectButton("OptionPane.button", "OK"); // JButton
+setText(PAResourceAtoD.CreateRSBPortDialog_PORT_NAME, "ConfigLoad_0"); // aa
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Create Port"); // bs
+// TclEventType: RSB_ADD_OBJECT
+// Tcl Message: create_bd_port -dir O ConfigLoad_0 
+// Run Command: PAResourceCommand.PACommandNames_SAVE_RSB_DESIGN
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: save_bd_design 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd>  Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui>  
+dismissDialog("Save Design"); // bA
+// HMemoryUtils.trashcanNow. Engine heap size: 7,472 MB. GUI used memory: 138 MB. Current time: 5/21/24, 11:25:07 AM CDT
+// Elapsed time: 10 seconds
+selectTab((HResource) null, (HResource) null, "Sources", 0); // aL
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources]", 0); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1 (design_1.bd)]", 1, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1 (design_1.bd)]", 1, true, false, false, false, true, false); // D - Popup Trigger - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1 (design_1.bd)]", 1, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1 (design_1.bd)]", 1, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1 (design_1.bd)]", 1, true, false, false, false, false, true); // D - Double Click - Node
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: open_bd_design {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd} 
+dismissDialog("Open Block Design"); // bA
+// Elapsed time: 93 seconds
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 53, 89, 1065, 504, false, false, false, true, false); // hw - Popup Trigger
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1 (design_1.bd)]", 1, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1 (design_1.bd)]", 1, true, false, false, false, true, false); // D - Popup Trigger - Node
+selectMenuItem(PAResourceCommand.PACommandNames_CREATE_TOP_HDL, "Create HDL Wrapper..."); // ar
+// Run Command: PAResourceCommand.PACommandNames_CREATE_TOP_HDL
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// 'am' command handler elapsed time: 4 seconds
+dismissDialog("Create HDL Wrapper"); // a
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: make_wrapper -files [get_files /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd] -top 
+// Tcl Message: ERROR: [BD 41-758] The following clock pins are not connected to a valid clock source:  /zynq_ultra_ps_e_0/maxihpm0_fpd_aclk /axi_interconnect_0/S00_ACLK /axi_interconnect_0/M00_ACLK  ERROR: [BD 41-1031] Hdl Generation failed for the IP Integrator design /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd  
+// Tcl Message: ERROR: [Common 17-39] 'make_wrapper' failed due to earlier errors. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Common 17-39] 'make_wrapper' failed due to earlier errors.  
+// HOptionPane Error: 'ERROR: [Common 17-39] 'make_wrapper' failed due to earlier errors. (Error Opening Composite File)'
+selectButton("OptionPane.button", "OK"); // JButton
+// Elapsed time: 10 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f
+dismissDialog("Critical Messages"); // a
+// Elapsed time: 19 seconds
+selectButton(PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN, "System_validate_bd_design_rsb"); // D
+// Run Command: PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN
+// Tcl Command: 'validate_bd_design'
+// TclEventType: RSB_VALIDATE_DIAGRAM
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: RSB_PARAM_PROP
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PARAM_PROP
+// Tcl Message: validate_bd_design 
+// Tcl Message: ERROR: [BD 41-758] The following clock pins are not connected to a valid clock source:  /zynq_ultra_ps_e_0/maxihpm0_fpd_aclk /axi_interconnect_0/S00_ACLK /axi_interconnect_0/M00_ACLK  
+// Tcl Message: ERROR: [Common 17-39] 'validate_bd_design' failed due to earlier errors. 
+// Elapsed time: 13 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f
+dismissDialog("Critical Messages"); // em
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_pins rst_ps8_0_99M/interconnect_aresetn] [get_bd_pins axi_interconnect_0/S00_ARESETN] 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_pins rst_ps8_0_99M/interconnect_aresetn] [get_bd_pins axi_interconnect_0/M00_ARESETN] 
+// Elapsed time: 131 seconds
+selectButton(PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN, "System_validate_bd_design_rsb"); // D
+// Run Command: PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN
+// Tcl Command: 'validate_bd_design'
+// TclEventType: RSB_VALIDATE_DIAGRAM
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: RSB_PARAM_PROP
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PARAM_PROP
+// Tcl Message: validate_bd_design 
+// Tcl Message: ERROR: [BD 41-758] The following clock pins are not connected to a valid clock source:  /zynq_ultra_ps_e_0/maxihpm0_fpd_aclk  
+// Tcl Message: ERROR: [Common 17-39] 'validate_bd_design' failed due to earlier errors. 
+// Elapsed time: 11 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f
+dismissDialog("Critical Messages"); // em
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] 
+// Run Command: PAResourceCommand.PACommandNames_SAVE_RSB_DESIGN
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: save_bd_design 
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd>  Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui>  
+// Elapsed time: 28 seconds
+selectButton(PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN, "System_validate_bd_design_rsb"); // D
+// Run Command: PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN
+// Tcl Command: 'validate_bd_design'
+// TclEventType: RSB_VALIDATE_DIAGRAM
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: RSB_PARAM_PROP
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: validate_bd_design 
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PARAM_PROP
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+// Tcl Message: validate_bd_design: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 9570.398 ; gain = 0.000 ; free physical = 189036 ; free virtual = 377752 
+dismissDialog("Validate Design"); // bA
+// HMemoryUtils.trashcanNow. Engine heap size: 7,492 MB. GUI used memory: 140 MB. Current time: 5/21/24, 11:30:57 AM CDT
+selectButton("OptionPane.button", "OK"); // JButton
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1 (design_1.bd)]", 1, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1 (design_1.bd)]", 1, true, false, false, false, true, false); // D - Popup Trigger - Node
+selectMenuItem(PAResourceCommand.PACommandNames_CREATE_TOP_HDL, "Create HDL Wrapper..."); // ar
+// Run Command: PAResourceCommand.PACommandNames_CREATE_TOP_HDL
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Create HDL Wrapper"); // a
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: make_wrapper -files [get_files /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd] -top 
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd>  
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.v Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/sim/design_1.v Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files -norecurse /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v 
+// Create Top HDL Elapsed Time: 7s
+dismissDialog("Create HDL Wrapper"); // bA
+// HMemoryUtils.trashcanNow. Engine heap size: 7,588 MB. GUI used memory: 142 MB. Current time: 5/21/24, 11:31:22 AM CDT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Elapsed time: 17 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v)]", 1, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v)]", 1, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v)]", 1, true, false, false, false, false, true); // D - Double Click - Node
+// WARNING: HEventQueue.dispatchEvent() is taking  2255 ms.
+dismissDialog("Opening Editor"); // bA
+// Elapsed time: 28 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, IP Integrator, Generate Block Design]", 8, false); // n
+// Run Command: PAResourceCommand.PACommandNames_GENERATE_RSB_DESIGN
+selectButton(PAResourceQtoS.SimpleOutputProductDialog_CLOSE_DIALOG_UNSAVED_CHANGES_WILL, "Cancel"); // a
+// 'bM' command handler elapsed time: 3 seconds
+dismissDialog("Generate Output Products"); // aI
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // n
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a
+dismissDialog("No Implementation Results Available"); // A
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// 'cW' command handler elapsed time: 6 seconds
+dismissDialog("Launch Runs"); // cZ
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 22 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.v Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/sim/design_1.v Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v 
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// Elapsed time: 17 seconds
+selectButton(RDIResource.ProgressDialog_BACKGROUND, "Background"); // a
+selectButton(PAResourceAtoD.AbstractFileView_RELOAD, "Reload"); // g
+selectCodeEditor("design_1_wrapper.v", 197, 203); // be
+// Tcl Message: INFO: [PSU-0] Address Range of DDR (0x7ff00000 to 0x7fffffff) is reserved by PMU for internal purpose. 
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 7,700 MB. GUI used memory: 150 MB. Current time: 5/21/24, 11:32:56 AM CDT
+// Tcl Message: INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'M_AXI_HPM0_FPD'. A default connection has been created. 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// [Engine Memory]: 7,760 MB (+10376kb) [00:15:18]
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block zynq_ultra_ps_e_0 . INFO: [BD 41-1029] Generation completed for the IP Integrator block rst_ps8_0_99M . 
+// Tcl Message: Exporting to file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh Generated Hardware Definition File /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.hwdef 
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// Elapsed time: 15 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // m
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 9915.551 ; gain = 144.039 ; free physical = 187689 ; free virtual = 376663 
+dismissDialog("Generate Bitstream"); // bA
+// TclEventType: RUN_STATUS_CHANGE
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "design_1_wrapper.v", 3); // m
+// WARNING: HTimer (ActiveMsgMonitor Process Messages Timer) is taking 2895ms to process. Increasing delay to 2000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  2896 ms.
+// Elapsed time: 76 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v)]", 1, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd)]", 2, true); // D - Node
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v)]", 3); // D
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// WARNING: HEventQueue.dispatchEvent() is taking  1009 ms.
+// Elapsed time: 34 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), zynq_ultra_ps_e_0 : design_1_zynq_ultra_ps_e_0_0 (design_1_zynq_ultra_ps_e_0_0.xci)]", 7); // D
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// TclEventType: DG_GRAPH_STALE
+dismissDialog("Show IP Hierarchy"); // A
+// HMemoryUtils.trashcanNow. Engine heap size: 7,806 MB. GUI used memory: 159 MB. Current time: 5/21/24, 11:35:14 AM CDT
+// Elapsed time: 19 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), zynq_ultra_ps_e_0 : design_1_zynq_ultra_ps_e_0_0 (design_1_zynq_ultra_ps_e_0_0.xci), design_1_zynq_ultra_ps_e_0_0 (design_1_zynq_ultra_ps_e_0_0.v)]", 8); // D
+// Elapsed time: 51 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), rst_ps8_0_99M : design_1_rst_ps8_0_99M_0 (design_1_rst_ps8_0_99M_0.xci)]", 6); // D
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// TclEventType: DG_GRAPH_STALE
+dismissDialog("Show IP Hierarchy"); // A
+// HMemoryUtils.trashcanNow. Engine heap size: 7,843 MB. GUI used memory: 159 MB. Current time: 5/21/24, 11:36:29 AM CDT
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 16 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), rst_ps8_0_99M : design_1_rst_ps8_0_99M_0 (design_1_rst_ps8_0_99M_0.xci), design_1_rst_ps8_0_99M_0(design_1_rst_ps8_0_99M_0_arch) (design_1_rst_ps8_0_99M_0.vhd)]", 7); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), rst_ps8_0_99M : design_1_rst_ps8_0_99M_0 (design_1_rst_ps8_0_99M_0.xci), design_1_rst_ps8_0_99M_0(design_1_rst_ps8_0_99M_0_arch) (design_1_rst_ps8_0_99M_0.vhd)]", 7); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), rst_ps8_0_99M : design_1_rst_ps8_0_99M_0 (design_1_rst_ps8_0_99M_0.xci), design_1_rst_ps8_0_99M_0(design_1_rst_ps8_0_99M_0_arch) (design_1_rst_ps8_0_99M_0.vhd)]", 7); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), rst_ps8_0_99M : design_1_rst_ps8_0_99M_0 (design_1_rst_ps8_0_99M_0.xci), design_1_rst_ps8_0_99M_0(design_1_rst_ps8_0_99M_0_arch) (design_1_rst_ps8_0_99M_0.vhd), U0 : proc_sys_reset(imp) (proc_sys_reset_v5_0_vh_rfs.vhd)]", 8); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), rst_ps8_0_99M : design_1_rst_ps8_0_99M_0 (design_1_rst_ps8_0_99M_0.xci), design_1_rst_ps8_0_99M_0(design_1_rst_ps8_0_99M_0_arch) (design_1_rst_ps8_0_99M_0.vhd), U0 : proc_sys_reset(imp) (proc_sys_reset_v5_0_vh_rfs.vhd), EXT_LPF : lpf(imp) (proc_sys_reset_v5_0_vh_rfs.vhd)]", 9); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), rst_ps8_0_99M : design_1_rst_ps8_0_99M_0 (design_1_rst_ps8_0_99M_0.xci), design_1_rst_ps8_0_99M_0(design_1_rst_ps8_0_99M_0_arch) (design_1_rst_ps8_0_99M_0.vhd), U0 : proc_sys_reset(imp) (proc_sys_reset_v5_0_vh_rfs.vhd), SEQ : sequence_psr(imp) (proc_sys_reset_v5_0_vh_rfs.vhd)]", 13); // D
+// TclEventType: RUN_STEP_COMPLETED
+// Elapsed time: 29 seconds
+selectTab((HResource) null, (HResource) null, "Messages", 1); // aL
+// WARNING: HTimer (ExpRunMonitor Update Timer) is taking 919ms to process. Increasing delay to 3000 ms.
+// Elapsed time: 21 seconds
+selectCheckBox(PAResourceItoN.MsgView_INFORMATION_MESSAGES, (String) null, false); // g: FALSE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_FAILED
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 70 seconds
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// Run Command: PAResourceCommand.PACommandNames_LOG_WINDOW
+dismissDialog("Bitstream Generation Failed"); // ag
+selectTab((HResource) null, (HResource) null, "Messages", 1); // aL
+// Elapsed time: 20 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // m
+// Elapsed time: 14 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources]", 0, true); // D - Node
+selectButton(PAResourceCommand.PACommandNames_ADD_SOURCES, "Sources_add_sources"); // D
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+selectButton("NEXT", "Next >"); // JButton
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, "Add Files"); // a
+// Elapsed time: 12 seconds
+String[] filenames29306 = {"/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface.sv", "/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface_top.v"};
+setFileChooser(filenames29306);
+selectCheckBox(PAResourceQtoS.SrcChooserPanel_MAKE_LOCAL_COPY_OF_THESE_FILES_INTO, "Copy sources into project", true); // g: TRUE
+// WARNING: HEventQueue.dispatchEvent() is taking  3310 ms.
+// Elapsed time: 32 seconds
+selectCheckBox(PAResourceQtoS.SrcChooserPanel_SCAN_AND_ADD_RTL_INCLUDE_FILES_INTO, "Scan and add RTL include files into project", true); // g: TRUE
+// Elapsed time: 27 seconds
+selectButton("FINISH", "Finish"); // JButton
+// 'g' command handler elapsed time: 80 seconds
+dismissDialog("Add Sources"); // c
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files -norecurse -scan_for_includes {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface_top.v} 
+// Tcl Message: add_files: Time (s): cpu = 00:00:14 ; elapsed = 00:00:07 . Memory (MB): peak = 10179.066 ; gain = 21.008 ; free physical = 184680 ; free virtual = 373885 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: import_files -norecurse {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface_top.v} 
+dismissDialog("Add Sources"); // bA
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+// Elapsed time: 13 seconds
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v)]", 1); // D
+// WARNING: HTimer (WrapperUtils Delayed Delete Timer) is taking 3753ms to process. Increasing delay to 2000 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 7,845 MB. GUI used memory: 160 MB. Current time: 5/21/24, 11:41:23 AM CDT
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, configReg_interface_top (configReg_interface_top.v)]", 2); // D
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 2699 ms. Increasing delay to 8097 ms.
+// Elapsed time: 42 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, configReg_interface_top (configReg_interface_top.v), configReg_interface_inst : configReg_interface (configReg_interface.sv)]", 3, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, configReg_interface_top (configReg_interface_top.v), configReg_interface_inst : configReg_interface (configReg_interface.sv)]", 3, true, false, false, false, false, true); // D - Double Click - Node
+// WARNING: HEventQueue.dispatchEvent() is taking  2200 ms.
+dismissDialog("Opening Editor"); // bA
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, configReg_interface_top (configReg_interface_top.v)]", 2, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, configReg_interface_top (configReg_interface_top.v)]", 2, true, false, false, false, false, true); // D - Double Click - Node
+// WARNING: HEventQueue.dispatchEvent() is taking  2163 ms.
+dismissDialog("Opening Editor"); // bA
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "configReg_interface.sv", 4); // m
+// Elapsed time: 17 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "configReg_interface_top.v", 5); // m
+// Elapsed time: 20 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "configReg_interface.sv", 4); // m
+// Elapsed time: 15 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, configReg_interface_top (configReg_interface_top.v)]", 2, true); // D - Node
+selectButton(PAResourceCommand.PACommandNames_ADD_SOURCES, "Sources_add_sources"); // D
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+selectButton("CANCEL", "Cancel"); // JButton
+dismissDialog("Add Sources"); // c
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources]", 0, true); // D - Node
+selectButton(PAResourceCommand.PACommandNames_ADD_SOURCES, "Sources_add_sources"); // D
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+selectButton("NEXT", "Next >"); // JButton
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_HDL_AND_NETLIST_FILES_TO_YOUR_PROJECT, "Add Files"); // a
+// Elapsed time: 23 seconds
+String[] filenames17995 = {"/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_interface_top.sv", "/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_slave_interface.sv", "/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/mem_regs.sv"};
+setFileChooser(filenames17995);
+selectButton("FINISH", "Finish"); // JButton
+// 'g' command handler elapsed time: 30 seconds
+dismissDialog("Add Sources"); // c
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files -norecurse -scan_for_includes {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_slave_interface.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/mem_regs.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_interface_top.sv} 
+// Tcl Message: add_files: Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 10242.160 ; gain = 23.074 ; free physical = 184172 ; free virtual = 373496 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: import_files -norecurse {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_slave_interface.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/mem_regs.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_interface_top.sv} 
+dismissDialog("Add Sources"); // bA
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+// Elapsed time: 33 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, configReg_interface_top (configReg_interface_top.v)]", 2, true); // D - Node
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, configReg_interface_top (configReg_interface_top.v)]", 2); // D
+// Elapsed time: 55 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, configReg_interface_top (configReg_interface_top.v), configReg_interface_inst : configReg_interface (configReg_interface.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv)]", 4); // D
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // m
+// Elapsed time: 33 seconds
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 92, 400, 1042, 504, false, false, false, true, false); // hw - Popup Trigger
+selectMenuItem(PAResourceQtoS.SystemBuilderMenu_ADD_MODULE, "Add Module..."); // ar
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Add Module"); // cU
+// TclEventType: PACKAGER_OBJECT_ADD
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: RSB_BITABEN_IPREPODATA_REFRESH
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// Tcl Message: create_bd_cell -type module -reference configReg_interface_top configReg_interface_0 
+// TclEventType: RSB_ADD_OBJECT
+dismissDialog("Add Module"); // bA
+selectButton(PAResourceQtoS.RSBApplyAutomationBar_RUN_CONNECTION_AUTOMATION, "Run Connection Automation"); // g
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Run Connection Automation"); // O
+// TclEventType: XGUI_UPDATE_GUI_ELEMENT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Clk_slave {Auto} Clk_xbar {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Master {/zynq_ultra_ps_e_0/M_AXI_HPM0_FPD} Slave {/configReg_interface_0/S_AXI} ddr_seg {Auto} intc_ip {/axi_interconnect_0} master_apm {0}}  [get_bd_intf_pins configReg_interface_0/S_AXI] 
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: XGUI_RESET_GUI_ELEMENT
+// Tcl Message: Slave segment '/configReg_interface_0/S_AXI/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA000_0000 [ 4K ]>. 
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 136, 391, 1042, 504, false, false, false, true, false); // hw - Popup Trigger
+selectMenuItem(PAResourceCommand.PACommandNames_AUTO_CONNECT_PORTS, "Make External"); // ar
+// Run Command: PAResourceCommand.PACommandNames_AUTO_CONNECT_PORTS
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: startgroup 
+// Tcl Message: make_bd_pins_external  [get_bd_pins configReg_interface_0/ConfigOut] 
+// Tcl Message: endgroup 
+// Run Command: RDIResourceCommand.RDICommands_UNDO
+typeControlKey(null, null, 'z');
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: undo 
+// Tcl Message: INFO: [Common 17-17] undo 'endgroup' INFO: [Common 17-17] undo 'make_bd_pins_external  [get_bd_pins configReg_interface_0/ConfigOut]' INFO: [Common 17-17] undo 'startgroup' 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_ports ConfigOut_0] [get_bd_pins configReg_interface_0/ConfigOut] 
+// Elapsed time: 10 seconds
+maximizeView(PAResourceOtoP.PAViews_BASE_WORKSPACE, "BaseWorkspace"); // Q
+// Tcl Command: 'set_property location {468 -237} [get_bd_ports SuperpixSel_0]'
+// TclEventType: RSB_CANVAS_LOCATION
+// Tcl Command: 'set_property location {478 -217} [get_bd_ports ConfigClk_0]'
+// TclEventType: RSB_CANVAS_LOCATION
+// Tcl Command: 'set_property location {498 123} [get_bd_ports ConfigIn_0]'
+// TclEventType: RSB_CANVAS_LOCATION
+// Tcl Command: 'set_property location {498 73} [get_bd_ports ConfigLoad_0]'
+// TclEventType: RSB_CANVAS_LOCATION
+// Tcl Command: 'set_property location {498 153} [get_bd_ports Reset_not_0]'
+// TclEventType: RSB_CANVAS_LOCATION
+// Tcl Message: startgroup 
+// Tcl Message: set_property location {468 -237} [get_bd_ports SuperpixSel_0] 
+// Tcl Message: set_property location {478 -217} [get_bd_ports ConfigClk_0] 
+// Tcl Message: set_property location {498 123} [get_bd_ports ConfigIn_0] 
+// Tcl Message: set_property location {498 73} [get_bd_ports ConfigLoad_0] 
+// Tcl Message: set_property location {498 153} [get_bd_ports Reset_not_0] 
+// Tcl Message: endgroup 
+// Run Command: RDIResourceCommand.RDICommands_UNDO
+// Elapsed time: 28 seconds
+typeControlKey(null, null, 'z');
+// TclEventType: RSB_CANVAS_LOCATION
+// Tcl Message: undo 
+// Tcl Message: INFO: [Common 17-17] undo 'endgroup' INFO: [Common 17-17] undo 'set_property location {498 153} [get_bd_ports Reset_not_0]' INFO: [Common 17-17] undo 'set_property location {498 73} [get_bd_ports ConfigLoad_0]' INFO: [Common 17-17] undo 'set_property location {498 123} [get_bd_ports ConfigIn_0]' INFO: [Common 17-17] undo 'set_property location {478 -217} [get_bd_ports ConfigClk_0]' INFO: [Common 17-17] undo 'set_property location {468 -237} [get_bd_ports SuperpixSel_0]' INFO: [Common 17-17] undo 'startgroup' 
+// Run Command: RDIResourceCommand.RDICommands_UNDO
+typeControlKey(null, null, 'z');
+// TclEventType: RSB_REMOVE_OBJECT
+// Tcl Message: undo 
+// Tcl Message: INFO: [Common 17-17] undo 'connect_bd_net [get_bd_ports ConfigOut_0] [get_bd_pins configReg_interface_0/ConfigOut]' 
+// Run Command: RDIResourceCommand.RDICommands_UNDO
+typeControlKey(null, null, 'z');
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_OBJECT
+// Tcl Message: undo 
+// Tcl Message: INFO: [Common 17-17] undo 'apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Clk_slave {Auto} Clk_xbar {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Master {/zynq_ultra_ps_e_0/M_AXI_HPM0_FPD} Slave {/configReg_interface_0/S_AXI} ddr_seg {Auto} intc_ip {/axi_interconnect_0} master_apm {0}}  [get_bd_intf_pins configReg_interface_0/S_AXI]' 
+selectButton(PAResourceQtoS.RSBApplyAutomationBar_RUN_CONNECTION_AUTOMATION, "Run Connection Automation"); // g
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Run Connection Automation"); // O
+// TclEventType: XGUI_UPDATE_GUI_ELEMENT
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: XGUI_RESET_GUI_ELEMENT
+// Tcl Message: apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Clk_slave {Auto} Clk_xbar {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Master {/zynq_ultra_ps_e_0/M_AXI_HPM0_FPD} Slave {/configReg_interface_0/S_AXI} ddr_seg {Auto} intc_ip {/axi_interconnect_0} master_apm {0}}  [get_bd_intf_pins configReg_interface_0/S_AXI] 
+// Tcl Message: Slave segment '/configReg_interface_0/S_AXI/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA000_0000 [ 4K ]>. 
+// [GUI Memory]: 240 MB (+1234kb) [00:30:09]
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: startgroup 
+// Tcl Message: connect_bd_net [get_bd_ports ConfigClk_0] [get_bd_pins configReg_interface_0/ConfigClk] 
+// Tcl Message: endgroup 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_ports SuperpixSel_0] [get_bd_pins configReg_interface_0/SuperpixSel] 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_ports ConfigLoad_0] [get_bd_pins configReg_interface_0/ConfigLoad] 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_ports ConfigIn_0] [get_bd_pins configReg_interface_0/ConfigIn] 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_ports Reset_not_0] [get_bd_pins configReg_interface_0/Reset_not] 
+// TclEventType: RSB_CONNECTION_CHANGE
+// Tcl Message: connect_bd_net [get_bd_ports ConfigOut_0] [get_bd_pins configReg_interface_0/ConfigOut] 
+// Run Command: PAResourceCommand.PACommandNames_SAVE_RSB_DESIGN
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: save_bd_design 
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd>  Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui>  
+// Elapsed time: 61 seconds
+selectButton(PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN, "System_validate_bd_design_rsb"); // D
+// Run Command: PAResourceCommand.PACommandNames_VALIDATE_RSB_DESIGN
+// Tcl Command: 'validate_bd_design'
+// TclEventType: RSB_VALIDATE_DIAGRAM
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: RSB_PARAM_PROP
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: validate_bd_design 
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_PARAM_PROP
+// TclEventType: FILE_SET_CHANGE
+dismissDialog("Validate Design"); // bA
+selectButton("OptionPane.button", "OK"); // JButton
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+// Elapsed time: 19 seconds
+selectButton(PAResourceCommand.PACommandNames_REGENERATE_LAYOUT, "System_regenerate_rsb_layout"); // D
+// Run Command: PAResourceCommand.PACommandNames_REGENERATE_LAYOUT
+// Tcl Command: 'regenerate_bd_layout'
+// TclEventType: RSB_LAYOUT_STATE
+// TclEventType: RSB_REGENERATE_LAYOUT
+// Tcl Message: regenerate_bd_layout 
+// Run Command: PAResourceCommand.PACommandNames_SAVE_RSB_DESIGN
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: save_bd_design 
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd>  Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui>  
+dismissDialog("Save Design"); // bA
+unmaximizeView(PAResourceOtoP.PAViews_BASE_WORKSPACE, "BaseWorkspace"); // Q
+selectButton(PAResourceCommand.PACommandNames_ADD_SOURCES, "Sources_add_sources"); // D
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+selectRadioButton(PAResourceAtoD.AddSrcWizard_SPECIFY_OR_CREATE_CONSTRAINT_FILES, "Add or create constraints"); // a
+selectButton("NEXT", "Next >"); // JButton
+selectButton(PAResourceAtoD.ConstraintsChooserPanel_CREATE_FILE, "Create File"); // a
+// Tcl Command: 'file mkdir /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/constrs_1'
+// Tcl Message: file mkdir /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/constrs_1 
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a
+dismissDialog("Create Constraints File"); // J
+selectButton(PAResourceAtoD.ConstraintsChooserPanel_ADD_FILES, "Add Files"); // a
+// Elapsed time: 16 seconds
+setFileChooser("/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/configReg_interface/configReg_interface.srcs/constrs_1/new/configReg_interface.xdc");
+selectButton("FINISH", "Finish"); // JButton
+// 'g' command handler elapsed time: 39 seconds
+dismissDialog("Add Sources"); // c
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files -fileset constrs_1 -norecurse /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/configReg_interface/configReg_interface.srcs/constrs_1/new/configReg_interface.xdc 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: import_files -fileset constrs_1 /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/configReg_interface/configReg_interface.srcs/constrs_1/new/configReg_interface.xdc 
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints]", 7); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, configReg_interface.xdc]", 9, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, configReg_interface.xdc]", 9, false, false, false, false, false, true); // D - Double Click
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, configReg_interface.xdc]", 9, false); // D
+// WARNING: HEventQueue.dispatchEvent() is taking  2678 ms.
+dismissDialog("Opening Editor"); // bA
+// Elapsed time: 38 seconds
+selectCodeEditor("configReg_interface.xdc", 198, 308); // be
+selectCodeEditor("configReg_interface.xdc", 73, 225); // be
+selectCodeEditor("configReg_interface.xdc", 3, 204); // be
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 40 seconds
+selectButton(RDIResourceCommand.RDICommands_SAVE_FILE, (String) null); // D
+// Elapsed time: 22 seconds
+selectCodeEditor("configReg_interface.xdc", 151, 167); // be
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // n
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a
+dismissDialog("Synthesis is Out-of-date"); // A
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run synth_1 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: INFO: [Project 1-1160] Copying file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/design_1_wrapper.dcp to /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/utils_1/imports/synth_1 and adding it to utils fileset 
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// 'cW' command handler elapsed time: 5 seconds
+dismissDialog("Launch Runs"); // cZ
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 22 
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui>  Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.v 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/sim/design_1.v Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block configReg_interface_0 . 
+selectButton(RDIResource.ProgressDialog_BACKGROUND, "Background"); // a
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// Tcl Message: INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S_AXI'. A default connection has been created. INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'M_AXI'. A default connection has been created. INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_interconnect_0/s00_couplers/auto_ds . 
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_interconnect_0/s00_couplers/auto_pc . 
+// Tcl Message: Exporting to file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh Generated Hardware Definition File /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.hwdef 
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:31 ; elapsed = 00:00:23 . Memory (MB): peak = 10431.445 ; gain = 19.137 ; free physical = 183644 ; free virtual = 373246 
+// Elapsed time: 21 seconds
+dismissDialog("Generate Bitstream"); // bA
+// TclEventType: RUN_STATUS_CHANGE
+selectCodeEditor("configReg_interface.xdc", 89, 79); // be
+selectCodeEditor("configReg_interface.xdc", 108, 69); // be
+// Elapsed time: 35 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Map", 2); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "design_1_wrapper.v", 3); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "configReg_interface.sv", 4); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "configReg_interface_top.v", 5); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "configReg_interface.xdc", 6); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Map", 2); // m
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, IP Integrator, Open Block Design]", 7, false); // n
+// Run Command: PAResourceCommand.PACommandNames_OPEN_BLOCK_DESIGN
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: open_bd_design {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd} 
+dismissDialog("Open Block Design"); // bA
+// Elapsed time: 26 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v)]", 1, true); // D - Node
+// Elapsed time: 11 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v)]", 1); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v)]", 3, true); // D - Node
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// WARNING: HEventQueue.dispatchEvent() is taking  1360 ms.
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 25 seconds
+selectCheckBox(PAResourceItoN.MsgView_WARNING_MESSAGES, (String) null, true); // g: TRUE
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: FILE_SET_CHANGE
+// WARNING: HTimer (ActiveMsgMonitor Process Messages Timer) is taking 864ms to process. Increasing delay to 2000 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1214 ms.
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_FAILED
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 295 seconds
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// Run Command: PAResourceCommand.PACommandNames_LOG_WINDOW
+dismissDialog("Bitstream Generation Failed"); // ag
+// Elapsed time: 34 seconds
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Design Initialization, [Common 17-55] 'set_property' expects at least one object. [/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/constrs_1/imports/new/configReg_interface.xdc:1]. ]", 2, true); // ah - Node
+messagesViewCrossProbe(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "src;-;/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/constrs_1/imports/new/configReg_interface.xdc;-;;-;16;-;line;-;1;-;;-;16;-;"); // ah
+// Elapsed time: 22 seconds
+selectCodeEditor("configReg_interface.xdc", 351, 9); // be
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 39 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // n
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a
+dismissDialog("Synthesis is Out-of-date"); // A
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+// Tcl Message: INFO: [Project 1-1161] Replacing file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/utils_1/imports/synth_1/design_1_wrapper.dcp with file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/design_1_wrapper.dcp 
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// 'cW' command handler elapsed time: 6 seconds
+dismissDialog("Launch Runs"); // cZ
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 22 
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Tue May 21 12:01:22 2024] Launched synth_1... Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/runme.log [Tue May 21 12:01:22 2024] Launched impl_1... Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/impl_1/runme.log 
+dismissDialog("Generate Bitstream"); // bA
+selectCodeEditor("configReg_interface.xdc", 161, 133); // be
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("configReg_interface.xdc", 147, 235); // be
+// Elapsed time: 18 seconds
+selectCheckBox(PAResourceItoN.MsgView_WARNING_MESSAGES, (String) null, true); // g: TRUE
+// Elapsed time: 10 seconds
+selectCheckBox(PAResourceItoN.MsgView_WARNING_MESSAGES, (String) null, false); // g: FALSE
+// Elapsed time: 10 seconds
+selectCheckBox(PAResourceItoN.MsgView_WARNING_MESSAGES, (String) null, true); // g: TRUE
+// WARNING: HTimer (ActiveMsgMonitor Process Messages Timer) is taking 867ms to process. Increasing delay to 2000 ms.
+selectCheckBox(PAResourceItoN.MsgView_WARNING_MESSAGES, (String) null, false); // g: FALSE
+selectCodeEditor("configReg_interface.xdc", 176, 123); // be
+// Elapsed time: 12 seconds
+selectCheckBox(PAResourceItoN.MsgView_WARNING_MESSAGES, (String) null, true); // g: TRUE
+// WARNING: updateGUI() is taking  1285 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1286 ms.
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// WARNING: HEventQueue.dispatchEvent() is taking  1259 ms.
+// TclEventType: RUN_STEP_COMPLETED
+// Elapsed time: 132 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, configReg_interface_top (configReg_interface_top.v), configReg_interface_inst : configReg_interface (configReg_interface.sv)]", 5, true); // D - Node
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 160 seconds
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a
+dismissDialog("Bitstream Generation Completed"); // ag
+selectMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_FLOW, "Flow"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_FLOW, "Flow"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_IP, "IP"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_TEXT_EDITOR, "Text Editor"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ao
+selectMenuItem(PAResourceCommand.PACommandNames_EXPORT_HARDWARE, "Export Hardware..."); // ar
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+// Run Command: PAResourceCommand.PACommandNames_EXPORT_HARDWARE
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd}]'
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd}]'
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd}]'
+selectButton("NEXT", "Next >"); // JButton
+selectRadioButton(PAResourceEtoH.ExportFixedPlatformWizard_INCLUDE_BITSTREAM, "Include bitstream. This platform includes the complete hardware implementation and bitstream, in addition to the hardware specification for software tools."); // b
+// Elapsed time: 15 seconds
+selectButton("NEXT", "Next >"); // JButton
+selectButton("OptionPane.button", "Yes"); // JButton
+// Elapsed time: 12 seconds
+selectButton("CANCEL", "Cancel"); // JButton
+// 'n' command handler elapsed time: 32 seconds
+dismissDialog("Export Hardware Platform"); // g
+selectCodeEditor("configReg_interface.xdc", 73, 122); // be
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // n
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a
+dismissDialog("Synthesis is Out-of-date"); // A
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+// Tcl Message: INFO: [Project 1-1161] Replacing file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/utils_1/imports/synth_1/design_1_wrapper.dcp with file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/design_1_wrapper.dcp 
+// TclEventType: FILE_SET_CHANGE
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// 'cW' command handler elapsed time: 5 seconds
+dismissDialog("Launch Runs"); // cZ
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 22 
+// Tcl Message: [Tue May 21 12:08:24 2024] Launched synth_1... Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/runme.log [Tue May 21 12:08:24 2024] Launched impl_1... Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/impl_1/runme.log 
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 26 seconds
+selectCodeEditor("configReg_interface.xdc", 95, 169); // be
+// Elapsed time: 37 seconds
+selectCodeEditor("configReg_interface.xdc", 2, 168); // be
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// HMemoryUtils.trashcanNow. Engine heap size: 7,920 MB. GUI used memory: 165 MB. Current time: 5/21/24, 12:11:26 PM CDT
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 284 seconds
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a
+dismissDialog("Bitstream Generation Completed"); // ag
+selectMenu(PAResourceItoN.MainMenuMgr_FLOW, "Flow"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_FLOW, "Flow"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ao
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+// Elapsed time: 53 seconds
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ao
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+collapseTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Write Bitstream, DRC, Physical Configuration, Chip Level]", 42); // ah
+collapseTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Write Bitstream, DRC, Implementation, Routing, Chip Level]", 45); // ah
+expandTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Write Bitstream, DRC, Implementation, Routing, Chip Level]", 45); // ah
+// Elapsed time: 13 seconds
+collapseTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Write Bitstream, DRC, Implementation, Routing, Chip Level]", 45); // ah
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_IP, "IP"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_TEXT_EDITOR, "Text Editor"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ao
+selectMenuItem(PAResourceCommand.PACommandNames_EXPORT_HARDWARE, "Export Hardware..."); // ar
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+// Run Command: PAResourceCommand.PACommandNames_EXPORT_HARDWARE
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd}]'
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd}]'
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd}]'
+selectButton("NEXT", "Next >"); // JButton
+selectRadioButton(PAResourceEtoH.ExportFixedPlatformWizard_INCLUDE_BITSTREAM, "Include bitstream. This platform includes the complete hardware implementation and bitstream, in addition to the hardware specification for software tools."); // b
+selectButton("NEXT", "Next >"); // JButton
+selectButton("NEXT", "Next >"); // JButton
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd}]'
+selectButton("FINISH", "Finish"); // JButton
+// 'n' command handler elapsed time: 14 seconds
+dismissDialog("Export Hardware Platform"); // g
+// Tcl Message: write_hw_platform -fixed -include_bit -force -file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/design_1_wrapper.xsa 
+// Tcl Message: INFO: [Project 1-1918] Creating Hardware Platform: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/design_1_wrapper.xsa ... 
+// Tcl Message: INFO: [Project 1-1943] The Hardware Platform can be used for Hardware INFO: [Project 1-1941] Successfully created Hardware Platform: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/design_1_wrapper.xsa 
+// Tcl Message: INFO: [Hsi 55-2053] elapsed time for repository (/asic/cad/Xilinx/Vivado/2022.1/data/embeddedsw) loading 7 seconds 
+// Tcl Message: write_hw_platform: Time (s): cpu = 00:00:09 ; elapsed = 00:00:17 . Memory (MB): peak = 10431.445 ; gain = 0.000 ; free physical = 181973 ; free virtual = 372687 
+// Elapsed time: 17 seconds
+dismissDialog("Export Hardware Platform"); // bA
+// WARNING: HEventQueue.dispatchEvent() is taking  2782 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 7,952 MB. GUI used memory: 162 MB. Current time: 5/21/24, 12:41:26 PM CDT
+// TclEventType: FILE_SET_CHANGE
