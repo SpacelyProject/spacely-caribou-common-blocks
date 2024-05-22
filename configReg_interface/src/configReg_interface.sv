@@ -125,10 +125,10 @@ module configReg_interface #(
   logic [C_S_AXI_DATA_WIDTH-1:0]                prev_reg_wrdout;
 
   // Opcodes
-  localparam [1:0] OPCODE_RESET     = 2'b00;
-  localparam [1:0] OPCODE_CONFIGIN  = 2'b01;
-  localparam [1:0] OPCODE_WAIT      = 2'b10;
-  localparam [1:0] OPCODE_CONFIGOUT = 2'b11;
+  localparam [1:0] OPCODE_RESET     = 4'b0001;
+  localparam [1:0] OPCODE_CONFIGIN  = 4'b0010;
+  localparam [1:0] OPCODE_WAIT      = 4'b0011;
+  localparam [1:0] OPCODE_CONFIGOUT = 4'b0100;
 
   // FSM States
   typedef enum reg [2:0] {
@@ -226,23 +226,23 @@ module configReg_interface #(
               fifo_count <= fifo_count - 1;
               processing_fifo_data <= 1;
               if(reg_wrByteStrobe[0][0] == 1) reg1[7:0]   <= fifo_data[7:0];
-		          if(reg_wrByteStrobe[0][1] == 1) reg1[15:8]  <= fifo_data[15:8];
-		          if(reg_wrByteStrobe[0][2] == 1) reg1[23:16] <= fifo_data[23:16];
-		          if(reg_wrByteStrobe[0][3] == 1) reg1[31:24] <= fifo_data[31:24];
+		      if(reg_wrByteStrobe[0][1] == 1) reg1[15:8]  <= fifo_data[15:8];
+		      if(reg_wrByteStrobe[0][2] == 1) reg1[23:16] <= fifo_data[23:16];
+		      if(reg_wrByteStrobe[0][3] == 1) reg1[31:24] <= fifo_data[31:24];
 
-		          case(reg1[1:0])
-		            OPCODE_RESET: current_state     <= RESET_STATE;
-		            OPCODE_CONFIGIN : current_state <= CONFIGIN_STATE;
-		            OPCODE_WAIT: current_state      <= WAIT_STATE;
-		            OPCODE_CONFIGOUT: current_state <= CONFIGOUT_STATE;
-		            default: current_state          <= IDLE_STATE;
-		          endcase
-		        end
-		      end
-		    end
+		      case(reg1[3:0])
+		        OPCODE_RESET: current_state     <= RESET_STATE;
+		        OPCODE_CONFIGIN : current_state <= CONFIGIN_STATE;
+		        OPCODE_WAIT: current_state      <= WAIT_STATE;
+		        OPCODE_CONFIGOUT: current_state <= CONFIGOUT_STATE;
+		        default: current_state          <= IDLE_STATE;
+		       endcase
+		     end
+		   end
+		 end
         RESET_STATE: begin
           if(~ConfigClk) begin
-            SuperpixSel <= reg1[2];
+            SuperpixSel <= reg1[5];
             Reset_not <= 0;       // De-assert Reset_not at the negative edge of ConfigClk
             current_state <= RESET_STATE_DONE;
           end
@@ -250,21 +250,21 @@ module configReg_interface #(
         RESET_STATE_DONE: begin
           if(~ConfigClk) begin
             Reset_not <= 1;       // Assert Reset_not at the negative edge of ConfigClk
-            current_state <= CONFIGIN_STATE;
             processing_fifo_data <= 0;
+            current_state <= IDLE_STATE;
           end
         end
         CONFIGIN_STATE: begin
           if(~ConfigClk) begin
-            ConfigIn <= reg1[3];  // Set ConfigIn based upon reg1[3]
+            ConfigIn <= reg1[6];  // Set ConfigIn based upon reg1[3]
             current_state <= CONFIGIN_DONE_STATE;
           end
         end
         CONFIGIN_DONE_STATE: begin
           if(~ConfigClk) begin
             ConfigIn <= 0;        // Clear ConfigIn after 1 ConfigClk cycle
-            current_state <= WAIT_STATE;
             processing_fifo_data <= 0;
+            current_state <= IDLE_STATE;
           end
         end
         WAIT_STATE: begin
@@ -272,8 +272,8 @@ module configReg_interface #(
             if(wait_counter > 0) begin
               wait_counter <= wait_counter - 1;
             end else begin
-              current_state <= CONFIGOUT_STATE;
               processing_fifo_data = 0;
+              current_state <= IDLE_STATE;
             end
           end
         end
@@ -291,3 +291,4 @@ module configReg_interface #(
       end
     end
   endmodule
+
