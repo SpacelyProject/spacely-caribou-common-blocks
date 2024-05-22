@@ -137,6 +137,10 @@ module configReg_interface #(
   localparam [3:0] WAIT_STATUS      = 4'b0100;
   localparam [3:0] CONFIGOUT_STATUS = 4'b1000;
 
+  // Indexing
+  localparam integer SUPERPIXSEL    = 4;
+  localparam integer CONFIGIN       = 5;
+
   // FSM States
   typedef enum reg [2:0] {
     IDLE_STATE          = 3'b000,
@@ -256,7 +260,7 @@ module configReg_interface #(
 		 end
         RESET_STATE: begin
           if(~ConfigClk) begin
-            SuperpixSel <= reg1[5];
+            SuperpixSel <= reg1[SUPERPIXSEL];
             Reset_not <= 0;       // De-assert Reset_not at the negative edge of ConfigClk
             current_state <= RESET_STATE_DONE;
           end
@@ -271,7 +275,7 @@ module configReg_interface #(
         end
         CONFIGIN_STATE: begin
           if(~ConfigClk) begin
-            ConfigIn <= reg1[6];  // Set ConfigIn based upon reg1[6]
+            ConfigIn <= reg1[CONFIGIN]; // set ConfigIn
             current_state <= CONFIGIN_DONE_STATE;
           end
         end
