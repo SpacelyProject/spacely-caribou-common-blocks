@@ -101,17 +101,17 @@ module configReg_interface #(
 
   localparam integer FPGA_REGISTER_N = 2;
 
-  logic [C_S_AXI_DATA_WIDTH-1:0]                reg_wrdout;
-  logic [((C_S_AXI_DATA_WIDTH-1)/8):0]          reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
-  logic                                         reg_rdStrobe [FPGA_REGISTER_N-1:0];
-  logic [C_S_AXI_DATA_WIDTH-1:0]                reg_rddin [FPGA_REGISTER_N-1:0];
+  logic [C_S_AXI_DATA_WIDTH-1:0]                reg_wrdout;                                         // 32-bit data from AXI interface
+  logic [((C_S_AXI_DATA_WIDTH-1)/8):0]          reg_wrByteStrobe [FPGA_REGISTER_N-1:0];             // write strobe per byte of reg_wrdout per FPGA register
+  logic                                         reg_rdStrobe [FPGA_REGISTER_N-1:0];                 // read strobe per FPGA register
+  logic [C_S_AXI_DATA_WIDTH-1:0]                reg_rddin [FPGA_REGISTER_N-1:0];                    // 32-bit read only registers
 
   // CLK divider
   localparam integer CLK_DIVIDER_LOG            = $clog2(CLK_DIVIDER);
-  reg [CLK_DIVIDER_LOG-1:0]                     clk_counter;
+  reg [CLK_DIVIDER_LOG-1:0]                     clk_counter;                                        // counter to divide S_AXI_ACLK
 
   // Wait counter
-  reg [$clog2(CONFIG_REG_WIDTH)-1:0]            wait_counter;
+  reg [$clog2(CONFIG_REG_WIDTH)-1:0]            wait_counter;                                       // counter for wait cycles
 
   // FIFO buffer
   reg [C_S_AXI_DATA_WIDTH-1:0]                  fifo [BUFFER_DEPTH-1:0];
@@ -125,10 +125,17 @@ module configReg_interface #(
   logic [C_S_AXI_DATA_WIDTH-1:0]                prev_reg_wrdout;
 
   // Opcodes
-  localparam [1:0] OPCODE_RESET     = 4'b0001;
-  localparam [1:0] OPCODE_CONFIGIN  = 4'b0010;
-  localparam [1:0] OPCODE_WAIT      = 4'b0011;
-  localparam [1:0] OPCODE_CONFIGOUT = 4'b0100;
+  localparam [3:0] OPCODE_RESET     = 4'b0001;
+  localparam [3:0] OPCODE_CONFIGIN  = 4'b0010;
+  localparam [3:0] OPCODE_WAIT      = 4'b0011;
+  localparam [3:0] OPCODE_CONFIGOUT = 4'b0100;
+
+  // Status
+  localparam [3:0] IDLE_STATUS      = 4'b0001;
+  localparam [3:0] RESET_STATUS     = 4'b0010;
+  localparam [3:0] CONFIGIN_STATUS  = 4'b0011;
+  localparam [3:0] WAIT_STATUS      = 4'b0100;
+  localparam [3:0] CONFIGOUT_STATUS = 4'b1000;
 
   // FSM States
   typedef enum reg [2:0] {
@@ -141,7 +148,7 @@ module configReg_interface #(
     CONFIGOUT_STATE     = 3'b101
     } state_t;
 
-   state_t current_state, next_state;
+   state_t current_state;
 
    // Instantiate the AXI Interface
    // NOTE: This block should be included from spacely-caribou-common-blocks/axi4lite_interface
@@ -182,7 +189,7 @@ module configReg_interface #(
 	logic  [C_S_AXI_DATA_WIDTH-1:0] reg1;
 	logic  [C_S_AXI_DATA_WIDTH-1:0] reg2;
 
-  // CLK DIVIDER
+  // clock divider logic
   always @(posedge S_AXI_ACLK or negedge S_AXI_ARESETN) begin
     if(~S_AXI_ARESETN) begin
       clk_counter <= 0;
@@ -205,11 +212,14 @@ module configReg_interface #(
       fifo_tail <= 0;
       fifo_count <= 0;
       fifo_data <= 0;
-      current_state <= IDLE_STATE;
       processing_fifo_data <= 0;
       Reset_not <= 1;
       wait_counter <= 0;
+      reg_rddin[0] <= 0;
+      reg_rddin[1] <= 0;
+      current_state <= IDLE_STATE;
     end else begin
+      // if earlier write is not same as previous write, push it to FIFO
       if(reg_wrdout != prev_reg_wrdout && (fifo_count < BUFFER_DEPTH)) begin
         fifo[fifo_head] <= reg_wrdout;
         fifo_head <= fifo_head + 1;
@@ -220,6 +230,7 @@ module configReg_interface #(
       case(current_state)
         IDLE_STATE: begin
           if(~ConfigClk) begin
+            // if no reg_wrdout in process, retrieve entry from FIFO and extract opcode to set current_status
             if(!processing_fifo_data  && fifo_count > 0) begin
               fifo_data <= fifo[fifo_tail];
               fifo_tail <= fifo_tail + 1;
@@ -235,7 +246,10 @@ module configReg_interface #(
 		        OPCODE_CONFIGIN : current_state <= CONFIGIN_STATE;
 		        OPCODE_WAIT: current_state      <= WAIT_STATE;
 		        OPCODE_CONFIGOUT: current_state <= CONFIGOUT_STATE;
-		        default: current_state          <= IDLE_STATE;
+		        default: begin
+		          reg_rddin[0][3:0] <= IDLE_STATUS;
+		          current_state <= IDLE_STATE;
+		        end
 		       endcase
 		     end
 		   end
@@ -251,12 +265,13 @@ module configReg_interface #(
           if(~ConfigClk) begin
             Reset_not <= 1;       // Assert Reset_not at the negative edge of ConfigClk
             processing_fifo_data <= 0;
+            reg_rddin[0][3:0] <= RESET_STATUS;
             current_state <= IDLE_STATE;
           end
         end
         CONFIGIN_STATE: begin
           if(~ConfigClk) begin
-            ConfigIn <= reg1[6];  // Set ConfigIn based upon reg1[3]
+            ConfigIn <= reg1[6];  // Set ConfigIn based upon reg1[6]
             current_state <= CONFIGIN_DONE_STATE;
           end
         end
@@ -264,6 +279,7 @@ module configReg_interface #(
           if(~ConfigClk) begin
             ConfigIn <= 0;        // Clear ConfigIn after 1 ConfigClk cycle
             processing_fifo_data <= 0;
+            reg_rddin[0][3:0] <= CONFIGIN_STATUS;
             current_state <= IDLE_STATE;
           end
         end
@@ -271,16 +287,19 @@ module configReg_interface #(
           if(~ConfigClk) begin
             if(wait_counter > 0) begin
               wait_counter <= wait_counter - 1;
+              reg_rddin[1][0] <= ConfigOut;
             end else begin
               processing_fifo_data = 0;
+              reg_rddin[0][3:0] <= WAIT_STATUS;
               current_state <= IDLE_STATE;
             end
           end
         end
         CONFIGOUT_STATE: begin
           if(ConfigClk) begin
-            reg_rddin[0] <= ConfigOut;
+            reg_rddin[1][0] <= ConfigOut;
             processing_fifo_data <= 0;
+            reg_rddin[0][3:0] <= CONFIGOUT_STATUS;
             current_state <= IDLE_STATE;
           end
         end
