@@ -1,7 +1,7 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-// Date        : Tue May 21 19:48:41 2024
+// Date        : Wed May 22 08:38:30 2024
 // Host        : fasic-beast1.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 // Command     : write_verilog -force -mode funcsim
 //               /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.gen/sources_1/bd/design_1/ip/design_1_configReg_interface_0_0/design_1_configReg_interface_0_0_sim_netlist.v
@@ -86,7 +86,7 @@ module design_1_configReg_interface_0_0
   wire S_AXI_AWVALID;
   wire S_AXI_BREADY;
   wire S_AXI_BVALID;
-  wire [0:0]\^S_AXI_RDATA ;
+  wire [3:0]\^S_AXI_RDATA ;
   wire S_AXI_RREADY;
   wire S_AXI_RVALID;
   wire [31:0]S_AXI_WDATA;
@@ -126,10 +126,7 @@ module design_1_configReg_interface_0_0
   assign S_AXI_RDATA[6] = \<const0> ;
   assign S_AXI_RDATA[5] = \<const0> ;
   assign S_AXI_RDATA[4] = \<const0> ;
-  assign S_AXI_RDATA[3] = \<const0> ;
-  assign S_AXI_RDATA[2] = \<const0> ;
-  assign S_AXI_RDATA[1] = \<const0> ;
-  assign S_AXI_RDATA[0] = \^S_AXI_RDATA [0];
+  assign S_AXI_RDATA[3:0] = \^S_AXI_RDATA [3:0];
   assign S_AXI_RRESP[1] = \<const0> ;
   assign S_AXI_RRESP[0] = \<const0> ;
   GND GND
@@ -167,65 +164,63 @@ module design_1_configReg_interface_0_0_axi4lite_interface_top
     S_AXI_BVALID,
     aw_en_reg,
     S_AXI_RVALID,
-    S_AXI_RDATA,
-    S_AXI_ARESETN_0,
-    mem_rddout_i,
-    \axi_rdata_reg[0] ,
     E,
+    S_AXI_RDATA,
+    \axi_rdata_reg[0] ,
     S_AXI_ACLK,
     axi_bvalid_reg,
     aw_en_reg_0,
     axi_rvalid_reg,
-    \axi_rdata_reg[0]_0 ,
     S_AXI_WVALID,
     S_AXI_AWVALID,
     S_AXI_ARESETN,
     Q,
     \reg1_reg[5] ,
-    fifo_tail0__18,
+    fifo_tail0__11,
     S_AXI_WSTRB,
     \reg1_reg[5]_0 ,
     S_AXI_ARADDR,
     S_AXI_AWADDR,
-    \axi_rdata[0]_i_2 );
+    S_AXI_ARVALID,
+    \axi_rdata_reg[3] ,
+    \axi_rdata_reg[0]_0 );
   output axi_arready_reg;
   output axi_awready_reg;
   output axi_wready_reg;
   output S_AXI_BVALID;
   output aw_en_reg;
   output S_AXI_RVALID;
-  output [0:0]S_AXI_RDATA;
-  output [0:0]S_AXI_ARESETN_0;
-  output [0:0]mem_rddout_i;
+  output [0:0]E;
+  output [3:0]S_AXI_RDATA;
   input \axi_rdata_reg[0] ;
-  input [0:0]E;
   input S_AXI_ACLK;
   input axi_bvalid_reg;
   input aw_en_reg_0;
   input axi_rvalid_reg;
-  input \axi_rdata_reg[0]_0 ;
   input S_AXI_WVALID;
   input S_AXI_AWVALID;
   input S_AXI_ARESETN;
   input [2:0]Q;
   input \reg1_reg[5] ;
-  input fifo_tail0__18;
+  input fifo_tail0__11;
   input [0:0]S_AXI_WSTRB;
   input \reg1_reg[5]_0 ;
   input [8:0]S_AXI_ARADDR;
   input [8:0]S_AXI_AWADDR;
-  input \axi_rdata[0]_i_2 ;
+  input S_AXI_ARVALID;
+  input [3:0]\axi_rdata_reg[3] ;
+  input \axi_rdata_reg[0]_0 ;
 
   wire [0:0]E;
   wire [2:0]Q;
   wire S_AXI_ACLK;
   wire [8:0]S_AXI_ARADDR;
   wire S_AXI_ARESETN;
-  wire [0:0]S_AXI_ARESETN_0;
+  wire S_AXI_ARVALID;
   wire [8:0]S_AXI_AWADDR;
   wire S_AXI_AWVALID;
   wire S_AXI_BVALID;
-  wire [0:0]S_AXI_RDATA;
+  wire [3:0]S_AXI_RDATA;
   wire S_AXI_RVALID;
   wire [0:0]S_AXI_WSTRB;
   wire S_AXI_WVALID;
@@ -234,13 +229,12 @@ module design_1_configReg_interface_0_0_axi4lite_interface_top
   wire axi_arready_reg;
   wire axi_awready_reg;
   wire axi_bvalid_reg;
-  wire \axi_rdata[0]_i_2 ;
   wire \axi_rdata_reg[0] ;
   wire \axi_rdata_reg[0]_0 ;
+  wire [3:0]\axi_rdata_reg[3] ;
   wire axi_rvalid_reg;
   wire axi_wready_reg;
-  wire fifo_tail0__18;
-  wire [0:0]mem_rddout_i;
+  wire fifo_tail0__11;
   wire \reg1_reg[5] ;
   wire \reg1_reg[5]_0 ;
 
@@ -250,7 +244,7 @@ module design_1_configReg_interface_0_0_axi4lite_interface_top
         .S_AXI_ACLK(S_AXI_ACLK),
         .S_AXI_ARADDR(S_AXI_ARADDR),
         .S_AXI_ARESETN(S_AXI_ARESETN),
-        .S_AXI_ARESETN_0(S_AXI_ARESETN_0),
+        .S_AXI_ARVALID(S_AXI_ARVALID),
         .S_AXI_AWADDR(S_AXI_AWADDR),
         .S_AXI_AWVALID(S_AXI_AWVALID),
         .S_AXI_BVALID(S_AXI_BVALID),
@@ -263,13 +257,12 @@ module design_1_configReg_interface_0_0_axi4lite_interface_top
         .axi_arready_reg_0(axi_arready_reg),
         .axi_awready_reg_0(axi_awready_reg),
         .axi_bvalid_reg_0(axi_bvalid_reg),
-        .\axi_rdata[0]_i_2_0 (\axi_rdata[0]_i_2 ),
         .\axi_rdata_reg[0]_0 (\axi_rdata_reg[0] ),
         .\axi_rdata_reg[0]_1 (\axi_rdata_reg[0]_0 ),
+        .\axi_rdata_reg[3]_0 (\axi_rdata_reg[3] ),
         .axi_rvalid_reg_0(axi_rvalid_reg),
         .axi_wready_reg_0(axi_wready_reg),
-        .fifo_tail0__18(fifo_tail0__18),
-        .mem_rddout_i(mem_rddout_i),
+        .fifo_tail0__11(fifo_tail0__11),
         .\reg1_reg[5] (\reg1_reg[5] ),
         .\reg1_reg[5]_0 (\reg1_reg[5]_0 ));
 endmodule
@@ -282,85 +275,86 @@ module design_1_configReg_interface_0_0_axi4lite_slave_interface
     S_AXI_BVALID,
     aw_en_reg_0,
     S_AXI_RVALID,
-    S_AXI_RDATA,
-    S_AXI_ARESETN_0,
-    mem_rddout_i,
-    \axi_rdata_reg[0]_0 ,
     E,
+    S_AXI_RDATA,
+    \axi_rdata_reg[0]_0 ,
     S_AXI_ACLK,
     axi_bvalid_reg_0,
     aw_en_reg_1,
     axi_rvalid_reg_0,
-    \axi_rdata_reg[0]_1 ,
     S_AXI_WVALID,
     S_AXI_AWVALID,
     S_AXI_ARESETN,
     Q,
     \reg1_reg[5] ,
-    fifo_tail0__18,
+    fifo_tail0__11,
     S_AXI_WSTRB,
     \reg1_reg[5]_0 ,
     S_AXI_ARADDR,
     S_AXI_AWADDR,
-    \axi_rdata[0]_i_2_0 );
+    S_AXI_ARVALID,
+    \axi_rdata_reg[3]_0 ,
+    \axi_rdata_reg[0]_1 );
   output axi_arready_reg_0;
   output axi_awready_reg_0;
   output axi_wready_reg_0;
   output S_AXI_BVALID;
   output aw_en_reg_0;
   output S_AXI_RVALID;
-  output [0:0]S_AXI_RDATA;
-  output [0:0]S_AXI_ARESETN_0;
-  output [0:0]mem_rddout_i;
+  output [0:0]E;
+  output [3:0]S_AXI_RDATA;
   input \axi_rdata_reg[0]_0 ;
-  input [0:0]E;
   input S_AXI_ACLK;
   input axi_bvalid_reg_0;
   input aw_en_reg_1;
   input axi_rvalid_reg_0;
-  input \axi_rdata_reg[0]_1 ;
   input S_AXI_WVALID;
   input S_AXI_AWVALID;
   input S_AXI_ARESETN;
   input [2:0]Q;
   input \reg1_reg[5] ;
-  input fifo_tail0__18;
+  input fifo_tail0__11;
   input [0:0]S_AXI_WSTRB;
   input \reg1_reg[5]_0 ;
   input [8:0]S_AXI_ARADDR;
   input [8:0]S_AXI_AWADDR;
-  input \axi_rdata[0]_i_2_0 ;
+  input S_AXI_ARVALID;
+  input [3:0]\axi_rdata_reg[3]_0 ;
+  input \axi_rdata_reg[0]_1 ;
 
   wire [0:0]E;
   wire [2:0]Q;
   wire S_AXI_ACLK;
   wire [8:0]S_AXI_ARADDR;
   wire S_AXI_ARESETN;
-  wire [0:0]S_AXI_ARESETN_0;
+  wire S_AXI_ARVALID;
   wire [8:0]S_AXI_AWADDR;
   wire S_AXI_AWVALID;
   wire S_AXI_BVALID;
-  wire [0:0]S_AXI_RDATA;
+  wire [3:0]S_AXI_RDATA;
   wire S_AXI_RVALID;
   wire [0:0]S_AXI_WSTRB;
   wire S_AXI_WVALID;
   wire aw_en_reg_0;
   wire aw_en_reg_1;
+  wire axi_arready0;
   wire axi_arready_reg_0;
   wire axi_awready0;
   wire axi_awready_reg_0;
   wire axi_bvalid_reg_0;
   wire [8:0]axi_mem_rdAddr;
+  wire axi_mem_rdStrobe;
   wire [8:0]axi_mem_wrAddr;
-  wire \axi_rdata[0]_i_2_0 ;
-  wire \axi_rdata[0]_i_3_n_0 ;
+  wire \axi_rdata[3]_i_2_n_0 ;
+  wire \axi_rdata[3]_i_3_n_0 ;
   wire \axi_rdata_reg[0]_0 ;
   wire \axi_rdata_reg[0]_1 ;
+  wire [3:0]\axi_rdata_reg[3]_0 ;
   wire axi_rvalid_reg_0;
   wire axi_wready0;
   wire axi_wready_reg_0;
-  wire fifo_tail0__18;
-  wire [0:0]mem_rddout_i;
+  wire fifo_tail0__11;
+  wire [3:0]mem_rddout_i;
   wire \reg1[6]_i_2_n_0 ;
   wire \reg1[6]_i_4_n_0 ;
   wire \reg1[6]_i_5_n_0 ;
@@ -377,62 +371,68 @@ module design_1_configReg_interface_0_0_axi4lite_slave_interface
         .S(\axi_rdata_reg[0]_0 ));
   FDRE \axi_araddr_reg[10] 
        (.C(S_AXI_ACLK),
-        .CE(E),
+        .CE(axi_arready0),
         .D(S_AXI_ARADDR[8]),
         .Q(axi_mem_rdAddr[8]),
         .R(\axi_rdata_reg[0]_0 ));
   FDRE \axi_araddr_reg[2] 
        (.C(S_AXI_ACLK),
-        .CE(E),
+        .CE(axi_arready0),
         .D(S_AXI_ARADDR[0]),
         .Q(axi_mem_rdAddr[0]),
         .R(\axi_rdata_reg[0]_0 ));
   FDRE \axi_araddr_reg[3] 
        (.C(S_AXI_ACLK),
-        .CE(E),
+        .CE(axi_arready0),
         .D(S_AXI_ARADDR[1]),
         .Q(axi_mem_rdAddr[1]),
         .R(\axi_rdata_reg[0]_0 ));
   FDRE \axi_araddr_reg[4] 
        (.C(S_AXI_ACLK),
-        .CE(E),
+        .CE(axi_arready0),
         .D(S_AXI_ARADDR[2]),
         .Q(axi_mem_rdAddr[2]),
         .R(\axi_rdata_reg[0]_0 ));
   FDRE \axi_araddr_reg[5] 
        (.C(S_AXI_ACLK),
-        .CE(E),
+        .CE(axi_arready0),
         .D(S_AXI_ARADDR[3]),
         .Q(axi_mem_rdAddr[3]),
         .R(\axi_rdata_reg[0]_0 ));
   FDRE \axi_araddr_reg[6] 
        (.C(S_AXI_ACLK),
-        .CE(E),
+        .CE(axi_arready0),
         .D(S_AXI_ARADDR[4]),
         .Q(axi_mem_rdAddr[4]),
         .R(\axi_rdata_reg[0]_0 ));
   FDRE \axi_araddr_reg[7] 
        (.C(S_AXI_ACLK),
-        .CE(E),
+        .CE(axi_arready0),
         .D(S_AXI_ARADDR[5]),
         .Q(axi_mem_rdAddr[5]),
         .R(\axi_rdata_reg[0]_0 ));
   FDRE \axi_araddr_reg[8] 
        (.C(S_AXI_ACLK),
-        .CE(E),
+        .CE(axi_arready0),
         .D(S_AXI_ARADDR[6]),
         .Q(axi_mem_rdAddr[6]),
         .R(\axi_rdata_reg[0]_0 ));
   FDRE \axi_araddr_reg[9] 
        (.C(S_AXI_ACLK),
-        .CE(E),
+        .CE(axi_arready0),
         .D(S_AXI_ARADDR[7]),
         .Q(axi_mem_rdAddr[7]),
         .R(\axi_rdata_reg[0]_0 ));
+  LUT2 #(
+    .INIT(4'h2)) 
+    axi_arready_i_1
+       (.I0(S_AXI_ARVALID),
+        .I1(axi_arready_reg_0),
+        .O(axi_arready0));
   FDRE axi_arready_reg
        (.C(S_AXI_ACLK),
         .CE(1'b1),
-        .D(E),
+        .D(axi_arready0),
         .Q(axi_arready_reg_0),
         .R(\axi_rdata_reg[0]_0 ));
   FDRE \axi_awaddr_reg[10] 
@@ -509,30 +509,79 @@ module design_1_configReg_interface_0_0_axi4lite_slave_interface
         .D(axi_bvalid_reg_0),
         .Q(S_AXI_BVALID),
         .R(\axi_rdata_reg[0]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
+  LUT4 #(
+    .INIT(16'hA808)) 
+    \axi_rdata[0]_i_1 
+       (.I0(\axi_rdata[3]_i_2_n_0 ),
+        .I1(\axi_rdata_reg[3]_0 [0]),
+        .I2(axi_mem_rdAddr[0]),
+        .I3(\axi_rdata_reg[0]_1 ),
+        .O(mem_rddout_i[0]));
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  LUT3 #(
+    .INIT(8'h20)) 
+    \axi_rdata[1]_i_1 
+       (.I0(\axi_rdata[3]_i_2_n_0 ),
+        .I1(axi_mem_rdAddr[0]),
+        .I2(\axi_rdata_reg[3]_0 [1]),
+        .O(mem_rddout_i[1]));
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  LUT3 #(
+    .INIT(8'h20)) 
+    \axi_rdata[2]_i_1 
+       (.I0(\axi_rdata[3]_i_2_n_0 ),
+        .I1(axi_mem_rdAddr[0]),
+        .I2(\axi_rdata_reg[3]_0 [2]),
+        .O(mem_rddout_i[2]));
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
+  LUT3 #(
+    .INIT(8'h20)) 
+    \axi_rdata[3]_i_1 
+       (.I0(\axi_rdata[3]_i_2_n_0 ),
+        .I1(axi_mem_rdAddr[0]),
+        .I2(\axi_rdata_reg[3]_0 [3]),
+        .O(mem_rddout_i[3]));
   LUT5 #(
-    .INIT(32'h00000010)) 
-    \axi_rdata[0]_i_2 
-       (.I0(axi_mem_rdAddr[8]),
+    .INIT(32'h00000001)) 
+    \axi_rdata[3]_i_2 
+       (.I0(axi_mem_rdAddr[7]),
         .I1(axi_mem_rdAddr[6]),
-        .I2(\axi_rdata[0]_i_3_n_0 ),
-        .I3(axi_mem_rdAddr[7]),
-        .I4(axi_mem_rdAddr[1]),
-        .O(mem_rddout_i));
-  LUT6 #(
-    .INIT(64'h0000000000000010)) 
-    \axi_rdata[0]_i_3 
-       (.I0(axi_mem_rdAddr[4]),
-        .I1(axi_mem_rdAddr[3]),
-        .I2(\axi_rdata[0]_i_2_0 ),
-        .I3(axi_mem_rdAddr[0]),
-        .I4(axi_mem_rdAddr[2]),
-        .I5(axi_mem_rdAddr[5]),
-        .O(\axi_rdata[0]_i_3_n_0 ));
+        .I2(axi_mem_rdAddr[8]),
+        .I3(axi_mem_rdAddr[1]),
+        .I4(\axi_rdata[3]_i_3_n_0 ),
+        .O(\axi_rdata[3]_i_2_n_0 ));
+  LUT4 #(
+    .INIT(16'hFFFE)) 
+    \axi_rdata[3]_i_3 
+       (.I0(axi_mem_rdAddr[3]),
+        .I1(axi_mem_rdAddr[2]),
+        .I2(axi_mem_rdAddr[5]),
+        .I3(axi_mem_rdAddr[4]),
+        .O(\axi_rdata[3]_i_3_n_0 ));
   FDRE \axi_rdata_reg[0] 
        (.C(S_AXI_ACLK),
-        .CE(1'b1),
-        .D(\axi_rdata_reg[0]_1 ),
-        .Q(S_AXI_RDATA),
+        .CE(axi_mem_rdStrobe),
+        .D(mem_rddout_i[0]),
+        .Q(S_AXI_RDATA[0]),
+        .R(\axi_rdata_reg[0]_0 ));
+  FDRE \axi_rdata_reg[1] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_mem_rdStrobe),
+        .D(mem_rddout_i[1]),
+        .Q(S_AXI_RDATA[1]),
+        .R(\axi_rdata_reg[0]_0 ));
+  FDRE \axi_rdata_reg[2] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_mem_rdStrobe),
+        .D(mem_rddout_i[2]),
+        .Q(S_AXI_RDATA[2]),
+        .R(\axi_rdata_reg[0]_0 ));
+  FDRE \axi_rdata_reg[3] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_mem_rdStrobe),
+        .D(mem_rddout_i[3]),
+        .Q(S_AXI_RDATA[3]),
         .R(\axi_rdata_reg[0]_0 ));
   FDRE axi_rvalid_reg
        (.C(S_AXI_ACLK),
@@ -563,11 +612,11 @@ module design_1_configReg_interface_0_0_axi4lite_slave_interface
         .I3(Q[2]),
         .I4(\reg1_reg[5] ),
         .I5(\reg1[6]_i_2_n_0 ),
-        .O(S_AXI_ARESETN_0));
+        .O(E));
   LUT6 #(
     .INIT(64'h8000000000000000)) 
     \reg1[6]_i_2 
-       (.I0(fifo_tail0__18),
+       (.I0(fifo_tail0__11),
         .I1(S_AXI_WSTRB),
         .I2(\reg1_reg[5]_0 ),
         .I3(axi_awready_reg_0),
@@ -609,6 +658,13 @@ module design_1_configReg_interface_0_0_axi4lite_slave_interface
         .I3(axi_mem_wrAddr[2]),
         .I4(axi_mem_wrAddr[3]),
         .O(\reg1[6]_i_7_n_0 ));
+  LUT3 #(
+    .INIT(8'h08)) 
+    slv_reg_rden
+       (.I0(S_AXI_ARVALID),
+        .I1(axi_arready_reg_0),
+        .I2(S_AXI_RVALID),
+        .O(axi_mem_rdStrobe));
 endmodule
 
 (* ORIG_REF_NAME = "configReg_interface" *) 
@@ -619,40 +675,39 @@ module design_1_configReg_interface_0_0_configReg_interface
     S_AXI_BVALID,
     aw_en_reg,
     S_AXI_RVALID,
-    S_AXI_RDATA,
     ConfigClk_reg_0,
     processing_fifo_data_reg_0,
     SuperpixSel,
     Reset_not,
     ConfigIn,
-    \reg_rddin_reg[0][0]_0 ,
+    \reg_rddin_reg[1][0]_0 ,
     Q,
+    processing_fifo_data1__11,
     ConfigClk_reg_1,
+    S_AXI_RDATA,
     \clk_counter_reg[2]_0 ,
     \reg1_reg[6]_0 ,
-    mem_rddout_i,
     \clk_counter_reg[6]_0 ,
     ConfigClk_reg_2,
     ConfigClk_reg_3,
     ConfigIn0_out,
-    S_AXI_ARESETN_0,
     processing_fifo_data,
     \FSM_sequential_current_state_reg[2]_0 ,
+    \FSM_sequential_current_state_reg[2]_1 ,
     \axi_rdata_reg[0] ,
-    E,
     S_AXI_ACLK,
     axi_bvalid_reg,
     aw_en_reg_0,
     axi_rvalid_reg,
-    \axi_rdata_reg[0]_0 ,
     ConfigClk_reg_4,
     processing_fifo_data_reg_1,
     SuperpixSel_reg_0,
     Reset_not_reg_0,
     ConfigIn_reg_0,
-    \reg_rddin_reg[0][0]_1 ,
+    \reg_rddin_reg[1][0]_1 ,
     S_AXI_ARADDR,
     S_AXI_AWADDR,
+    S_AXI_ARVALID,
     S_AXI_WDATA,
     S_AXI_WVALID,
     S_AXI_AWVALID,
@@ -664,40 +719,39 @@ module design_1_configReg_interface_0_0_configReg_interface
   output S_AXI_BVALID;
   output aw_en_reg;
   output S_AXI_RVALID;
-  output [0:0]S_AXI_RDATA;
   output ConfigClk_reg_0;
   output processing_fifo_data_reg_0;
   output SuperpixSel;
   output Reset_not;
   output ConfigIn;
-  output \reg_rddin_reg[0][0]_0 ;
+  output \reg_rddin_reg[1][0]_0 ;
   output [2:0]Q;
+  output processing_fifo_data1__11;
   output ConfigClk_reg_1;
+  output [3:0]S_AXI_RDATA;
   output [2:0]\clk_counter_reg[2]_0 ;
   output [1:0]\reg1_reg[6]_0 ;
-  output [0:0]mem_rddout_i;
   output \clk_counter_reg[6]_0 ;
   output ConfigClk_reg_2;
   output ConfigClk_reg_3;
   output ConfigIn0_out;
-  output S_AXI_ARESETN_0;
   output processing_fifo_data;
   output \FSM_sequential_current_state_reg[2]_0 ;
+  output \FSM_sequential_current_state_reg[2]_1 ;
   input \axi_rdata_reg[0] ;
-  input [0:0]E;
   input S_AXI_ACLK;
   input axi_bvalid_reg;
   input aw_en_reg_0;
   input axi_rvalid_reg;
-  input \axi_rdata_reg[0]_0 ;
   input ConfigClk_reg_4;
   input processing_fifo_data_reg_1;
   input SuperpixSel_reg_0;
   input Reset_not_reg_0;
   input ConfigIn_reg_0;
-  input \reg_rddin_reg[0][0]_1 ;
+  input \reg_rddin_reg[1][0]_1 ;
   input [8:0]S_AXI_ARADDR;
   input [8:0]S_AXI_AWADDR;
+  input S_AXI_ARVALID;
   input [31:0]S_AXI_WDATA;
   input S_AXI_WVALID;
   input S_AXI_AWVALID;
@@ -712,26 +766,26 @@ module design_1_configReg_interface_0_0_configReg_interface
   wire ConfigIn;
   wire ConfigIn0_out;
   wire ConfigIn_reg_0;
-  wire [0:0]E;
+  wire \FSM_sequential_current_state[0]_i_2_n_0 ;
   wire \FSM_sequential_current_state[1]_i_2_n_0 ;
   wire \FSM_sequential_current_state[2]_i_1_n_0 ;
-  wire \FSM_sequential_current_state[2]_i_3_n_0 ;
   wire \FSM_sequential_current_state[2]_i_5_n_0 ;
   wire \FSM_sequential_current_state[2]_i_6_n_0 ;
   wire \FSM_sequential_current_state[2]_i_7_n_0 ;
   wire \FSM_sequential_current_state[2]_i_8_n_0 ;
   wire \FSM_sequential_current_state_reg[2]_0 ;
+  wire \FSM_sequential_current_state_reg[2]_1 ;
   wire [2:0]Q;
   wire Reset_not;
   wire Reset_not_reg_0;
   wire S_AXI_ACLK;
   wire [8:0]S_AXI_ARADDR;
   wire S_AXI_ARESETN;
-  wire S_AXI_ARESETN_0;
+  wire S_AXI_ARVALID;
   wire [8:0]S_AXI_AWADDR;
   wire S_AXI_AWVALID;
   wire S_AXI_BVALID;
-  wire [0:0]S_AXI_RDATA;
+  wire [3:0]S_AXI_RDATA;
   wire S_AXI_RVALID;
   wire [31:0]S_AXI_WDATA;
   wire [0:0]S_AXI_WSTRB;
@@ -740,12 +794,11 @@ module design_1_configReg_interface_0_0_configReg_interface
   wire SuperpixSel_reg_0;
   wire aw_en_reg;
   wire aw_en_reg_0;
-  wire axi4lite_interface_inst_n_7;
+  wire axi4lite_interface_inst_n_6;
   wire axi_arready_reg;
   wire axi_awready_reg;
   wire axi_bvalid_reg;
   wire \axi_rdata_reg[0] ;
-  wire \axi_rdata_reg[0]_0 ;
   wire axi_rvalid_reg;
   wire axi_wready_reg;
   wire [6:0]clk_counter;
@@ -1317,12 +1370,12 @@ module design_1_configReg_interface_0_0_configReg_interface
   wire [6:0]\fifo_reg[98]_98 ;
   wire [6:0]\fifo_reg[99]_99 ;
   wire [6:0]\fifo_reg[9]_9 ;
-  wire fifo_tail0__18;
+  wire fifo_tail0__11;
   wire \fifo_tail[6]_i_2_n_0 ;
   wire [6:0]fifo_tail_reg;
-  wire [0:0]mem_rddout_i;
   wire [6:1]p_0_in;
   wire [6:0]p_0_in__0;
+  wire [3:3]p_2_out;
   wire [31:0]prev_reg_wrdout;
   wire prev_reg_wrdout0;
   wire prev_reg_wrdout18_in;
@@ -1348,6 +1401,7 @@ module design_1_configReg_interface_0_0_configReg_interface
   wire prev_reg_wrdout1_carry_n_6;
   wire prev_reg_wrdout1_carry_n_7;
   wire processing_fifo_data;
+  wire processing_fifo_data1__11;
   wire processing_fifo_data_i_10_n_0;
   wire processing_fifo_data_i_6_n_0;
   wire processing_fifo_data_i_7_n_0;
@@ -1361,8 +1415,16 @@ module design_1_configReg_interface_0_0_configReg_interface
   wire \reg1_reg_n_0_[1] ;
   wire \reg1_reg_n_0_[2] ;
   wire \reg1_reg_n_0_[3] ;
-  wire \reg_rddin_reg[0][0]_0 ;
-  wire \reg_rddin_reg[0][0]_1 ;
+  wire [3:0]reg_rddin;
+  wire \reg_rddin[0][1]_i_1_n_0 ;
+  wire \reg_rddin[0][2]_i_1_n_0 ;
+  wire \reg_rddin[0][3]_i_3_n_0 ;
+  wire \reg_rddin_reg[1][0]_0 ;
+  wire \reg_rddin_reg[1][0]_1 ;
+  wire \reg_rddin_reg_n_0_[0][0] ;
+  wire \reg_rddin_reg_n_0_[0][1] ;
+  wire \reg_rddin_reg_n_0_[0][2] ;
+  wire \reg_rddin_reg_n_0_[0][3] ;
   wire [12:0]wait_counter0;
   wire wait_counter0_carry__0_i_1_n_0;
   wire wait_counter0_carry__0_i_2_n_0;
@@ -1409,7 +1471,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .CLR(\axi_rdata_reg[0] ),
         .D(ConfigClk_reg_4),
         .Q(ConfigClk_reg_0));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT5 #(
     .INIT(32'h00200200)) 
     ConfigIn_i_2
@@ -1425,44 +1487,54 @@ module design_1_configReg_interface_0_0_configReg_interface
         .D(ConfigIn_reg_0),
         .Q(ConfigIn),
         .R(1'b0));
-  LUT5 #(
-    .INIT(32'h00000001)) 
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  LUT4 #(
+    .INIT(16'h0004)) 
     \FSM_sequential_current_state[0]_i_1 
        (.I0(Q[0]),
-        .I1(\reg1_reg_n_0_[2] ),
-        .I2(\reg1_reg_n_0_[3] ),
-        .I3(Q[1]),
-        .I4(Q[2]),
+        .I1(\FSM_sequential_current_state[0]_i_2_n_0 ),
+        .I2(Q[1]),
+        .I3(Q[2]),
         .O(current_state__1[0]));
   LUT4 #(
-    .INIT(16'h3A0A)) 
+    .INIT(16'h1114)) 
+    \FSM_sequential_current_state[0]_i_2 
+       (.I0(\reg1_reg_n_0_[3] ),
+        .I1(\reg1_reg_n_0_[2] ),
+        .I2(\reg1_reg_n_0_[1] ),
+        .I3(\reg1_reg_n_0_[0] ),
+        .O(\FSM_sequential_current_state[0]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  LUT5 #(
+    .INIT(32'h0F3A000A)) 
     \FSM_sequential_current_state[1]_i_1 
        (.I0(\FSM_sequential_current_state[1]_i_2_n_0 ),
-        .I1(Q[1]),
-        .I2(Q[2]),
-        .I3(ConfigClk_reg_0),
+        .I1(Q[0]),
+        .I2(Q[1]),
+        .I3(Q[2]),
+        .I4(ConfigClk_reg_0),
         .O(current_state__1[1]));
-  LUT6 #(
-    .INIT(64'h383838383838383B)) 
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  LUT5 #(
+    .INIT(32'hAAAAAABE)) 
     \FSM_sequential_current_state[1]_i_2 
-       (.I0(ConfigClk_reg_0),
-        .I1(Q[1]),
-        .I2(Q[0]),
-        .I3(\reg1_reg_n_0_[3] ),
-        .I4(\reg1_reg_n_0_[0] ),
-        .I5(\reg1_reg_n_0_[2] ),
+       (.I0(Q[0]),
+        .I1(\reg1_reg_n_0_[1] ),
+        .I2(\reg1_reg_n_0_[2] ),
+        .I3(\reg1_reg_n_0_[0] ),
+        .I4(\reg1_reg_n_0_[3] ),
         .O(\FSM_sequential_current_state[1]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hC0C0C0C01FFF1FFC)) 
     \FSM_sequential_current_state[2]_i_1 
-       (.I0(\FSM_sequential_current_state[2]_i_3_n_0 ),
+       (.I0(processing_fifo_data1__11),
         .I1(Q[1]),
         .I2(Q[2]),
         .I3(Q[0]),
-        .I4(fifo_tail0__18),
+        .I4(fifo_tail0__11),
         .I5(ConfigClk_reg_0),
         .O(\FSM_sequential_current_state[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT5 #(
     .INIT(32'h0FFA00CA)) 
     \FSM_sequential_current_state[2]_i_2 
@@ -1481,7 +1553,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I3(wait_counter_reg[6]),
         .I4(wait_counter_reg[9]),
         .I5(wait_counter_reg[8]),
-        .O(\FSM_sequential_current_state[2]_i_3_n_0 ));
+        .O(processing_fifo_data1__11));
   LUT5 #(
     .INIT(32'h0000FFFE)) 
     \FSM_sequential_current_state[2]_i_4 
@@ -1490,14 +1562,15 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I2(\fifo_count_reg_n_0_[3] ),
         .I3(\fifo_count_reg_n_0_[2] ),
         .I4(processing_fifo_data_reg_0),
-        .O(fifo_tail0__18));
+        .O(fifo_tail0__11));
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT5 #(
-    .INIT(32'h00000041)) 
+    .INIT(32'h00000018)) 
     \FSM_sequential_current_state[2]_i_5 
-       (.I0(\reg1_reg_n_0_[3] ),
+       (.I0(\reg1_reg_n_0_[0] ),
         .I1(\reg1_reg_n_0_[1] ),
-        .I2(\reg1_reg_n_0_[0] ),
-        .I3(\reg1_reg_n_0_[2] ),
+        .I2(\reg1_reg_n_0_[2] ),
+        .I3(\reg1_reg_n_0_[3] ),
         .I4(Q[0]),
         .O(\FSM_sequential_current_state[2]_i_5_n_0 ));
   LUT5 #(
@@ -1509,7 +1582,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I3(wait_counter_reg[2]),
         .I4(wait_counter_reg[3]),
         .O(\FSM_sequential_current_state[2]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \FSM_sequential_current_state[2]_i_7 
@@ -1518,7 +1591,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I2(wait_counter_reg[0]),
         .I3(wait_counter_reg[12]),
         .O(\FSM_sequential_current_state[2]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \FSM_sequential_current_state[2]_i_8 
@@ -1554,7 +1627,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .D(Reset_not_reg_0),
         .PRE(\axi_rdata_reg[0] ),
         .Q(Reset_not));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
   LUT2 #(
     .INIT(4'hB)) 
     SuperpixSel_i_2
@@ -1568,12 +1641,12 @@ module design_1_configReg_interface_0_0_configReg_interface
         .Q(SuperpixSel),
         .R(1'b0));
   design_1_configReg_interface_0_0_axi4lite_interface_top axi4lite_interface_inst
-       (.E(E),
+       (.E(axi4lite_interface_inst_n_6),
         .Q(Q),
         .S_AXI_ACLK(S_AXI_ACLK),
         .S_AXI_ARADDR(S_AXI_ARADDR),
         .S_AXI_ARESETN(S_AXI_ARESETN),
-        .S_AXI_ARESETN_0(axi4lite_interface_inst_n_7),
+        .S_AXI_ARVALID(S_AXI_ARVALID),
         .S_AXI_AWADDR(S_AXI_AWADDR),
         .S_AXI_AWVALID(S_AXI_AWVALID),
         .S_AXI_BVALID(S_AXI_BVALID),
@@ -1586,13 +1659,12 @@ module design_1_configReg_interface_0_0_configReg_interface
         .axi_arready_reg(axi_arready_reg),
         .axi_awready_reg(axi_awready_reg),
         .axi_bvalid_reg(axi_bvalid_reg),
-        .\axi_rdata[0]_i_2 (\reg_rddin_reg[0][0]_0 ),
         .\axi_rdata_reg[0] (\axi_rdata_reg[0] ),
-        .\axi_rdata_reg[0]_0 (\axi_rdata_reg[0]_0 ),
+        .\axi_rdata_reg[0]_0 (\reg_rddin_reg[1][0]_0 ),
+        .\axi_rdata_reg[3] ({\reg_rddin_reg_n_0_[0][3] ,\reg_rddin_reg_n_0_[0][2] ,\reg_rddin_reg_n_0_[0][1] ,\reg_rddin_reg_n_0_[0][0] }),
         .axi_rvalid_reg(axi_rvalid_reg),
         .axi_wready_reg(axi_wready_reg),
-        .fifo_tail0__18(fifo_tail0__18),
-        .mem_rddout_i(mem_rddout_i),
+        .fifo_tail0__11(fifo_tail0__11),
         .\reg1_reg[5] (ConfigClk_reg_0),
         .\reg1_reg[5]_0 (\reg1[6]_i_3_n_0 ));
   LUT1 #(
@@ -1600,7 +1672,7 @@ module design_1_configReg_interface_0_0_configReg_interface
     \clk_counter[0]_i_1 
        (.I0(\clk_counter_reg[2]_0 [0]),
         .O(clk_counter[0]));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \clk_counter[1]_i_1 
@@ -1617,7 +1689,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(\clk_counter[6]_i_2_n_0 ),
         .I5(\clk_counter_reg[2]_0 [2]),
         .O(clk_counter[2]));
-  (* SOFT_HLUTNM = "soft_lutpair0" *) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT4 #(
     .INIT(16'h7F80)) 
     \clk_counter[3]_i_1 
@@ -1626,7 +1698,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I2(\clk_counter_reg[2]_0 [1]),
         .I3(\clk_counter_reg_n_0_[3] ),
         .O(clk_counter[3]));
-  (* SOFT_HLUTNM = "soft_lutpair0" *) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT5 #(
     .INIT(32'h7FFF8000)) 
     \clk_counter[4]_i_1 
@@ -1656,7 +1728,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(\clk_counter_reg_n_0_[4] ),
         .I5(\clk_counter_reg_n_0_[3] ),
         .O(clk_counter[6]));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \clk_counter[6]_i_2 
@@ -1715,14 +1787,14 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[0][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \fifo[0][6]_i_2 
        (.I0(fifo_head_reg[0]),
         .I1(fifo_head_reg[1]),
         .O(\fifo[0][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT3 #(
     .INIT(8'hFE)) 
     \fifo[0][6]_i_3 
@@ -1750,7 +1822,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[11][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \fifo[11][6]_i_2 
@@ -1797,7 +1869,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[15][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
   LUT4 #(
     .INIT(16'h7FFF)) 
     \fifo[15][6]_i_2 
@@ -1816,14 +1888,14 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[16][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \fifo[16][6]_i_2 
        (.I0(fifo_head_reg[0]),
         .I1(fifo_head_reg[3]),
         .O(\fifo[16][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \fifo[16][6]_i_3 
@@ -1846,7 +1918,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[17][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \fifo[17][6]_i_2 
@@ -1873,7 +1945,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[19][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \fifo[19][6]_i_2 
@@ -1890,14 +1962,14 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[1][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \fifo[1][6]_i_2 
        (.I0(fifo_head_reg[4]),
         .I1(fifo_head_reg[3]),
         .O(\fifo[1][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \fifo[1][6]_i_3 
@@ -1945,7 +2017,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[23][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT4 #(
     .INIT(16'h7FFF)) 
     \fifo[23][6]_i_2 
@@ -1964,7 +2036,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[24][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \fifo[24][6]_i_2 
@@ -2001,7 +2073,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[27][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
   LUT4 #(
     .INIT(16'h7FFF)) 
     \fifo[27][6]_i_2 
@@ -2020,7 +2092,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[28][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \fifo[28][6]_i_2 
@@ -2037,14 +2109,14 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[29][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \fifo[29][6]_i_2 
        (.I0(fifo_head_reg[3]),
         .I1(fifo_head_reg[0]),
         .O(\fifo[29][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \fifo[29][6]_i_3 
@@ -2061,7 +2133,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[2][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \fifo[2][6]_i_2 
@@ -2079,7 +2151,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[30][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \fifo[30][6]_i_2 
@@ -2106,7 +2178,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[32][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \fifo[32][6]_i_2 
@@ -2125,7 +2197,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[33][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
   LUT4 #(
     .INIT(16'hFEFF)) 
     \fifo[33][6]_i_2 
@@ -2154,7 +2226,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[35][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT4 #(
     .INIT(16'hEFFF)) 
     \fifo[35][6]_i_2 
@@ -2173,7 +2245,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[36][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
   LUT4 #(
     .INIT(16'hFEFF)) 
     \fifo[36][6]_i_2 
@@ -2192,7 +2264,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[37][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fifo[37][6]_i_2 
@@ -2219,21 +2291,21 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[39][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \fifo[39][6]_i_2 
        (.I0(fifo_head_reg[2]),
         .I1(fifo_head_reg[5]),
         .O(\fifo[39][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \fifo[39][6]_i_3 
        (.I0(fifo_head_reg[1]),
         .I1(fifo_head_reg[0]),
         .O(\fifo[39][6]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \fifo[39][6]_i_4 
@@ -2260,7 +2332,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[40][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \fifo[40][6]_i_2 
@@ -2278,7 +2350,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[41][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \fifo[41][6]_i_2 
@@ -2296,14 +2368,14 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[42][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fifo[42][6]_i_2 
        (.I0(fifo_head_reg[5]),
         .I1(fifo_head_reg[1]),
         .O(\fifo[42][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \fifo[42][6]_i_3 
@@ -2320,7 +2392,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[43][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fifo[43][6]_i_2 
@@ -2377,7 +2449,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[48][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \fifo[48][6]_i_2 
@@ -2405,7 +2477,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[4][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \fifo[4][6]_i_2 
@@ -2423,7 +2495,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[50][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \fifo[50][6]_i_2 
@@ -2441,7 +2513,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[51][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fifo[51][6]_i_2 
@@ -2468,7 +2540,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[53][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \fifo[53][6]_i_2 
@@ -2535,7 +2607,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[59][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT4 #(
     .INIT(16'h7FFF)) 
     \fifo[59][6]_i_2 
@@ -2580,7 +2652,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[61][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
   LUT4 #(
     .INIT(16'h7FFF)) 
     \fifo[61][6]_i_2 
@@ -2599,7 +2671,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[62][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT4 #(
     .INIT(16'h7FFF)) 
     \fifo[62][6]_i_2 
@@ -2638,7 +2710,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[65][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
   LUT4 #(
     .INIT(16'hFEFF)) 
     \fifo[65][6]_i_2 
@@ -2667,7 +2739,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[67][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \fifo[67][6]_i_2 
@@ -2685,14 +2757,14 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[68][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \fifo[68][6]_i_2 
        (.I0(fifo_head_reg[6]),
         .I1(fifo_head_reg[0]),
         .O(\fifo[68][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \fifo[68][6]_i_3 
@@ -2709,7 +2781,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[69][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fifo[69][6]_i_2 
@@ -2736,7 +2808,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[70][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT4 #(
     .INIT(16'hEFFF)) 
     \fifo[70][6]_i_2 
@@ -2755,7 +2827,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[71][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \fifo[71][6]_i_2 
@@ -2772,7 +2844,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[72][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \fifo[72][6]_i_2 
@@ -2799,14 +2871,14 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[74][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fifo[74][6]_i_2 
        (.I0(fifo_head_reg[6]),
         .I1(fifo_head_reg[1]),
         .O(\fifo[74][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \fifo[74][6]_i_3 
@@ -2823,14 +2895,14 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[75][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fifo[75][6]_i_2 
        (.I0(fifo_head_reg[6]),
         .I1(fifo_head_reg[3]),
         .O(\fifo[75][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \fifo[75][6]_i_3 
@@ -2917,7 +2989,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[82][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \fifo[82][6]_i_2 
@@ -2935,14 +3007,14 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[83][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fifo[83][6]_i_2 
        (.I0(fifo_head_reg[6]),
         .I1(fifo_head_reg[4]),
         .O(\fifo[83][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \fifo[83][6]_i_3 
@@ -3019,14 +3091,14 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[8][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \fifo[8][6]_i_2 
        (.I0(fifo_head_reg[4]),
         .I1(fifo_head_reg[0]),
         .O(\fifo[8][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \fifo[8][6]_i_3 
@@ -3044,7 +3116,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[90][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \fifo[90][6]_i_2 
@@ -3121,7 +3193,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[97][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \fifo[97][6]_i_2 
@@ -3158,14 +3230,14 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(S_AXI_ARESETN),
         .I5(prev_reg_wrdout0),
         .O(\fifo[9][6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT2 #(
     .INIT(4'h1)) 
     \fifo[9][6]_i_2 
        (.I0(fifo_head_reg[4]),
         .I1(fifo_head_reg[1]),
         .O(\fifo[9][6]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \fifo_count[0]_i_1 
@@ -3175,20 +3247,20 @@ module design_1_configReg_interface_0_0_configReg_interface
     .INIT(64'hFFFFFFFB00000004)) 
     \fifo_count[1]_i_1 
        (.I0(ConfigClk_reg_0),
-        .I1(fifo_tail0__18),
+        .I1(fifo_tail0__11),
         .I2(Q[1]),
         .I3(Q[2]),
         .I4(Q[0]),
         .I5(\fifo_count[1]_i_2_n_0 ),
         .O(fifo_count[1]));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \fifo_count[1]_i_2 
        (.I0(\fifo_count_reg_n_0_[0] ),
         .I1(\fifo_count_reg_n_0_[1] ),
         .O(\fifo_count[1]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT5 #(
     .INIT(32'hFFFE0002)) 
     \fifo_count[2]_i_1 
@@ -3198,17 +3270,17 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I3(Q[0]),
         .I4(\fifo_count[2]_i_3_n_0 ),
         .O(fifo_count[2]));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT5 #(
     .INIT(32'h4FFBB004)) 
     \fifo_count[2]_i_2 
        (.I0(ConfigClk_reg_0),
-        .I1(fifo_tail0__18),
+        .I1(fifo_tail0__11),
         .I2(\fifo_count_reg_n_0_[0] ),
         .I3(\fifo_count_reg_n_0_[1] ),
         .I4(\fifo_count_reg_n_0_[2] ),
         .O(\fifo_count[2]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT3 #(
     .INIT(8'h78)) 
     \fifo_count[2]_i_3 
@@ -3216,7 +3288,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I1(\fifo_count_reg_n_0_[1] ),
         .I2(\fifo_count_reg_n_0_[2] ),
         .O(\fifo_count[2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT5 #(
     .INIT(32'hFFFE0002)) 
     \fifo_count[3]_i_1 
@@ -3230,13 +3302,13 @@ module design_1_configReg_interface_0_0_configReg_interface
     .INIT(64'h4FFFFFFBB0000004)) 
     \fifo_count[3]_i_2 
        (.I0(ConfigClk_reg_0),
-        .I1(fifo_tail0__18),
+        .I1(fifo_tail0__11),
         .I2(\fifo_count_reg_n_0_[1] ),
         .I3(\fifo_count_reg_n_0_[0] ),
         .I4(\fifo_count_reg_n_0_[2] ),
         .I5(\fifo_count_reg_n_0_[3] ),
         .O(\fifo_count[3]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
   LUT4 #(
     .INIT(16'h7F80)) 
     \fifo_count[3]_i_3 
@@ -3258,14 +3330,14 @@ module design_1_configReg_interface_0_0_configReg_interface
   LUT6 #(
     .INIT(64'hBFFFFFFD40000002)) 
     \fifo_count[4]_i_2 
-       (.I0(fifo_tail0__18),
+       (.I0(fifo_tail0__11),
         .I1(\fifo_count_reg_n_0_[2] ),
         .I2(\fifo_count_reg_n_0_[0] ),
         .I3(\fifo_count_reg_n_0_[1] ),
         .I4(\fifo_count_reg_n_0_[3] ),
         .I5(\fifo_count_reg_n_0_[4] ),
         .O(\fifo_count[4]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
   LUT5 #(
     .INIT(32'h7FFF8000)) 
     \fifo_count[4]_i_3 
@@ -3275,7 +3347,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I3(\fifo_count_reg_n_0_[3] ),
         .I4(\fifo_count_reg_n_0_[4] ),
         .O(\fifo_count[4]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
   LUT5 #(
     .INIT(32'hFFFE0002)) 
     \fifo_count[5]_i_1 
@@ -3291,7 +3363,7 @@ module design_1_configReg_interface_0_0_configReg_interface
        (.I0(ConfigClk_reg_0),
         .I1(\fifo_count[6]_i_5_n_0 ),
         .I2(\fifo_count_reg_n_0_[5] ),
-        .I3(fifo_tail0__18),
+        .I3(fifo_tail0__11),
         .I4(\fifo_count[5]_i_3_n_0 ),
         .O(\fifo_count[5]_i_2_n_0 ));
   LUT6 #(
@@ -3308,12 +3380,13 @@ module design_1_configReg_interface_0_0_configReg_interface
     .INIT(64'hFFFFFFFF00000004)) 
     \fifo_count[6]_i_1 
        (.I0(ConfigClk_reg_0),
-        .I1(fifo_tail0__18),
+        .I1(fifo_tail0__11),
         .I2(Q[1]),
         .I3(Q[2]),
         .I4(Q[0]),
         .I5(prev_reg_wrdout0),
         .O(\fifo_count[6]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
   LUT5 #(
     .INIT(32'hFFFE0002)) 
     \fifo_count[6]_i_2 
@@ -3330,10 +3403,10 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I1(\fifo_count_reg_n_0_[5] ),
         .I2(\fifo_count[6]_i_5_n_0 ),
         .I3(\fifo_count_reg_n_0_[6] ),
-        .I4(fifo_tail0__18),
+        .I4(fifo_tail0__11),
         .I5(\fifo_count[6]_i_4_n_0 ),
         .O(\fifo_count[6]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
   LUT3 #(
     .INIT(8'h78)) 
     \fifo_count[6]_i_4 
@@ -3341,7 +3414,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I1(\fifo_count_reg_n_0_[5] ),
         .I2(\fifo_count_reg_n_0_[6] ),
         .O(\fifo_count[6]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
     \fifo_count[6]_i_5 
@@ -3351,7 +3424,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I3(\fifo_count_reg_n_0_[2] ),
         .I4(\fifo_count_reg_n_0_[4] ),
         .O(\fifo_count[6]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
   LUT5 #(
     .INIT(32'h80000000)) 
     \fifo_count[6]_i_6 
@@ -4758,7 +4831,7 @@ module design_1_configReg_interface_0_0_configReg_interface
     \fifo_data[6]_i_1 
        (.I0(Q[2]),
         .I1(Q[0]),
-        .I2(fifo_tail0__18),
+        .I2(fifo_tail0__11),
         .I3(ConfigClk_reg_0),
         .I4(Q[1]),
         .O(\fifo_data[6]_i_1_n_0 ));
@@ -5032,7 +5105,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(fifo_tail_reg[0]),
         .I5(\fifo_reg[12]_12 [6]),
         .O(\fifo_data[6]_i_48_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT2 #(
     .INIT(4'hB)) 
     \fifo_data[6]_i_5 
@@ -5622,20 +5695,20 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I1(\fifo_data_reg[6]_i_18_n_0 ),
         .O(\fifo_data_reg[6]_i_9_n_0 ),
         .S(fifo_tail_reg[3]));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \fifo_head[0]_i_1 
        (.I0(fifo_head_reg[0]),
         .O(\fifo_head[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \fifo_head[1]_i_1 
        (.I0(fifo_head_reg[0]),
         .I1(fifo_head_reg[1]),
         .O(p_0_in[1]));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT3 #(
     .INIT(8'h78)) 
     \fifo_head[2]_i_1 
@@ -5643,7 +5716,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I1(fifo_head_reg[1]),
         .I2(fifo_head_reg[2]),
         .O(\fifo_head[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT4 #(
     .INIT(16'h7F80)) 
     \fifo_head[3]_i_1 
@@ -5652,7 +5725,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I2(fifo_head_reg[2]),
         .I3(fifo_head_reg[3]),
         .O(p_0_in[3]));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT5 #(
     .INIT(32'h7FFF8000)) 
     \fifo_head[4]_i_1 
@@ -9324,20 +9397,20 @@ module design_1_configReg_interface_0_0_configReg_interface
         .D(S_AXI_WDATA[6]),
         .Q(\fifo_reg[9]_9 [6]),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \fifo_tail[0]_i_1 
        (.I0(fifo_tail_reg[0]),
         .O(p_0_in__0[0]));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \fifo_tail[1]_i_1 
        (.I0(fifo_tail_reg[0]),
         .I1(fifo_tail_reg[1]),
         .O(p_0_in__0[1]));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
   LUT3 #(
     .INIT(8'h78)) 
     \fifo_tail[2]_i_1 
@@ -9345,7 +9418,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I1(fifo_tail_reg[1]),
         .I2(fifo_tail_reg[2]),
         .O(p_0_in__0[2]));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
   LUT4 #(
     .INIT(16'h7F80)) 
     \fifo_tail[3]_i_1 
@@ -9354,7 +9427,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I2(fifo_tail_reg[2]),
         .I3(fifo_tail_reg[3]),
         .O(p_0_in__0[3]));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT5 #(
     .INIT(32'h7FFF8000)) 
     \fifo_tail[4]_i_1 
@@ -9374,7 +9447,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(fifo_tail_reg[4]),
         .I5(fifo_tail_reg[5]),
         .O(p_0_in__0[5]));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT3 #(
     .INIT(8'h78)) 
     \fifo_tail[6]_i_1 
@@ -9382,7 +9455,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I1(fifo_tail_reg[5]),
         .I2(fifo_tail_reg[6]),
         .O(p_0_in__0[6]));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT5 #(
     .INIT(32'h80000000)) 
     \fifo_tail[6]_i_2 
@@ -9766,17 +9839,17 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I2(wait_counter_reg[9]),
         .I3(wait_counter_reg[8]),
         .O(processing_fifo_data_i_10_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
   LUT5 #(
     .INIT(32'h0CCCCCCE)) 
     processing_fifo_data_i_2
-       (.I0(fifo_tail0__18),
+       (.I0(fifo_tail0__11),
         .I1(ConfigClk_reg_0),
         .I2(Q[0]),
         .I3(Q[2]),
         .I4(Q[1]),
         .O(processing_fifo_data));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT4 #(
     .INIT(16'h0004)) 
     processing_fifo_data_i_3
@@ -9784,13 +9857,13 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I1(Q[1]),
         .I2(Q[0]),
         .I3(ConfigClk_reg_0),
-        .O(\FSM_sequential_current_state_reg[2]_0 ));
+        .O(\FSM_sequential_current_state_reg[2]_1 ));
   LUT6 #(
     .INIT(64'hFFAA202020202020)) 
     processing_fifo_data_i_4
        (.I0(processing_fifo_data_i_6_n_0),
         .I1(ConfigClk_reg_0),
-        .I2(fifo_tail0__18),
+        .I2(fifo_tail0__11),
         .I3(processing_fifo_data_i_7_n_0),
         .I4(S_AXI_ARESETN),
         .I5(processing_fifo_data_i_8_n_0),
@@ -9799,13 +9872,13 @@ module design_1_configReg_interface_0_0_configReg_interface
     .INIT(64'hAA00000010550000)) 
     processing_fifo_data_i_5
        (.I0(ConfigClk_reg_0),
-        .I1(\FSM_sequential_current_state[2]_i_3_n_0 ),
+        .I1(processing_fifo_data1__11),
         .I2(S_AXI_ARESETN),
         .I3(Q[0]),
         .I4(Q[2]),
         .I5(Q[1]),
         .O(ConfigClk_reg_2));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
   LUT3 #(
     .INIT(8'h01)) 
     processing_fifo_data_i_6
@@ -9813,7 +9886,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I1(Q[2]),
         .I2(Q[1]),
         .O(processing_fifo_data_i_6_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT3 #(
     .INIT(8'h02)) 
     processing_fifo_data_i_7
@@ -9831,7 +9904,7 @@ module design_1_configReg_interface_0_0_configReg_interface
         .I4(\FSM_sequential_current_state[2]_i_7_n_0 ),
         .I5(\FSM_sequential_current_state[2]_i_6_n_0 ),
         .O(processing_fifo_data_i_8_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
   LUT2 #(
     .INIT(4'h2)) 
     processing_fifo_data_i_9
@@ -9852,56 +9925,125 @@ module design_1_configReg_interface_0_0_configReg_interface
         .O(\reg1[6]_i_3_n_0 ));
   FDRE \reg1_reg[0] 
        (.C(S_AXI_ACLK),
-        .CE(axi4lite_interface_inst_n_7),
+        .CE(axi4lite_interface_inst_n_6),
         .D(fifo_data[0]),
         .Q(\reg1_reg_n_0_[0] ),
         .R(1'b0));
   FDRE \reg1_reg[1] 
        (.C(S_AXI_ACLK),
-        .CE(axi4lite_interface_inst_n_7),
+        .CE(axi4lite_interface_inst_n_6),
         .D(fifo_data[1]),
         .Q(\reg1_reg_n_0_[1] ),
         .R(1'b0));
   FDRE \reg1_reg[2] 
        (.C(S_AXI_ACLK),
-        .CE(axi4lite_interface_inst_n_7),
+        .CE(axi4lite_interface_inst_n_6),
         .D(fifo_data[2]),
         .Q(\reg1_reg_n_0_[2] ),
         .R(1'b0));
   FDRE \reg1_reg[3] 
        (.C(S_AXI_ACLK),
-        .CE(axi4lite_interface_inst_n_7),
+        .CE(axi4lite_interface_inst_n_6),
         .D(fifo_data[3]),
         .Q(\reg1_reg_n_0_[3] ),
         .R(1'b0));
   FDRE \reg1_reg[5] 
        (.C(S_AXI_ACLK),
-        .CE(axi4lite_interface_inst_n_7),
+        .CE(axi4lite_interface_inst_n_6),
         .D(fifo_data[5]),
         .Q(\reg1_reg[6]_0 [0]),
         .R(1'b0));
   FDRE \reg1_reg[6] 
        (.C(S_AXI_ACLK),
-        .CE(axi4lite_interface_inst_n_7),
+        .CE(axi4lite_interface_inst_n_6),
         .D(fifo_data[6]),
         .Q(\reg1_reg[6]_0 [1]),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
-  LUT5 #(
-    .INIT(32'h80000000)) 
-    \reg_rddin[0][0]_i_2 
-       (.I0(S_AXI_ARESETN),
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+  LUT2 #(
+    .INIT(4'h1)) 
+    \reg_rddin[0][0]_i_1 
+       (.I0(Q[0]),
+        .I1(Q[1]),
+        .O(reg_rddin[0]));
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  LUT3 #(
+    .INIT(8'h0E)) 
+    \reg_rddin[0][1]_i_1 
+       (.I0(Q[2]),
         .I1(Q[1]),
         .I2(Q[0]),
-        .I3(Q[2]),
-        .I4(ConfigClk_reg_0),
-        .O(S_AXI_ARESETN_0));
-  FDRE \reg_rddin_reg[0][0] 
+        .O(\reg_rddin[0][1]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \reg_rddin[0][2]_i_1 
+       (.I0(Q[0]),
+        .I1(Q[1]),
+        .O(\reg_rddin[0][2]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'hC004C004033F030C)) 
+    \reg_rddin[0][3]_i_1 
+       (.I0(processing_fifo_data1__11),
+        .I1(Q[2]),
+        .I2(ConfigClk_reg_0),
+        .I3(Q[1]),
+        .I4(\reg_rddin[0][3]_i_3_n_0 ),
+        .I5(Q[0]),
+        .O(p_2_out));
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \reg_rddin[0][3]_i_2 
+       (.I0(Q[1]),
+        .I1(Q[2]),
+        .O(reg_rddin[3]));
+  LUT6 #(
+    .INIT(64'h4444444444400004)) 
+    \reg_rddin[0][3]_i_3 
+       (.I0(ConfigClk_reg_0),
+        .I1(fifo_tail0__11),
+        .I2(\reg1_reg_n_0_[0] ),
+        .I3(\reg1_reg_n_0_[1] ),
+        .I4(\reg1_reg_n_0_[2] ),
+        .I5(\reg1_reg_n_0_[3] ),
+        .O(\reg_rddin[0][3]_i_3_n_0 ));
+  LUT2 #(
+    .INIT(4'h8)) 
+    \reg_rddin[1][0]_i_2 
+       (.I0(Q[2]),
+        .I1(Q[0]),
+        .O(\FSM_sequential_current_state_reg[2]_0 ));
+  FDCE \reg_rddin_reg[0][0] 
+       (.C(S_AXI_ACLK),
+        .CE(p_2_out),
+        .CLR(\axi_rdata_reg[0] ),
+        .D(reg_rddin[0]),
+        .Q(\reg_rddin_reg_n_0_[0][0] ));
+  FDCE \reg_rddin_reg[0][1] 
+       (.C(S_AXI_ACLK),
+        .CE(p_2_out),
+        .CLR(\axi_rdata_reg[0] ),
+        .D(\reg_rddin[0][1]_i_1_n_0 ),
+        .Q(\reg_rddin_reg_n_0_[0][1] ));
+  FDCE \reg_rddin_reg[0][2] 
+       (.C(S_AXI_ACLK),
+        .CE(p_2_out),
+        .CLR(\axi_rdata_reg[0] ),
+        .D(\reg_rddin[0][2]_i_1_n_0 ),
+        .Q(\reg_rddin_reg_n_0_[0][2] ));
+  FDCE \reg_rddin_reg[0][3] 
+       (.C(S_AXI_ACLK),
+        .CE(p_2_out),
+        .CLR(\axi_rdata_reg[0] ),
+        .D(reg_rddin[3]),
+        .Q(\reg_rddin_reg_n_0_[0][3] ));
+  FDCE \reg_rddin_reg[1][0] 
        (.C(S_AXI_ACLK),
         .CE(1'b1),
-        .D(\reg_rddin_reg[0][0]_1 ),
-        .Q(\reg_rddin_reg[0][0]_0 ),
-        .R(1'b0));
+        .CLR(\axi_rdata_reg[0] ),
+        .D(\reg_rddin_reg[1][0]_1 ),
+        .Q(\reg_rddin_reg[1][0]_0 ));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY8 wait_counter0_carry
        (.CI(wait_counter_reg[0]),
@@ -9978,7 +10120,7 @@ module design_1_configReg_interface_0_0_configReg_interface
     wait_counter0_carry_i_8
        (.I0(wait_counter_reg[1]),
         .O(wait_counter0_carry_i_8_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \wait_counter[0]_i_1 
@@ -9990,7 +10132,7 @@ module design_1_configReg_interface_0_0_configReg_interface
        (.I0(Q[1]),
         .I1(Q[2]),
         .I2(Q[0]),
-        .I3(\FSM_sequential_current_state[2]_i_3_n_0 ),
+        .I3(processing_fifo_data1__11),
         .I4(ConfigClk_reg_0),
         .O(\wait_counter[12]_i_1_n_0 ));
   FDCE \wait_counter_reg[0] 
@@ -10079,9 +10221,9 @@ module design_1_configReg_interface_0_0_configReg_interface_top
     S_AXI_ARREADY,
     S_AXI_AWREADY,
     S_AXI_WREADY,
-    S_AXI_BVALID,
-    S_AXI_RVALID,
     S_AXI_RDATA,
+    S_AXI_RVALID,
+    S_AXI_BVALID,
     SuperpixSel,
     Reset_not,
     ConfigIn,
@@ -10101,9 +10243,9 @@ module design_1_configReg_interface_0_0_configReg_interface_top
   output S_AXI_ARREADY;
   output S_AXI_AWREADY;
   output S_AXI_WREADY;
-  output S_AXI_BVALID;
+  output [3:0]S_AXI_RDATA;
   output S_AXI_RVALID;
-  output [0:0]S_AXI_RDATA;
+  output S_AXI_BVALID;
   output SuperpixSel;
   output Reset_not;
   output ConfigIn;
@@ -10139,7 +10281,7 @@ module design_1_configReg_interface_0_0_configReg_interface_top
   wire S_AXI_AWVALID;
   wire S_AXI_BREADY;
   wire S_AXI_BVALID;
-  wire [0:0]S_AXI_RDATA;
+  wire [3:0]S_AXI_RDATA;
   wire S_AXI_RREADY;
   wire S_AXI_RVALID;
   wire [31:0]S_AXI_WDATA;
@@ -10149,37 +10291,35 @@ module design_1_configReg_interface_0_0_configReg_interface_top
   wire SuperpixSel;
   wire SuperpixSel_i_1_n_0;
   wire aw_en_i_1_n_0;
-  wire \axi4lite_interface_inst/axi4_slave_inst/axi_arready0 ;
-  wire [0:0]\axi4lite_interface_inst/mem_rddout_i ;
   wire axi_bvalid_i_1_n_0;
-  wire \axi_rdata[0]_i_1_n_0 ;
   wire axi_rvalid_i_1_n_0;
-  wire configReg_interface_inst_n_12;
+  wire configReg_interface_inst_n_11;
   wire configReg_interface_inst_n_16;
-  wire configReg_interface_inst_n_17;
-  wire configReg_interface_inst_n_18;
-  wire configReg_interface_inst_n_19;
+  wire configReg_interface_inst_n_21;
+  wire configReg_interface_inst_n_22;
   wire configReg_interface_inst_n_23;
-  wire configReg_interface_inst_n_24;
-  wire configReg_interface_inst_n_25;
+  wire configReg_interface_inst_n_26;
   wire configReg_interface_inst_n_27;
-  wire configReg_interface_inst_n_29;
+  wire configReg_interface_inst_n_28;
+  wire configReg_interface_inst_n_31;
+  wire configReg_interface_inst_n_32;
   wire configReg_interface_inst_n_4;
-  wire configReg_interface_inst_n_8;
+  wire configReg_interface_inst_n_7;
   wire [2:0]current_state__0;
   wire p_0_in;
-  wire p_0_in__0;
   wire processing_fifo_data;
+  wire processing_fifo_data1__11;
   wire processing_fifo_data_i_1_n_0;
-  wire \reg_rddin[0][0]_i_1_n_0 ;
+  wire [5:5]reg1;
+  wire \reg_rddin[1][0]_i_1_n_0 ;
 
   LUT5 #(
     .INIT(32'hFFBF0040)) 
     ConfigClk_i_1
-       (.I0(configReg_interface_inst_n_23),
-        .I1(configReg_interface_inst_n_18),
-        .I2(configReg_interface_inst_n_19),
-        .I3(configReg_interface_inst_n_17),
+       (.I0(configReg_interface_inst_n_26),
+        .I1(configReg_interface_inst_n_22),
+        .I2(configReg_interface_inst_n_23),
+        .I3(configReg_interface_inst_n_21),
         .I4(ConfigClk_reg),
         .O(ConfigClk_i_1_n_0));
   LUT1 #(
@@ -10208,7 +10348,7 @@ module design_1_configReg_interface_0_0_configReg_interface_top
   LUT6 #(
     .INIT(64'hFFFFFFFB00000008)) 
     SuperpixSel_i_1
-       (.I0(p_0_in__0),
+       (.I0(reg1),
         .I1(S_AXI_ARESETN),
         .I2(configReg_interface_inst_n_16),
         .I3(current_state__0[2]),
@@ -10225,13 +10365,6 @@ module design_1_configReg_interface_0_0_configReg_interface_top
         .I4(S_AXI_BREADY),
         .I5(S_AXI_BVALID),
         .O(aw_en_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    axi_arready_i_1
-       (.I0(S_AXI_ARVALID),
-        .I1(S_AXI_ARREADY),
-        .O(\axi4lite_interface_inst/axi4_slave_inst/axi_arready0 ));
   LUT6 #(
     .INIT(64'h0000FFFF80008000)) 
     axi_bvalid_i_1
@@ -10242,16 +10375,6 @@ module design_1_configReg_interface_0_0_configReg_interface_top
         .I4(S_AXI_BREADY),
         .I5(S_AXI_BVALID),
         .O(axi_bvalid_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
-  LUT5 #(
-    .INIT(32'hFFBF0080)) 
-    \axi_rdata[0]_i_1 
-       (.I0(\axi4lite_interface_inst/mem_rddout_i ),
-        .I1(S_AXI_ARVALID),
-        .I2(S_AXI_ARREADY),
-        .I3(S_AXI_RVALID),
-        .I4(S_AXI_RDATA),
-        .O(\axi_rdata[0]_i_1_n_0 ));
   LUT4 #(
     .INIT(16'h08F8)) 
     axi_rvalid_i_1
@@ -10263,21 +10386,21 @@ module design_1_configReg_interface_0_0_configReg_interface_top
   design_1_configReg_interface_0_0_configReg_interface configReg_interface_inst
        (.ConfigClk_reg_0(ConfigClk_reg),
         .ConfigClk_reg_1(configReg_interface_inst_n_16),
-        .ConfigClk_reg_2(configReg_interface_inst_n_24),
-        .ConfigClk_reg_3(configReg_interface_inst_n_25),
+        .ConfigClk_reg_2(configReg_interface_inst_n_27),
+        .ConfigClk_reg_3(configReg_interface_inst_n_28),
         .ConfigClk_reg_4(ConfigClk_i_1_n_0),
         .ConfigIn(ConfigIn),
         .ConfigIn0_out(ConfigIn0_out),
         .ConfigIn_reg_0(ConfigIn_i_1_n_0),
-        .E(\axi4lite_interface_inst/axi4_slave_inst/axi_arready0 ),
-        .\FSM_sequential_current_state_reg[2]_0 (configReg_interface_inst_n_29),
+        .\FSM_sequential_current_state_reg[2]_0 (configReg_interface_inst_n_31),
+        .\FSM_sequential_current_state_reg[2]_1 (configReg_interface_inst_n_32),
         .Q(current_state__0),
         .Reset_not(Reset_not),
         .Reset_not_reg_0(Reset_not_i_1_n_0),
         .S_AXI_ACLK(S_AXI_ACLK),
         .S_AXI_ARADDR(S_AXI_ARADDR),
         .S_AXI_ARESETN(S_AXI_ARESETN),
-        .S_AXI_ARESETN_0(configReg_interface_inst_n_27),
+        .S_AXI_ARVALID(S_AXI_ARVALID),
         .S_AXI_AWADDR(S_AXI_AWADDR),
         .S_AXI_AWVALID(S_AXI_AWVALID),
         .S_AXI_BVALID(S_AXI_BVALID),
@@ -10294,34 +10417,36 @@ module design_1_configReg_interface_0_0_configReg_interface_top
         .axi_awready_reg(S_AXI_AWREADY),
         .axi_bvalid_reg(axi_bvalid_i_1_n_0),
         .\axi_rdata_reg[0] (ConfigClk_i_2_n_0),
-        .\axi_rdata_reg[0]_0 (\axi_rdata[0]_i_1_n_0 ),
         .axi_rvalid_reg(axi_rvalid_i_1_n_0),
         .axi_wready_reg(S_AXI_WREADY),
-        .\clk_counter_reg[2]_0 ({configReg_interface_inst_n_17,configReg_interface_inst_n_18,configReg_interface_inst_n_19}),
-        .\clk_counter_reg[6]_0 (configReg_interface_inst_n_23),
-        .mem_rddout_i(\axi4lite_interface_inst/mem_rddout_i ),
+        .\clk_counter_reg[2]_0 ({configReg_interface_inst_n_21,configReg_interface_inst_n_22,configReg_interface_inst_n_23}),
+        .\clk_counter_reg[6]_0 (configReg_interface_inst_n_26),
         .processing_fifo_data(processing_fifo_data),
-        .processing_fifo_data_reg_0(configReg_interface_inst_n_8),
+        .processing_fifo_data1__11(processing_fifo_data1__11),
+        .processing_fifo_data_reg_0(configReg_interface_inst_n_7),
         .processing_fifo_data_reg_1(processing_fifo_data_i_1_n_0),
-        .\reg1_reg[6]_0 ({p_0_in,p_0_in__0}),
-        .\reg_rddin_reg[0][0]_0 (configReg_interface_inst_n_12),
-        .\reg_rddin_reg[0][0]_1 (\reg_rddin[0][0]_i_1_n_0 ));
+        .\reg1_reg[6]_0 ({p_0_in,reg1}),
+        .\reg_rddin_reg[1][0]_0 (configReg_interface_inst_n_11),
+        .\reg_rddin_reg[1][0]_1 (\reg_rddin[1][0]_i_1_n_0 ));
   LUT5 #(
     .INIT(32'hAAABAAA8)) 
     processing_fifo_data_i_1
        (.I0(processing_fifo_data),
-        .I1(configReg_interface_inst_n_29),
-        .I2(configReg_interface_inst_n_25),
-        .I3(configReg_interface_inst_n_24),
-        .I4(configReg_interface_inst_n_8),
+        .I1(configReg_interface_inst_n_32),
+        .I2(configReg_interface_inst_n_28),
+        .I3(configReg_interface_inst_n_27),
+        .I4(configReg_interface_inst_n_7),
         .O(processing_fifo_data_i_1_n_0));
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \reg_rddin[0][0]_i_1 
+  LUT6 #(
+    .INIT(64'hBFBFFBFF80800800)) 
+    \reg_rddin[1][0]_i_1 
        (.I0(ConfigOut),
-        .I1(configReg_interface_inst_n_27),
-        .I2(configReg_interface_inst_n_12),
-        .O(\reg_rddin[0][0]_i_1_n_0 ));
+        .I1(configReg_interface_inst_n_31),
+        .I2(ConfigClk_reg),
+        .I3(processing_fifo_data1__11),
+        .I4(current_state__0[1]),
+        .I5(configReg_interface_inst_n_11),
+        .O(\reg_rddin[1][0]_i_1_n_0 ));
 endmodule
 `ifndef GLBL
 `define GLBL

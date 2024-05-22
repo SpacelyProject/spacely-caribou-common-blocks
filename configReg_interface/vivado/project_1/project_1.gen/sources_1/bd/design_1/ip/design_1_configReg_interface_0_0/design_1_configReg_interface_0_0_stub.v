@@ -1,7 +1,7 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-// Date        : Tue May 21 19:48:41 2024
+// Date        : Wed May 22 08:38:30 2024
 // Host        : fasic-beast1.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 // Command     : write_verilog -force -mode synth_stub
 //               /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.gen/sources_1/bd/design_1/ip/design_1_configReg_interface_0_0/design_1_configReg_interface_0_0_stub.v
