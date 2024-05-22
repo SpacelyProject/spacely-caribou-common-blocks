@@ -252,6 +252,7 @@ module configReg_interface #(
 		        OPCODE_CONFIGOUT: current_state <= CONFIGOUT_STATE;
 		        default: begin
 		          reg_rddin[0][3:0] <= IDLE_STATUS;
+		          reg_rdStrobe[0] <= 1;
 		          current_state <= IDLE_STATE;
 		        end
 		       endcase
@@ -270,6 +271,7 @@ module configReg_interface #(
             Reset_not <= 1;       // Assert Reset_not at the negative edge of ConfigClk
             processing_fifo_data <= 0;
             reg_rddin[0][3:0] <= RESET_STATUS;
+            reg_rdStrobe[0] <= 1;
             current_state <= IDLE_STATE;
           end
         end
@@ -284,6 +286,7 @@ module configReg_interface #(
             ConfigIn <= 0;        // Clear ConfigIn after 1 ConfigClk cycle
             processing_fifo_data <= 0;
             reg_rddin[0][3:0] <= CONFIGIN_STATUS;
+            reg_rdStrobe[0] <= 1;
             current_state <= IDLE_STATE;
           end
         end
@@ -295,6 +298,7 @@ module configReg_interface #(
             end else begin
               processing_fifo_data = 0;
               reg_rddin[0][3:0] <= WAIT_STATUS;
+              reg_rdStrobe[0] <= 1;
               current_state <= IDLE_STATE;
             end
           end
@@ -302,8 +306,10 @@ module configReg_interface #(
         CONFIGOUT_STATE: begin
           if(ConfigClk) begin
             reg_rddin[1][0] <= ConfigOut;
+            reg_rdStrobe[1] <= 1;
             processing_fifo_data <= 0;
             reg_rddin[0][3:0] <= CONFIGOUT_STATUS;
+            reg_rdStrobe[0] <= 1;
             current_state <= IDLE_STATE;
           end
         end
