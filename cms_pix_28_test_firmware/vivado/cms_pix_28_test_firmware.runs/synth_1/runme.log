@@ -1,0 +1,276 @@
+
+*** Running vivado
+    with args -log configReg_interface_bd_wrapper.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source configReg_interface_bd_wrapper.tcl
+
+
+****** Vivado v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+WARNING: [Common 17-1221] Tcl app 'designutils' is out of date for this release. Please run tclapp::reset_tclstore and reinstall the app.
+source configReg_interface_bd_wrapper.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/asic/cad/Xilinx/Vivado/2022.1/data/ip'.
+add_files: Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 3099.242 ; gain = 104.043 ; free physical = 45152 ; free virtual = 402762
+Command: read_checkpoint -auto_incremental -incremental /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/utils_1/imports/synth_1/configReg_interface_top.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/utils_1/imports/synth_1/configReg_interface_top.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top configReg_interface_bd_wrapper -part xczu9eg-ffvb1156-2-e
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu9eg'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu9eg'
+INFO: [Device 21-403] Loading part xczu9eg-ffvb1156-2-e
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 39446
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3286.238 ; gain = 186.996 ; free physical = 42975 ; free virtual = 400584
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'configReg_interface_bd_wrapper' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/imports/configReg_interface_bd_wrapper.v:12]
+INFO: [Synth 8-6157] synthesizing module 'configReg_interface_bd' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:12]
+INFO: [Synth 8-6157] synthesizing module 'configReg_interface_bd_axi_interconnect_0_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:243]
+INFO: [Synth 8-6157] synthesizing module 's00_couplers_imp_1P9TD87' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:553]
+INFO: [Synth 8-6157] synthesizing module 'configReg_interface_bd_auto_ds_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/.Xil/Vivado-39179-fasic-beast2.fnal.gov/realtime/configReg_interface_bd_auto_ds_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'configReg_interface_bd_auto_ds_0' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/.Xil/Vivado-39179-fasic-beast2.fnal.gov/realtime/configReg_interface_bd_auto_ds_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'configReg_interface_bd_auto_pc_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/.Xil/Vivado-39179-fasic-beast2.fnal.gov/realtime/configReg_interface_bd_auto_pc_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'configReg_interface_bd_auto_pc_0' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/.Xil/Vivado-39179-fasic-beast2.fnal.gov/realtime/configReg_interface_bd_auto_pc_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 's00_couplers_imp_1P9TD87' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:553]
+INFO: [Synth 8-6155] done synthesizing module 'configReg_interface_bd_axi_interconnect_0_0' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:243]
+INFO: [Synth 8-6157] synthesizing module 'configReg_interface_bd_configReg_interface_0_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/.Xil/Vivado-39179-fasic-beast2.fnal.gov/realtime/configReg_interface_bd_configReg_interface_0_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'configReg_interface_bd_configReg_interface_0_0' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/.Xil/Vivado-39179-fasic-beast2.fnal.gov/realtime/configReg_interface_bd_configReg_interface_0_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'configReg_interface_bd_proc_sys_reset_0_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/.Xil/Vivado-39179-fasic-beast2.fnal.gov/realtime/configReg_interface_bd_proc_sys_reset_0_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'configReg_interface_bd_proc_sys_reset_0_0' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/.Xil/Vivado-39179-fasic-beast2.fnal.gov/realtime/configReg_interface_bd_proc_sys_reset_0_0_stub.v:5]
+WARNING: [Synth 8-7071] port 'mb_reset' of module 'configReg_interface_bd_proc_sys_reset_0_0' is unconnected for instance 'proc_sys_reset_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:191]
+WARNING: [Synth 8-7071] port 'bus_struct_reset' of module 'configReg_interface_bd_proc_sys_reset_0_0' is unconnected for instance 'proc_sys_reset_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:191]
+WARNING: [Synth 8-7071] port 'peripheral_reset' of module 'configReg_interface_bd_proc_sys_reset_0_0' is unconnected for instance 'proc_sys_reset_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:191]
+WARNING: [Synth 8-7023] instance 'proc_sys_reset_0' of module 'configReg_interface_bd_proc_sys_reset_0_0' has 10 connections declared, but only 7 given [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:191]
+INFO: [Synth 8-6157] synthesizing module 'configReg_interface_bd_zynq_ultra_ps_e_0_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/.Xil/Vivado-39179-fasic-beast2.fnal.gov/realtime/configReg_interface_bd_zynq_ultra_ps_e_0_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'configReg_interface_bd_zynq_ultra_ps_e_0_0' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/.Xil/Vivado-39179-fasic-beast2.fnal.gov/realtime/configReg_interface_bd_zynq_ultra_ps_e_0_0_stub.v:5]
+WARNING: [Synth 8-7071] port 'maxigp0_awuser' of module 'configReg_interface_bd_zynq_ultra_ps_e_0_0' is unconnected for instance 'zynq_ultra_ps_e_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:199]
+WARNING: [Synth 8-7071] port 'maxigp0_aruser' of module 'configReg_interface_bd_zynq_ultra_ps_e_0_0' is unconnected for instance 'zynq_ultra_ps_e_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:199]
+WARNING: [Synth 8-7023] instance 'zynq_ultra_ps_e_0' of module 'configReg_interface_bd_zynq_ultra_ps_e_0_0' has 43 connections declared, but only 41 given [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:199]
+INFO: [Synth 8-6155] done synthesizing module 'configReg_interface_bd' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/synth/configReg_interface_bd.v:12]
+INFO: [Synth 8-6155] done synthesizing module 'configReg_interface_bd_wrapper' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/imports/configReg_interface_bd_wrapper.v:12]
+WARNING: [Synth 8-7129] Port M_ACLK in module s00_couplers_imp_1P9TD87 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M_ARESETN in module s00_couplers_imp_1P9TD87 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ACLK in module configReg_interface_bd_axi_interconnect_0_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ARESETN in module configReg_interface_bd_axi_interconnect_0_0 is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 3350.191 ; gain = 250.949 ; free physical = 43969 ; free virtual = 401579
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 3367.992 ; gain = 268.750 ; free physical = 43979 ; free virtual = 401589
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 3367.992 ; gain = 268.750 ; free physical = 43979 ; free virtual = 401589
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3367.996 ; gain = 0.000 ; free physical = 43963 ; free virtual = 401573
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/ip/configReg_interface_bd_zynq_ultra_ps_e_0_0/configReg_interface_bd_zynq_ultra_ps_e_0_0/configReg_interface_bd_zynq_ultra_ps_e_0_0_in_context.xdc] for cell 'configReg_interface_bd_i/zynq_ultra_ps_e_0'
+create_clock: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3435.770 ; gain = 11.910 ; free physical = 43876 ; free virtual = 401486
+Finished Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/ip/configReg_interface_bd_zynq_ultra_ps_e_0_0/configReg_interface_bd_zynq_ultra_ps_e_0_0/configReg_interface_bd_zynq_ultra_ps_e_0_0_in_context.xdc] for cell 'configReg_interface_bd_i/zynq_ultra_ps_e_0'
+Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/ip/configReg_interface_bd_proc_sys_reset_0_0/configReg_interface_bd_proc_sys_reset_0_0/configReg_interface_bd_proc_sys_reset_0_0_in_context.xdc] for cell 'configReg_interface_bd_i/proc_sys_reset_0'
+Finished Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/ip/configReg_interface_bd_proc_sys_reset_0_0/configReg_interface_bd_proc_sys_reset_0_0/configReg_interface_bd_proc_sys_reset_0_0_in_context.xdc] for cell 'configReg_interface_bd_i/proc_sys_reset_0'
+Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/ip/configReg_interface_bd_auto_ds_0/configReg_interface_bd_auto_ds_0/configReg_interface_bd_auto_ds_0_in_context.xdc] for cell 'configReg_interface_bd_i/axi_interconnect_0/s00_couplers/auto_ds'
+Finished Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/ip/configReg_interface_bd_auto_ds_0/configReg_interface_bd_auto_ds_0/configReg_interface_bd_auto_ds_0_in_context.xdc] for cell 'configReg_interface_bd_i/axi_interconnect_0/s00_couplers/auto_ds'
+Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/ip/configReg_interface_bd_auto_pc_0/configReg_interface_bd_auto_pc_0/configReg_interface_bd_auto_pc_0_in_context.xdc] for cell 'configReg_interface_bd_i/axi_interconnect_0/s00_couplers/auto_pc'
+Finished Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/ip/configReg_interface_bd_auto_pc_0/configReg_interface_bd_auto_pc_0/configReg_interface_bd_auto_pc_0_in_context.xdc] for cell 'configReg_interface_bd_i/axi_interconnect_0/s00_couplers/auto_pc'
+Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/ip/configReg_interface_bd_configReg_interface_0_0/configReg_interface_bd_configReg_interface_0_0/configReg_interface_bd_configReg_interface_0_0_in_context.xdc] for cell 'configReg_interface_bd_i/configReg_interface_0'
+Finished Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/configReg_interface_bd/ip/configReg_interface_bd_configReg_interface_0_0/configReg_interface_bd_configReg_interface_0_0/configReg_interface_bd_configReg_interface_0_0_in_context.xdc] for cell 'configReg_interface_bd_i/configReg_interface_0'
+Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/constrs_1/new/configReg_interface.xdc]
+Finished Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/constrs_1/new/configReg_interface.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/constrs_1/new/configReg_interface.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/configReg_interface_bd_wrapper_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/configReg_interface_bd_wrapper_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3435.770 ; gain = 0.000 ; free physical = 43876 ; free virtual = 401486
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3435.770 ; gain = 0.000 ; free physical = 43868 ; free virtual = 401478
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 3435.770 ; gain = 336.527 ; free physical = 44051 ; free virtual = 401662
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu9eg-ffvb1156-2-e
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 3435.770 ; gain = 336.527 ; free physical = 44051 ; free virtual = 401662
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property KEEP_HIERARCHY = SOFT for configReg_interface_bd_i. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for configReg_interface_bd_i/zynq_ultra_ps_e_0. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for configReg_interface_bd_i/proc_sys_reset_0. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for configReg_interface_bd_i/axi_interconnect_0/s00_couplers/auto_ds. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for configReg_interface_bd_i/axi_interconnect_0/s00_couplers/auto_pc. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for configReg_interface_bd_i/axi_interconnect_0. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for configReg_interface_bd_i/configReg_interface_0. (constraint file  auto generated constraint).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 3435.770 ; gain = 336.527 ; free physical = 44065 ; free virtual = 401675
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:19 ; elapsed = 00:00:22 . Memory (MB): peak = 3435.770 ; gain = 336.527 ; free physical = 44065 ; free virtual = 401676
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 2520 (col length:168)
+BRAMs: 1824 (col length: RAMB18 168 RAMB36 84)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7129] Port ACLK in module configReg_interface_bd_axi_interconnect_0_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ARESETN in module configReg_interface_bd_axi_interconnect_0_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M00_ACLK in module configReg_interface_bd_axi_interconnect_0_0 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port M00_ARESETN in module configReg_interface_bd_axi_interconnect_0_0 is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 3435.770 ; gain = 336.527 ; free physical = 44051 ; free virtual = 401666
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:33 ; elapsed = 00:00:40 . Memory (MB): peak = 3823.750 ; gain = 724.508 ; free physical = 43557 ; free virtual = 401172
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:33 ; elapsed = 00:00:40 . Memory (MB): peak = 3823.750 ; gain = 724.508 ; free physical = 43550 ; free virtual = 401165
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:33 ; elapsed = 00:00:40 . Memory (MB): peak = 3842.773 ; gain = 743.531 ; free physical = 43544 ; free virtual = 401158
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:37 ; elapsed = 00:00:44 . Memory (MB): peak = 3848.715 ; gain = 749.473 ; free physical = 43559 ; free virtual = 401174
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:37 ; elapsed = 00:00:44 . Memory (MB): peak = 3848.715 ; gain = 749.473 ; free physical = 43559 ; free virtual = 401174
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:37 ; elapsed = 00:00:44 . Memory (MB): peak = 3848.715 ; gain = 749.473 ; free physical = 43558 ; free virtual = 401173
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:37 ; elapsed = 00:00:44 . Memory (MB): peak = 3848.715 ; gain = 749.473 ; free physical = 43555 ; free virtual = 401169
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:37 ; elapsed = 00:00:44 . Memory (MB): peak = 3848.715 ; gain = 749.473 ; free physical = 43551 ; free virtual = 401166
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:37 ; elapsed = 00:00:44 . Memory (MB): peak = 3848.715 ; gain = 749.473 ; free physical = 43547 ; free virtual = 401162
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+-----------------------------------------------+----------+
+|      |BlackBox name                                  |Instances |
++------+-----------------------------------------------+----------+
+|1     |configReg_interface_bd_auto_ds_0               |         1|
+|2     |configReg_interface_bd_auto_pc_0               |         1|
+|3     |configReg_interface_bd_configReg_interface_0_0 |         1|
+|4     |configReg_interface_bd_proc_sys_reset_0_0      |         1|
+|5     |configReg_interface_bd_zynq_ultra_ps_e_0_0     |         1|
++------+-----------------------------------------------+----------+
+
+Report Cell Usage: 
++------+---------------------------------------------+------+
+|      |Cell                                         |Count |
++------+---------------------------------------------+------+
+|1     |configReg_interface_bd_auto_ds               |     1|
+|2     |configReg_interface_bd_auto_pc               |     1|
+|3     |configReg_interface_bd_configReg_interface_0 |     1|
+|4     |configReg_interface_bd_proc_sys_reset_0      |     1|
+|5     |configReg_interface_bd_zynq_ultra_ps_e_0     |     1|
+|6     |IBUF                                         |     1|
+|7     |OBUF                                         |     5|
++------+---------------------------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:37 ; elapsed = 00:00:44 . Memory (MB): peak = 3848.715 ; gain = 749.473 ; free physical = 43545 ; free virtual = 401160
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 5 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:30 ; elapsed = 00:00:37 . Memory (MB): peak = 3848.715 ; gain = 681.695 ; free physical = 43584 ; free virtual = 401199
+Synthesis Optimization Complete : Time (s): cpu = 00:00:37 ; elapsed = 00:00:45 . Memory (MB): peak = 3848.719 ; gain = 749.473 ; free physical = 43584 ; free virtual = 401199
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3862.652 ; gain = 0.000 ; free physical = 43679 ; free virtual = 401294
+INFO: [Netlist 29-17] Analyzing 1 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3886.438 ; gain = 0.000 ; free physical = 43618 ; free virtual = 401233
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 1 instances were transformed.
+  IBUF => IBUF (IBUFCTRL, INBUF): 1 instance 
+
+Synth Design complete, checksum: 13eab9e3
+INFO: [Common 17-83] Releasing license: Synthesis
+43 Infos, 16 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:51 ; elapsed = 00:00:56 . Memory (MB): peak = 3886.438 ; gain = 787.195 ; free physical = 43806 ; free virtual = 401421
+INFO: [Common 17-1381] The checkpoint '/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/configReg_interface_bd_wrapper.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file configReg_interface_bd_wrapper_utilization_synth.rpt -pb configReg_interface_bd_wrapper_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed May 22 10:32:26 2024...
