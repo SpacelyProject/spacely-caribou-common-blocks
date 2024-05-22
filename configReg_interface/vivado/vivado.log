@@ -194,3 +194,15 @@ INFO: [Project 1-1918] Creating Hardware Platform: /asic/projects/C/CMS_PIX_28/n
 INFO: [Project 1-1943] The Hardware Platform can be used for Hardware
 INFO: [Project 1-1941] Successfully created Hardware Platform: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/design_1_wrapper.xsa
 write_hw_platform: Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 11017.520 ; gain = 0.000 ; free physical = 1299 ; free virtual = 401867
+reset_run synth_1
+INFO: [Project 1-1161] Replacing file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.srcs/utils_1/imports/synth_1/design_1_wrapper.dcp with file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.runs/synth_1/design_1_wrapper.dcp
+launch_runs impl_1 -to_step write_bitstream -jobs 22
+[Wed May 22 09:27:44 2024] Launched synth_1...
+Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.runs/synth_1/runme.log
+[Wed May 22 09:27:44 2024] Launched impl_1...
+Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.runs/impl_1/runme.log
+write_hw_platform -fixed -include_bit -force -file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/design_1_wrapper.xsa
+INFO: [Project 1-1918] Creating Hardware Platform: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/design_1_wrapper.xsa ...
+INFO: [Project 1-1943] The Hardware Platform can be used for Hardware
+INFO: [Project 1-1941] Successfully created Hardware Platform: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/design_1_wrapper.xsa
+write_hw_platform: Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 11096.555 ; gain = 0.000 ; free physical = 3886 ; free virtual = 404205
