@@ -2,13 +2,13 @@
 # Vivado v2022.1 (64-bit)
 # SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
 # IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-# Start of session at: Tue May 21 11:17:30 2024
-# Process ID: 60594
-# Current directory: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new
+# Start of session at: Tue May 21 19:34:43 2024
+# Process ID: 81473
+# Current directory: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado
 # Command line: vivado
-# Log file: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/vivado.log
-# Journal file: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/vivado.jou
-# Running On: fasic-beast1.fnal.gov, OS: Linux, CPU Frequency: 1283.020 MHz, CPU Physical cores: 32, Host memory: 540748 MB
+# Log file: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/vivado.log
+# Journal file: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/vivado.jou
+# Running On: fasic-beast1.fnal.gov, OS: Linux, CPU Frequency: 1279.394 MHz, CPU Physical cores: 32, Host memory: 540748 MB
 #-----------------------------------------------------------
 start_gui
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk120_es:part0:1.2 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vpk120/es/1.2/board.xml as part xcvp1202-vsva2785-2mp-e-s-es1 specified in board_part file is either invalid or not available
@@ -17,137 +17,16 @@ WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 avail
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670:part0:2.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670/2.0/board.xml as part xczu67dr-fsve1156-2-i specified in board_part file is either invalid or not available
 WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk120_es:part0:1.2 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vpk120/es/1.2/board.xml as part xcvp1202-vsva2785-2mp-e-s-es1 specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk120_es_revb:part0:1.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vpk120_revb/es/1.0/board.xml as part xcvp1202-vsva2785-2mp-e-s-es1 specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670:part0:2.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670/2.0/board.xml as part xczu67dr-fsve1156-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk120_es:part0:1.2 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vpk120/es/1.2/board.xml as part xcvp1202-vsva2785-2mp-e-s-es1 specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk120_es_revb:part0:1.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vpk120_revb/es/1.0/board.xml as part xcvp1202-vsva2785-2mp-e-s-es1 specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670:part0:2.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670/2.0/board.xml as part xczu67dr-fsve1156-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk120_es:part0:1.2 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vpk120/es/1.2/board.xml as part xcvp1202-vsva2785-2mp-e-s-es1 specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:vpk120_es_revb:part0:1.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/vpk120_revb/es/1.0/board.xml as part xcvp1202-vsva2785-2mp-e-s-es1 specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu208ld:part0:2.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu208ld/production/2.0/board.xml as part xczu58dr-fsvg1517-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu216ld:part0:2.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu216ld/production/2.0/board.xml as part xczu59dr-ffvf1760-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670:part0:2.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670/2.0/board.xml as part xczu67dr-fsve1156-2-i specified in board_part file is either invalid or not available
-WARNING: [Board 49-26] cannot add Board Part xilinx.com:zcu670ld:part0:1.0 available at /asic/cad/Xilinx/Vivado/2022.1/data/xhub/boards/XilinxBoardStore/boards/Xilinx/zcu670ld/1.0/board.xml as part xczu57dr-fsve1156-2-i specified in board_part file is either invalid or not available
-create_project project_1 /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1 -part xczu9eg-ffvb1156-2-e
+open_project /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.xpr
+INFO: [Project 1-313] Project file moved from '/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1' since last save.
+Scanning sources...
+Finished scanning sources
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/asic/cad/Xilinx/Vivado/2022.1/data/ip'.
-create_project: Time (s): cpu = 00:00:15 ; elapsed = 00:00:06 . Memory (MB): peak = 7753.648 ; gain = 12.363 ; free physical = 189593 ; free virtual = 378078
-set_property board_part xilinx.com:zcu102:part0:3.4 [current_project]
-create_bd_design "design_1"
-Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd> 
-create_bd_design: Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 7778.449 ; gain = 6.660 ; free physical = 190063 ; free virtual = 378551
+open_project: Time (s): cpu = 00:00:23 ; elapsed = 00:00:13 . Memory (MB): peak = 7826.582 ; gain = 140.543 ; free physical = 175818 ; free virtual = 375688
 update_compile_order -fileset sources_1
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e:3.4 zynq_ultra_ps_e_0
-endgroup
-WARNING: [IP_Flow 19-474] Invalid Parameter 'Component_Name'
-apply_bd_automation -rule xilinx.com:bd_rule:zynq_ultra_ps_e -config {apply_board_preset "1" }  [get_bd_cells zynq_ultra_ps_e_0]
-INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change 
-apply_bd_automation: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 9480.711 ; gain = 0.000 ; free physical = 189864 ; free virtual = 378369
-INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change 
-WARNING: [IP_Flow 19-474] Invalid Parameter 'Component_Name'
-INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change 
-set_property -dict [list CONFIG.PSU__USE__M_AXI_GP1 {0}] [get_bd_cells zynq_ultra_ps_e_0]
-INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change 
-startgroup
-create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_interconnect_0
-endgroup
-set_property -dict [list CONFIG.NUM_MI {1}] [get_bd_cells axi_interconnect_0]
-apply_bd_automation -rule xilinx.com:bd_rule:clkrst -config { Clk {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Freq {100} Ref_Clk0 {} Ref_Clk1 {} Ref_Clk2 {}}  [get_bd_pins axi_interconnect_0/ACLK]
-create_bd_port -dir I ConfigOut_0
-create_bd_port -dir O SuperpixSel_0
-create_bd_port -dir O ConfigClk_0
-create_bd_port -dir O Reset_not_0
-create_bd_port -dir O ConfigIn_0
-create_bd_port -dir O ConfigLoad_0
-save_bd_design
-Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd> 
-Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
-open_bd_design {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd}
-make_wrapper -files [get_files /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd] -top
-WARNING: [BD 41-2670] Found an incomplete address path from address space '/zynq_ultra_ps_e_0/Data' to master interface '/zynq_ultra_ps_e_0/M_AXI_HPM0_FPD'. Please either complete or remove this path to resolve.
-ERROR: [BD 41-758] The following clock pins are not connected to a valid clock source: 
-/zynq_ultra_ps_e_0/maxihpm0_fpd_aclk
-/axi_interconnect_0/S00_ACLK
-/axi_interconnect_0/M00_ACLK
-
-ERROR: [BD 41-1031] Hdl Generation failed for the IP Integrator design /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd 
-ERROR: [Common 17-39] 'make_wrapper' failed due to earlier errors.
-validate_bd_design
-WARNING: [BD 41-2670] Found an incomplete address path from address space '/zynq_ultra_ps_e_0/Data' to master interface '/zynq_ultra_ps_e_0/M_AXI_HPM0_FPD'. Please either complete or remove this path to resolve.
-ERROR: [BD 41-758] The following clock pins are not connected to a valid clock source: 
-/zynq_ultra_ps_e_0/maxihpm0_fpd_aclk
-/axi_interconnect_0/S00_ACLK
-/axi_interconnect_0/M00_ACLK
-
-ERROR: [Common 17-39] 'validate_bd_design' failed due to earlier errors.
-connect_bd_net [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
-connect_bd_net [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
-connect_bd_net [get_bd_pins rst_ps8_0_99M/interconnect_aresetn] [get_bd_pins axi_interconnect_0/S00_ARESETN]
-connect_bd_net [get_bd_pins rst_ps8_0_99M/interconnect_aresetn] [get_bd_pins axi_interconnect_0/M00_ARESETN]
-validate_bd_design
-WARNING: [BD 41-2670] Found an incomplete address path from address space '/zynq_ultra_ps_e_0/Data' to master interface '/zynq_ultra_ps_e_0/M_AXI_HPM0_FPD'. Please either complete or remove this path to resolve.
-ERROR: [BD 41-758] The following clock pins are not connected to a valid clock source: 
-/zynq_ultra_ps_e_0/maxihpm0_fpd_aclk
-
-ERROR: [Common 17-39] 'validate_bd_design' failed due to earlier errors.
-connect_bd_net [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
-save_bd_design
-Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd> 
-Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
-validate_bd_design
-WARNING: [BD 41-2670] Found an incomplete address path from address space '/zynq_ultra_ps_e_0/Data' to master interface '/zynq_ultra_ps_e_0/M_AXI_HPM0_FPD'. Please either complete or remove this path to resolve.
-INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change 
-validate_bd_design: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 9570.398 ; gain = 0.000 ; free physical = 189036 ; free virtual = 377752
-make_wrapper -files [get_files /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd] -top
-INFO: [BD 41-1662] The design 'design_1.bd' is already validated. Therefore parameter propagation will not be re-run.
-Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd> 
-Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.v
-Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/sim/design_1.v
-Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v
-add_files -norecurse /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v
-launch_runs impl_1 -to_step write_bitstream -jobs 22
-INFO: [BD 41-1662] The design 'design_1.bd' is already validated. Therefore parameter propagation will not be re-run.
-Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.v
-Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/sim/design_1.v
-Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v
-INFO: [xilinx.com:ip:zynq_ultra_ps_e:3.4-0] design_1_zynq_ultra_ps_e_0_0: 
-Changes in your design (including the PCW configuration settings) are not automatically exported from Vivado to Xilinx's SDK, Petalinux or Yocto.
-This is by design to avoid disrupting existing embedded development efforts. To have any changes of your design taking effect in the embedded software flow please export your
-design by going through Vivado's main menu, click on File, then Export finally select Export Hardware, please ensure you click on the Include BitStream option.
-The auto-generated HDF file is all you need to import in Xilinx's SDK, Petalinux or Yocto for your changes to be reflected in the Embedded Software Flow.
-For more information, please consult PG201, section: Exporting PCW Settings to Embedded Software Flows
-INFO: [PSU-0] Address Range of DDR (0x7ff00000 to 0x7fffffff) is reserved by PMU for internal purpose.
-INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'M_AXI_HPM0_FPD'. A default connection has been created.
-INFO: [BD 41-1029] Generation completed for the IP Integrator block zynq_ultra_ps_e_0 .
-INFO: [BD 41-1029] Generation completed for the IP Integrator block rst_ps8_0_99M .
-Exporting to file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh
-Generated Hardware Definition File /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.hwdef
-[Tue May 21 11:33:06 2024] Launched design_1_rst_ps8_0_99M_0_synth_1, design_1_zynq_ultra_ps_e_0_0_synth_1, synth_1...
-Run output will be captured here:
-design_1_rst_ps8_0_99M_0_synth_1: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/design_1_rst_ps8_0_99M_0_synth_1/runme.log
-design_1_zynq_ultra_ps_e_0_0_synth_1: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/design_1_zynq_ultra_ps_e_0_0_synth_1/runme.log
-synth_1: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/runme.log
-[Tue May 21 11:33:06 2024] Launched impl_1...
-Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/impl_1/runme.log
-launch_runs: Time (s): cpu = 00:00:42 ; elapsed = 00:00:41 . Memory (MB): peak = 9915.551 ; gain = 144.039 ; free physical = 187689 ; free virtual = 376663
-add_files -norecurse -scan_for_includes {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface_top.v}
-add_files: Time (s): cpu = 00:00:14 ; elapsed = 00:00:07 . Memory (MB): peak = 10179.066 ; gain = 21.008 ; free physical = 184680 ; free virtual = 373885
-import_files -norecurse {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/src/configReg_interface_top.v}
-update_compile_order -fileset sources_1
-add_files -norecurse -scan_for_includes {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_slave_interface.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/mem_regs.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_interface_top.sv}
-add_files: Time (s): cpu = 00:00:12 ; elapsed = 00:00:07 . Memory (MB): peak = 10242.160 ; gain = 23.074 ; free physical = 184172 ; free virtual = 373496
-import_files -norecurse {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_slave_interface.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/mem_regs.sv /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_interface_top.sv}
-update_compile_order -fileset sources_1
-create_bd_cell -type module -reference configReg_interface_top configReg_interface_0
+update_module_reference design_1_configReg_interface_0_0
 INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXI' of definition 'xilinx.com:interface:aximm:1.0' (from Xilinx Repository).
 INFO: [IP_Flow 19-5107] Inferred bus interface 'Reset_not' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
 INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXI_ARESETN' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
@@ -157,105 +36,59 @@ INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI_ACLK': Added interface parameter 'A
 INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI_ACLK': Added interface parameter 'ASSOCIATED_RESET' with value 'S_AXI_ARESETN'.
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
-apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Clk_slave {Auto} Clk_xbar {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Master {/zynq_ultra_ps_e_0/M_AXI_HPM0_FPD} Slave {/configReg_interface_0/S_AXI} ddr_seg {Auto} intc_ip {/axi_interconnect_0} master_apm {0}}  [get_bd_intf_pins configReg_interface_0/S_AXI]
-Slave segment '/configReg_interface_0/S_AXI/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA000_0000 [ 4K ]>.
-startgroup
-make_bd_pins_external  [get_bd_pins configReg_interface_0/ConfigOut]
-endgroup
-undo
-INFO: [Common 17-17] undo 'endgroup'
-INFO: [Common 17-17] undo 'make_bd_pins_external  [get_bd_pins configReg_interface_0/ConfigOut]'
-INFO: [Common 17-17] undo 'startgroup'
-connect_bd_net [get_bd_ports ConfigOut_0] [get_bd_pins configReg_interface_0/ConfigOut]
-startgroup
-set_property location {468 -237} [get_bd_ports SuperpixSel_0]
-set_property location {478 -217} [get_bd_ports ConfigClk_0]
-set_property location {498 123} [get_bd_ports ConfigIn_0]
-set_property location {498 73} [get_bd_ports ConfigLoad_0]
-set_property location {498 153} [get_bd_ports Reset_not_0]
-endgroup
-undo
-INFO: [Common 17-17] undo 'endgroup'
-INFO: [Common 17-17] undo 'set_property location {498 153} [get_bd_ports Reset_not_0]'
-INFO: [Common 17-17] undo 'set_property location {498 73} [get_bd_ports ConfigLoad_0]'
-INFO: [Common 17-17] undo 'set_property location {498 123} [get_bd_ports ConfigIn_0]'
-INFO: [Common 17-17] undo 'set_property location {478 -217} [get_bd_ports ConfigClk_0]'
-INFO: [Common 17-17] undo 'set_property location {468 -237} [get_bd_ports SuperpixSel_0]'
-INFO: [Common 17-17] undo 'startgroup'
-undo
-INFO: [Common 17-17] undo 'connect_bd_net [get_bd_ports ConfigOut_0] [get_bd_pins configReg_interface_0/ConfigOut]'
-undo
-INFO: [Common 17-17] undo 'apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Clk_slave {Auto} Clk_xbar {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Master {/zynq_ultra_ps_e_0/M_AXI_HPM0_FPD} Slave {/configReg_interface_0/S_AXI} ddr_seg {Auto} intc_ip {/axi_interconnect_0} master_apm {0}}  [get_bd_intf_pins configReg_interface_0/S_AXI]'
-apply_bd_automation -rule xilinx.com:bd_rule:axi4 -config { Clk_master {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Clk_slave {Auto} Clk_xbar {/zynq_ultra_ps_e_0/pl_clk0 (99 MHz)} Master {/zynq_ultra_ps_e_0/M_AXI_HPM0_FPD} Slave {/configReg_interface_0/S_AXI} ddr_seg {Auto} intc_ip {/axi_interconnect_0} master_apm {0}}  [get_bd_intf_pins configReg_interface_0/S_AXI]
-Slave segment '/configReg_interface_0/S_AXI/reg0' is being assigned into address space '/zynq_ultra_ps_e_0/Data' at <0xA000_0000 [ 4K ]>.
-startgroup
-connect_bd_net [get_bd_ports ConfigClk_0] [get_bd_pins configReg_interface_0/ConfigClk]
-endgroup
-connect_bd_net [get_bd_ports SuperpixSel_0] [get_bd_pins configReg_interface_0/SuperpixSel]
-connect_bd_net [get_bd_ports ConfigLoad_0] [get_bd_pins configReg_interface_0/ConfigLoad]
-connect_bd_net [get_bd_ports ConfigIn_0] [get_bd_pins configReg_interface_0/ConfigIn]
-connect_bd_net [get_bd_ports Reset_not_0] [get_bd_pins configReg_interface_0/Reset_not]
-connect_bd_net [get_bd_ports ConfigOut_0] [get_bd_pins configReg_interface_0/ConfigOut]
-save_bd_design
-Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd> 
-Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
-validate_bd_design
+Reading block design file </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd>...
+Adding component instance block -- xilinx.com:ip:zynq_ultra_ps_e:3.4 - zynq_ultra_ps_e_0
+Adding component instance block -- xilinx.com:ip:axi_interconnect:2.1 - axi_interconnect_0
+Adding component instance block -- xilinx.com:ip:axi_dwidth_converter:2.1 - auto_ds
+Adding component instance block -- xilinx.com:ip:axi_protocol_converter:2.1 - auto_pc
+Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - rst_ps8_0_99M
+Adding component instance block -- xilinx.com:module_ref:configReg_interface_top:1.0 - configReg_interface_0
+Successfully read diagram <design_1> from block design file </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd>
+Upgrading '/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd'
+INFO: [IP_Flow 19-3420] Updated design_1_configReg_interface_0_0 to use current project options
+Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd> 
+Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
+upgrade_ip: Time (s): cpu = 00:00:20 ; elapsed = 00:00:10 . Memory (MB): peak = 8536.961 ; gain = 0.000 ; free physical = 172366 ; free virtual = 372503
+update_module_reference: Time (s): cpu = 00:00:20 ; elapsed = 00:00:11 . Memory (MB): peak = 8536.961 ; gain = 0.000 ; free physical = 172366 ; free virtual = 372503
+reset_run synth_1
+INFO: [Project 1-1161] Replacing file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.srcs/utils_1/imports/synth_1/design_1_wrapper.dcp with file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.runs/synth_1/design_1_wrapper.dcp
+launch_runs impl_1 -to_step write_bitstream -jobs 22
 WARNING: [BD 41-237] Bus Interface property AWUSER_WIDTH does not match between /axi_interconnect_0/s00_couplers/auto_ds/S_AXI(0) and /zynq_ultra_ps_e_0/M_AXI_HPM0_FPD(16)
 WARNING: [BD 41-237] Bus Interface property ARUSER_WIDTH does not match between /axi_interconnect_0/s00_couplers/auto_ds/S_AXI(0) and /zynq_ultra_ps_e_0/M_AXI_HPM0_FPD(16)
-update_compile_order -fileset sources_1
-regenerate_bd_layout
-save_bd_design
-Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd> 
-Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
-file mkdir /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/constrs_1
-add_files -fileset constrs_1 -norecurse /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/configReg_interface/configReg_interface.srcs/constrs_1/new/configReg_interface.xdc
-import_files -fileset constrs_1 /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/configReg_interface/configReg_interface.srcs/constrs_1/new/configReg_interface.xdc
-reset_run synth_1
-INFO: [Project 1-1160] Copying file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/design_1_wrapper.dcp to /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/utils_1/imports/synth_1 and adding it to utils fileset
-launch_runs impl_1 -to_step write_bitstream -jobs 22
-INFO: [BD 41-1662] The design 'design_1.bd' is already validated. Therefore parameter propagation will not be re-run.
-Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/ui/bd_1f5defd0.ui> 
-Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.v
-Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/sim/design_1.v
-Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v
+Wrote  : </asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd> 
+Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.v
+Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.gen/sources_1/bd/design_1/sim/design_1.v
+Verilog Output written to : /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.gen/sources_1/bd/design_1/hdl/design_1_wrapper.v
 INFO: [BD 41-1029] Generation completed for the IP Integrator block configReg_interface_0 .
-WARNING: [IP_Flow 19-4994] Overwriting existing constraint file '/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/ip/design_1_auto_ds_0/design_1_auto_ds_0_ooc.xdc'
+WARNING: [IP_Flow 19-4994] Overwriting existing constraint file '/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.gen/sources_1/bd/design_1/ip/design_1_auto_ds_0/design_1_auto_ds_0_ooc.xdc'
 INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'S_AXI'. A default connection has been created.
 INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'M_AXI'. A default connection has been created.
 INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_interconnect_0/s00_couplers/auto_ds .
-WARNING: [IP_Flow 19-4994] Overwriting existing constraint file '/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/ip/design_1_auto_pc_0/design_1_auto_pc_0_ooc.xdc'
+WARNING: [IP_Flow 19-4994] Overwriting existing constraint file '/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.gen/sources_1/bd/design_1/ip/design_1_auto_pc_0/design_1_auto_pc_0_ooc.xdc'
 INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_interconnect_0/s00_couplers/auto_pc .
-Exporting to file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh
-Generated Hardware Definition File /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.hwdef
-[Tue May 21 11:52:41 2024] Launched design_1_auto_pc_0_synth_1, design_1_auto_ds_0_synth_1, design_1_configReg_interface_0_0_synth_1, synth_1...
+Exporting to file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh
+Generated Hardware Definition File /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.gen/sources_1/bd/design_1/synth/design_1.hwdef
+INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP design_1_auto_ds_0, cache-ID = cc395e92669a9fb5; cache size = 6.238 MB.
+INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP design_1_auto_pc_0, cache-ID = dba34939b17a8116; cache size = 6.238 MB.
+[Tue May 21 19:47:10 2024] Launched design_1_configReg_interface_0_0_synth_1, synth_1...
 Run output will be captured here:
-design_1_auto_pc_0_synth_1: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/design_1_auto_pc_0_synth_1/runme.log
-design_1_auto_ds_0_synth_1: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/design_1_auto_ds_0_synth_1/runme.log
-design_1_configReg_interface_0_0_synth_1: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/design_1_configReg_interface_0_0_synth_1/runme.log
-synth_1: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/runme.log
-[Tue May 21 11:52:41 2024] Launched impl_1...
-Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/impl_1/runme.log
-launch_runs: Time (s): cpu = 00:00:31 ; elapsed = 00:00:23 . Memory (MB): peak = 10431.445 ; gain = 19.137 ; free physical = 183644 ; free virtual = 373246
-open_bd_design {/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/sources_1/bd/design_1/design_1.bd}
-reset_run synth_1
-INFO: [Project 1-1161] Replacing file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/utils_1/imports/synth_1/design_1_wrapper.dcp with file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/design_1_wrapper.dcp
-launch_runs impl_1 -to_step write_bitstream -jobs 22
-[Tue May 21 12:01:22 2024] Launched synth_1...
-Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/runme.log
-[Tue May 21 12:01:22 2024] Launched impl_1...
-Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/impl_1/runme.log
-INFO: [Vivado 12-8217] Implementation run is out of date. Exported hardware information may be inconsistent with respect to the current state of the design. It is recommended that you re-run implementation and re-generate bitstream/PDI before doing hardware export.
-reset_run synth_1
-INFO: [Project 1-1161] Replacing file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.srcs/utils_1/imports/synth_1/design_1_wrapper.dcp with file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/design_1_wrapper.dcp
-launch_runs impl_1 -to_step write_bitstream -jobs 22
-[Tue May 21 12:08:24 2024] Launched synth_1...
-Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/synth_1/runme.log
-[Tue May 21 12:08:24 2024] Launched impl_1...
-Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/impl_1/runme.log
-write_hw_platform -fixed -include_bit -force -file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/design_1_wrapper.xsa
-INFO: [Project 1-1918] Creating Hardware Platform: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/design_1_wrapper.xsa ...
+design_1_configReg_interface_0_0_synth_1: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.runs/design_1_configReg_interface_0_0_synth_1/runme.log
+synth_1: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.runs/synth_1/runme.log
+[Tue May 21 19:47:10 2024] Launched impl_1...
+Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.runs/impl_1/runme.log
+launch_runs: Time (s): cpu = 00:00:27 ; elapsed = 00:00:22 . Memory (MB): peak = 10171.844 ; gain = 28.961 ; free physical = 172152 ; free virtual = 372304
+write_hw_platform -fixed -include_bit -force -file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/design_1_wrapper.xsa
+INFO: [Project 1-1918] Creating Hardware Platform: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/design_1_wrapper.xsa ...
 INFO: [Project 1-1943] The Hardware Platform can be used for Hardware
-INFO: [Project 1-1941] Successfully created Hardware Platform: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/design_1_wrapper.xsa
-INFO: [Hsi 55-2053] elapsed time for repository (/asic/cad/Xilinx/Vivado/2022.1/data/embeddedsw) loading 7 seconds
-write_hw_platform: Time (s): cpu = 00:00:09 ; elapsed = 00:00:17 . Memory (MB): peak = 10431.445 ; gain = 0.000 ; free physical = 181973 ; free virtual = 372687
-WARNING: [IP_Flow 19-4318] IP-XACT file does not exist: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/mref/configReg_interface_top/component.xml. It will be created.
+INFO: [Project 1-1941] Successfully created Hardware Platform: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/design_1_wrapper.xsa
+INFO: [Hsi 55-2053] elapsed time for repository (/asic/cad/Xilinx/Vivado/2022.1/data/embeddedsw) loading 1 seconds
+write_hw_platform: Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 10171.844 ; gain = 0.000 ; free physical = 171669 ; free virtual = 372024
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 22
+[Tue May 21 19:58:32 2024] Launched impl_1...
+Run output will be captured here: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.runs/impl_1/runme.log
+write_hw_platform -fixed -include_bit -force -file /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/design_1_wrapper.xsa
+INFO: [Project 1-1918] Creating Hardware Platform: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/design_1_wrapper.xsa ...
+INFO: [Project 1-1943] The Hardware Platform can be used for Hardware
+INFO: [Project 1-1941] Successfully created Hardware Platform: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/design_1_wrapper.xsa
+write_hw_platform: Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 10171.844 ; gain = 0.000 ; free physical = 167326 ; free virtual = 370033

@@ -24,4 +24,4 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_1_au
 # IP: bd/design_1/ip/design_1_auto_pc_0/design_1_auto_pc_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_1_auto_pc_0 || ORIG_REF_NAME==design_1_auto_pc_0} -quiet] -quiet
 
-# XDC: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.gen/sources_1/bd/design_1/design_1_ooc.xdc
+# XDC: /asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.gen/sources_1/bd/design_1/design_1_ooc.xdc

@@ -1254,3 +1254,16 @@ dismissDialog("Export Hardware Platform"); // bA
 // WARNING: HEventQueue.dispatchEvent() is taking  2782 ms.
 // HMemoryUtils.trashcanNow. Engine heap size: 7,952 MB. GUI used memory: 162 MB. Current time: 5/21/24, 12:41:26 PM CDT
 // TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 7,952 MB. GUI used memory: 160 MB. Current time: 5/21/24, 1:11:26 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,952 MB. GUI used memory: 159 MB. Current time: 5/21/24, 1:41:26 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,952 MB. GUI used memory: 159 MB. Current time: 5/21/24, 2:11:26 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,952 MB. GUI used memory: 159 MB. Current time: 5/21/24, 2:41:26 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,952 MB. GUI used memory: 159 MB. Current time: 5/21/24, 3:11:26 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,952 MB. GUI used memory: 159 MB. Current time: 5/21/24, 3:41:27 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,952 MB. GUI used memory: 159 MB. Current time: 5/21/24, 4:11:27 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,954 MB. GUI used memory: 159 MB. Current time: 5/21/24, 4:41:27 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,954 MB. GUI used memory: 159 MB. Current time: 5/21/24, 5:11:27 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,954 MB. GUI used memory: 159 MB. Current time: 5/21/24, 5:41:27 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,954 MB. GUI used memory: 159 MB. Current time: 5/21/24, 6:11:27 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,954 MB. GUI used memory: 159 MB. Current time: 5/21/24, 6:41:27 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 7,954 MB. GUI used memory: 159 MB. Current time: 5/21/24, 7:11:27 PM CDT

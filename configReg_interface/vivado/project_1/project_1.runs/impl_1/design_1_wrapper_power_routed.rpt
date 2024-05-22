@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-| Date             : Tue May 21 12:13:05 2024
+| Date             : Tue May 21 19:53:16 2024
 | Host             : fasic-beast1.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 | Command          : report_power -file design_1_wrapper_power_routed.rpt -pb design_1_wrapper_power_summary_routed.pb -rpx design_1_wrapper_power_routed.rpx
 | Design           : design_1_wrapper
@@ -53,16 +53,16 @@ Table of Contents
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
 | Clocks                   |     0.006 |        3 |       --- |             --- |
-| CLB Logic                |     0.003 |     3196 |       --- |             --- |
-|   LUT as Logic           |     0.002 |     1195 |    274080 |            0.44 |
-|   Register               |    <0.001 |     1453 |    548160 |            0.27 |
+| CLB Logic                |     0.003 |     3495 |       --- |             --- |
+|   LUT as Logic           |     0.002 |     1256 |    274080 |            0.46 |
+|   Register               |    <0.001 |     1657 |    548160 |            0.30 |
 |   LUT as Distributed RAM |    <0.001 |       44 |    144000 |            0.03 |
 |   LUT as Shift Register  |    <0.001 |       11 |    144000 |           <0.01 |
 |   CARRY8                 |    <0.001 |        6 |     34260 |            0.02 |
 |   Others                 |     0.000 |       89 |       --- |             --- |
-|   F7/F8 Muxes            |     0.000 |       74 |    274080 |            0.03 |
-| Signals                  |     0.003 |     2573 |       --- |             --- |
-| I/O                      |     0.003 |        6 |       328 |            1.83 |
+|   F7/F8 Muxes            |     0.000 |      110 |    274080 |            0.04 |
+| Signals                  |     0.003 |     2803 |       --- |             --- |
+| I/O                      |     0.002 |        6 |       328 |            1.83 |
 | PS8                      |     2.734 |        1 |       --- |             --- |
 | Static Power             |     0.721 |          |           |                 |
 |   PS Static              |     0.098 |          |           |                 |
@@ -77,14 +77,14 @@ Table of Contents
 +-----------------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source          | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint          |       0.850 |     0.213 |       0.013 |      0.199 |       NA    | Unspecified | NA         |
+| Vccint          |       0.850 |     0.213 |       0.014 |      0.199 |       NA    | Unspecified | NA         |
 | Vccint_io       |       0.850 |     0.036 |       0.000 |      0.036 |       NA    | Unspecified | NA         |
 | Vccbram         |       0.850 |     0.003 |       0.000 |      0.003 |       NA    | Unspecified | NA         |
 | Vccaux          |       1.800 |     0.193 |       0.000 |      0.193 |       NA    | Unspecified | NA         |
 | Vccaux_io       |       1.800 |     0.034 |       0.001 |      0.033 |       NA    | Unspecified | NA         |
 | Vcco33          |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco25          |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
-| Vcco18          |       1.800 |     0.001 |       0.001 |      0.000 |       NA    | Unspecified | NA         |
+| Vcco18          |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco15          |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco135         |       1.350 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco12          |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -165,11 +165,11 @@ Table of Contents
 | Name                      | Power (W) |
 +---------------------------+-----------+
 | design_1_wrapper          |     2.748 |
-|   design_1_i              |     2.745 |
+|   design_1_i              |     2.746 |
 |     axi_interconnect_0    |     0.006 |
 |       s00_couplers        |     0.006 |
-|     configReg_interface_0 |     0.004 |
-|       inst                |     0.004 |
+|     configReg_interface_0 |     0.005 |
+|       inst                |     0.005 |
 |     zynq_ultra_ps_e_0     |     2.735 |
 |       inst                |     2.735 |
 +---------------------------+-----------+

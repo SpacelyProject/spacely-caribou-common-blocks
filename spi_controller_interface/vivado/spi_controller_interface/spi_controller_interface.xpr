@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="60" Path="/fasic_home/lucahhot/Documents/spacely-caribou-common-blocks/spi_controller_interface/vivado/spi_controller_interface/spi_controller_interface.xpr">
+<Project Version="7" Minor="60" Path="/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/spi_controller_interface/vivado/spi_controller_interface/spi_controller_interface.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="f6596051e28347289b16fd335a0675d9"/>
@@ -88,8 +88,24 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
       <Filter Type="Srcs"/>
+      <File Path="$PSRCDIR/sources_1/bd/spi_Sim/spi_Sim.bd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PGENDIR/sources_1/bd/spi_Sim/hdl/spi_Sim_wrapper.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../../../axi4lite_interface/axi4lite_interface_top.sv">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -97,6 +113,7 @@
       </File>
       <File Path="$PPRDIR/../../../axi4lite_interface/axi4lite_slave_interface.sv">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -104,6 +121,7 @@
       </File>
       <File Path="$PPRDIR/../../src/clock_divider.sv">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -111,6 +129,7 @@
       </File>
       <File Path="$PPRDIR/../../src/fifo.sv">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -118,6 +137,7 @@
       </File>
       <File Path="$PPRDIR/../../../axi4lite_interface/mem_regs.sv">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -125,6 +145,7 @@
       </File>
       <File Path="$PPRDIR/../../src/spi_controller_SP3A.sv">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -132,6 +153,7 @@
       </File>
       <File Path="$PPRDIR/../../src/spi_controller_interface.sv">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -139,26 +161,7 @@
       </File>
       <File Path="$PPRDIR/../../src/spi_controller_interface_top.v">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/bd/spi_Sim/spi_Sim.bd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-        <CompFileExtendedInfo CompFileName="spi_Sim.bd" FileRelPathName="ip/spi_Sim_axi_vip_0_0/spi_Sim_axi_vip_0_0.xci">
-          <Proxy FileSetName="spi_Sim_axi_vip_0_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="spi_Sim.bd" FileRelPathName="ip/spi_Sim_spi_controller_inter_0_0/spi_Sim_spi_controller_inter_0_0.xci">
-          <Proxy FileSetName="spi_Sim_spi_controller_inter_0_0"/>
-        </CompFileExtendedInfo>
-      </File>
-      <File Path="$PGENDIR/sources_1/bd/spi_Sim/hdl/spi_Sim_wrapper.v">
-        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -248,34 +251,29 @@
     </Simulator>
   </Simulators>
   <Runs Version="1" Minor="19">
-    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xczu9eg-ffvb1156-2-e" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" IncrementalCheckpoint="$PSRCDIR/utils_1/imports/synth_1/spi_Sim_wrapper.dcp" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/synth_1">
+    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xczu9eg-ffvb1156-2-e" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" IncrementalCheckpoint="$PPRDIR/../../../../../../../../../../fasic_home/lucahhot/Documents/spacely-caribou-common-blocks/spi_controller_interface/vivado/spi_controller_interface/spi_controller_interface.srcs/utils_1/imports/synth_1/spi_Sim_wrapper.dcp" WriteIncrSynthDcp="false" State="current" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2022"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="spi_Sim_axi_vip_0_0_synth_1" Type="Ft3:Synth" SrcSet="spi_Sim_axi_vip_0_0" Part="xczu9eg-ffvb1156-2-e" ConstrsSet="spi_Sim_axi_vip_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/spi_Sim_axi_vip_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/spi_Sim_axi_vip_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/spi_Sim_axi_vip_0_0_synth_1">
+    <Run Id="spi_Sim_axi_vip_0_0_synth_1" Type="Ft3:Synth" SrcSet="spi_Sim_axi_vip_0_0" Part="xczu9eg-ffvb1156-2-e" ConstrsSet="spi_Sim_axi_vip_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/spi_Sim_axi_vip_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/spi_Sim_axi_vip_0_0_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2022"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="spi_Sim_spi_controller_inter_0_0_synth_1" Type="Ft3:Synth" SrcSet="spi_Sim_spi_controller_inter_0_0" Part="xczu9eg-ffvb1156-2-e" ConstrsSet="spi_Sim_spi_controller_inter_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/spi_Sim_spi_controller_inter_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/spi_Sim_spi_controller_inter_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/spi_Sim_spi_controller_inter_0_0_synth_1">
+    <Run Id="spi_Sim_spi_controller_inter_0_0_synth_1" Type="Ft3:Synth" SrcSet="spi_Sim_spi_controller_inter_0_0" Part="xczu9eg-ffvb1156-2-e" ConstrsSet="spi_Sim_spi_controller_inter_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/spi_Sim_spi_controller_inter_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/spi_Sim_spi_controller_inter_0_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2022"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
@@ -316,9 +314,7 @@
     </Run>
     <Run Id="spi_Sim_spi_controller_inter_0_0_impl_1" Type="Ft2:EntireDesign" Part="xczu9eg-ffvb1156-2-e" ConstrsSet="spi_Sim_spi_controller_inter_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="spi_Sim_spi_controller_inter_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/spi_Sim_spi_controller_inter_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/spi_Sim_spi_controller_inter_0_0_impl_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

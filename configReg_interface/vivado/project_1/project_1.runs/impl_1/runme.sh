@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado_new/project_1/project_1.runs/impl_1'
+HD_PWD='/asic/projects/C/CMS_PIX_28/nehak/spacely/spacely-caribou-common-blocks/configReg_interface/vivado/project_1/project_1.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -37,7 +37,7 @@ EAStep()
 }
 
 # pre-commands:
-/bin/touch .init_design.begin.rst
+/bin/touch .write_bitstream.begin.rst
 EAStep vivado -log design_1_wrapper.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source design_1_wrapper.tcl -notrace
 
 
