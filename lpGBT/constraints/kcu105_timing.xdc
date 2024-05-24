@@ -2,14 +2,6 @@
 ##=========================================  CLOCKS  ================================================##
 ##===================================================================================================##
 
-
-
-
-##========================##
-## AXI ACLK 100 MHz       ##
-##========================##
-create_clock -period 13.468 -name AXI_CLOCK [get_ports S_AXI_ACLK]
-
 ##========================##
 ## FABRIC CLOCK 74.25 MHz ##
 ##========================##
@@ -37,8 +29,6 @@ set_false_path -to   [get_pins -hierarchical -filter {NAME =~ *cdc_rx_inst/phase
 ## Timing exceptions for MGT design ##
 ##==================================##
 
-# The AXI Clock is meant to be asynchronous with all clocks that are used in the core of the lpGBT design. 
-set_clock_groups -asynchronous -group {AXI_CLK}
 
 # System clock is asynchronous to other clocks in design
 set_clock_groups -asynchronous -group USER_CLOCK
