@@ -16,9 +16,9 @@
 
 module common_sw_to_fw_side(
     // SW side ports:
-    input  logic [31:0] sw_write32_0,                      // register#0 32-bit write from SW to FW
-    output logic [31:0] sw_read32_0,                       // register#0 32-bit read  from FW to SW
-    output logic [31:0] sw_read32_1,                       // register#0 32-bit read  from FW to SW
+    input  logic [31:0] sw_write32_0,                      // register#0 32-bit write       from SW to FW
+    output logic [31:0] sw_read32_0,                       // register#0 32-bit read_data   from FW to SW
+    output logic [31:0] sw_read32_1,                       // register#1 32-bit read_status from FW to SW
     // FW side ports
     output logic [3:0]  fw_dev_id_enable,                  // up to 15 FW can be connected;
     output logic        fw_op_code_w_reset,
