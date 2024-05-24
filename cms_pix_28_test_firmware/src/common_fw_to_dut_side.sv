@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------
-// Author       : Cristian Gingu (gingul.gov
+// Author       : Cristian Gingu       gingu@fnal.gov
 // Created      : 2024-05-23
 // ------------------------------------------------------------------------------------
 // Copyright (c) 2024 by FNAL This model is the confidential and
@@ -8,15 +8,19 @@
 // ------------------------------------------------------------------------------------
 // Revisions  :
 // Date        Author                 Description
-// 2024-05-23  Cristian  Gingu        Created
+// 2024-05-23  Cristian  Gingu        Created; contains IOB FF
 // ------------------------------------------------------------------------------------
+`ifndef __common_fw_to_dut_side__
+`define __common_fw_to_dut_side__
+
 `timescale 1 ns/ 1 ps
 
 module common_fw_to_dut_side(
-    input  logic S_AXI_ACLK,                              // FW clock
-    input  logic S_AXI_ARESETN,                           // FW reset, active low
+    input  logic       fw_clk,                            // FW clock              mapped to S_AXI_ACLK
+    input  logic       fw_rst_n,                          // FW reset, active low  mapped to S_AXI_ARESETN
     input  logic [3:0] fw_dev_id_enable,                  // up to 15 FWs can be connected;
     // FW side ports                                      // up to 15 FWs can be connected;
+    // output signals from FW
     input  logic [3:0] fw_config_clk,
     input  logic [3:0] fw_reset_not,
     input  logic [3:0] fw_config_in,
@@ -26,12 +30,14 @@ module common_fw_to_dut_side(
     input  logic [3:0] fw_vin_test_trig_out,
     input  logic [3:0] fw_scan_in,
     input  logic [3:0] fw_scan_load,
+    // input signals to FW
     output logic [3:0] fw_config_out,
     output logic [3:0] fw_scan_out,
     output logic [3:0] fw_dnn_output_0,
     output logic [3:0] fw_dnn_output_1,
     output logic [3:0] fw_dn_event_toggle,
     // DUT side ports == FPGA pins:
+    // Output IOB FF
     output logic config_clk,
     output logic reset_not,
     output logic config_in,
@@ -41,6 +47,7 @@ module common_fw_to_dut_side(
     output logic vin_test_trig_out,
     output logic scan_in,
     output logic scan_load,
+    // Input  IOB FF
     input  logic config_out,
     input  logic scan_out,
     input  logic dnn_output_0,
@@ -156,8 +163,8 @@ module common_fw_to_dut_side(
   end
 
   // Output IOB FF
-  always_ff @(posedge S_AXI_ACLK) begin
-    if (~S_AXI_ARESETN) begin
+  always_ff @(posedge fw_clk) begin
+    if (~fw_rst_n) begin
       config_clk_iob         <= 1'b0;
       reset_not_iob          <= 1'b0;
       config_in_iob          <= 1'b0;
@@ -190,8 +197,8 @@ module common_fw_to_dut_side(
   assign scan_load           = scan_load_iob;
 
   // Input IOB FF
-  always_ff @(posedge S_AXI_ACLK) begin
-    if (~S_AXI_ARESETN) begin
+  always_ff @(posedge fw_clk) begin
+    if (~fw_rst_n) begin
       config_out_iob         <= 1'b0;
       scan_out_iob           <= 1'b0;
       dnn_output_0_iob       <= 1'b0;
@@ -207,3 +214,5 @@ module common_fw_to_dut_side(
   end;
 
 endmodule
+
+`endif

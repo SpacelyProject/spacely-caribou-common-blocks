@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------
-// Author       : Cristian Gingu (gingul.gov
+// Author       : Cristian Gingu       gingu@fnal.gov
 // Created      : 2024-05-23
 // ------------------------------------------------------------------------------------
 // Copyright (c) 2024 by FNAL This model is the confidential and
@@ -10,6 +10,9 @@
 // Date        Author                 Description
 // 2024-05-23  Cristian  Gingu        Created; based on https://github.com/SpacelyProject/spacely-caribou-common-blocks/blob/main/ExampleBlock/ExampleBlock.sv
 // ------------------------------------------------------------------------------------
+`ifndef __axi4lite_interface_top_for_pix28_fw__
+`define __axi4lite_interface_top_for_pix28_fw__
+
 `timescale 1 ns/ 1 ps
 
 module axi4lite_interface_top_for_pix28_fw #(
@@ -158,3 +161,5 @@ module axi4lite_interface_top_for_pix28_fw #(
   end
 
 endmodule
+
+`endif

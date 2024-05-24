@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------------
-// Author       : Cristian Gingu (gingul.gov
+// Author       : Cristian Gingu       gingu@fnal.gov
 // Created      : 2024-05-22
 // ------------------------------------------------------------------------------------
 // Copyright (c) 2024 by FNAL This model is the confidential and
@@ -10,6 +10,8 @@
 // Date        Author                 Description
 // 2024-05-22  Cristian  Gingu        Created; this is a combinatorial module
 // ------------------------------------------------------------------------------------
+`ifndef __common_sw_to_fw_side__
+`define __common_sw_to_fw_side__
 `timescale 1 ns/ 1 ps
 
 module common_sw_to_fw_side(
@@ -29,7 +31,7 @@ module common_sw_to_fw_side(
     output logic        fw_op_code_r_data_array_0,
     output logic        fw_op_code_r_data_array_1,
     output logic        fw_op_code_r_status,
-    output logic        fw_op_code_w_exec_test_0,
+    output logic        fw_op_code_w_execute,
     output logic [23:0]      sw_write24_0,                 // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     input  logic [3:0][31:0] fw_read_data32,               // 32-bit read_data   from FW to SW
     input  logic [3:0][31:0] fw_read_status32              // 32-bit read_status from FW to SW
@@ -54,7 +56,7 @@ module common_sw_to_fw_side(
     OP_CODE_R_DATA_ARRAY_0   = 4'h8,
     OP_CODE_R_DATA_ARRAY_1   = 4'h9,
     OP_CODE_R_STATUS_FW      = 4'hA,
-    OP_CODE_W_EXEC_TEST_0    = 4'hB
+    OP_CODE_W_EXECUTE        = 4'hB
   } op_code;
 
   // Device ID decoder: this is used to enable one-and-only-one firmware at a time.
@@ -95,9 +97,11 @@ module common_sw_to_fw_side(
   assign fw_op_code_r_data_array_0 = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_R_DATA_ARRAY_0) ? 1'b1 : 1'b0;
   assign fw_op_code_r_data_array_1 = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_R_DATA_ARRAY_1) ? 1'b1 : 1'b0;
   assign fw_op_code_r_status       = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_R_STATUS_FW   ) ? 1'b1 : 1'b0;
-  assign fw_op_code_w_exec_test_0  = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_W_EXEC_TEST_0 ) ? 1'b1 : 1'b0;
+  assign fw_op_code_w_execute      = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_W_EXECUTE     ) ? 1'b1 : 1'b0;
 
-  // Body data feed through
+  // Body data feed through: bytes 2, 1, 0
   assign sw_write24_0 = sw_write32_0[windex_body_max:windex_body_min];
 
 endmodule
+
+`endif
