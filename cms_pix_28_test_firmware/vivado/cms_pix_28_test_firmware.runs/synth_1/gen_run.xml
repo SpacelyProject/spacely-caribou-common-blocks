@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="synth_1" LaunchPart="xczu9eg-ffvb1156-2-e" LaunchTime="1716391729" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/configReg_interface_top.dcp">
-  <File Type="VDS-TIMINGSUMMARY" Name="configReg_interface_bd_wrapper_timing_summary_synth.rpt"/>
   <File Type="RDS-DCP" Name="configReg_interface_bd_wrapper.dcp"/>
   <File Type="RDS-UTIL-PB" Name="configReg_interface_bd_wrapper_utilization_synth.pb"/>
-  <File Type="RDS-UTIL" Name="configReg_interface_bd_wrapper_utilization_synth.rpt"/>
-  <File Type="RDS-PROPCONSTRS" Name="configReg_interface_bd_wrapper_drc_synth.rpt"/>
-  <File Type="RDS-RDS" Name="configReg_interface_bd_wrapper.vds"/>
-  <File Type="REPORTS-TCL" Name="configReg_interface_bd_wrapper_reports.tcl"/>
-  <File Type="VDS-TIMING-PB" Name="configReg_interface_bd_wrapper_timing_summary_synth.pb"/>
   <File Type="PA-TCL" Name="configReg_interface_bd_wrapper.tcl"/>
+  <File Type="RDS-UTIL" Name="configReg_interface_bd_wrapper_utilization_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="configReg_interface_bd_wrapper_reports.tcl"/>
+  <File Type="RDS-RDS" Name="configReg_interface_bd_wrapper.vds"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PPRDIR/../../axi4lite_interface/axi4lite_interface_top.sv">
@@ -103,9 +100,9 @@
     <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
     <Step Id="synth_design"/>
   </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="configReg_interface_bd_proc_sys_reset_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="configReg_interface_bd_auto_ds_0"/>
   <BlockFileSet Type="BlockSrcs" Name="configReg_interface_bd_configReg_interface_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="configReg_interface_bd_auto_pc_0"/>
   <BlockFileSet Type="BlockSrcs" Name="configReg_interface_bd_zynq_ultra_ps_e_0_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="configReg_interface_bd_proc_sys_reset_0_0"/>
 </GenRun>

@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="gingu" Host="fasic-beast2.fnal.gov" Pid="36165" HostCore="88" HostMemory="528074680">
-    </Process>
-</ProcessHandle>

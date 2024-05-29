@@ -15,20 +15,20 @@ preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 1 -x 340 -y 310 -defaultsOSRD
 preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 340 -y 110 -defaultsOSRD
 preplace inst axi_interconnect_0 -pg 1 -lvl 2 -x 840 -y 350 -defaultsOSRD
 preplace inst configReg_interface_0 -pg 1 -lvl 3 -x 1160 -y 380 -defaultsOSRD
-preplace netloc ConfigOut_1 1 0 3 NJ 210 NJ 210 990J
-preplace netloc M00_ARESETN_1 1 1 1 680 130n
+preplace netloc ConfigOut_1 1 0 3 NJ 210 NJ 210 980J
+preplace netloc M00_ARESETN_1 1 1 1 660 130n
 preplace netloc configReg_interface_0_ConfigClk 1 3 1 NJ 360
 preplace netloc configReg_interface_0_ConfigIn 1 3 1 NJ 400
 preplace netloc configReg_interface_0_ConfigLoad 1 3 1 NJ 420
 preplace netloc configReg_interface_0_Reset_not 1 3 1 NJ 380
 preplace netloc configReg_interface_0_SuperpixSel 1 3 1 NJ 340
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 2 670 470 1000J
-preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 3 20 400 660 480 990
-preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 2 30 220 650
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 2 650 470 990J
+preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 3 20 400 640 480 980
+preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 2 30 220 630
 preplace netloc axi_interconnect_0_M00_AXI 1 2 1 N 350
 preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 1 1 N 290
 levelinfo -pg 1 0 340 840 1160 1330
-pagesize -pg 1 -db -bbox -sgen -130 0 1470 500
+pagesize -pg 1 -db -bbox -sgen -120 0 1460 500
 "
 }
 {

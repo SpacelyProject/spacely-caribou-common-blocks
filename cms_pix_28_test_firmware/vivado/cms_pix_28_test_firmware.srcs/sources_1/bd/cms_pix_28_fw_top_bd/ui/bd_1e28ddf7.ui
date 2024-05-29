@@ -1,0 +1,37 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"1.0",
+   "Default View_TopLeft":"-223,-316",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port port-id_SuperpixSel -pg 1 -lvl 4 -x 1410 -y 20 -defaultsOSRD
+preplace port port-id_ConfigClk -pg 1 -lvl 4 -x 1410 -y 210 -defaultsOSRD
+preplace port port-id_Reset_not -pg 1 -lvl 4 -x 1410 -y 230 -defaultsOSRD
+preplace port port-id_ConfigIn -pg 1 -lvl 4 -x 1410 -y 250 -defaultsOSRD
+preplace port port-id_ConfigLoad -pg 1 -lvl 4 -x 1410 -y 270 -defaultsOSRD
+preplace port port-id_ConfigOut -pg 1 -lvl 0 -x -10 -y 280 -defaultsOSRD
+preplace port port-id_scan_out -pg 1 -lvl 0 -x -10 -y 300 -defaultsOSRD
+preplace port port-id_dnn_output_0 -pg 1 -lvl 0 -x -10 -y 230 -defaultsOSRD
+preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 1 -x 350 -y 130 -defaultsOSRD
+preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 350 -y -50 -defaultsOSRD
+preplace inst axi_interconnect_0 -pg 1 -lvl 2 -x 870 -y 140 -defaultsOSRD
+preplace inst cms_pix_28_fw_top_v_0 -pg 1 -lvl 3 -x 1220 -y 290 -defaultsOSRD
+preplace netloc M00_ARESETN_1 1 1 1 680 -30n
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 2 670 20 1030J
+preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 3 20 230 690 260 1020
+preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 2 30 220 660
+preplace netloc ConfigOut_1 1 0 3 NJ 280 NJ 280 NJ
+preplace netloc cms_pix_28_fw_top_v_0_config_clk 1 3 1 NJ 210
+preplace netloc cms_pix_28_fw_top_v_0_reset_not 1 3 1 NJ 230
+preplace netloc cms_pix_28_fw_top_v_0_config_in 1 3 1 NJ 250
+preplace netloc cms_pix_28_fw_top_v_0_config_load 1 3 1 NJ 270
+preplace netloc scan_out_1 1 0 3 NJ 300 NJ 300 N
+preplace netloc dnn_output_0_1 1 0 3 10J 270 670J 320 N
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 1 1 660 80n
+preplace netloc axi_interconnect_0_M00_AXI 1 2 1 1020 140n
+levelinfo -pg 1 -10 350 870 1220 1410
+pagesize -pg 1 -db -bbox -sgen -160 -150 1550 490
+"
+}
+0
