@@ -1,0 +1,129 @@
+# Automatically identify and compile all the source files in the project directory.
+# DO NOT explicitly list files/directories in 'dvt_auto_init' sections. Use 'dvt_init' sections instead.
++dvt_init+ius.irun
+
+#Uncomment to force recompilation
+-clean
+
+#Uncomment to turn on the Graphical User Interface
+#+gui
+
+#Uncomment to allow single-stepping through verilog for debug
+#-linedebug
+
+#Uncomment to turn on read/write access to all objects
+-access +rwc
+
+# Setup UVM
+#Uncomment to enable support for UVM
+-uvm
+#Uncomment to trace activity in the Config DB
++UVM_CONFIG_DB_TRACE
+#Uncomment to switch to the use of UVM version 1.2 rather than the default UVM v1.2
+-uvmhome CDNS-1.2
+#Uncomment to allow single-stepping through UVM content to debug UVM code
+-uvmlinedebug
+#Set elaboration timescale. It will be used for any files that do not have a specified timescale, like Genus Synthesis files r2g.v
+-timescale 1ns/10ps
+-sv
+#Uncomment to enable transaction recoding
+-assert
+
+#Uncomment to gather coverage
+//-coverage all
+-svseed random
+
+#############################
+# UVM_TESTNAME and uvm_set_config_*
+# two options are available:
+# a) use random data
+# b) use PHYSICS_DATA files
+#############################
+//+UVM_TESTNAME=QP_TB2v2_I2C_RW_RO_regs_Check_test
+//+UVM_TESTNAME=QP_TB2v2_I2C_FILE_regs_Check_test
+//+uvm_set_config_string=uvm_test_top.m_env,m_file_i2c_cmd_for_sequencer,"./argFiles/i2c_top_cmd_for_sequencer.csv"
+# use the following two statements to generate random data:
+# m_number_of_tests,N means loop random data N times or more until the
+# m_coverage_limit,M  is achieved
+//+uvm_set_config_int=uvm_test_top.m_env,m_number_of_tests,101
+//+uvm_set_config_int=uvm_test_top.m_env,m_coverage_limit,20
+# use following statement to select between two test modes:
+# m_use_physics_data,0 will ignore   PHYSICS_DATA files and will do random data (parameterized by the above two statements)
+# m_use_physics_data,1 will consider PHYSICS_DATA files and ignore  random data (parameterized by the above two statements)
+//+uvm_set_config_int=uvm_test_top.m_env,m_use_physics_data,0
+# use following statement to select the PHYSICS_DATA files
+
+#############################
+# UVM_VERBOSITY
+#############################
+//+UVM_VERBOSITY=UVM_LOW  # UVM_NONE=0, UVM_LOW=100, UVM_MEDIUM=200, UVM_HIGH=300, UVM_FULL=400,  UVM_DEBUG=500
+//+uvm_set_verbosity=uvm_test_top.m_env.m_TB2v2_env_scoreboard,_ALL_,UVM_HIGH,run
+
+#############################
+# Include Directories
+#############################
++incdir+axi4lite_interface
++incdir+cms_pix_28_test_firmware/src
+
+#############################
+# Constants
+#############################
+//./include/prj_constants.sv
+//./include/uvm_constants.sv
+
+#############################
+# UVM Packages
+#############################
+//./UVM/UVC/Fermilab_System_Control/Fermilab_System_Control_PACKAGE.sv
+//./UVM/UVC/Fermilab_TB2v2_inout/Fermilab_TB2v2_inout_PACKAGE.sv
+//./UVM/UVC/Fermilab_TB2v2_input/Fermilab_TB2v2_input_PACKAGE.sv
+//./UVM/UVC/Fermilab_TB2v2_output/Fermilab_TB2v2_output_PACKAGE.sv
+//./UVM/TB/TB2v2/QP_TB2v2_PACKAGE.sv
+
+#############################
+# Interfaces
+#############################
+//./UVM/UVC/Fermilab_System_Control/Fermilab_System_Control_interface.sv
+//./UVM/UVC/Fermilab_TB2v2_inout/Fermilab_TB2v2_inout_interface.sv
+//./UVM/UVC/Fermilab_TB2v2_input/Fermilab_TB2v2_input_interface.sv
+//./UVM/UVC/Fermilab_TB2v2_output/Fermilab_TB2v2_output_interface.sv
+
+#############################
+# Standard Cell Library Files
+#############################
+# 2020.08.11. Chinar: For gate level simulation with zero/unit delays use the following file:
+#/asic/cad/Librarcd li	y/tsmc/TSMC65_CERN_2017_DL20/digital/Front_End/verilog/tcbn65lp_200a/tcbn65lp.v
+#/fasic_home/manuelbv/libs/GF22/Digital/BASE/IN_GF22FDX_S1PL/sram_sp_16384x16_NFLG_C128/model/verilog/sram_sp_16384x16.v
+#/asic/cad/Library/GF/GF22/Digital/BASE/IN_GF22FDX_S1PL/sram_sp_16384x16_NFLG_C128/model/verilog/sram_sp_16384x16.v
+#./libs/cict/sram_sp_16384x16.v
+
+#############################
+# AXI4LITE Files
+#############################
+./axi4lite_interface/mem_regs.sv
+./axi4lite_interface/axi4lite_slave_interface.sv
+./axi4lite_interface/axi4lite_interface_top.sv
+
+#############################
+# DUT Files
+#############################
+./cms_pix_28_test_firmware/src/axi4lite_interface_top_for_pix28_fw.sv
+./cms_pix_28_test_firmware/src/common_sw_to_fw_side.sv
+./cms_pix_28_test_firmware/src/common_fw_to_dut_side.sv
+./cms_pix_28_test_firmware/src/cms_pix_28_fw_ip1.sv
+./cms_pix_28_test_firmware/src/cms_pix_28_fw_ip2.sv
+./cms_pix_28_test_firmware/src/cms_pix_28_fw_ip3.sv
+./cms_pix_28_test_firmware/src/cms_pix_28_fw_top.sv
+
+./cms_pix_28_test_firmware/src/cms_pix_28_fw_top_v.v
+
+# Other RTL files, unrelated
+./configReg_interface/src/configReg_interface.sv
+./configReg_interface/src/configReg_interface_top.v
+
+#############################
+# Testbench
+#############################
+#./vrf/citc/testbench_austinw/tb_channelA.sv
+//./UVM/TB/TB2v2/QP_TB2v2_testbench_i2c_top.sv
+
