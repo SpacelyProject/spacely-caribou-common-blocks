@@ -85,6 +85,7 @@ module cms_pix_28_fw_top #(
     //////////////////////////////////
     // DUT side ports == FPGA pins: //
     //////////////////////////////////
+    output logic super_pixel_sel,
     output logic config_clk,
     output logic reset_not,
     output logic config_in,
@@ -182,6 +183,7 @@ module cms_pix_28_fw_top #(
 
   // Instantiate common_fw_to_dut_side                               // up to 15 FWs can be connected;
   // output signals from FW
+  logic [3:0] fw_super_pixel_sel;
   logic [3:0] fw_config_clk;
   logic [3:0] fw_reset_not;
   logic [3:0] fw_config_in;
@@ -202,8 +204,9 @@ module cms_pix_28_fw_top #(
     .fw_rst_n                (S_AXI_ARESETN),                        // FW reset, active low  mapped to S_AXI_ARESETN
     .fw_dev_id_enable        (fw_dev_id_enable),                     // up to 15 FWs can be connected;
     // FW side ports
-    .fw_config_clk           (fw_config_clk),                        // up to 15 FWs can be connected;
     // output signals from FW
+    .fw_super_pixel_sel      (fw_super_pixel_sel),
+    .fw_config_clk           (fw_config_clk),
     .fw_reset_not            (fw_reset_not),
     .fw_config_in            (fw_config_in),
     .fw_config_load          (fw_config_load),
@@ -220,6 +223,7 @@ module cms_pix_28_fw_top #(
     .fw_dn_event_toggle      (fw_dn_event_toggle),
     // DUT side ports == FPGA pins:
     // Output IOB FF
+    .super_pixel_sel         (super_pixel_sel),
     .config_clk              (config_clk),
     .reset_not               (reset_not),
     .config_in,
@@ -235,7 +239,7 @@ module cms_pix_28_fw_top #(
     .dnn_output_0            (dnn_output_0),
     .dnn_output_1            (dnn_output_1),
     .dn_event_toggle         (dn_event_toggle)
-    );
+  );
 
   // Instantiate FW_IP1: pix_28_fw_ip1_inst                                  // up to 15 FWs can be connected;
   cms_pix_28_fw_ip1 pix_28_fw_ip1_inst (
@@ -259,6 +263,7 @@ module cms_pix_28_fw_top #(
     .fw_read_status32          (fw_read_status32[0]),                // 32-bit read_status from FW to SW
     // DUT side signals to/from common_fw_to_dut_side                // up to 15 FWs can be connected;
     // output signals from FW
+    .fw_super_pixel_sel        (fw_super_pixel_sel[0]),
     .fw_config_clk             (fw_config_clk[0]),
     .fw_reset_not              (fw_reset_not[0]),
     .fw_config_in              (fw_config_in[0]),
@@ -298,6 +303,7 @@ module cms_pix_28_fw_top #(
     .fw_read_status32          (fw_read_status32[1]),                // 32-bit read_status from FW to SW
     // DUT side signals to/from common_fw_to_dut_side                // up to 15 FWs can be connected;
     // output signals from FW
+    .fw_super_pixel_sel        (fw_super_pixel_sel[1]),
     .fw_config_clk             (fw_config_clk[1]),
     .fw_reset_not              (fw_reset_not[1]),
     .fw_config_in              (fw_config_in[1]),
@@ -337,6 +343,7 @@ module cms_pix_28_fw_top #(
     .fw_read_status32          (fw_read_status32[2]),                // 32-bit read_status from FW to SW
     // DUT side signals to/from common_fw_to_dut_side                // up to 15 FWs can be connected;
     // output signals from FW
+    .fw_super_pixel_sel        (fw_super_pixel_sel[2]),
     .fw_config_clk             (fw_config_clk[2]),
     .fw_reset_not              (fw_reset_not[2]),
     .fw_config_in              (fw_config_in[2]),

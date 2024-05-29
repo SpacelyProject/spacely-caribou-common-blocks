@@ -37,6 +37,7 @@ module cms_pix_28_fw_ip3 (
     output logic [31:0] fw_read_status32,                  // 32-bit read_status from FW to SW
     // DUT side signals to/from common_fw_to_dut_side      // up to 15 FWs can be connected
     // output signals from FW
+    output logic fw_super_pixel_sel,
     output logic fw_config_clk,
     output logic fw_reset_not,
     output logic fw_config_in,

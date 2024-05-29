@@ -85,6 +85,7 @@ module cms_pix_28_fw_top_v #(
     //////////////////////////////////
     // DUT side ports == FPGA pins: //
     //////////////////////////////////
+    output wire super_pixel_sel,
     output wire config_clk,
     output wire reset_not,
     output wire config_in,
@@ -133,6 +134,7 @@ module cms_pix_28_fw_top_v #(
     //////////////////////////////////
     // DUT side ports == FPGA pins: //
     //////////////////////////////////
+    .super_pixel_sel    (super_pixel_sel),
     .config_clk         (config_clk),
     .reset_not          (reset_not),
     .config_in          (config_in),
