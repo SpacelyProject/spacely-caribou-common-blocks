@@ -37,7 +37,7 @@ EAStep()
 }
 
 # pre-commands:
-/bin/touch .init_design.begin.rst
-EAStep vivado -log configReg_interface_bd_wrapper.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source configReg_interface_bd_wrapper.tcl -notrace
+/bin/touch .write_bitstream.begin.rst
+EAStep vivado -log cms_pix_28_fw_top_bd_wrapper.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source cms_pix_28_fw_top_bd_wrapper.tcl -notrace
 
 

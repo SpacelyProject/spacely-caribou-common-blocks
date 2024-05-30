@@ -1,13 +1,14 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x2E962FA126A7AC0",
+      "boundary_crc": "0xB302199DFE50BBB8",
       "device": "xczu9eg-ffvb1156-2-e",
       "gen_directory": "../../../../cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd",
       "name": "cms_pix_28_fw_top_bd",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2022.1"
+      "tool_version": "2022.1",
+      "validated": "true"
     },
     "design_tree": {
       "zynq_ultra_ps_e_0": "",
@@ -18,25 +19,25 @@
           "auto_pc": ""
         }
       },
-      "cms_pix_28_fw_top_v_0": ""
+      "fw_top_v_0": ""
     },
     "ports": {
-      "SuperpixSel": {
+      "reset_not": {
+        "direction": "O",
+        "parameters": {
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default_prop"
+          }
+        }
+      },
+      "config_in": {
         "direction": "O"
       },
-      "ConfigClk": {
+      "config_load": {
         "direction": "O"
       },
-      "Reset_not": {
-        "direction": "O"
-      },
-      "ConfigIn": {
-        "direction": "O"
-      },
-      "ConfigLoad": {
-        "direction": "O"
-      },
-      "ConfigOut": {
+      "config_out": {
         "direction": "I"
       },
       "scan_out": {
@@ -44,6 +45,47 @@
       },
       "dnn_output_0": {
         "direction": "I"
+      },
+      "super_pixel_sel": {
+        "direction": "O"
+      },
+      "bxclk_ana": {
+        "direction": "O"
+      },
+      "bxclk": {
+        "direction": "O"
+      },
+      "vin_test_trig_out": {
+        "direction": "O"
+      },
+      "scan_in": {
+        "direction": "O"
+      },
+      "scan_load": {
+        "direction": "O"
+      },
+      "dnn_output_1": {
+        "direction": "I"
+      },
+      "dn_event_toggle": {
+        "direction": "I"
+      },
+      "config_clk": {
+        "direction": "O",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "cms_pix_28_fw_top_bd_fw_top_v_0_0_config_clk",
+            "value_src": "default_prop"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default_prop"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default_prop"
+          }
+        }
       }
     },
     "components": {
@@ -3464,14 +3506,14 @@
           }
         }
       },
-      "cms_pix_28_fw_top_v_0": {
-        "vlnv": "xilinx.com:module_ref:cms_pix_28_fw_top_v:1.0",
-        "xci_name": "cms_pix_28_fw_top_bd_cms_pix_28_fw_top_v_0_0",
-        "xci_path": "ip/cms_pix_28_fw_top_bd_cms_pix_28_fw_top_v_0_0/cms_pix_28_fw_top_bd_cms_pix_28_fw_top_v_0_0.xci",
-        "inst_hier_path": "cms_pix_28_fw_top_v_0",
+      "fw_top_v_0": {
+        "vlnv": "xilinx.com:module_ref:fw_top_v:1.0",
+        "xci_name": "cms_pix_28_fw_top_bd_fw_top_v_0_0",
+        "xci_path": "ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/cms_pix_28_fw_top_bd_fw_top_v_0_0.xci",
+        "inst_hier_path": "fw_top_v_0",
         "reference_info": {
           "ref_type": "hdl",
-          "ref_name": "cms_pix_28_fw_top_v",
+          "ref_name": "fw_top_v",
           "boundary_crc": "0x0"
         },
         "interface_ports": {
@@ -3487,6 +3529,10 @@
               "PROTOCOL": {
                 "value": "AXI4LITE",
                 "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "99990005",
+                "value_src": "user_prop"
               },
               "ID_WIDTH": {
                 "value": "0",
@@ -3571,6 +3617,18 @@
               "MAX_BURST_LENGTH": {
                 "value": "1",
                 "value_src": "auto"
+              },
+              "CLK_DOMAIN": {
+                "value": "cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_pl_clk0",
+                "value_src": "default_prop"
+              },
+              "NUM_READ_THREADS": {
+                "value": "4",
+                "value_src": "const_prop"
+              },
+              "NUM_WRITE_THREADS": {
+                "value": "4",
+                "value_src": "const_prop"
               }
             },
             "memory_map_ref": "S_AXI",
@@ -3684,6 +3742,14 @@
               "ASSOCIATED_RESET": {
                 "value": "S_AXI_ARESETN",
                 "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "99990005",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_pl_clk0",
+                "value_src": "default_prop"
               }
             }
           },
@@ -3696,6 +3762,9 @@
                 "value_src": "constant"
               }
             }
+          },
+          "super_pixel_sel": {
+            "direction": "O"
           },
           "config_clk": {
             "type": "clk",
@@ -3747,7 +3816,7 @@
     "interface_nets": {
       "axi_interconnect_0_M00_AXI": {
         "interface_ports": [
-          "cms_pix_28_fw_top_v_0/S_AXI",
+          "fw_top_v_0/S_AXI",
           "axi_interconnect_0/M00_AXI"
         ]
       },
@@ -3759,12 +3828,6 @@
       }
     },
     "nets": {
-      "ConfigOut_1": {
-        "ports": [
-          "ConfigOut",
-          "cms_pix_28_fw_top_v_0/config_out"
-        ]
-      },
       "M00_ARESETN_1": {
         "ports": [
           "proc_sys_reset_0/interconnect_aresetn",
@@ -3772,47 +3835,101 @@
           "axi_interconnect_0/S00_ARESETN"
         ]
       },
-      "cms_pix_28_fw_top_v_0_config_clk": {
+      "config_out_1": {
         "ports": [
-          "cms_pix_28_fw_top_v_0/config_clk",
-          "ConfigClk"
+          "config_out",
+          "fw_top_v_0/config_out"
         ]
       },
-      "cms_pix_28_fw_top_v_0_config_in": {
+      "dn_event_toggle_1": {
         "ports": [
-          "cms_pix_28_fw_top_v_0/config_in",
-          "ConfigIn"
-        ]
-      },
-      "cms_pix_28_fw_top_v_0_config_load": {
-        "ports": [
-          "cms_pix_28_fw_top_v_0/config_load",
-          "ConfigLoad"
-        ]
-      },
-      "cms_pix_28_fw_top_v_0_reset_not": {
-        "ports": [
-          "cms_pix_28_fw_top_v_0/reset_not",
-          "Reset_not"
+          "dn_event_toggle",
+          "fw_top_v_0/dn_event_toggle"
         ]
       },
       "dnn_output_0_1": {
         "ports": [
           "dnn_output_0",
-          "cms_pix_28_fw_top_v_0/dnn_output_0"
+          "fw_top_v_0/dnn_output_0"
+        ]
+      },
+      "dnn_output_1_1": {
+        "ports": [
+          "dnn_output_1",
+          "fw_top_v_0/dnn_output_1"
+        ]
+      },
+      "fw_top_v_0_bxclk": {
+        "ports": [
+          "fw_top_v_0/bxclk",
+          "bxclk"
+        ]
+      },
+      "fw_top_v_0_bxclk_ana": {
+        "ports": [
+          "fw_top_v_0/bxclk_ana",
+          "bxclk_ana"
+        ]
+      },
+      "fw_top_v_0_config_clk": {
+        "ports": [
+          "fw_top_v_0/config_clk",
+          "config_clk"
+        ]
+      },
+      "fw_top_v_0_config_in": {
+        "ports": [
+          "fw_top_v_0/config_in",
+          "config_in"
+        ]
+      },
+      "fw_top_v_0_config_load": {
+        "ports": [
+          "fw_top_v_0/config_load",
+          "config_load"
+        ]
+      },
+      "fw_top_v_0_reset_not": {
+        "ports": [
+          "fw_top_v_0/reset_not",
+          "reset_not"
+        ]
+      },
+      "fw_top_v_0_scan_in": {
+        "ports": [
+          "fw_top_v_0/scan_in",
+          "scan_in"
+        ]
+      },
+      "fw_top_v_0_scan_load": {
+        "ports": [
+          "fw_top_v_0/scan_load",
+          "scan_load"
+        ]
+      },
+      "fw_top_v_0_super_pixel_sel": {
+        "ports": [
+          "fw_top_v_0/super_pixel_sel",
+          "super_pixel_sel"
+        ]
+      },
+      "fw_top_v_0_vin_test_trig_out": {
+        "ports": [
+          "fw_top_v_0/vin_test_trig_out",
+          "vin_test_trig_out"
         ]
       },
       "proc_sys_reset_0_peripheral_aresetn": {
         "ports": [
           "proc_sys_reset_0/peripheral_aresetn",
           "axi_interconnect_0/ARESETN",
-          "cms_pix_28_fw_top_v_0/S_AXI_ARESETN"
+          "fw_top_v_0/S_AXI_ARESETN"
         ]
       },
       "scan_out_1": {
         "ports": [
           "scan_out",
-          "cms_pix_28_fw_top_v_0/scan_out"
+          "fw_top_v_0/scan_out"
         ]
       },
       "zynq_ultra_ps_e_0_pl_clk0": {
@@ -3823,7 +3940,7 @@
           "zynq_ultra_ps_e_0/maxihpm0_fpd_aclk",
           "axi_interconnect_0/S00_ACLK",
           "axi_interconnect_0/M00_ACLK",
-          "cms_pix_28_fw_top_v_0/S_AXI_ACLK"
+          "fw_top_v_0/S_AXI_ACLK"
         ]
       },
       "zynq_ultra_ps_e_0_pl_resetn0": {
@@ -3831,6 +3948,21 @@
           "zynq_ultra_ps_e_0/pl_resetn0",
           "proc_sys_reset_0/ext_reset_in"
         ]
+      }
+    },
+    "addressing": {
+      "/zynq_ultra_ps_e_0": {
+        "address_spaces": {
+          "Data": {
+            "segments": {
+              "SEG_fw_top_v_0_reg0": {
+                "address_block": "/fw_top_v_0/S_AXI/reg0",
+                "offset": "0x00A0000000",
+                "range": "4K"
+              }
+            }
+          }
+        }
       }
     }
   }

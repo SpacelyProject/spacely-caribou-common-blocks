@@ -1,7 +1,7 @@
 //Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-//Date        : Wed May 29 12:12:12 2024
+//Date        : Thu May 30 11:05:42 2024
 //Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 //Command     : generate_target cms_pix_28_fw_top_bd.bd
 //Design      : cms_pix_28_fw_top_bd
@@ -11,20 +11,37 @@
 
 (* CORE_GENERATION_INFO = "cms_pix_28_fw_top_bd,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=cms_pix_28_fw_top_bd,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=7,numReposBlks=5,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "cms_pix_28_fw_top_bd.hwdef" *) 
 module cms_pix_28_fw_top_bd
-   (ConfigClk,
-    ConfigIn,
-    ConfigLoad,
-    ConfigOut,
-    Reset_not,
-    SuperpixSel);
-  output ConfigClk;
-  output ConfigIn;
-  output ConfigLoad;
-  input ConfigOut;
-  output Reset_not;
-  output SuperpixSel;
+   (bxclk,
+    bxclk_ana,
+    config_clk,
+    config_in,
+    config_load,
+    config_out,
+    dn_event_toggle,
+    dnn_output_0,
+    dnn_output_1,
+    reset_not,
+    scan_in,
+    scan_load,
+    scan_out,
+    super_pixel_sel,
+    vin_test_trig_out);
+  output bxclk;
+  output bxclk_ana;
+  output config_clk;
+  output config_in;
+  output config_load;
+  input config_out;
+  input dn_event_toggle;
+  input dnn_output_0;
+  input dnn_output_1;
+  output reset_not;
+  output scan_in;
+  output scan_load;
+  input scan_out;
+  output super_pixel_sel;
+  output vin_test_trig_out;
 
-  wire ConfigOut_1;
   wire [0:0]M00_ARESETN_1;
   wire [39:0]axi_interconnect_0_M00_AXI_ARADDR;
   wire [2:0]axi_interconnect_0_M00_AXI_ARPROT;
@@ -45,12 +62,22 @@ module cms_pix_28_fw_top_bd
   wire axi_interconnect_0_M00_AXI_WREADY;
   wire [3:0]axi_interconnect_0_M00_AXI_WSTRB;
   wire axi_interconnect_0_M00_AXI_WVALID;
-  wire configReg_interface_0_ConfigClk;
-  wire configReg_interface_0_ConfigIn;
-  wire configReg_interface_0_ConfigLoad;
-  wire configReg_interface_0_Reset_not;
-  wire configReg_interface_0_SuperpixSel;
+  wire config_out_1;
+  wire dn_event_toggle_1;
+  wire dnn_output_0_1;
+  wire dnn_output_1_1;
+  wire fw_top_v_0_bxclk;
+  wire fw_top_v_0_bxclk_ana;
+  wire fw_top_v_0_config_clk;
+  wire fw_top_v_0_config_in;
+  wire fw_top_v_0_config_load;
+  wire fw_top_v_0_reset_not;
+  wire fw_top_v_0_scan_in;
+  wire fw_top_v_0_scan_load;
+  wire fw_top_v_0_super_pixel_sel;
+  wire fw_top_v_0_vin_test_trig_out;
   wire [0:0]proc_sys_reset_0_peripheral_aresetn;
+  wire scan_out_1;
   wire [39:0]zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARADDR;
   wire [1:0]zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARBURST;
   wire [3:0]zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARCACHE;
@@ -91,12 +118,21 @@ module cms_pix_28_fw_top_bd
   wire zynq_ultra_ps_e_0_pl_clk0;
   wire zynq_ultra_ps_e_0_pl_resetn0;
 
-  assign ConfigClk = configReg_interface_0_ConfigClk;
-  assign ConfigIn = configReg_interface_0_ConfigIn;
-  assign ConfigLoad = configReg_interface_0_ConfigLoad;
-  assign ConfigOut_1 = ConfigOut;
-  assign Reset_not = configReg_interface_0_Reset_not;
-  assign SuperpixSel = configReg_interface_0_SuperpixSel;
+  assign bxclk = fw_top_v_0_bxclk;
+  assign bxclk_ana = fw_top_v_0_bxclk_ana;
+  assign config_clk = fw_top_v_0_config_clk;
+  assign config_in = fw_top_v_0_config_in;
+  assign config_load = fw_top_v_0_config_load;
+  assign config_out_1 = config_out;
+  assign dn_event_toggle_1 = dn_event_toggle;
+  assign dnn_output_0_1 = dnn_output_0;
+  assign dnn_output_1_1 = dnn_output_1;
+  assign reset_not = fw_top_v_0_reset_not;
+  assign scan_in = fw_top_v_0_scan_in;
+  assign scan_load = fw_top_v_0_scan_load;
+  assign scan_out_1 = scan_out;
+  assign super_pixel_sel = fw_top_v_0_super_pixel_sel;
+  assign vin_test_trig_out = fw_top_v_0_vin_test_trig_out;
   cms_pix_28_fw_top_bd_axi_interconnect_0_0 axi_interconnect_0
        (.ACLK(zynq_ultra_ps_e_0_pl_clk0),
         .ARESETN(proc_sys_reset_0_peripheral_aresetn),
@@ -160,13 +196,8 @@ module cms_pix_28_fw_top_bd
         .S00_AXI_wready(zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_WREADY),
         .S00_AXI_wstrb(zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_WSTRB),
         .S00_AXI_wvalid(zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_WVALID));
-  cms_pix_28_fw_top_bd_configReg_interface_0_0 configReg_interface_0
-       (.ConfigClk(configReg_interface_0_ConfigClk),
-        .ConfigIn(configReg_interface_0_ConfigIn),
-        .ConfigLoad(configReg_interface_0_ConfigLoad),
-        .ConfigOut(ConfigOut_1),
-        .Reset_not(configReg_interface_0_Reset_not),
-        .S_AXI_ACLK(zynq_ultra_ps_e_0_pl_clk0),
+  cms_pix_28_fw_top_bd_fw_top_v_0_0 fw_top_v_0
+       (.S_AXI_ACLK(zynq_ultra_ps_e_0_pl_clk0),
         .S_AXI_ARADDR(axi_interconnect_0_M00_AXI_ARADDR[10:0]),
         .S_AXI_ARESETN(proc_sys_reset_0_peripheral_aresetn),
         .S_AXI_ARPROT(axi_interconnect_0_M00_AXI_ARPROT),
@@ -187,7 +218,21 @@ module cms_pix_28_fw_top_bd
         .S_AXI_WREADY(axi_interconnect_0_M00_AXI_WREADY),
         .S_AXI_WSTRB(axi_interconnect_0_M00_AXI_WSTRB),
         .S_AXI_WVALID(axi_interconnect_0_M00_AXI_WVALID),
-        .SuperpixSel(configReg_interface_0_SuperpixSel));
+        .bxclk(fw_top_v_0_bxclk),
+        .bxclk_ana(fw_top_v_0_bxclk_ana),
+        .config_clk(fw_top_v_0_config_clk),
+        .config_in(fw_top_v_0_config_in),
+        .config_load(fw_top_v_0_config_load),
+        .config_out(config_out_1),
+        .dn_event_toggle(dn_event_toggle_1),
+        .dnn_output_0(dnn_output_0_1),
+        .dnn_output_1(dnn_output_1_1),
+        .reset_not(fw_top_v_0_reset_not),
+        .scan_in(fw_top_v_0_scan_in),
+        .scan_load(fw_top_v_0_scan_load),
+        .scan_out(scan_out_1),
+        .super_pixel_sel(fw_top_v_0_super_pixel_sel),
+        .vin_test_trig_out(fw_top_v_0_vin_test_trig_out));
   cms_pix_28_fw_top_bd_proc_sys_reset_0_0 proc_sys_reset_0
        (.aux_reset_in(1'b1),
         .dcm_locked(1'b1),
