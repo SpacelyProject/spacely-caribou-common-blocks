@@ -72,7 +72,7 @@ module fw_ip2 (
   assign fw_scan_in           = 1'b0;
   assign fw_scan_load         = 1'b0;
 
-  // Instance module com_op_code_decoder.sv
+  // Instantiate module com_op_code_decoder.sv
   logic op_code_w_reset;
   logic op_code_w_cfg_static_0;
   logic op_code_r_cfg_static_0;
@@ -84,7 +84,6 @@ module fw_ip2 (
   logic op_code_r_data_array_1;
   logic op_code_r_status;
   logic op_code_w_execute;
-
   com_op_code_decoder com_op_code_decoder_inst(
     .fw_dev_id_enable          (fw_dev_id_enable),
     .fw_op_code_w_reset        (fw_op_code_w_reset),
@@ -110,6 +109,26 @@ module fw_ip2 (
     .op_code_r_data_array_1  (op_code_r_data_array_1),
     .op_code_r_status        (op_code_r_status),
     .op_code_w_execute       (op_code_w_execute)
+  );
+
+  // Instantiate module com_config_write_regs.sv
+  logic [23:0]        config_static_0;
+  logic [255:0][15:0] config_array_0;
+  logic [255:0][15:0] config_array_1;
+  com_config_write_regs com_config_write_regs_inst (
+    .fw_clk_400              (fw_clk_400),                        // FM clock 400MHz       mapped to pl_clk1
+    .fw_clk_100              (fw_clk_100),                        // FW clock 100MHz       mapped to S_AXI_ACLK
+    .fw_rst_n                (fw_rst_n),                          // FW reset, active low  mapped to S_AXI_ARESETN
+    //
+    .op_code_w_reset         (op_code_w_reset),
+    .op_code_w_cfg_static_0  (op_code_w_cfg_static_0),
+    .op_code_w_cfg_array_0   (op_code_w_cfg_array_0),
+    .op_code_w_cfg_array_1   (op_code_w_cfg_array_1),
+    .sw_write24_0            (sw_write24_0),                      // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
+    //
+    .config_static_0         (config_static_0),
+    .config_array_0          (config_array_0),
+    .config_array_1          (config_array_1)
   );
 
 endmodule
