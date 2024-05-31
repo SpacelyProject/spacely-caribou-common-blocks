@@ -76,6 +76,7 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0 (
   S_AXI_RRESP,
   S_AXI_RVALID,
   S_AXI_RREADY,
+  pl_clk1,
   super_pixel_sel,
   config_clk,
   reset_not,
@@ -139,6 +140,7 @@ output wire S_AXI_RVALID;
 READS 4, NUM_WRITE_THREADS 4, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI RREADY" *)
 input wire S_AXI_RREADY;
+input wire pl_clk1;
 output wire super_pixel_sel;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME config_clk, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN cms_pix_28_fw_top_bd_fw_top_v_0_0_config_clk, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 config_clk CLK" *)
@@ -184,6 +186,7 @@ input wire dn_event_toggle;
     .S_AXI_RRESP(S_AXI_RRESP),
     .S_AXI_RVALID(S_AXI_RVALID),
     .S_AXI_RREADY(S_AXI_RREADY),
+    .pl_clk1(pl_clk1),
     .super_pixel_sel(super_pixel_sel),
     .config_clk(config_clk),
     .reset_not(reset_not),

@@ -110,6 +110,7 @@
 ./cms_pix_28_test_firmware/src/axi4lite_interface_top_for_pix28_fw.sv
 ./cms_pix_28_test_firmware/src/com_sw_to_fw.sv
 ./cms_pix_28_test_firmware/src/com_fw_to_dut.sv
+./cms_pix_28_test_firmware/src/com_op_code_decoder.sv
 ./cms_pix_28_test_firmware/src/fw_ip1.sv
 ./cms_pix_28_test_firmware/src/fw_ip2.sv
 ./cms_pix_28_test_firmware/src/fw_ip3.sv

@@ -1,7 +1,7 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
--- Date        : Thu May 30 11:00:03 2024
+-- Date        : Fri May 31 14:58:02 2024
 -- Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 -- Command     : write_vhdl -force -mode synth_stub
 --               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/cms_pix_28_fw_top_bd_fw_top_v_0_0_stub.vhdl
@@ -35,6 +35,7 @@ entity cms_pix_28_fw_top_bd_fw_top_v_0_0 is
     S_AXI_RRESP : out STD_LOGIC_VECTOR ( 1 downto 0 );
     S_AXI_RVALID : out STD_LOGIC;
     S_AXI_RREADY : in STD_LOGIC;
+    pl_clk1 : in STD_LOGIC;
     super_pixel_sel : out STD_LOGIC;
     config_clk : out STD_LOGIC;
     reset_not : out STD_LOGIC;
@@ -58,7 +59,7 @@ architecture stub of cms_pix_28_fw_top_bd_fw_top_v_0_0 is
 attribute syn_black_box : boolean;
 attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
-attribute black_box_pad_pin of stub : architecture is "S_AXI_ACLK,S_AXI_ARESETN,S_AXI_AWADDR[10:0],S_AXI_AWPROT[2:0],S_AXI_AWVALID,S_AXI_AWREADY,S_AXI_WDATA[31:0],S_AXI_WSTRB[3:0],S_AXI_WVALID,S_AXI_WREADY,S_AXI_BRESP[1:0],S_AXI_BVALID,S_AXI_BREADY,S_AXI_ARADDR[10:0],S_AXI_ARPROT[2:0],S_AXI_ARVALID,S_AXI_ARREADY,S_AXI_RDATA[31:0],S_AXI_RRESP[1:0],S_AXI_RVALID,S_AXI_RREADY,super_pixel_sel,config_clk,reset_not,config_in,config_load,bxclk_ana,bxclk,vin_test_trig_out,scan_in,scan_load,config_out,scan_out,dnn_output_0,dnn_output_1,dn_event_toggle";
+attribute black_box_pad_pin of stub : architecture is "S_AXI_ACLK,S_AXI_ARESETN,S_AXI_AWADDR[10:0],S_AXI_AWPROT[2:0],S_AXI_AWVALID,S_AXI_AWREADY,S_AXI_WDATA[31:0],S_AXI_WSTRB[3:0],S_AXI_WVALID,S_AXI_WREADY,S_AXI_BRESP[1:0],S_AXI_BVALID,S_AXI_BREADY,S_AXI_ARADDR[10:0],S_AXI_ARPROT[2:0],S_AXI_ARVALID,S_AXI_ARREADY,S_AXI_RDATA[31:0],S_AXI_RRESP[1:0],S_AXI_RVALID,S_AXI_RREADY,pl_clk1,super_pixel_sel,config_clk,reset_not,config_in,config_load,bxclk_ana,bxclk,vin_test_trig_out,scan_in,scan_load,config_out,scan_out,dnn_output_0,dnn_output_1,dn_event_toggle";
 attribute X_CORE_INFO : string;
 attribute X_CORE_INFO of stub : architecture is "fw_top_v,Vivado 2022.1";
 begin

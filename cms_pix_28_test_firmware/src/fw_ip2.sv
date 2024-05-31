@@ -17,8 +17,10 @@
 `timescale 1 ns/ 1 ps
 
 module fw_ip2 (
-    input  logic        fw_clk,                            // FW clock              mapped to S_AXI_ACLK
+    input  logic        fw_clk_400,                        // FM clock 400MHz       mapped to pl_clk1
+    input  logic        fw_clk_100,                        // FW clock 100MHz       mapped to S_AXI_ACLK
     input  logic        fw_rst_n,                          // FW reset, active low  mapped to S_AXI_ARESETN
+
     // SW side signals from/to common_sw_to_fw_side
     input  logic        fw_dev_id_enable,                  // up to 15 FW can be connected
     input  logic        fw_op_code_w_reset,
@@ -69,6 +71,46 @@ module fw_ip2 (
   assign fw_vin_test_trig_out = 1'b0;
   assign fw_scan_in           = 1'b0;
   assign fw_scan_load         = 1'b0;
+
+  // Instance module com_op_code_decoder.sv
+  logic op_code_w_reset;
+  logic op_code_w_cfg_static_0;
+  logic op_code_r_cfg_static_0;
+  logic op_code_w_cfg_array_0;
+  logic op_code_r_cfg_array_0;
+  logic op_code_w_cfg_array_1;
+  logic op_code_r_cfg_array_1;
+  logic op_code_r_data_array_0;
+  logic op_code_r_data_array_1;
+  logic op_code_r_status;
+  logic op_code_w_execute;
+
+  com_op_code_decoder com_op_code_decoder_inst(
+    .fw_dev_id_enable          (fw_dev_id_enable),
+    .fw_op_code_w_reset        (fw_op_code_w_reset),
+    .fw_op_code_w_cfg_static_0 (fw_op_code_w_cfg_static_0),
+    .fw_op_code_r_cfg_static_0 (fw_op_code_r_cfg_static_0),
+    .fw_op_code_w_cfg_array_0  (fw_op_code_w_cfg_array_0),
+    .fw_op_code_r_cfg_array_0  (fw_op_code_r_cfg_array_0),
+    .fw_op_code_w_cfg_array_1  (fw_op_code_w_cfg_array_1),
+    .fw_op_code_r_cfg_array_1  (fw_op_code_r_cfg_array_1),
+    .fw_op_code_r_data_array_0 (fw_op_code_r_data_array_0),
+    .fw_op_code_r_data_array_1 (fw_op_code_r_data_array_1),
+    .fw_op_code_r_status       (fw_op_code_r_status),
+    .fw_op_code_w_execute      (fw_op_code_w_execute),
+    //
+    .op_code_w_reset         (op_code_w_reset),
+    .op_code_w_cfg_static_0  (op_code_w_cfg_static_0),
+    .op_code_r_cfg_static_0  (op_code_r_cfg_static_0),
+    .op_code_w_cfg_array_0   (op_code_w_cfg_array_0),
+    .op_code_r_cfg_array_0   (op_code_r_cfg_array_0),
+    .op_code_w_cfg_array_1   (op_code_w_cfg_array_1),
+    .op_code_r_cfg_array_1   (op_code_r_cfg_array_1),
+    .op_code_r_data_array_0  (op_code_r_data_array_0),
+    .op_code_r_data_array_1  (op_code_r_data_array_1),
+    .op_code_r_status        (op_code_r_status),
+    .op_code_w_execute       (op_code_w_execute)
+  );
 
 endmodule
 

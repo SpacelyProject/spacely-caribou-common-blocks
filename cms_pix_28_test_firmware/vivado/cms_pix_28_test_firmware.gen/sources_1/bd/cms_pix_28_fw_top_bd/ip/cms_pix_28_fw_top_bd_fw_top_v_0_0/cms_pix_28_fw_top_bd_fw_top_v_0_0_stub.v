@@ -1,7 +1,7 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-// Date        : Thu May 30 11:00:03 2024
+// Date        : Fri May 31 14:58:02 2024
 // Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 // Command     : write_verilog -force -mode synth_stub
 //               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/cms_pix_28_fw_top_bd_fw_top_v_0_0_stub.v
@@ -17,11 +17,11 @@
 module cms_pix_28_fw_top_bd_fw_top_v_0_0(S_AXI_ACLK, S_AXI_ARESETN, S_AXI_AWADDR, 
   S_AXI_AWPROT, S_AXI_AWVALID, S_AXI_AWREADY, S_AXI_WDATA, S_AXI_WSTRB, S_AXI_WVALID, 
   S_AXI_WREADY, S_AXI_BRESP, S_AXI_BVALID, S_AXI_BREADY, S_AXI_ARADDR, S_AXI_ARPROT, 
-  S_AXI_ARVALID, S_AXI_ARREADY, S_AXI_RDATA, S_AXI_RRESP, S_AXI_RVALID, S_AXI_RREADY, 
+  S_AXI_ARVALID, S_AXI_ARREADY, S_AXI_RDATA, S_AXI_RRESP, S_AXI_RVALID, S_AXI_RREADY, pl_clk1, 
   super_pixel_sel, config_clk, reset_not, config_in, config_load, bxclk_ana, bxclk, 
   vin_test_trig_out, scan_in, scan_load, config_out, scan_out, dnn_output_0, dnn_output_1, 
   dn_event_toggle)
-/* synthesis syn_black_box black_box_pad_pin="S_AXI_ACLK,S_AXI_ARESETN,S_AXI_AWADDR[10:0],S_AXI_AWPROT[2:0],S_AXI_AWVALID,S_AXI_AWREADY,S_AXI_WDATA[31:0],S_AXI_WSTRB[3:0],S_AXI_WVALID,S_AXI_WREADY,S_AXI_BRESP[1:0],S_AXI_BVALID,S_AXI_BREADY,S_AXI_ARADDR[10:0],S_AXI_ARPROT[2:0],S_AXI_ARVALID,S_AXI_ARREADY,S_AXI_RDATA[31:0],S_AXI_RRESP[1:0],S_AXI_RVALID,S_AXI_RREADY,super_pixel_sel,config_clk,reset_not,config_in,config_load,bxclk_ana,bxclk,vin_test_trig_out,scan_in,scan_load,config_out,scan_out,dnn_output_0,dnn_output_1,dn_event_toggle" */;
+/* synthesis syn_black_box black_box_pad_pin="S_AXI_ACLK,S_AXI_ARESETN,S_AXI_AWADDR[10:0],S_AXI_AWPROT[2:0],S_AXI_AWVALID,S_AXI_AWREADY,S_AXI_WDATA[31:0],S_AXI_WSTRB[3:0],S_AXI_WVALID,S_AXI_WREADY,S_AXI_BRESP[1:0],S_AXI_BVALID,S_AXI_BREADY,S_AXI_ARADDR[10:0],S_AXI_ARPROT[2:0],S_AXI_ARVALID,S_AXI_ARREADY,S_AXI_RDATA[31:0],S_AXI_RRESP[1:0],S_AXI_RVALID,S_AXI_RREADY,pl_clk1,super_pixel_sel,config_clk,reset_not,config_in,config_load,bxclk_ana,bxclk,vin_test_trig_out,scan_in,scan_load,config_out,scan_out,dnn_output_0,dnn_output_1,dn_event_toggle" */;
   input S_AXI_ACLK;
   input S_AXI_ARESETN;
   input [10:0]S_AXI_AWADDR;
@@ -43,6 +43,7 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0(S_AXI_ACLK, S_AXI_ARESETN, S_AXI_AWADDR
   output [1:0]S_AXI_RRESP;
   output S_AXI_RVALID;
   input S_AXI_RREADY;
+  input pl_clk1;
   output super_pixel_sel;
   output config_clk;
   output reset_not;

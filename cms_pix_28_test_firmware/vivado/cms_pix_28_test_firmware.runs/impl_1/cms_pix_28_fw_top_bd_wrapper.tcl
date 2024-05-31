@@ -124,12 +124,7 @@ start_step write_bitstream
 set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
-  set_param power.enableLutRouteBelPower 1
-  set_param power.enableCarry8RouteBelPower 1
-  set_param power.enableUnconnectedCarry8PinPower 1
-  set_param project.hsv.suppressChildGraphs 0
   set_param chipscope.maxJobs 21
-  set_param power.BramSDPPropagationFix 1
   open_checkpoint cms_pix_28_fw_top_bd_wrapper_routed.dcp
   set_property webtalk.parent_dir /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.cache/wt [current_project]
 set_property TOP cms_pix_28_fw_top_bd_wrapper [current_fileset]

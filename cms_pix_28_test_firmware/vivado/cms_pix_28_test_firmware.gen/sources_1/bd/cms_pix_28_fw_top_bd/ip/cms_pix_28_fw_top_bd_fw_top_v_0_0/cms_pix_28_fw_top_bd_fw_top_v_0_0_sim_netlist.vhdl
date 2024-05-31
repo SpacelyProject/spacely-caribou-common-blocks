@@ -1,7 +1,7 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
--- Date        : Thu May 30 11:00:03 2024
+-- Date        : Fri May 31 14:58:03 2024
 -- Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 -- Command     : write_vhdl -force -mode funcsim
 --               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/cms_pix_28_fw_top_bd_fw_top_v_0_0_sim_netlist.vhdl
@@ -374,6 +374,7 @@ entity cms_pix_28_fw_top_bd_fw_top_v_0_0 is
     S_AXI_RRESP : out STD_LOGIC_VECTOR ( 1 downto 0 );
     S_AXI_RVALID : out STD_LOGIC;
     S_AXI_RREADY : in STD_LOGIC;
+    pl_clk1 : in STD_LOGIC;
     super_pixel_sel : out STD_LOGIC;
     config_clk : out STD_LOGIC;
     reset_not : out STD_LOGIC;

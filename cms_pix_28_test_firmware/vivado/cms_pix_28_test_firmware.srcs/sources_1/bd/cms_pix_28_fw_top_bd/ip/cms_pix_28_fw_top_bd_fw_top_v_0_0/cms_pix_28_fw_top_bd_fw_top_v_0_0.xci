@@ -157,6 +157,7 @@
                   &quot;S_AXI_RRESP&quot;: [ { &quot;direction&quot;: &quot;out&quot;, &quot;size_left&quot;: &quot;1&quot;, &quot;size_right&quot;: &quot;0&quot; } ],
                   &quot;S_AXI_RVALID&quot;: [ { &quot;direction&quot;: &quot;out&quot; } ],
                   &quot;S_AXI_RREADY&quot;: [ { &quot;direction&quot;: &quot;in&quot;, &quot;driver_value&quot;: &quot;0&quot; } ],
+                  &quot;pl_clk1&quot;: [ { &quot;direction&quot;: &quot;in&quot; } ],
                   &quot;super_pixel_sel&quot;: [ { &quot;direction&quot;: &quot;out&quot; } ],
                   &quot;config_clk&quot;: [ { &quot;direction&quot;: &quot;out&quot; } ],
                   &quot;reset_not&quot;: [ { &quot;direction&quot;: &quot;out&quot; } ],

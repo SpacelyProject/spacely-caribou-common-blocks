@@ -149,16 +149,24 @@ module axi4lite_interface_top_for_pix28_fw #(
     end
   end;
   // 2. READ registers interface                                               // TODO CG this is new logic w.r.t. ExampleBlock.sv
-  always_ff @(posedge S_AXI_ACLK) begin
-    if (~S_AXI_ARESETN) begin
-      reg_rddin[0] <= 32'h0;                                                   // register#0 32-bit read from FW to SW
-      reg_rddin[1] <= 32'h0;                                                   // register#1 32-bit read from FW to SW
-    end else begin
-      // FW output 32-bit read_data is transferred to AXI input 32-bit reg_rddin
-      if(reg_rdStrobe[0] == 1) reg_rddin[0] <= sw_read32_0;
-      if(reg_rdStrobe[1] == 1) reg_rddin[1] <= sw_read32_1;
-    end
-  end
+  // There are three options to implement readout data, see below
+//  always_ff @(posedge S_AXI_ACLK) begin
+//    if (~S_AXI_ARESETN) begin
+//      reg_rddin[0] <= 32'h0;                                                   // register#0 32-bit read from FW to SW
+//      reg_rddin[1] <= 32'h0;                                                   // register#1 32-bit read from FW to SW
+//    end else begin
+//      // FW output 32-bit read_data is transferred to AXI input 32-bit reg_rddin
+//      // Option 1: DO constrain readout data sw_read32 with AXI strobe reg_rdStrobe
+//      if(reg_rdStrobe[0] == 1) reg_rddin[0] <= sw_read32_0;
+//      if(reg_rdStrobe[1] == 1) reg_rddin[1] <= sw_read32_1;
+//      // Option 2: DO NOT constrain readout data sw_read32 with AXI strobe reg_rdStrobe
+//      reg_rddin[0] <= sw_read32_0;
+//      reg_rddin[1] <= sw_read32_1;
+//    end
+//  end
+  // Option 3: simple assignment
+  assign reg_rddin[0] = sw_read32_0;
+  assign reg_rddin[1] = sw_read32_1;
 
 endmodule
 

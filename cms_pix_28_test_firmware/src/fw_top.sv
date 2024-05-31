@@ -85,6 +85,7 @@ module fw_top #(
     //////////////////////////////////
     // DUT side ports == FPGA pins: //
     //////////////////////////////////
+    input  logic pl_clk1,
     output logic super_pixel_sel,
     output logic config_clk,
     output logic reset_not,
@@ -283,7 +284,8 @@ module fw_top #(
 
   // Instantiate FW_IP2:                                             // up to 15 FWs can be connected;
   fw_ip2 fw_ip2_inst (
-    .fw_clk                    (S_AXI_ACLK),                         // FW clock              mapped to S_AXI_ACLK
+    .fw_clk_400                (pl_clk1),                            // FM clock 400MHz       mapped to pl_clk1
+    .fw_clk_100                (S_AXI_ACLK),                         // FW clock 100MHz       mapped to S_AXI_ACLK
     .fw_rst_n                  (S_AXI_ARESETN),                      // FW reset, active low  mapped to S_AXI_ARESETN
     // SW side signals from/to com_sw_to_fw
     .fw_dev_id_enable          (fw_dev_id_enable[1]),                // up to 15 FW can be connected

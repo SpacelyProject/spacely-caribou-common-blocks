@@ -10,7 +10,6 @@
 
 WARNING: [Common 17-1221] Tcl app 'designutils' is out of date for this release. Please run tclapp::reset_tclstore and reinstall the app.
 source cms_pix_28_fw_top_bd_fw_top_v_0_0.tcl -notrace
-create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2980.355 ; gain = 2.023 ; free physical = 42141 ; free virtual = 397870
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/asic/cad/Xilinx/Vivado/2022.1/data/ip'.
@@ -21,9 +20,9 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu9eg
 INFO: [Device 21-403] Loading part xczu9eg-ffvb1156-2-e
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 39120
+INFO: [Synth 8-7075] Helper process launched with PID 48471
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 3246.383 ; gain = 219.812 ; free physical = 39877 ; free virtual = 395606
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 3246.355 ; gain = 219.812 ; free physical = 38673 ; free virtual = 395102
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'cms_pix_28_fw_top_bd_fw_top_v_0_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/synth/cms_pix_28_fw_top_bd_fw_top_v_0_0.v:53]
 INFO: [Synth 8-6157] synthesizing module 'fw_top_v' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_top_v.v:18]
@@ -43,6 +42,8 @@ INFO: [Synth 8-6155] done synthesizing module 'com_fw_to_dut' (0#1) [/asic/proje
 INFO: [Synth 8-6157] synthesizing module 'fw_ip1' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip1.sv:19]
 INFO: [Synth 8-6155] done synthesizing module 'fw_ip1' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip1.sv:19]
 INFO: [Synth 8-6157] synthesizing module 'fw_ip2' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip2.sv:19]
+INFO: [Synth 8-6157] synthesizing module 'com_op_code_decoder' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/com_op_code_decoder.sv:18]
+INFO: [Synth 8-6155] done synthesizing module 'com_op_code_decoder' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/com_op_code_decoder.sv:18]
 INFO: [Synth 8-6155] done synthesizing module 'fw_ip2' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip2.sv:19]
 INFO: [Synth 8-6157] synthesizing module 'fw_ip3' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip3.sv:19]
 INFO: [Synth 8-6155] done synthesizing module 'fw_ip3' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip3.sv:19]
@@ -137,48 +138,48 @@ WARNING: [Synth 8-7129] Port fw_scan_out in module fw_ip3 is either unconnected 
 WARNING: [Synth 8-7129] Port fw_dnn_output_0 in module fw_ip3 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port fw_dnn_output_1 in module fw_ip3 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port fw_dn_event_toggle in module fw_ip3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_clk in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fw_clk_400 in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port fw_clk_100 in module fw_ip2 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port fw_rst_n in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_dev_id_enable in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_op_code_w_reset in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_op_code_w_cfg_static_0 in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_op_code_r_cfg_static_0 in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_op_code_w_cfg_array_0 in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_op_code_r_cfg_array_0 in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_op_code_w_cfg_array_1 in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_op_code_r_cfg_array_1 in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_op_code_r_data_array_0 in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_op_code_r_data_array_1 in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_op_code_r_status in module fw_ip2 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port fw_op_code_w_execute in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sw_write24_0[23] in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sw_write24_0[22] in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sw_write24_0[21] in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sw_write24_0[20] in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sw_write24_0[19] in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sw_write24_0[18] in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sw_write24_0[17] in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sw_write24_0[16] in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sw_write24_0[15] in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sw_write24_0[14] in module fw_ip2 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sw_write24_0[13] in module fw_ip2 is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 3313.336 ; gain = 286.766 ; free physical = 41087 ; free virtual = 396816
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 3313.309 ; gain = 286.766 ; free physical = 39773 ; free virtual = 396203
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 3331.137 ; gain = 304.566 ; free physical = 41086 ; free virtual = 396815
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 3331.109 ; gain = 304.566 ; free physical = 39773 ; free virtual = 396203
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 3331.137 ; gain = 304.566 ; free physical = 41086 ; free virtual = 396815
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 3331.109 ; gain = 304.566 ; free physical = 39773 ; free virtual = 396203
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3331.137 ; gain = 0.000 ; free physical = 41082 ; free virtual = 396811
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3331.109 ; gain = 0.000 ; free physical = 39768 ; free virtual = 396198
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3481.008 ; gain = 0.000 ; free physical = 41014 ; free virtual = 396743
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3480.980 ; gain = 0.000 ; free physical = 39699 ; free virtual = 396129
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.04 . Memory (MB): peak = 3504.824 ; gain = 23.816 ; free physical = 41013 ; free virtual = 396743
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 3504.797 ; gain = 23.816 ; free physical = 39701 ; free virtual = 396131
 INFO: [Designutils 20-5008] Incremental synthesis strategy off
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 3504.824 ; gain = 478.254 ; free physical = 40953 ; free virtual = 396683
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 3504.797 ; gain = 478.254 ; free physical = 39755 ; free virtual = 396185
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
@@ -186,23 +187,23 @@ Start Loading Part and Timing Information
 Loading part: xczu9eg-ffvb1156-2-e
 INFO: [Synth 8-6742] Reading net delay rules and data
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 3504.824 ; gain = 478.254 ; free physical = 40953 ; free virtual = 396683
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 3504.797 ; gain = 478.254 ; free physical = 39755 ; free virtual = 396185
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 3504.824 ; gain = 478.254 ; free physical = 40953 ; free virtual = 396683
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 3504.797 ; gain = 478.254 ; free physical = 39755 ; free virtual = 396185
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 3504.824 ; gain = 478.254 ; free physical = 40948 ; free virtual = 396679
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 3504.797 ; gain = 478.254 ; free physical = 39747 ; free virtual = 396179
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 4     
+	               32 Bit    Registers := 2     
 	               11 Bit    Registers := 2     
 	                2 Bit    Registers := 2     
 	                1 Bit    Registers := 21    
@@ -227,26 +228,57 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[31] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[30] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[29] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[28] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[27] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[26] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[25] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[24] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[23] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[22] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[21] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[20] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[19] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[18] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[17] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[16] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[15] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[14] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[13] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[12] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[11] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[10] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[9] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[8] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[7] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[6] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[5] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[4] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[3] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[2] driven by constant 0
+INFO: [Synth 8-3917] design cms_pix_28_fw_top_bd_fw_top_v_0_0 has port S_AXI_RDATA[1] driven by constant 0
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 3504.824 ; gain = 478.254 ; free physical = 40934 ; free virtual = 396668
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 3504.797 ; gain = 478.254 ; free physical = 39848 ; free virtual = 396283
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:24 ; elapsed = 00:00:31 . Memory (MB): peak = 3816.555 ; gain = 789.984 ; free physical = 40460 ; free virtual = 396194
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:26 ; elapsed = 00:00:33 . Memory (MB): peak = 3816.559 ; gain = 790.016 ; free physical = 39280 ; free virtual = 395715
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:31 . Memory (MB): peak = 3816.555 ; gain = 789.984 ; free physical = 40460 ; free virtual = 396194
+Finished Timing Optimization : Time (s): cpu = 00:00:26 ; elapsed = 00:00:33 . Memory (MB): peak = 3816.559 ; gain = 790.016 ; free physical = 39280 ; free virtual = 395715
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:24 ; elapsed = 00:00:31 . Memory (MB): peak = 3835.578 ; gain = 809.008 ; free physical = 40460 ; free virtual = 396194
+Finished Technology Mapping : Time (s): cpu = 00:00:26 ; elapsed = 00:00:33 . Memory (MB): peak = 3835.582 ; gain = 809.039 ; free physical = 39280 ; free virtual = 395715
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -264,37 +296,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:29 ; elapsed = 00:00:35 . Memory (MB): peak = 3841.520 ; gain = 814.949 ; free physical = 40312 ; free virtual = 396047
+Finished IO Insertion : Time (s): cpu = 00:00:30 ; elapsed = 00:00:37 . Memory (MB): peak = 3841.520 ; gain = 814.977 ; free physical = 39274 ; free virtual = 395709
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:29 ; elapsed = 00:00:35 . Memory (MB): peak = 3841.520 ; gain = 814.949 ; free physical = 40312 ; free virtual = 396047
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:30 ; elapsed = 00:00:37 . Memory (MB): peak = 3841.520 ; gain = 814.977 ; free physical = 39274 ; free virtual = 395709
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:29 ; elapsed = 00:00:35 . Memory (MB): peak = 3841.520 ; gain = 814.949 ; free physical = 40311 ; free virtual = 396045
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:30 ; elapsed = 00:00:37 . Memory (MB): peak = 3841.520 ; gain = 814.977 ; free physical = 39274 ; free virtual = 395709
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:29 ; elapsed = 00:00:35 . Memory (MB): peak = 3841.520 ; gain = 814.949 ; free physical = 40311 ; free virtual = 396045
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:30 ; elapsed = 00:00:37 . Memory (MB): peak = 3841.520 ; gain = 814.977 ; free physical = 39274 ; free virtual = 395709
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:29 ; elapsed = 00:00:35 . Memory (MB): peak = 3841.520 ; gain = 814.949 ; free physical = 40310 ; free virtual = 396045
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:30 ; elapsed = 00:00:37 . Memory (MB): peak = 3841.520 ; gain = 814.977 ; free physical = 39274 ; free virtual = 395709
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:29 ; elapsed = 00:00:35 . Memory (MB): peak = 3841.520 ; gain = 814.949 ; free physical = 40310 ; free virtual = 396045
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:30 ; elapsed = 00:00:37 . Memory (MB): peak = 3841.520 ; gain = 814.977 ; free physical = 39274 ; free virtual = 395709
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -318,27 +350,27 @@ Report Cell Usage:
 |6     |FDSE |     1|
 +------+-----+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:29 ; elapsed = 00:00:35 . Memory (MB): peak = 3841.520 ; gain = 814.949 ; free physical = 40310 ; free virtual = 396045
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:30 ; elapsed = 00:00:37 . Memory (MB): peak = 3841.520 ; gain = 814.977 ; free physical = 39274 ; free virtual = 395709
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 12 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:27 ; elapsed = 00:00:33 . Memory (MB): peak = 3841.520 ; gain = 641.262 ; free physical = 40342 ; free virtual = 396077
-Synthesis Optimization Complete : Time (s): cpu = 00:00:29 ; elapsed = 00:00:35 . Memory (MB): peak = 3841.523 ; gain = 814.949 ; free physical = 40341 ; free virtual = 396075
+Synthesis finished with 0 errors, 0 critical warnings and 13 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:28 ; elapsed = 00:00:35 . Memory (MB): peak = 3841.520 ; gain = 641.289 ; free physical = 39312 ; free virtual = 395748
+Synthesis Optimization Complete : Time (s): cpu = 00:00:30 ; elapsed = 00:00:37 . Memory (MB): peak = 3841.527 ; gain = 814.977 ; free physical = 39312 ; free virtual = 395748
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3853.488 ; gain = 0.000 ; free physical = 40401 ; free virtual = 396136
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3855.461 ; gain = 0.000 ; free physical = 39410 ; free virtual = 395845
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3915.254 ; gain = 0.000 ; free physical = 40363 ; free virtual = 396098
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3915.258 ; gain = 0.000 ; free physical = 39338 ; free virtual = 395773
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete, checksum: a7b05499
+Synth Design complete, checksum: fd8c0336
 INFO: [Common 17-83] Releasing license: Synthesis
-44 Infos, 101 Warnings, 0 Critical Warnings and 0 Errors encountered.
+77 Infos, 101 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:40 ; elapsed = 00:00:46 . Memory (MB): peak = 3915.254 ; gain = 934.898 ; free physical = 40516 ; free virtual = 396251
+synth_design: Time (s): cpu = 00:00:43 ; elapsed = 00:00:50 . Memory (MB): peak = 3915.258 ; gain = 931.930 ; free physical = 39553 ; free virtual = 395988
 INFO: [Common 17-1381] The checkpoint '/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1/cms_pix_28_fw_top_bd_fw_top_v_0_0.dcp' has been generated.
-INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP cms_pix_28_fw_top_bd_fw_top_v_0_0, cache-ID = 71529ec23eedb7ed
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP cms_pix_28_fw_top_bd_fw_top_v_0_0, cache-ID = f196d3a460b2808b
 INFO: [Coretcl 2-1174] Renamed 5 cell refs.
 INFO: [Common 17-1381] The checkpoint '/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1/cms_pix_28_fw_top_bd_fw_top_v_0_0.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file cms_pix_28_fw_top_bd_fw_top_v_0_0_utilization_synth.rpt -pb cms_pix_28_fw_top_bd_fw_top_v_0_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu May 30 11:00:04 2024...
+INFO: [Common 17-206] Exiting Vivado at Fri May 31 14:58:03 2024...

@@ -85,6 +85,7 @@ module fw_top_v #(
     //////////////////////////////////
     // DUT side ports == FPGA pins: //
     //////////////////////////////////
+    input  wire pl_clk1,
     output wire super_pixel_sel,
     output wire config_clk,
     output wire reset_not,
@@ -134,6 +135,7 @@ module fw_top_v #(
     //////////////////////////////////
     // DUT side ports == FPGA pins: //
     //////////////////////////////////
+    .pl_clk1            (pl_clk1),
     .super_pixel_sel    (super_pixel_sel),
     .config_clk         (config_clk),
     .reset_not          (reset_not),
