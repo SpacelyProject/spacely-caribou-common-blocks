@@ -58,9 +58,9 @@ Note: Assumes an AXI data width of 32b (standard for SP3/SP3A)
 
 spi_read_write,0x0,0x1,True,True
 
-spi_address,0x4,0x3F,True,True
+spi_address,0x4,0x3FF,True,True
 
-spi_data_len.0x8,0xFF,True,True
+spi_data_len,0x8,0xFF,True,True
 
 spi_opcode_code,0xC,0xFF,True,True
 
