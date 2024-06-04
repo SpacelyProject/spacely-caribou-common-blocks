@@ -1,10 +1,10 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
--- Date        : Fri May 31 13:03:40 2024
+-- Date        : Fri May 31 13:03:38 2024
 -- Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
--- Command     : write_vhdl -force -mode funcsim
---               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0 -prefix
+--               cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_ cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sim_netlist.vhdl
 -- Design      : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -1584,8 +1584,6 @@ entity cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_4_0_zynq_ultr
   attribute C_USE_DIFF_RW_CLK_GP6 of cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_4_0_zynq_ultra_ps_e : entity is 0;
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_4_0_zynq_ultra_ps_e : entity is "cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0.hwdef";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_4_0_zynq_ultra_ps_e : entity is "zynq_ultra_ps_e_v3_4_0_zynq_ultra_ps_e";
   attribute PSS_IO : string;
   attribute PSS_IO of cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_zynq_ultra_ps_e_v3_4_0_zynq_ultra_ps_e : entity is "Signal Name, DiffPair Type, DiffPair Signal,Direction, Site Type, IO Standard, Drive (mA), Slew Rate, Pull Type, IBIS Model, ODT, OUTPUT_IMPEDANCE " & LF &
  "QSPI_X4_SCLK_OUT, , , OUT, PS_MIO0_500, LVCMOS18, 12, FAST, PULLUP, PS_MIO_LVCMOS18_F_12,,  " & LF &

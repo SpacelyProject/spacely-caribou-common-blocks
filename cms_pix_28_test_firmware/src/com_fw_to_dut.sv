@@ -16,8 +16,7 @@
 `timescale 1 ns/ 1 ps
 
 module com_fw_to_dut(
-    input  logic       fw_clk,                            // FW clock              mapped to S_AXI_ACLK
-    input  logic       fw_rst_n,                          // FW reset, active low  mapped to S_AXI_ARESETN
+    input  logic       iob_clk,                           // FM clock 400MHz       mapped to pl_clk1
     input  logic [3:0] fw_dev_id_enable,                  // up to 15 FWs can be connected;
     // FW side ports                                      // up to 15 FWs can be connected;
     // output signals from FW
@@ -232,30 +231,17 @@ module com_fw_to_dut(
   end
 
   // Output IOB FF
-  always_ff @(posedge fw_clk) begin
-    if (~fw_rst_n) begin
-      super_pixel_sel_iob    <= 1'b0;
-      config_clk_iob         <= 1'b0;
-      reset_not_iob          <= 1'b0;
-      config_in_iob          <= 1'b0;
-      config_load_iob        <= 1'b0;
-      bxclk_ana_iob          <= 1'b0;
-      bxclk_iob              <= 1'b0;
-      vin_test_trig_out_iob  <= 1'b0;
-      scan_in_iob            <= 1'b0;
-      scan_load_iob          <= 1'b0;
-    end else begin
-      super_pixel_sel_iob    <= super_pixel_sel_mux;
-      config_clk_iob         <= config_clk_mux;
-      reset_not_iob          <= reset_not_mux;
-      config_in_iob          <= config_in_mux;
-      config_load_iob        <= config_load_mux;
-      bxclk_ana_iob          <= bxclk_ana_mux;
-      bxclk_iob              <= bxclk_mux;
-      vin_test_trig_out_iob  <= vin_test_trig_out_mux;
-      scan_in_iob            <= scan_in_mux;
-      scan_load_iob          <= scan_load_mux;
-    end
+  always_ff @(posedge iob_clk) begin
+    super_pixel_sel_iob      <= super_pixel_sel_mux;
+    config_clk_iob           <= config_clk_mux;
+    reset_not_iob            <= reset_not_mux;
+    config_in_iob            <= config_in_mux;
+    config_load_iob          <= config_load_mux;
+    bxclk_ana_iob            <= bxclk_ana_mux;
+    bxclk_iob                <= bxclk_mux;
+    vin_test_trig_out_iob    <= vin_test_trig_out_mux;
+    scan_in_iob              <= scan_in_mux;
+    scan_load_iob            <= scan_load_mux;
   end;
   assign super_pixel_sel     = super_pixel_sel_iob;
   assign config_clk          = config_clk_iob;
@@ -269,20 +255,12 @@ module com_fw_to_dut(
   assign scan_load           = scan_load_iob;
 
   // Input IOB FF
-  always_ff @(posedge fw_clk) begin
-    if (~fw_rst_n) begin
-      config_out_iob         <= 1'b0;
-      scan_out_iob           <= 1'b0;
-      dnn_output_0_iob       <= 1'b0;
-      dnn_output_1_iob       <= 1'b0;
-      dn_event_toggle_iob    <= 1'b0;
-    end else begin
-      config_out_iob         <= config_out;
-      scan_out_iob           <= scan_out;
-      dnn_output_0_iob       <= dnn_output_0;
-      dnn_output_1_iob       <= dnn_output_1;
-      dn_event_toggle_iob    <= dn_event_toggle;
-    end
+  always_ff @(posedge iob_clk) begin
+    config_out_iob           <= config_out;
+    scan_out_iob             <= scan_out;
+    dnn_output_0_iob         <= dnn_output_0;
+    dnn_output_1_iob         <= dnn_output_1;
+    dn_event_toggle_iob      <= dn_event_toggle;
   end;
 
 endmodule

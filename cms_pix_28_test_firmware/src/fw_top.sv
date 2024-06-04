@@ -201,9 +201,8 @@ module fw_top #(
   logic [3:0] fw_dnn_output_1;
   logic [3:0] fw_dn_event_toggle;
   com_fw_to_dut com_fw_to_dut_inst (
-    .fw_clk                  (S_AXI_ACLK),                           // FW clock              mapped to S_AXI_ACLK
-    .fw_rst_n                (S_AXI_ARESETN),                        // FW reset, active low  mapped to S_AXI_ARESETN
-    .fw_dev_id_enable        (fw_dev_id_enable),                     // up to 15 FWs can be connected;
+    .iob_clk                 (pl_clk1),                    // FW clock              mapped to S_AXI_ACLK
+    .fw_dev_id_enable        (fw_dev_id_enable),           // up to 15 FWs can be connected;
     // FW side ports
     // output signals from FW
     .fw_super_pixel_sel      (fw_super_pixel_sel),
@@ -284,8 +283,8 @@ module fw_top #(
 
   // Instantiate FW_IP2:                                             // up to 15 FWs can be connected;
   fw_ip2 fw_ip2_inst (
-    .fw_clk_400                (pl_clk1),                            // FM clock 400MHz       mapped to pl_clk1
-    .fw_clk_100                (S_AXI_ACLK),                         // FW clock 100MHz       mapped to S_AXI_ACLK
+    .fw_pl_clk1                (pl_clk1),                            // FM clock 400MHz       mapped to pl_clk1
+    .fw_axi_clk                (S_AXI_ACLK),                         // FW clock 100MHz       mapped to S_AXI_ACLK
     .fw_rst_n                  (S_AXI_ARESETN),                      // FW reset, active low  mapped to S_AXI_ARESETN
     // SW side signals from/to com_sw_to_fw
     .fw_dev_id_enable          (fw_dev_id_enable[1]),                // up to 15 FW can be connected

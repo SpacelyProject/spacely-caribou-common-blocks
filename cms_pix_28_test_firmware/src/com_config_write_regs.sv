@@ -16,7 +16,6 @@
 `timescale 1 ns/ 1 ps
 
 module com_config_write_regs (
-    input  logic        fw_clk_400,                        // FM clock 400MHz       mapped to pl_clk1
     input  logic        fw_clk_100,                        // FW clock 100MHz       mapped to S_AXI_ACLK
     input  logic        fw_rst_n,                          // FW reset, active low  mapped to S_AXI_ARESETN
     //

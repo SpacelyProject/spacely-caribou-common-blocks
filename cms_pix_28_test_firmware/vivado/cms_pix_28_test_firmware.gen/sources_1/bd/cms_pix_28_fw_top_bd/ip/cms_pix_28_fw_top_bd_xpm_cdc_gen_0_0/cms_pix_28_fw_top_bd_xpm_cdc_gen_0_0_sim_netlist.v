@@ -1,10 +1,10 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-// Date        : Fri May 31 14:45:29 2024
+// Date        : Fri May 31 14:45:27 2024
 // Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
-// Command     : write_verilog -force -mode funcsim
-//               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0/cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0 -prefix
+//               cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_ cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_sim_netlist.v
 // Design      : cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -71,10 +71,9 @@ module cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0
         .src_send(1'b1));
 endmodule
 
-(* DEST_SYNC_FF = "4" *) (* INIT_SYNC_FF = "0" *) (* ORIG_REF_NAME = "xpm_cdc_array_single" *) 
-(* SIM_ASSERT_CHK = "1" *) (* SRC_INPUT_REG = "1" *) (* VERSION = "0" *) 
-(* WIDTH = "2" *) (* XPM_MODULE = "TRUE" *) (* keep_hierarchy = "true" *) 
-(* xpm_cdc = "ARRAY_SINGLE" *) 
+(* DEST_SYNC_FF = "4" *) (* INIT_SYNC_FF = "0" *) (* SIM_ASSERT_CHK = "1" *) 
+(* SRC_INPUT_REG = "1" *) (* VERSION = "0" *) (* WIDTH = "2" *) 
+(* XPM_MODULE = "TRUE" *) (* keep_hierarchy = "true" *) (* xpm_cdc = "ARRAY_SINGLE" *) 
 module cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_array_single
    (src_clk,
     src_in,
@@ -183,10 +182,10 @@ endmodule
 
 (* C_CDC_TYPE = "1" *) (* DEST_CLK_PERIOD = "2500" *) (* DEST_EXT_HSK = "1" *) 
 (* DEST_SYNC_FF = "4" *) (* INIT = "1" *) (* INIT_SYNC_FF = "0" *) 
-(* ORIG_REF_NAME = "xpm_cdc_gen_v1_0_1" *) (* REG_OUTPUT = "0" *) (* RST_ACTIVE_HIGH = "0" *) 
-(* RST_USED = "1" *) (* SIM_ASSERT_CHK = "1" *) (* SIM_LOSSLESS_GRAY_CHK = "0" *) 
-(* SRC_CLK_PERIOD = "5000" *) (* SRC_INPUT_REG = "1" *) (* SRC_SYNC_FF = "4" *) 
-(* VERSION = "0" *) (* WIDTH = "2" *) 
+(* REG_OUTPUT = "0" *) (* RST_ACTIVE_HIGH = "0" *) (* RST_USED = "1" *) 
+(* SIM_ASSERT_CHK = "1" *) (* SIM_LOSSLESS_GRAY_CHK = "0" *) (* SRC_CLK_PERIOD = "5000" *) 
+(* SRC_INPUT_REG = "1" *) (* SRC_SYNC_FF = "4" *) (* VERSION = "0" *) 
+(* WIDTH = "2" *) 
 module cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_gen_v1_0_1
    (src_clk,
     dest_clk,

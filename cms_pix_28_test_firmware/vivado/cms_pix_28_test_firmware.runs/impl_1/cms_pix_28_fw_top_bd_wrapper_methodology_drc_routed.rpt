@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-| Date         : Fri May 31 16:18:46 2024
+| Date         : Mon Jun  3 19:50:11 2024
 | Host         : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 | Command      : report_methodology -file cms_pix_28_fw_top_bd_wrapper_methodology_drc_routed.rpt -pb cms_pix_28_fw_top_bd_wrapper_methodology_drc_routed.pb -rpx cms_pix_28_fw_top_bd_wrapper_methodology_drc_routed.rpx
 | Design       : cms_pix_28_fw_top_bd_wrapper
@@ -23,12 +23,40 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 0
-+------+----------+-------------+------------+
-| Rule | Severity | Description | Violations |
-+------+----------+-------------+------------+
-+------+----------+-------------+------------+
+             Violations found: 5
++-----------+------------------+------------------------------------------------+------------+
+| Rule      | Severity         | Description                                    | Violations |
++-----------+------------------+------------------------------------------------+------------+
+| TIMING-6  | Critical Warning | No common primary clock between related clocks | 1          |
+| TIMING-7  | Critical Warning | No common node between related clocks          | 1          |
+| TIMING-18 | Warning          | Missing input or output delay                  | 3          |
++-----------+------------------+------------------------------------------------+------------+
 
 2. REPORT DETAILS
 -----------------
+TIMING-6#1 Critical Warning
+No common primary clock between related clocks  
+The clocks clk_pl_0 and clk_pl_1 are related (timed together) but they have no common primary clock. The design could fail in hardware. To find a timing path between these clocks, run the following command: report_timing -from [get_clocks clk_pl_0] -to [get_clocks clk_pl_1]
+Related violations: <none>
+
+TIMING-7#1 Critical Warning
+No common node between related clocks  
+The clocks clk_pl_0 and clk_pl_1 are related (timed together) but they have no common node. The design could fail in hardware. To find a timing path between these clocks, run the following command: report_timing -from [get_clocks clk_pl_0] -to [get_clocks clk_pl_1]
+Related violations: <none>
+
+TIMING-18#1 Warning
+Missing input or output delay  
+An output delay is missing on bxclk relative to clock(s) clk_pl_1
+Related violations: <none>
+
+TIMING-18#2 Warning
+Missing input or output delay  
+An output delay is missing on bxclk_ana relative to clock(s) clk_pl_1
+Related violations: <none>
+
+TIMING-18#3 Warning
+Missing input or output delay  
+An output delay is missing on super_pixel_sel relative to clock(s) clk_pl_1
+Related violations: <none>
+
 

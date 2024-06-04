@@ -15,11 +15,11 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==cms_pix_28_
 # IP: bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_axi_interconnect_0_0/cms_pix_28_fw_top_bd_axi_interconnect_0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==cms_pix_28_fw_top_bd_axi_interconnect_0_0 || ORIG_REF_NAME==cms_pix_28_fw_top_bd_axi_interconnect_0_0} -quiet] -quiet
 
-# IP: bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/cms_pix_28_fw_top_bd_fw_top_v_0_0.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==cms_pix_28_fw_top_bd_fw_top_v_0_0 || ORIG_REF_NAME==cms_pix_28_fw_top_bd_fw_top_v_0_0} -quiet] -quiet
-
 # IP: bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0/cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0 || ORIG_REF_NAME==cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0} -quiet] -quiet
+
+# IP: bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/cms_pix_28_fw_top_bd_fw_top_v_0_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==cms_pix_28_fw_top_bd_fw_top_v_0_0 || ORIG_REF_NAME==cms_pix_28_fw_top_bd_fw_top_v_0_0} -quiet] -quiet
 
 # IP: bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_auto_pc_0/cms_pix_28_fw_top_bd_auto_pc_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==cms_pix_28_fw_top_bd_auto_pc_0 || ORIG_REF_NAME==cms_pix_28_fw_top_bd_auto_pc_0} -quiet] -quiet

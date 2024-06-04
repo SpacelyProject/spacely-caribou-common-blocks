@@ -1,10 +1,10 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
--- Date        : Fri May 31 14:45:29 2024
+-- Date        : Fri May 31 14:45:28 2024
 -- Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
--- Command     : write_vhdl -force -mode funcsim
---               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0/cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0 -prefix
+--               cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_ cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_sim_netlist.vhdl
 -- Design      : cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -25,8 +25,6 @@ entity cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_array_single is
   attribute DEST_SYNC_FF of cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_array_single : entity is 4;
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_array_single : entity is 0;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_array_single : entity is "xpm_cdc_array_single";
   attribute SIM_ASSERT_CHK : integer;
   attribute SIM_ASSERT_CHK of cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_array_single : entity is 1;
   attribute SRC_INPUT_REG : integer;
@@ -208,8 +206,6 @@ entity cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_gen_v1_0_1 is
   attribute INIT of cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_gen_v1_0_1 : entity is "1";
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_gen_v1_0_1 : entity is 0;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_gen_v1_0_1 : entity is "xpm_cdc_gen_v1_0_1";
   attribute REG_OUTPUT : integer;
   attribute REG_OUTPUT of cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0_xpm_cdc_gen_v1_0_1 : entity is 0;
   attribute RST_ACTIVE_HIGH : integer;

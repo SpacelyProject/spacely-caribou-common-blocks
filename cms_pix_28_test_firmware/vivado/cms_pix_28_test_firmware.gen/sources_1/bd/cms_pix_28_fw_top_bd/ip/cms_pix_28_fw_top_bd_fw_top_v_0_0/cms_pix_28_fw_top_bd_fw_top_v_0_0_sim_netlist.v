@@ -1,7 +1,7 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-// Date        : Fri May 31 16:14:44 2024
+// Date        : Mon Jun  3 19:46:13 2024
 // Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 // Command     : write_verilog -force -mode funcsim
 //               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/cms_pix_28_fw_top_bd_fw_top_v_0_0_sim_netlist.v
@@ -96,14 +96,21 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0
   wire S_AXI_ARESETN;
   wire S_AXI_ARREADY;
   wire S_AXI_ARVALID;
+  wire [10:0]S_AXI_AWADDR;
   wire S_AXI_AWREADY;
   wire S_AXI_AWVALID;
   wire S_AXI_BREADY;
   wire S_AXI_BVALID;
   wire S_AXI_RREADY;
   wire S_AXI_RVALID;
+  wire [31:0]S_AXI_WDATA;
   wire S_AXI_WREADY;
+  wire [3:0]S_AXI_WSTRB;
   wire S_AXI_WVALID;
+  wire bxclk;
+  wire bxclk_ana;
+  wire pl_clk1;
+  wire super_pixel_sel;
 
   assign S_AXI_BRESP[1] = \<const0> ;
   assign S_AXI_BRESP[0] = \<const0> ;
@@ -141,15 +148,12 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0
   assign S_AXI_RDATA[0] = \<const0> ;
   assign S_AXI_RRESP[1] = \<const0> ;
   assign S_AXI_RRESP[0] = \<const0> ;
-  assign bxclk = \<const0> ;
-  assign bxclk_ana = \<const0> ;
   assign config_clk = \<const0> ;
   assign config_in = \<const0> ;
   assign config_load = \<const0> ;
   assign reset_not = \<const0> ;
   assign scan_in = \<const0> ;
   assign scan_load = \<const0> ;
-  assign super_pixel_sel = \<const0> ;
   assign vin_test_trig_out = \<const0> ;
   GND GND
        (.G(\<const0> ));
@@ -158,47 +162,65 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0
         .S_AXI_ARESETN(S_AXI_ARESETN),
         .S_AXI_ARREADY(S_AXI_ARREADY),
         .S_AXI_ARVALID(S_AXI_ARVALID),
+        .S_AXI_AWADDR(S_AXI_AWADDR[10:2]),
         .S_AXI_AWREADY(S_AXI_AWREADY),
         .S_AXI_AWVALID(S_AXI_AWVALID),
         .S_AXI_BREADY(S_AXI_BREADY),
         .S_AXI_BVALID(S_AXI_BVALID),
         .S_AXI_RREADY(S_AXI_RREADY),
         .S_AXI_RVALID(S_AXI_RVALID),
+        .S_AXI_WDATA({S_AXI_WDATA[31:24],S_AXI_WDATA[12:0]}),
         .S_AXI_WREADY(S_AXI_WREADY),
-        .S_AXI_WVALID(S_AXI_WVALID));
+        .S_AXI_WSTRB({S_AXI_WSTRB[3],S_AXI_WSTRB[1:0]}),
+        .S_AXI_WVALID(S_AXI_WVALID),
+        .bxclk(bxclk),
+        .bxclk_ana(bxclk_ana),
+        .pl_clk1(pl_clk1),
+        .super_pixel_sel(super_pixel_sel));
 endmodule
 
 (* ORIG_REF_NAME = "axi4lite_interface_top" *) 
 module cms_pix_28_fw_top_bd_fw_top_v_0_0_axi4lite_interface_top
    (S_AXI_ARREADY,
+    S_AXI_ARESETN_0,
     S_AXI_AWREADY,
     S_AXI_WREADY,
     S_AXI_BVALID,
     S_AXI_RVALID,
+    E,
     S_AXI_ACLK,
+    S_AXI_ARVALID,
     S_AXI_ARESETN,
+    S_AXI_BREADY,
     S_AXI_AWVALID,
     S_AXI_WVALID,
-    S_AXI_BREADY,
-    S_AXI_ARVALID,
-    S_AXI_RREADY);
+    S_AXI_RREADY,
+    S_AXI_AWADDR,
+    S_AXI_WSTRB);
   output S_AXI_ARREADY;
+  output S_AXI_ARESETN_0;
   output S_AXI_AWREADY;
   output S_AXI_WREADY;
   output S_AXI_BVALID;
   output S_AXI_RVALID;
+  output [2:0]E;
   input S_AXI_ACLK;
+  input S_AXI_ARVALID;
   input S_AXI_ARESETN;
+  input S_AXI_BREADY;
   input S_AXI_AWVALID;
   input S_AXI_WVALID;
-  input S_AXI_BREADY;
-  input S_AXI_ARVALID;
   input S_AXI_RREADY;
+  input [8:0]S_AXI_AWADDR;
+  input [2:0]S_AXI_WSTRB;
 
+  wire [2:0]E;
   wire S_AXI_ACLK;
   wire S_AXI_ARESETN;
+  wire S_AXI_ARESETN_0;
   wire S_AXI_ARREADY;
   wire S_AXI_ARVALID;
+  wire [8:0]S_AXI_AWADDR;
   wire S_AXI_AWREADY;
   wire S_AXI_AWVALID;
   wire S_AXI_BREADY;
@@ -206,68 +228,146 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_axi4lite_interface_top
   wire S_AXI_RREADY;
   wire S_AXI_RVALID;
   wire S_AXI_WREADY;
+  wire [2:0]S_AXI_WSTRB;
   wire S_AXI_WVALID;
 
   cms_pix_28_fw_top_bd_fw_top_v_0_0_axi4lite_slave_interface axi4_slave_inst
-       (.S_AXI_ACLK(S_AXI_ACLK),
+       (.E(E),
+        .SR(S_AXI_ARESETN_0),
+        .S_AXI_ACLK(S_AXI_ACLK),
         .S_AXI_ARESETN(S_AXI_ARESETN),
         .S_AXI_ARREADY(S_AXI_ARREADY),
         .S_AXI_ARVALID(S_AXI_ARVALID),
-        .S_AXI_AWREADY(S_AXI_AWREADY),
+        .S_AXI_AWADDR(S_AXI_AWADDR),
         .S_AXI_AWVALID(S_AXI_AWVALID),
         .S_AXI_BREADY(S_AXI_BREADY),
         .S_AXI_BVALID(S_AXI_BVALID),
         .S_AXI_RREADY(S_AXI_RREADY),
         .S_AXI_RVALID(S_AXI_RVALID),
-        .S_AXI_WREADY(S_AXI_WREADY),
-        .S_AXI_WVALID(S_AXI_WVALID));
+        .S_AXI_WSTRB(S_AXI_WSTRB),
+        .S_AXI_WVALID(S_AXI_WVALID),
+        .axi_awready_reg_0(S_AXI_AWREADY),
+        .axi_wready_reg_0(S_AXI_WREADY));
 endmodule
 
 (* ORIG_REF_NAME = "axi4lite_interface_top_for_pix28_fw" *) 
 module cms_pix_28_fw_top_bd_fw_top_v_0_0_axi4lite_interface_top_for_pix28_fw
-   (S_AXI_ARREADY,
+   (\sw_write32_0_reg[31]_0 ,
+    E,
+    fw_super_pixel_sel_ff,
+    \sw_write32_0_reg[31]_1 ,
+    p_0_out,
+    fw_bxclk_ana_ff_reg,
+    fw_bxclk_ff_reg,
+    SR,
+    D,
+    \sw_write32_0_reg[12]_0 ,
+    S_AXI_ARREADY,
+    p_0_in,
     S_AXI_AWREADY,
     S_AXI_WREADY,
     S_AXI_BVALID,
     S_AXI_RVALID,
+    Q,
+    fw_bxclk_ana_ff_reg_0,
+    fw_bxclk_ana_ff_reg_1,
+    fw_super_pixel_sel,
+    fw_bxclk_ana,
+    fw_bxclk,
+    \fw_pl_clk1_cnt_reg[1] ,
+    \fw_pl_clk1_cnt_reg[0] ,
     S_AXI_ACLK,
-    S_AXI_ARESETN,
+    S_AXI_AWADDR,
+    S_AXI_WDATA,
+    S_AXI_ARVALID,
     S_AXI_AWVALID,
     S_AXI_WVALID,
+    S_AXI_WSTRB,
+    S_AXI_ARESETN,
     S_AXI_BREADY,
-    S_AXI_ARVALID,
     S_AXI_RREADY);
+  output [0:0]\sw_write32_0_reg[31]_0 ;
+  output [0:0]E;
+  output fw_super_pixel_sel_ff;
+  output \sw_write32_0_reg[31]_1 ;
+  output p_0_out;
+  output fw_bxclk_ana_ff_reg;
+  output fw_bxclk_ff_reg;
+  output [1:0]SR;
+  output [0:0]D;
+  output [12:0]\sw_write32_0_reg[12]_0 ;
   output S_AXI_ARREADY;
+  output p_0_in;
   output S_AXI_AWREADY;
   output S_AXI_WREADY;
   output S_AXI_BVALID;
   output S_AXI_RVALID;
+  input [0:0]Q;
+  input fw_bxclk_ana_ff_reg_0;
+  input fw_bxclk_ana_ff_reg_1;
+  input [0:0]fw_super_pixel_sel;
+  input [0:0]fw_bxclk_ana;
+  input [0:0]fw_bxclk;
+  input \fw_pl_clk1_cnt_reg[1] ;
+  input [0:0]\fw_pl_clk1_cnt_reg[0] ;
   input S_AXI_ACLK;
-  input S_AXI_ARESETN;
+  input [8:0]S_AXI_AWADDR;
+  input [20:0]S_AXI_WDATA;
+  input S_AXI_ARVALID;
   input S_AXI_AWVALID;
   input S_AXI_WVALID;
+  input [2:0]S_AXI_WSTRB;
+  input S_AXI_ARESETN;
   input S_AXI_BREADY;
-  input S_AXI_ARVALID;
   input S_AXI_RREADY;
 
+  wire [0:0]D;
+  wire [0:0]E;
+  wire [0:0]Q;
+  wire [1:0]SR;
   wire S_AXI_ACLK;
   wire S_AXI_ARESETN;
   wire S_AXI_ARREADY;
   wire S_AXI_ARVALID;
+  wire [8:0]S_AXI_AWADDR;
   wire S_AXI_AWREADY;
   wire S_AXI_AWVALID;
   wire S_AXI_BREADY;
   wire S_AXI_BVALID;
   wire S_AXI_RREADY;
   wire S_AXI_RVALID;
+  wire [20:0]S_AXI_WDATA;
   wire S_AXI_WREADY;
+  wire [2:0]S_AXI_WSTRB;
   wire S_AXI_WVALID;
+  wire [0:0]fw_bxclk;
+  wire [0:0]fw_bxclk_ana;
+  wire fw_bxclk_ana_ff_reg;
+  wire fw_bxclk_ana_ff_reg_0;
+  wire fw_bxclk_ana_ff_reg_1;
+  wire fw_bxclk_ff_reg;
+  wire [3:0]fw_dev_id_enable;
+  wire [0:0]\fw_pl_clk1_cnt_reg[0] ;
+  wire \fw_pl_clk1_cnt_reg[1] ;
+  wire [0:0]fw_super_pixel_sel;
+  wire fw_super_pixel_sel_ff;
+  wire p_0_in;
+  wire p_0_out;
+  wire [3:0]\reg_wrByteStrobe[0]_0 ;
+  wire super_pixel_sel_iob_i_2_n_0;
+  wire [31:0]sw_write32_0;
+  wire [12:0]\sw_write32_0_reg[12]_0 ;
+  wire [0:0]\sw_write32_0_reg[31]_0 ;
+  wire \sw_write32_0_reg[31]_1 ;
 
   cms_pix_28_fw_top_bd_fw_top_v_0_0_axi4lite_interface_top axi4lite_interface_inst
-       (.S_AXI_ACLK(S_AXI_ACLK),
+       (.E({\reg_wrByteStrobe[0]_0 [3],\reg_wrByteStrobe[0]_0 [1:0]}),
+        .S_AXI_ACLK(S_AXI_ACLK),
         .S_AXI_ARESETN(S_AXI_ARESETN),
+        .S_AXI_ARESETN_0(p_0_in),
         .S_AXI_ARREADY(S_AXI_ARREADY),
         .S_AXI_ARVALID(S_AXI_ARVALID),
+        .S_AXI_AWADDR(S_AXI_AWADDR),
         .S_AXI_AWREADY(S_AXI_AWREADY),
         .S_AXI_AWVALID(S_AXI_AWVALID),
         .S_AXI_BREADY(S_AXI_BREADY),
@@ -275,73 +375,437 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_axi4lite_interface_top_for_pix28_fw
         .S_AXI_RREADY(S_AXI_RREADY),
         .S_AXI_RVALID(S_AXI_RVALID),
         .S_AXI_WREADY(S_AXI_WREADY),
+        .S_AXI_WSTRB(S_AXI_WSTRB),
         .S_AXI_WVALID(S_AXI_WVALID));
+  LUT6 #(
+    .INIT(64'h0000000000080000)) 
+    bxclk_ana_iob_i_1
+       (.I0(super_pixel_sel_iob_i_2_n_0),
+        .I1(fw_bxclk_ana),
+        .I2(sw_write32_0[31]),
+        .I3(sw_write32_0[30]),
+        .I4(sw_write32_0[29]),
+        .I5(sw_write32_0[28]),
+        .O(fw_bxclk_ana_ff_reg));
+  LUT6 #(
+    .INIT(64'h0000000000080000)) 
+    bxclk_iob_i_1
+       (.I0(super_pixel_sel_iob_i_2_n_0),
+        .I1(fw_bxclk),
+        .I2(sw_write32_0[31]),
+        .I3(sw_write32_0[30]),
+        .I4(sw_write32_0[29]),
+        .I5(sw_write32_0[28]),
+        .O(fw_bxclk_ff_reg));
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[0]_i_1 
+       (.I0(sw_write32_0[0]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [0]));
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[10]_i_1 
+       (.I0(sw_write32_0[10]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [10]));
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[11]_i_1 
+       (.I0(sw_write32_0[11]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [11]));
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  LUT5 #(
+    .INIT(32'h01100000)) 
+    \config_static_0[12]_i_1 
+       (.I0(sw_write32_0[27]),
+        .I1(sw_write32_0[26]),
+        .I2(sw_write32_0[25]),
+        .I3(sw_write32_0[24]),
+        .I4(\sw_write32_0_reg[31]_0 ),
+        .O(E));
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[12]_i_2 
+       (.I0(sw_write32_0[12]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [12]));
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  LUT4 #(
+    .INIT(16'h0010)) 
+    \config_static_0[12]_i_3 
+       (.I0(sw_write32_0[31]),
+        .I1(sw_write32_0[30]),
+        .I2(sw_write32_0[29]),
+        .I3(sw_write32_0[28]),
+        .O(\sw_write32_0_reg[31]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[1]_i_1 
+       (.I0(sw_write32_0[1]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [1]));
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[2]_i_1 
+       (.I0(sw_write32_0[2]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [2]));
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[3]_i_1 
+       (.I0(sw_write32_0[3]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [3]));
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[4]_i_1 
+       (.I0(sw_write32_0[4]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [4]));
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[5]_i_1 
+       (.I0(sw_write32_0[5]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [5]));
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[6]_i_1 
+       (.I0(sw_write32_0[6]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [6]));
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[7]_i_1 
+       (.I0(sw_write32_0[7]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [7]));
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[8]_i_1 
+       (.I0(sw_write32_0[8]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [8]));
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \config_static_0[9]_i_1 
+       (.I0(sw_write32_0[9]),
+        .I1(SR[0]),
+        .O(\sw_write32_0_reg[12]_0 [9]));
+  LUT6 #(
+    .INIT(64'h0000000000000200)) 
+    fw_bxclk_ana_ff_i_1
+       (.I0(fw_bxclk_ana_ff_reg_0),
+        .I1(sw_write32_0[31]),
+        .I2(sw_write32_0[30]),
+        .I3(sw_write32_0[29]),
+        .I4(sw_write32_0[28]),
+        .I5(fw_bxclk_ana_ff_reg_1),
+        .O(\sw_write32_0_reg[31]_1 ));
+  LUT6 #(
+    .INIT(64'h0004000400000004)) 
+    \fw_pl_clk1_cnt[0]_i_1 
+       (.I0(sw_write32_0[28]),
+        .I1(sw_write32_0[29]),
+        .I2(sw_write32_0[30]),
+        .I3(sw_write32_0[31]),
+        .I4(\fw_pl_clk1_cnt_reg[0] ),
+        .I5(\fw_pl_clk1_cnt_reg[1] ),
+        .O(D));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFFFFFFFB)) 
+    \fw_pl_clk1_cnt[5]_i_1 
+       (.I0(sw_write32_0[28]),
+        .I1(sw_write32_0[29]),
+        .I2(sw_write32_0[30]),
+        .I3(sw_write32_0[31]),
+        .I4(\fw_pl_clk1_cnt_reg[1] ),
+        .I5(SR[0]),
+        .O(SR[1]));
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  LUT5 #(
+    .INIT(32'h00000020)) 
+    fw_super_pixel_sel_ff_i_1
+       (.I0(\sw_write32_0_reg[31]_0 ),
+        .I1(sw_write32_0[25]),
+        .I2(sw_write32_0[24]),
+        .I3(sw_write32_0[26]),
+        .I4(sw_write32_0[27]),
+        .O(SR[0]));
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  LUT5 #(
+    .INIT(32'h00040000)) 
+    fw_super_pixel_sel_ff_i_2
+       (.I0(sw_write32_0[28]),
+        .I1(sw_write32_0[29]),
+        .I2(sw_write32_0[30]),
+        .I3(sw_write32_0[31]),
+        .I4(Q),
+        .O(fw_super_pixel_sel_ff));
+  LUT6 #(
+    .INIT(64'h0000000000080000)) 
+    super_pixel_sel_iob_i_1
+       (.I0(super_pixel_sel_iob_i_2_n_0),
+        .I1(fw_super_pixel_sel),
+        .I2(sw_write32_0[31]),
+        .I3(sw_write32_0[30]),
+        .I4(sw_write32_0[29]),
+        .I5(sw_write32_0[28]),
+        .O(p_0_out));
+  LUT4 #(
+    .INIT(16'h0116)) 
+    super_pixel_sel_iob_i_2
+       (.I0(fw_dev_id_enable[0]),
+        .I1(\sw_write32_0_reg[31]_0 ),
+        .I2(fw_dev_id_enable[2]),
+        .I3(fw_dev_id_enable[3]),
+        .O(super_pixel_sel_iob_i_2_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  LUT4 #(
+    .INIT(16'h0010)) 
+    super_pixel_sel_iob_i_3
+       (.I0(sw_write32_0[31]),
+        .I1(sw_write32_0[30]),
+        .I2(sw_write32_0[28]),
+        .I3(sw_write32_0[29]),
+        .O(fw_dev_id_enable[0]));
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  LUT4 #(
+    .INIT(16'h0010)) 
+    super_pixel_sel_iob_i_4
+       (.I0(sw_write32_0[31]),
+        .I1(sw_write32_0[28]),
+        .I2(sw_write32_0[30]),
+        .I3(sw_write32_0[29]),
+        .O(fw_dev_id_enable[2]));
+  LUT4 #(
+    .INIT(16'h0010)) 
+    super_pixel_sel_iob_i_5
+       (.I0(sw_write32_0[28]),
+        .I1(sw_write32_0[30]),
+        .I2(sw_write32_0[31]),
+        .I3(sw_write32_0[29]),
+        .O(fw_dev_id_enable[3]));
+  FDRE \sw_write32_0_reg[0] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [0]),
+        .D(S_AXI_WDATA[0]),
+        .Q(sw_write32_0[0]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[10] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [1]),
+        .D(S_AXI_WDATA[10]),
+        .Q(sw_write32_0[10]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[11] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [1]),
+        .D(S_AXI_WDATA[11]),
+        .Q(sw_write32_0[11]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[12] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [1]),
+        .D(S_AXI_WDATA[12]),
+        .Q(sw_write32_0[12]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[1] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [0]),
+        .D(S_AXI_WDATA[1]),
+        .Q(sw_write32_0[1]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[24] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [3]),
+        .D(S_AXI_WDATA[13]),
+        .Q(sw_write32_0[24]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[25] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [3]),
+        .D(S_AXI_WDATA[14]),
+        .Q(sw_write32_0[25]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[26] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [3]),
+        .D(S_AXI_WDATA[15]),
+        .Q(sw_write32_0[26]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[27] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [3]),
+        .D(S_AXI_WDATA[16]),
+        .Q(sw_write32_0[27]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[28] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [3]),
+        .D(S_AXI_WDATA[17]),
+        .Q(sw_write32_0[28]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[29] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [3]),
+        .D(S_AXI_WDATA[18]),
+        .Q(sw_write32_0[29]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[2] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [0]),
+        .D(S_AXI_WDATA[2]),
+        .Q(sw_write32_0[2]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[30] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [3]),
+        .D(S_AXI_WDATA[19]),
+        .Q(sw_write32_0[30]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[31] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [3]),
+        .D(S_AXI_WDATA[20]),
+        .Q(sw_write32_0[31]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[3] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [0]),
+        .D(S_AXI_WDATA[3]),
+        .Q(sw_write32_0[3]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[4] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [0]),
+        .D(S_AXI_WDATA[4]),
+        .Q(sw_write32_0[4]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[5] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [0]),
+        .D(S_AXI_WDATA[5]),
+        .Q(sw_write32_0[5]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[6] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [0]),
+        .D(S_AXI_WDATA[6]),
+        .Q(sw_write32_0[6]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[7] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [0]),
+        .D(S_AXI_WDATA[7]),
+        .Q(sw_write32_0[7]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[8] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [1]),
+        .D(S_AXI_WDATA[8]),
+        .Q(sw_write32_0[8]),
+        .R(p_0_in));
+  FDRE \sw_write32_0_reg[9] 
+       (.C(S_AXI_ACLK),
+        .CE(\reg_wrByteStrobe[0]_0 [1]),
+        .D(S_AXI_WDATA[9]),
+        .Q(sw_write32_0[9]),
+        .R(p_0_in));
 endmodule
 
 (* ORIG_REF_NAME = "axi4lite_slave_interface" *) 
 module cms_pix_28_fw_top_bd_fw_top_v_0_0_axi4lite_slave_interface
    (S_AXI_ARREADY,
-    S_AXI_AWREADY,
-    S_AXI_WREADY,
+    SR,
+    axi_awready_reg_0,
+    axi_wready_reg_0,
     S_AXI_BVALID,
     S_AXI_RVALID,
+    E,
     S_AXI_ACLK,
+    S_AXI_ARVALID,
     S_AXI_ARESETN,
+    S_AXI_BREADY,
     S_AXI_AWVALID,
     S_AXI_WVALID,
-    S_AXI_BREADY,
-    S_AXI_ARVALID,
-    S_AXI_RREADY);
+    S_AXI_RREADY,
+    S_AXI_AWADDR,
+    S_AXI_WSTRB);
   output S_AXI_ARREADY;
-  output S_AXI_AWREADY;
-  output S_AXI_WREADY;
+  output [0:0]SR;
+  output axi_awready_reg_0;
+  output axi_wready_reg_0;
   output S_AXI_BVALID;
   output S_AXI_RVALID;
+  output [2:0]E;
   input S_AXI_ACLK;
+  input S_AXI_ARVALID;
   input S_AXI_ARESETN;
+  input S_AXI_BREADY;
   input S_AXI_AWVALID;
   input S_AXI_WVALID;
-  input S_AXI_BREADY;
-  input S_AXI_ARVALID;
   input S_AXI_RREADY;
+  input [8:0]S_AXI_AWADDR;
+  input [2:0]S_AXI_WSTRB;
 
+  wire [2:0]E;
+  wire [0:0]SR;
   wire S_AXI_ACLK;
   wire S_AXI_ARESETN;
   wire S_AXI_ARREADY;
   wire S_AXI_ARVALID;
-  wire S_AXI_AWREADY;
+  wire [8:0]S_AXI_AWADDR;
   wire S_AXI_AWVALID;
   wire S_AXI_BREADY;
   wire S_AXI_BVALID;
   wire S_AXI_RREADY;
   wire S_AXI_RVALID;
-  wire S_AXI_WREADY;
+  wire [2:0]S_AXI_WSTRB;
   wire S_AXI_WVALID;
   wire aw_en_i_1_n_0;
   wire aw_en_reg_n_0;
   wire axi_arready0;
-  wire axi_awready0__0;
+  wire axi_awready0;
+  wire axi_awready_reg_0;
   wire axi_bvalid_i_1_n_0;
+  wire [8:0]axi_mem_wrAddr;
   wire axi_rvalid_i_1_n_0;
-  wire axi_wready0__0;
-  wire p_0_in;
+  wire axi_wready0;
+  wire axi_wready_reg_0;
+  wire \mem_regs_inst/reg_wrSelect_i[0]__8 ;
+  wire \sw_write32_0[31]_i_3_n_0 ;
 
   LUT6 #(
-    .INIT(64'hF7FFF700F700F700)) 
+    .INIT(64'hFFFF88880FFF8888)) 
     aw_en_i_1
-       (.I0(S_AXI_AWVALID),
-        .I1(S_AXI_WVALID),
-        .I2(S_AXI_AWREADY),
-        .I3(aw_en_reg_n_0),
-        .I4(S_AXI_BREADY),
-        .I5(S_AXI_BVALID),
+       (.I0(S_AXI_BREADY),
+        .I1(S_AXI_BVALID),
+        .I2(S_AXI_WVALID),
+        .I3(S_AXI_AWVALID),
+        .I4(aw_en_reg_n_0),
+        .I5(axi_awready_reg_0),
         .O(aw_en_i_1_n_0));
   FDSE aw_en_reg
        (.C(S_AXI_ACLK),
         .CE(1'b1),
         .D(aw_en_i_1_n_0),
         .Q(aw_en_reg_n_0),
-        .S(p_0_in));
+        .S(SR));
   (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT2 #(
     .INIT(4'h2)) 
@@ -354,43 +818,96 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_axi4lite_slave_interface
         .CE(1'b1),
         .D(axi_arready0),
         .Q(S_AXI_ARREADY),
-        .R(p_0_in));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
-  LUT4 #(
-    .INIT(16'h2000)) 
-    axi_awready0
-       (.I0(aw_en_reg_n_0),
-        .I1(S_AXI_AWREADY),
-        .I2(S_AXI_WVALID),
-        .I3(S_AXI_AWVALID),
-        .O(axi_awready0__0));
+        .R(SR));
+  FDRE \axi_awaddr_reg[10] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_awready0),
+        .D(S_AXI_AWADDR[8]),
+        .Q(axi_mem_wrAddr[8]),
+        .R(SR));
+  FDRE \axi_awaddr_reg[2] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_awready0),
+        .D(S_AXI_AWADDR[0]),
+        .Q(axi_mem_wrAddr[0]),
+        .R(SR));
+  FDRE \axi_awaddr_reg[3] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_awready0),
+        .D(S_AXI_AWADDR[1]),
+        .Q(axi_mem_wrAddr[1]),
+        .R(SR));
+  FDRE \axi_awaddr_reg[4] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_awready0),
+        .D(S_AXI_AWADDR[2]),
+        .Q(axi_mem_wrAddr[2]),
+        .R(SR));
+  FDRE \axi_awaddr_reg[5] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_awready0),
+        .D(S_AXI_AWADDR[3]),
+        .Q(axi_mem_wrAddr[3]),
+        .R(SR));
+  FDRE \axi_awaddr_reg[6] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_awready0),
+        .D(S_AXI_AWADDR[4]),
+        .Q(axi_mem_wrAddr[4]),
+        .R(SR));
+  FDRE \axi_awaddr_reg[7] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_awready0),
+        .D(S_AXI_AWADDR[5]),
+        .Q(axi_mem_wrAddr[5]),
+        .R(SR));
+  FDRE \axi_awaddr_reg[8] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_awready0),
+        .D(S_AXI_AWADDR[6]),
+        .Q(axi_mem_wrAddr[6]),
+        .R(SR));
+  FDRE \axi_awaddr_reg[9] 
+       (.C(S_AXI_ACLK),
+        .CE(axi_awready0),
+        .D(S_AXI_AWADDR[7]),
+        .Q(axi_mem_wrAddr[7]),
+        .R(SR));
   LUT1 #(
     .INIT(2'h1)) 
     axi_awready_i_1
        (.I0(S_AXI_ARESETN),
-        .O(p_0_in));
+        .O(SR));
+  LUT4 #(
+    .INIT(16'h4000)) 
+    axi_awready_i_2
+       (.I0(axi_awready_reg_0),
+        .I1(aw_en_reg_n_0),
+        .I2(S_AXI_AWVALID),
+        .I3(S_AXI_WVALID),
+        .O(axi_awready0));
   FDRE axi_awready_reg
        (.C(S_AXI_ACLK),
         .CE(1'b1),
-        .D(axi_awready0__0),
-        .Q(S_AXI_AWREADY),
-        .R(p_0_in));
+        .D(axi_awready0),
+        .Q(axi_awready_reg_0),
+        .R(SR));
   LUT6 #(
-    .INIT(64'h0000FFFF80008000)) 
+    .INIT(64'h7444444444444444)) 
     axi_bvalid_i_1
-       (.I0(S_AXI_AWVALID),
-        .I1(S_AXI_WVALID),
-        .I2(S_AXI_AWREADY),
-        .I3(S_AXI_WREADY),
-        .I4(S_AXI_BREADY),
-        .I5(S_AXI_BVALID),
+       (.I0(S_AXI_BREADY),
+        .I1(S_AXI_BVALID),
+        .I2(axi_wready_reg_0),
+        .I3(axi_awready_reg_0),
+        .I4(S_AXI_AWVALID),
+        .I5(S_AXI_WVALID),
         .O(axi_bvalid_i_1_n_0));
   FDRE axi_bvalid_reg
        (.C(S_AXI_ACLK),
         .CE(1'b1),
         .D(axi_bvalid_i_1_n_0),
         .Q(S_AXI_BVALID),
-        .R(p_0_in));
+        .R(SR));
   (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT4 #(
     .INIT(16'h08F8)) 
@@ -405,22 +922,582 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_axi4lite_slave_interface
         .CE(1'b1),
         .D(axi_rvalid_i_1_n_0),
         .Q(S_AXI_RVALID),
-        .R(p_0_in));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+        .R(SR));
   LUT4 #(
-    .INIT(16'h2000)) 
-    axi_wready0
-       (.I0(aw_en_reg_n_0),
-        .I1(S_AXI_WREADY),
-        .I2(S_AXI_WVALID),
-        .I3(S_AXI_AWVALID),
-        .O(axi_wready0__0));
+    .INIT(16'h4000)) 
+    axi_wready_i_1
+       (.I0(axi_wready_reg_0),
+        .I1(aw_en_reg_n_0),
+        .I2(S_AXI_AWVALID),
+        .I3(S_AXI_WVALID),
+        .O(axi_wready0));
   FDRE axi_wready_reg
        (.C(S_AXI_ACLK),
         .CE(1'b1),
-        .D(axi_wready0__0),
-        .Q(S_AXI_WREADY),
-        .R(p_0_in));
+        .D(axi_wready0),
+        .Q(axi_wready_reg_0),
+        .R(SR));
+  LUT6 #(
+    .INIT(64'h8000000000000000)) 
+    \sw_write32_0[12]_i_1 
+       (.I0(S_AXI_WSTRB[1]),
+        .I1(axi_wready_reg_0),
+        .I2(axi_awready_reg_0),
+        .I3(S_AXI_AWVALID),
+        .I4(S_AXI_WVALID),
+        .I5(\mem_regs_inst/reg_wrSelect_i[0]__8 ),
+        .O(E[1]));
+  LUT6 #(
+    .INIT(64'h8000000000000000)) 
+    \sw_write32_0[31]_i_1 
+       (.I0(S_AXI_WSTRB[2]),
+        .I1(axi_wready_reg_0),
+        .I2(axi_awready_reg_0),
+        .I3(S_AXI_AWVALID),
+        .I4(S_AXI_WVALID),
+        .I5(\mem_regs_inst/reg_wrSelect_i[0]__8 ),
+        .O(E[2]));
+  LUT4 #(
+    .INIT(16'h0002)) 
+    \sw_write32_0[31]_i_2 
+       (.I0(\sw_write32_0[31]_i_3_n_0 ),
+        .I1(axi_mem_wrAddr[0]),
+        .I2(axi_mem_wrAddr[1]),
+        .I3(axi_mem_wrAddr[2]),
+        .O(\mem_regs_inst/reg_wrSelect_i[0]__8 ));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    \sw_write32_0[31]_i_3 
+       (.I0(axi_mem_wrAddr[3]),
+        .I1(axi_mem_wrAddr[4]),
+        .I2(axi_mem_wrAddr[5]),
+        .I3(axi_mem_wrAddr[6]),
+        .I4(axi_mem_wrAddr[8]),
+        .I5(axi_mem_wrAddr[7]),
+        .O(\sw_write32_0[31]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h8000000000000000)) 
+    \sw_write32_0[7]_i_1 
+       (.I0(S_AXI_WSTRB[0]),
+        .I1(axi_wready_reg_0),
+        .I2(axi_awready_reg_0),
+        .I3(S_AXI_AWVALID),
+        .I4(S_AXI_WVALID),
+        .I5(\mem_regs_inst/reg_wrSelect_i[0]__8 ),
+        .O(E[0]));
+endmodule
+
+(* ORIG_REF_NAME = "com_config_write_regs" *) 
+module cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs
+   (\config_static_0_reg[5]_0 ,
+    \config_static_0_reg[11]_0 ,
+    \fw_pl_clk1_cnt_reg[0] ,
+    \config_static_0_reg[12]_0 ,
+    Q,
+    fw_bxclk_ff_reg,
+    fw_bxclk_ff_reg_0,
+    E,
+    D,
+    S_AXI_ACLK,
+    p_0_in);
+  output \config_static_0_reg[5]_0 ;
+  output \config_static_0_reg[11]_0 ;
+  output \fw_pl_clk1_cnt_reg[0] ;
+  output [0:0]\config_static_0_reg[12]_0 ;
+  input [5:0]Q;
+  input fw_bxclk_ff_reg;
+  input [0:0]fw_bxclk_ff_reg_0;
+  input [0:0]E;
+  input [12:0]D;
+  input S_AXI_ACLK;
+  input p_0_in;
+
+  wire [12:0]D;
+  wire [0:0]E;
+  wire [5:0]Q;
+  wire S_AXI_ACLK;
+  wire [11:11]config_static_0;
+  wire \config_static_0_reg[11]_0 ;
+  wire [0:0]\config_static_0_reg[12]_0 ;
+  wire \config_static_0_reg[5]_0 ;
+  wire \config_static_0_reg_n_0_[0] ;
+  wire \config_static_0_reg_n_0_[1] ;
+  wire \config_static_0_reg_n_0_[2] ;
+  wire \config_static_0_reg_n_0_[3] ;
+  wire \config_static_0_reg_n_0_[4] ;
+  wire \config_static_0_reg_n_0_[5] ;
+  wire fw_bxclk_ana_ff_i_4_n_0;
+  wire fw_bxclk_ff_i_10_n_0;
+  wire fw_bxclk_ff_i_2_n_0;
+  wire fw_bxclk_ff_i_3_n_0;
+  wire fw_bxclk_ff_i_4_n_0;
+  wire fw_bxclk_ff_i_5_n_0;
+  wire fw_bxclk_ff_i_6_n_0;
+  wire fw_bxclk_ff_i_7_n_0;
+  wire fw_bxclk_ff_i_8_n_0;
+  wire fw_bxclk_ff_i_9_n_0;
+  wire fw_bxclk_ff_reg;
+  wire [0:0]fw_bxclk_ff_reg_0;
+  wire \fw_pl_clk1_cnt[5]_i_4_n_0 ;
+  wire \fw_pl_clk1_cnt[5]_i_5_n_0 ;
+  wire \fw_pl_clk1_cnt_reg[0] ;
+  wire p_0_in;
+  wire [4:0]p_0_in1_in;
+
+  FDCE \config_static_0_reg[0] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[0]),
+        .Q(\config_static_0_reg_n_0_[0] ));
+  FDCE \config_static_0_reg[10] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[10]),
+        .Q(p_0_in1_in[4]));
+  FDCE \config_static_0_reg[11] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[11]),
+        .Q(config_static_0));
+  FDCE \config_static_0_reg[12] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[12]),
+        .Q(\config_static_0_reg[12]_0 ));
+  FDCE \config_static_0_reg[1] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[1]),
+        .Q(\config_static_0_reg_n_0_[1] ));
+  FDCE \config_static_0_reg[2] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[2]),
+        .Q(\config_static_0_reg_n_0_[2] ));
+  FDCE \config_static_0_reg[3] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[3]),
+        .Q(\config_static_0_reg_n_0_[3] ));
+  FDCE \config_static_0_reg[4] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[4]),
+        .Q(\config_static_0_reg_n_0_[4] ));
+  FDCE \config_static_0_reg[5] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[5]),
+        .Q(\config_static_0_reg_n_0_[5] ));
+  FDCE \config_static_0_reg[6] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[6]),
+        .Q(p_0_in1_in[0]));
+  FDCE \config_static_0_reg[7] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[7]),
+        .Q(p_0_in1_in[1]));
+  FDCE \config_static_0_reg[8] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[8]),
+        .Q(p_0_in1_in[2]));
+  FDCE \config_static_0_reg[9] 
+       (.C(S_AXI_ACLK),
+        .CE(E),
+        .CLR(p_0_in),
+        .D(D[9]),
+        .Q(p_0_in1_in[3]));
+  LUT6 #(
+    .INIT(64'h00000000B2BB22B2)) 
+    fw_bxclk_ana_ff_i_2
+       (.I0(\config_static_0_reg_n_0_[5] ),
+        .I1(Q[4]),
+        .I2(\config_static_0_reg_n_0_[4] ),
+        .I3(Q[3]),
+        .I4(fw_bxclk_ana_ff_i_4_n_0),
+        .I5(Q[5]),
+        .O(\config_static_0_reg[5]_0 ));
+  LUT6 #(
+    .INIT(64'hDF0DFFFF0000DF0D)) 
+    fw_bxclk_ana_ff_i_4
+       (.I0(Q[0]),
+        .I1(\config_static_0_reg_n_0_[1] ),
+        .I2(Q[1]),
+        .I3(\config_static_0_reg_n_0_[2] ),
+        .I4(Q[2]),
+        .I5(\config_static_0_reg_n_0_[3] ),
+        .O(fw_bxclk_ana_ff_i_4_n_0));
+  LUT5 #(
+    .INIT(32'h30001020)) 
+    fw_bxclk_ff_i_1
+       (.I0(fw_bxclk_ff_i_2_n_0),
+        .I1(fw_bxclk_ff_reg),
+        .I2(fw_bxclk_ff_reg_0),
+        .I3(config_static_0),
+        .I4(fw_bxclk_ff_i_3_n_0),
+        .O(\config_static_0_reg[11]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  LUT2 #(
+    .INIT(4'h6)) 
+    fw_bxclk_ff_i_10
+       (.I0(p_0_in1_in[3]),
+        .I1(\config_static_0_reg_n_0_[4] ),
+        .O(fw_bxclk_ff_i_10_n_0));
+  LUT6 #(
+    .INIT(64'hBF2F2F0B2F0B0B02)) 
+    fw_bxclk_ff_i_2
+       (.I0(fw_bxclk_ff_i_4_n_0),
+        .I1(Q[4]),
+        .I2(Q[5]),
+        .I3(\config_static_0_reg_n_0_[5] ),
+        .I4(p_0_in1_in[4]),
+        .I5(fw_bxclk_ff_i_5_n_0),
+        .O(fw_bxclk_ff_i_2_n_0));
+  LUT6 #(
+    .INIT(64'h00000000B2BB22B2)) 
+    fw_bxclk_ff_i_3
+       (.I0(p_0_in1_in[4]),
+        .I1(Q[4]),
+        .I2(p_0_in1_in[3]),
+        .I3(Q[3]),
+        .I4(fw_bxclk_ff_i_6_n_0),
+        .I5(Q[5]),
+        .O(fw_bxclk_ff_i_3_n_0));
+  LUT6 #(
+    .INIT(64'h00B2B2FFB2FF00B2)) 
+    fw_bxclk_ff_i_4
+       (.I0(fw_bxclk_ff_i_7_n_0),
+        .I1(Q[2]),
+        .I2(fw_bxclk_ff_i_8_n_0),
+        .I3(Q[3]),
+        .I4(fw_bxclk_ff_i_9_n_0),
+        .I5(fw_bxclk_ff_i_10_n_0),
+        .O(fw_bxclk_ff_i_4_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  LUT3 #(
+    .INIT(8'hE8)) 
+    fw_bxclk_ff_i_5
+       (.I0(\config_static_0_reg_n_0_[4] ),
+        .I1(p_0_in1_in[3]),
+        .I2(fw_bxclk_ff_i_9_n_0),
+        .O(fw_bxclk_ff_i_5_n_0));
+  LUT6 #(
+    .INIT(64'hDF0DFFFF0000DF0D)) 
+    fw_bxclk_ff_i_6
+       (.I0(Q[0]),
+        .I1(p_0_in1_in[0]),
+        .I2(Q[1]),
+        .I3(p_0_in1_in[1]),
+        .I4(Q[2]),
+        .I5(p_0_in1_in[2]),
+        .O(fw_bxclk_ff_i_6_n_0));
+  LUT6 #(
+    .INIT(64'h73311FF71FF77331)) 
+    fw_bxclk_ff_i_7
+       (.I0(Q[0]),
+        .I1(Q[1]),
+        .I2(p_0_in1_in[0]),
+        .I3(\config_static_0_reg_n_0_[1] ),
+        .I4(\config_static_0_reg_n_0_[2] ),
+        .I5(p_0_in1_in[1]),
+        .O(fw_bxclk_ff_i_7_n_0));
+  LUT6 #(
+    .INIT(64'hF880077F077FF880)) 
+    fw_bxclk_ff_i_8
+       (.I0(\config_static_0_reg_n_0_[1] ),
+        .I1(p_0_in1_in[0]),
+        .I2(p_0_in1_in[1]),
+        .I3(\config_static_0_reg_n_0_[2] ),
+        .I4(\config_static_0_reg_n_0_[3] ),
+        .I5(p_0_in1_in[2]),
+        .O(fw_bxclk_ff_i_8_n_0));
+  LUT6 #(
+    .INIT(64'hEEEEE888E8888888)) 
+    fw_bxclk_ff_i_9
+       (.I0(\config_static_0_reg_n_0_[3] ),
+        .I1(p_0_in1_in[2]),
+        .I2(\config_static_0_reg_n_0_[1] ),
+        .I3(p_0_in1_in[0]),
+        .I4(p_0_in1_in[1]),
+        .I5(\config_static_0_reg_n_0_[2] ),
+        .O(fw_bxclk_ff_i_9_n_0));
+  LUT2 #(
+    .INIT(4'h8)) 
+    \fw_pl_clk1_cnt[5]_i_3 
+       (.I0(\fw_pl_clk1_cnt[5]_i_4_n_0 ),
+        .I1(\fw_pl_clk1_cnt[5]_i_5_n_0 ),
+        .O(\fw_pl_clk1_cnt_reg[0] ));
+  LUT6 #(
+    .INIT(64'h9009000000009009)) 
+    \fw_pl_clk1_cnt[5]_i_4 
+       (.I0(Q[0]),
+        .I1(\config_static_0_reg_n_0_[0] ),
+        .I2(\config_static_0_reg_n_0_[2] ),
+        .I3(Q[2]),
+        .I4(\config_static_0_reg_n_0_[1] ),
+        .I5(Q[1]),
+        .O(\fw_pl_clk1_cnt[5]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'h9009000000009009)) 
+    \fw_pl_clk1_cnt[5]_i_5 
+       (.I0(Q[3]),
+        .I1(\config_static_0_reg_n_0_[3] ),
+        .I2(\config_static_0_reg_n_0_[5] ),
+        .I3(Q[5]),
+        .I4(\config_static_0_reg_n_0_[4] ),
+        .I5(Q[4]),
+        .O(\fw_pl_clk1_cnt[5]_i_5_n_0 ));
+endmodule
+
+(* ORIG_REF_NAME = "com_fw_to_dut" *) 
+module cms_pix_28_fw_top_bd_fw_top_v_0_0_com_fw_to_dut
+   (super_pixel_sel,
+    bxclk_ana,
+    bxclk,
+    p_0_out,
+    pl_clk1,
+    bxclk_ana_iob_reg_0,
+    bxclk_iob_reg_0);
+  output super_pixel_sel;
+  output bxclk_ana;
+  output bxclk;
+  input p_0_out;
+  input pl_clk1;
+  input bxclk_ana_iob_reg_0;
+  input bxclk_iob_reg_0;
+
+  wire bxclk;
+  wire bxclk_ana;
+  wire bxclk_ana_iob_reg_0;
+  wire bxclk_iob_reg_0;
+  wire p_0_out;
+  wire pl_clk1;
+  wire super_pixel_sel;
+
+  FDRE bxclk_ana_iob_reg
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(bxclk_ana_iob_reg_0),
+        .Q(bxclk_ana),
+        .R(1'b0));
+  FDRE bxclk_iob_reg
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(bxclk_iob_reg_0),
+        .Q(bxclk),
+        .R(1'b0));
+  FDRE super_pixel_sel_iob_reg
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(p_0_out),
+        .Q(super_pixel_sel),
+        .R(1'b0));
+endmodule
+
+(* ORIG_REF_NAME = "fw_ip2" *) 
+module cms_pix_28_fw_top_bd_fw_top_v_0_0_fw_ip2
+   (fw_super_pixel_sel,
+    fw_bxclk_ana,
+    fw_bxclk,
+    \config_static_0_reg[5] ,
+    \fw_pl_clk1_cnt_reg[5]_0 ,
+    Q,
+    \fw_pl_clk1_cnt_reg[0]_0 ,
+    \fw_pl_clk1_cnt_reg[0]_1 ,
+    SR,
+    fw_super_pixel_sel_ff,
+    pl_clk1,
+    fw_bxclk_ana_ff_reg_0,
+    fw_bxclk_ff_reg_0,
+    E,
+    D,
+    S_AXI_ACLK,
+    p_0_in,
+    \fw_pl_clk1_cnt_reg[0]_2 );
+  output [0:0]fw_super_pixel_sel;
+  output [0:0]fw_bxclk_ana;
+  output [0:0]fw_bxclk;
+  output \config_static_0_reg[5] ;
+  output \fw_pl_clk1_cnt_reg[5]_0 ;
+  output [0:0]Q;
+  output [0:0]\fw_pl_clk1_cnt_reg[0]_0 ;
+  output \fw_pl_clk1_cnt_reg[0]_1 ;
+  input [1:0]SR;
+  input fw_super_pixel_sel_ff;
+  input pl_clk1;
+  input fw_bxclk_ana_ff_reg_0;
+  input [0:0]fw_bxclk_ff_reg_0;
+  input [0:0]E;
+  input [12:0]D;
+  input S_AXI_ACLK;
+  input p_0_in;
+  input [0:0]\fw_pl_clk1_cnt_reg[0]_2 ;
+
+  wire [12:0]D;
+  wire [0:0]E;
+  wire [0:0]Q;
+  wire [1:0]SR;
+  wire S_AXI_ACLK;
+  wire com_config_write_regs_inst_n_1;
+  wire \config_static_0_reg[5] ;
+  wire [0:0]fw_bxclk;
+  wire [0:0]fw_bxclk_ana;
+  wire fw_bxclk_ana_ff_reg_0;
+  wire [0:0]fw_bxclk_ff_reg_0;
+  wire \fw_pl_clk1_cnt[1]_i_1_n_0 ;
+  wire \fw_pl_clk1_cnt[2]_i_1_n_0 ;
+  wire \fw_pl_clk1_cnt[3]_i_1_n_0 ;
+  wire \fw_pl_clk1_cnt[4]_i_1_n_0 ;
+  wire \fw_pl_clk1_cnt[5]_i_2_n_0 ;
+  wire [0:0]\fw_pl_clk1_cnt_reg[0]_0 ;
+  wire \fw_pl_clk1_cnt_reg[0]_1 ;
+  wire [0:0]\fw_pl_clk1_cnt_reg[0]_2 ;
+  wire \fw_pl_clk1_cnt_reg[5]_0 ;
+  wire \fw_pl_clk1_cnt_reg_n_0_[1] ;
+  wire \fw_pl_clk1_cnt_reg_n_0_[2] ;
+  wire \fw_pl_clk1_cnt_reg_n_0_[3] ;
+  wire \fw_pl_clk1_cnt_reg_n_0_[4] ;
+  wire \fw_pl_clk1_cnt_reg_n_0_[5] ;
+  wire [0:0]fw_super_pixel_sel;
+  wire fw_super_pixel_sel_ff;
+  wire p_0_in;
+  wire pl_clk1;
+
+  cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs com_config_write_regs_inst
+       (.D(D),
+        .E(E),
+        .Q({\fw_pl_clk1_cnt_reg_n_0_[5] ,\fw_pl_clk1_cnt_reg_n_0_[4] ,\fw_pl_clk1_cnt_reg_n_0_[3] ,\fw_pl_clk1_cnt_reg_n_0_[2] ,\fw_pl_clk1_cnt_reg_n_0_[1] ,\fw_pl_clk1_cnt_reg[0]_0 }),
+        .S_AXI_ACLK(S_AXI_ACLK),
+        .\config_static_0_reg[11]_0 (com_config_write_regs_inst_n_1),
+        .\config_static_0_reg[12]_0 (Q),
+        .\config_static_0_reg[5]_0 (\config_static_0_reg[5] ),
+        .fw_bxclk_ff_reg(\fw_pl_clk1_cnt_reg[5]_0 ),
+        .fw_bxclk_ff_reg_0(fw_bxclk_ff_reg_0),
+        .\fw_pl_clk1_cnt_reg[0] (\fw_pl_clk1_cnt_reg[0]_1 ),
+        .p_0_in(p_0_in));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    fw_bxclk_ana_ff_i_3
+       (.I0(\fw_pl_clk1_cnt_reg_n_0_[5] ),
+        .I1(\fw_pl_clk1_cnt_reg_n_0_[4] ),
+        .I2(\fw_pl_clk1_cnt_reg_n_0_[1] ),
+        .I3(\fw_pl_clk1_cnt_reg[0]_0 ),
+        .I4(\fw_pl_clk1_cnt_reg_n_0_[3] ),
+        .I5(\fw_pl_clk1_cnt_reg_n_0_[2] ),
+        .O(\fw_pl_clk1_cnt_reg[5]_0 ));
+  FDRE fw_bxclk_ana_ff_reg
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(fw_bxclk_ana_ff_reg_0),
+        .Q(fw_bxclk_ana),
+        .R(1'b0));
+  FDRE fw_bxclk_ff_reg
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(com_config_write_regs_inst_n_1),
+        .Q(fw_bxclk),
+        .R(1'b0));
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  LUT2 #(
+    .INIT(4'h6)) 
+    \fw_pl_clk1_cnt[1]_i_1 
+       (.I0(\fw_pl_clk1_cnt_reg[0]_0 ),
+        .I1(\fw_pl_clk1_cnt_reg_n_0_[1] ),
+        .O(\fw_pl_clk1_cnt[1]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  LUT3 #(
+    .INIT(8'h78)) 
+    \fw_pl_clk1_cnt[2]_i_1 
+       (.I0(\fw_pl_clk1_cnt_reg[0]_0 ),
+        .I1(\fw_pl_clk1_cnt_reg_n_0_[1] ),
+        .I2(\fw_pl_clk1_cnt_reg_n_0_[2] ),
+        .O(\fw_pl_clk1_cnt[2]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  LUT4 #(
+    .INIT(16'h7F80)) 
+    \fw_pl_clk1_cnt[3]_i_1 
+       (.I0(\fw_pl_clk1_cnt_reg_n_0_[1] ),
+        .I1(\fw_pl_clk1_cnt_reg[0]_0 ),
+        .I2(\fw_pl_clk1_cnt_reg_n_0_[2] ),
+        .I3(\fw_pl_clk1_cnt_reg_n_0_[3] ),
+        .O(\fw_pl_clk1_cnt[3]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  LUT5 #(
+    .INIT(32'h7FFF8000)) 
+    \fw_pl_clk1_cnt[4]_i_1 
+       (.I0(\fw_pl_clk1_cnt_reg_n_0_[2] ),
+        .I1(\fw_pl_clk1_cnt_reg[0]_0 ),
+        .I2(\fw_pl_clk1_cnt_reg_n_0_[1] ),
+        .I3(\fw_pl_clk1_cnt_reg_n_0_[3] ),
+        .I4(\fw_pl_clk1_cnt_reg_n_0_[4] ),
+        .O(\fw_pl_clk1_cnt[4]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'h7FFFFFFF80000000)) 
+    \fw_pl_clk1_cnt[5]_i_2 
+       (.I0(\fw_pl_clk1_cnt_reg_n_0_[3] ),
+        .I1(\fw_pl_clk1_cnt_reg_n_0_[1] ),
+        .I2(\fw_pl_clk1_cnt_reg[0]_0 ),
+        .I3(\fw_pl_clk1_cnt_reg_n_0_[2] ),
+        .I4(\fw_pl_clk1_cnt_reg_n_0_[4] ),
+        .I5(\fw_pl_clk1_cnt_reg_n_0_[5] ),
+        .O(\fw_pl_clk1_cnt[5]_i_2_n_0 ));
+  FDRE \fw_pl_clk1_cnt_reg[0] 
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(\fw_pl_clk1_cnt_reg[0]_2 ),
+        .Q(\fw_pl_clk1_cnt_reg[0]_0 ),
+        .R(SR[0]));
+  FDRE \fw_pl_clk1_cnt_reg[1] 
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(\fw_pl_clk1_cnt[1]_i_1_n_0 ),
+        .Q(\fw_pl_clk1_cnt_reg_n_0_[1] ),
+        .R(SR[1]));
+  FDRE \fw_pl_clk1_cnt_reg[2] 
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(\fw_pl_clk1_cnt[2]_i_1_n_0 ),
+        .Q(\fw_pl_clk1_cnt_reg_n_0_[2] ),
+        .R(SR[1]));
+  FDRE \fw_pl_clk1_cnt_reg[3] 
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(\fw_pl_clk1_cnt[3]_i_1_n_0 ),
+        .Q(\fw_pl_clk1_cnt_reg_n_0_[3] ),
+        .R(SR[1]));
+  FDRE \fw_pl_clk1_cnt_reg[4] 
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(\fw_pl_clk1_cnt[4]_i_1_n_0 ),
+        .Q(\fw_pl_clk1_cnt_reg_n_0_[4] ),
+        .R(SR[1]));
+  FDRE \fw_pl_clk1_cnt_reg[5] 
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(\fw_pl_clk1_cnt[5]_i_2_n_0 ),
+        .Q(\fw_pl_clk1_cnt_reg_n_0_[5] ),
+        .R(SR[1]));
+  FDRE fw_super_pixel_sel_ff_reg
+       (.C(pl_clk1),
+        .CE(1'b1),
+        .D(fw_super_pixel_sel_ff),
+        .Q(fw_super_pixel_sel),
+        .R(SR[0]));
 endmodule
 
 (* ORIG_REF_NAME = "fw_top" *) 
@@ -430,52 +1507,142 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_fw_top
     S_AXI_WREADY,
     S_AXI_BVALID,
     S_AXI_RVALID,
+    super_pixel_sel,
+    bxclk_ana,
+    bxclk,
     S_AXI_ACLK,
-    S_AXI_ARESETN,
+    S_AXI_AWADDR,
+    S_AXI_WDATA,
+    S_AXI_ARVALID,
     S_AXI_AWVALID,
     S_AXI_WVALID,
+    S_AXI_WSTRB,
+    S_AXI_ARESETN,
     S_AXI_BREADY,
-    S_AXI_ARVALID,
-    S_AXI_RREADY);
+    S_AXI_RREADY,
+    pl_clk1);
   output S_AXI_ARREADY;
   output S_AXI_AWREADY;
   output S_AXI_WREADY;
   output S_AXI_BVALID;
   output S_AXI_RVALID;
+  output super_pixel_sel;
+  output bxclk_ana;
+  output bxclk;
   input S_AXI_ACLK;
-  input S_AXI_ARESETN;
+  input [8:0]S_AXI_AWADDR;
+  input [20:0]S_AXI_WDATA;
+  input S_AXI_ARVALID;
   input S_AXI_AWVALID;
   input S_AXI_WVALID;
+  input [2:0]S_AXI_WSTRB;
+  input S_AXI_ARESETN;
   input S_AXI_BREADY;
-  input S_AXI_ARVALID;
   input S_AXI_RREADY;
+  input pl_clk1;
 
   wire S_AXI_ACLK;
   wire S_AXI_ARESETN;
   wire S_AXI_ARREADY;
   wire S_AXI_ARVALID;
+  wire [8:0]S_AXI_AWADDR;
   wire S_AXI_AWREADY;
   wire S_AXI_AWVALID;
   wire S_AXI_BREADY;
   wire S_AXI_BVALID;
   wire S_AXI_RREADY;
   wire S_AXI_RVALID;
+  wire [20:0]S_AXI_WDATA;
   wire S_AXI_WREADY;
+  wire [2:0]S_AXI_WSTRB;
   wire S_AXI_WVALID;
+  wire axi4lite_interface_top_for_pix28_fw_inst_n_1;
+  wire axi4lite_interface_top_for_pix28_fw_inst_n_3;
+  wire axi4lite_interface_top_for_pix28_fw_inst_n_5;
+  wire axi4lite_interface_top_for_pix28_fw_inst_n_6;
+  wire axi4lite_interface_top_for_pix28_fw_inst_n_9;
+  wire bxclk;
+  wire bxclk_ana;
+  wire [12:12]config_static_0;
+  wire [1:1]fw_bxclk;
+  wire [1:1]fw_bxclk_ana;
+  wire [1:1]fw_dev_id_enable;
+  wire fw_ip2_inst_n_3;
+  wire fw_ip2_inst_n_4;
+  wire fw_ip2_inst_n_6;
+  wire fw_ip2_inst_n_7;
+  wire [1:1]fw_pl_clk1_cnt;
+  wire [1:1]fw_super_pixel_sel;
+  wire fw_super_pixel_sel_ff;
+  wire op_code_w_reset;
+  wire p_0_in;
+  wire p_0_out;
+  wire [12:0]p_1_in;
+  wire pl_clk1;
+  wire super_pixel_sel;
 
   cms_pix_28_fw_top_bd_fw_top_v_0_0_axi4lite_interface_top_for_pix28_fw axi4lite_interface_top_for_pix28_fw_inst
-       (.S_AXI_ACLK(S_AXI_ACLK),
+       (.D(axi4lite_interface_top_for_pix28_fw_inst_n_9),
+        .E(axi4lite_interface_top_for_pix28_fw_inst_n_1),
+        .Q(config_static_0),
+        .SR({fw_pl_clk1_cnt,op_code_w_reset}),
+        .S_AXI_ACLK(S_AXI_ACLK),
         .S_AXI_ARESETN(S_AXI_ARESETN),
         .S_AXI_ARREADY(S_AXI_ARREADY),
         .S_AXI_ARVALID(S_AXI_ARVALID),
+        .S_AXI_AWADDR(S_AXI_AWADDR),
         .S_AXI_AWREADY(S_AXI_AWREADY),
         .S_AXI_AWVALID(S_AXI_AWVALID),
         .S_AXI_BREADY(S_AXI_BREADY),
         .S_AXI_BVALID(S_AXI_BVALID),
         .S_AXI_RREADY(S_AXI_RREADY),
         .S_AXI_RVALID(S_AXI_RVALID),
+        .S_AXI_WDATA(S_AXI_WDATA),
         .S_AXI_WREADY(S_AXI_WREADY),
-        .S_AXI_WVALID(S_AXI_WVALID));
+        .S_AXI_WSTRB(S_AXI_WSTRB),
+        .S_AXI_WVALID(S_AXI_WVALID),
+        .fw_bxclk(fw_bxclk),
+        .fw_bxclk_ana(fw_bxclk_ana),
+        .fw_bxclk_ana_ff_reg(axi4lite_interface_top_for_pix28_fw_inst_n_5),
+        .fw_bxclk_ana_ff_reg_0(fw_ip2_inst_n_3),
+        .fw_bxclk_ana_ff_reg_1(fw_ip2_inst_n_4),
+        .fw_bxclk_ff_reg(axi4lite_interface_top_for_pix28_fw_inst_n_6),
+        .\fw_pl_clk1_cnt_reg[0] (fw_ip2_inst_n_6),
+        .\fw_pl_clk1_cnt_reg[1] (fw_ip2_inst_n_7),
+        .fw_super_pixel_sel(fw_super_pixel_sel),
+        .fw_super_pixel_sel_ff(fw_super_pixel_sel_ff),
+        .p_0_in(p_0_in),
+        .p_0_out(p_0_out),
+        .\sw_write32_0_reg[12]_0 (p_1_in),
+        .\sw_write32_0_reg[31]_0 (fw_dev_id_enable),
+        .\sw_write32_0_reg[31]_1 (axi4lite_interface_top_for_pix28_fw_inst_n_3));
+  cms_pix_28_fw_top_bd_fw_top_v_0_0_com_fw_to_dut com_fw_to_dut_inst
+       (.bxclk(bxclk),
+        .bxclk_ana(bxclk_ana),
+        .bxclk_ana_iob_reg_0(axi4lite_interface_top_for_pix28_fw_inst_n_5),
+        .bxclk_iob_reg_0(axi4lite_interface_top_for_pix28_fw_inst_n_6),
+        .p_0_out(p_0_out),
+        .pl_clk1(pl_clk1),
+        .super_pixel_sel(super_pixel_sel));
+  cms_pix_28_fw_top_bd_fw_top_v_0_0_fw_ip2 fw_ip2_inst
+       (.D(p_1_in),
+        .E(axi4lite_interface_top_for_pix28_fw_inst_n_1),
+        .Q(config_static_0),
+        .SR({fw_pl_clk1_cnt,op_code_w_reset}),
+        .S_AXI_ACLK(S_AXI_ACLK),
+        .\config_static_0_reg[5] (fw_ip2_inst_n_3),
+        .fw_bxclk(fw_bxclk),
+        .fw_bxclk_ana(fw_bxclk_ana),
+        .fw_bxclk_ana_ff_reg_0(axi4lite_interface_top_for_pix28_fw_inst_n_3),
+        .fw_bxclk_ff_reg_0(fw_dev_id_enable),
+        .\fw_pl_clk1_cnt_reg[0]_0 (fw_ip2_inst_n_6),
+        .\fw_pl_clk1_cnt_reg[0]_1 (fw_ip2_inst_n_7),
+        .\fw_pl_clk1_cnt_reg[0]_2 (axi4lite_interface_top_for_pix28_fw_inst_n_9),
+        .\fw_pl_clk1_cnt_reg[5]_0 (fw_ip2_inst_n_4),
+        .fw_super_pixel_sel(fw_super_pixel_sel),
+        .fw_super_pixel_sel_ff(fw_super_pixel_sel_ff),
+        .p_0_in(p_0_in),
+        .pl_clk1(pl_clk1));
 endmodule
 
 (* ORIG_REF_NAME = "fw_top_v" *) 
@@ -485,52 +1652,80 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_fw_top_v
     S_AXI_WREADY,
     S_AXI_BVALID,
     S_AXI_RVALID,
+    super_pixel_sel,
+    bxclk_ana,
+    bxclk,
     S_AXI_ACLK,
-    S_AXI_ARESETN,
+    S_AXI_AWADDR,
+    S_AXI_WDATA,
+    S_AXI_ARVALID,
     S_AXI_AWVALID,
     S_AXI_WVALID,
+    S_AXI_WSTRB,
+    S_AXI_ARESETN,
     S_AXI_BREADY,
-    S_AXI_ARVALID,
-    S_AXI_RREADY);
+    S_AXI_RREADY,
+    pl_clk1);
   output S_AXI_ARREADY;
   output S_AXI_AWREADY;
   output S_AXI_WREADY;
   output S_AXI_BVALID;
   output S_AXI_RVALID;
+  output super_pixel_sel;
+  output bxclk_ana;
+  output bxclk;
   input S_AXI_ACLK;
-  input S_AXI_ARESETN;
+  input [8:0]S_AXI_AWADDR;
+  input [20:0]S_AXI_WDATA;
+  input S_AXI_ARVALID;
   input S_AXI_AWVALID;
   input S_AXI_WVALID;
+  input [2:0]S_AXI_WSTRB;
+  input S_AXI_ARESETN;
   input S_AXI_BREADY;
-  input S_AXI_ARVALID;
   input S_AXI_RREADY;
+  input pl_clk1;
 
   wire S_AXI_ACLK;
   wire S_AXI_ARESETN;
   wire S_AXI_ARREADY;
   wire S_AXI_ARVALID;
+  wire [8:0]S_AXI_AWADDR;
   wire S_AXI_AWREADY;
   wire S_AXI_AWVALID;
   wire S_AXI_BREADY;
   wire S_AXI_BVALID;
   wire S_AXI_RREADY;
   wire S_AXI_RVALID;
+  wire [20:0]S_AXI_WDATA;
   wire S_AXI_WREADY;
+  wire [2:0]S_AXI_WSTRB;
   wire S_AXI_WVALID;
+  wire bxclk;
+  wire bxclk_ana;
+  wire pl_clk1;
+  wire super_pixel_sel;
 
   cms_pix_28_fw_top_bd_fw_top_v_0_0_fw_top fw_top_inst
        (.S_AXI_ACLK(S_AXI_ACLK),
         .S_AXI_ARESETN(S_AXI_ARESETN),
         .S_AXI_ARREADY(S_AXI_ARREADY),
         .S_AXI_ARVALID(S_AXI_ARVALID),
+        .S_AXI_AWADDR(S_AXI_AWADDR),
         .S_AXI_AWREADY(S_AXI_AWREADY),
         .S_AXI_AWVALID(S_AXI_AWVALID),
         .S_AXI_BREADY(S_AXI_BREADY),
         .S_AXI_BVALID(S_AXI_BVALID),
         .S_AXI_RREADY(S_AXI_RREADY),
         .S_AXI_RVALID(S_AXI_RVALID),
+        .S_AXI_WDATA(S_AXI_WDATA),
         .S_AXI_WREADY(S_AXI_WREADY),
-        .S_AXI_WVALID(S_AXI_WVALID));
+        .S_AXI_WSTRB(S_AXI_WSTRB),
+        .S_AXI_WVALID(S_AXI_WVALID),
+        .bxclk(bxclk),
+        .bxclk_ana(bxclk_ana),
+        .pl_clk1(pl_clk1),
+        .super_pixel_sel(super_pixel_sel));
 endmodule
 `ifndef GLBL
 `define GLBL
