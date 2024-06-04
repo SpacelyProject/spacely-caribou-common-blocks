@@ -112,7 +112,7 @@
 ./cms_pix_28_test_firmware/src/com_fw_to_dut.sv
 ./cms_pix_28_test_firmware/src/com_op_code_decoder.sv
 ./cms_pix_28_test_firmware/src/com_config_write_regs.sv
-./cms_pix_28_test_firmware/src/com_cdc_synch.sv
+#./cms_pix_28_test_firmware/src/com_cdc_synch.sv
 ./cms_pix_28_test_firmware/src/fw_ip1.sv
 ./cms_pix_28_test_firmware/src/fw_ip2.sv
 ./cms_pix_28_test_firmware/src/fw_ip3.sv
@@ -122,12 +122,13 @@
 ./cms_pix_28_test_firmware/src/fw_top_v.v
 
 # Other RTL files, unrelated
-./configReg_interface/src/configReg_interface.sv
-./configReg_interface/src/configReg_interface_top.v
+#./configReg_interface/src/configReg_interface.sv      Xcelium xrun ERROR
+#./configReg_interface/src/configReg_interface_top.v
 
 #############################
 # Testbench
 #############################
+./cms_pix_28_test_firmware/vrf/fw_ip2_tb.sv
 #./vrf/citc/testbench_austinw/tb_channelA.sv
 //./UVM/TB/TB2v2/QP_TB2v2_testbench_i2c_top.sv
 

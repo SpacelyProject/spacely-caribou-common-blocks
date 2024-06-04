@@ -147,7 +147,7 @@ module axi4lite_interface_top_for_pix28_fw #(
       if(reg_wrByteStrobe[0][2] == 1) sw_write32_0[23:16] <= reg_wrdout[23:16];
       if(reg_wrByteStrobe[0][3] == 1) sw_write32_0[31:24] <= reg_wrdout[31:24];
     end
-  end;
+  end
   // 2. READ registers interface                                               // TODO CG this is new logic w.r.t. ExampleBlock.sv
   // There are three options to implement readout data, see below
 //  always_ff @(posedge S_AXI_ACLK) begin

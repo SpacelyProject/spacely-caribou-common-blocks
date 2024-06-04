@@ -20,7 +20,7 @@ module fw_ip2 (
     input  logic        fw_pl_clk1,                        // FM clock 400MHz       mapped to pl_clk1
     input  logic        fw_axi_clk,                        // FW clock 100MHz       mapped to S_AXI_ACLK
     input  logic        fw_rst_n,                          // FW reset, active low  mapped to S_AXI_ARESETN
-    // SW side signals from/to common_sw_to_fw_side
+    // SW side signals from/to com_sw_to_fw.sv
     input  logic        fw_dev_id_enable,                  // up to 15 FW can be connected
     input  logic        fw_op_code_w_reset,
     input  logic        fw_op_code_w_cfg_static_0,
@@ -36,7 +36,7 @@ module fw_ip2 (
     input  logic [23:0] sw_write24_0,                      // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     output logic [31:0] fw_read_data32,                    // 32-bit read_data   from FW to SW
     output logic [31:0] fw_read_status32,                  // 32-bit read_status from FW to SW
-    // DUT side signals to/from common_fw_to_dut_side      // up to 15 FWs can be connected
+    // DUT side signals to/from com_fw_to_dut.sv           // up to 15 FWs can be connected
     // output signals from FW
     output logic fw_super_pixel_sel,
     output logic fw_config_clk,
@@ -142,15 +142,21 @@ module fw_ip2 (
   localparam config_static_0_bxclk_delay_index_min  =  6;  // USAGE of next  5-bits: bit#6-to-10. Use to set clock DELAY (maximum is half clock PERIOD as set by bits 0-to-5)
   localparam config_static_0_bxclk_delay_index_max  = 10;  //
   localparam config_static_0_bxclk_delay_sign_index = 11;  // USAGE of next 1-bit: bit#11. Use it to set clock value (Lor H) in the first bxclk_delay clocks within a bxclk_period
-  logic [5:0] bxclk_period     = config_static_0[config_static_0_bxclk_period_index_max : config_static_0_bxclk_period_index_min];
-  logic [4:0] bxclk_delay      = config_static_0[config_static_0_bxclk_delay_index_max  : config_static_0_bxclk_delay_index_min ];
-  logic       bxclk_delay_sign = config_static_0[config_static_0_bxclk_delay_sign_index];
   // 00.00.00.01.02.03.04.05.06.07.08.09.10.01.02.03.04.05.06.07.08.09.10.               fw_pl_clk1_cnt
   // LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.            fw_bxclk_ana_ff
   // LL.LL.LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.      fw_bxclk_ff when bxclk_delay_sign==0 and bxclk_delay==2
   // LL.LL.LL.LL.HH.HH.HH.LL.LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.                  fw_bxclk_ff when bxclk_delay_sign==1 and bxclk_delay==2
   localparam config_static_0_super_pix_sel_index    = 12;
-  logic      super_pix_sel     = config_static_0[config_static_0_super_pix_sel_index];
+  //
+  logic [5:0] bxclk_period;
+  logic [4:0] bxclk_delay;
+  logic       bxclk_delay_sign;
+  logic       super_pix_sel;
+
+  assign bxclk_period     = config_static_0[config_static_0_bxclk_period_index_max : config_static_0_bxclk_period_index_min];
+  assign bxclk_delay      = config_static_0[config_static_0_bxclk_delay_index_max  : config_static_0_bxclk_delay_index_min ];
+  assign bxclk_delay_sign = config_static_0[config_static_0_bxclk_delay_sign_index];
+  assign super_pix_sel    = config_static_0[config_static_0_super_pix_sel_index];
 
   logic [5:0] fw_pl_clk1_cnt;
   always @(posedge fw_pl_clk1) begin : fw_pl_clk1_cnt_proc

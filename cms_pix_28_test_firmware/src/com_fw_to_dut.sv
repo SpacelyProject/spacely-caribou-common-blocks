@@ -261,7 +261,7 @@ module com_fw_to_dut(
     dnn_output_0_iob         <= dnn_output_0;
     dnn_output_1_iob         <= dnn_output_1;
     dn_event_toggle_iob      <= dn_event_toggle;
-  end;
+  end
 
 endmodule
 
