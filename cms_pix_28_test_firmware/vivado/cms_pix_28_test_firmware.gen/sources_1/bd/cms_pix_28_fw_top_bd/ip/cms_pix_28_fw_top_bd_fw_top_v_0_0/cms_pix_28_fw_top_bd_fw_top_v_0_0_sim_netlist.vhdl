@@ -1,7 +1,7 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
--- Date        : Mon Jun  3 19:46:14 2024
+-- Date        : Tue Jun  4 12:35:51 2024
 -- Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 -- Command     : write_vhdl -force -mode funcsim
 --               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/cms_pix_28_fw_top_bd_fw_top_v_0_0_sim_netlist.vhdl
@@ -347,6 +347,7 @@ entity cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs is
 end cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs;
 
 architecture STRUCTURE of cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs is
+  signal bxclk_delay : STD_LOGIC_VECTOR ( 4 downto 0 );
   signal config_static_0 : STD_LOGIC_VECTOR ( 11 to 11 );
   signal \config_static_0_reg_n_0_[0]\ : STD_LOGIC;
   signal \config_static_0_reg_n_0_[1]\ : STD_LOGIC;
@@ -366,7 +367,6 @@ architecture STRUCTURE of cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_reg
   signal fw_bxclk_ff_i_9_n_0 : STD_LOGIC;
   signal \fw_pl_clk1_cnt[5]_i_4_n_0\ : STD_LOGIC;
   signal \fw_pl_clk1_cnt[5]_i_5_n_0\ : STD_LOGIC;
-  signal p_0_in1_in : STD_LOGIC_VECTOR ( 4 downto 0 );
   attribute SOFT_HLUTNM : string;
   attribute SOFT_HLUTNM of fw_bxclk_ff_i_10 : label is "soft_lutpair10";
   attribute SOFT_HLUTNM of fw_bxclk_ff_i_5 : label is "soft_lutpair10";
@@ -385,7 +385,7 @@ begin
       CE => E(0),
       CLR => p_0_in,
       D => D(10),
-      Q => p_0_in1_in(4)
+      Q => bxclk_delay(4)
     );
 \config_static_0_reg[11]\: unisim.vcomponents.FDCE
      port map (
@@ -449,7 +449,7 @@ begin
       CE => E(0),
       CLR => p_0_in,
       D => D(6),
-      Q => p_0_in1_in(0)
+      Q => bxclk_delay(0)
     );
 \config_static_0_reg[7]\: unisim.vcomponents.FDCE
      port map (
@@ -457,7 +457,7 @@ begin
       CE => E(0),
       CLR => p_0_in,
       D => D(7),
-      Q => p_0_in1_in(1)
+      Q => bxclk_delay(1)
     );
 \config_static_0_reg[8]\: unisim.vcomponents.FDCE
      port map (
@@ -465,7 +465,7 @@ begin
       CE => E(0),
       CLR => p_0_in,
       D => D(8),
-      Q => p_0_in1_in(2)
+      Q => bxclk_delay(2)
     );
 \config_static_0_reg[9]\: unisim.vcomponents.FDCE
      port map (
@@ -473,7 +473,7 @@ begin
       CE => E(0),
       CLR => p_0_in,
       D => D(9),
-      Q => p_0_in1_in(3)
+      Q => bxclk_delay(3)
     );
 fw_bxclk_ana_ff_i_2: unisim.vcomponents.LUT6
     generic map(
@@ -518,7 +518,7 @@ fw_bxclk_ff_i_10: unisim.vcomponents.LUT2
       INIT => X"6"
     )
         port map (
-      I0 => p_0_in1_in(3),
+      I0 => bxclk_delay(3),
       I1 => \config_static_0_reg_n_0_[4]\,
       O => fw_bxclk_ff_i_10_n_0
     );
@@ -531,7 +531,7 @@ fw_bxclk_ff_i_2: unisim.vcomponents.LUT6
       I1 => Q(4),
       I2 => Q(5),
       I3 => \config_static_0_reg_n_0_[5]\,
-      I4 => p_0_in1_in(4),
+      I4 => bxclk_delay(4),
       I5 => fw_bxclk_ff_i_5_n_0,
       O => fw_bxclk_ff_i_2_n_0
     );
@@ -540,9 +540,9 @@ fw_bxclk_ff_i_3: unisim.vcomponents.LUT6
       INIT => X"00000000B2BB22B2"
     )
         port map (
-      I0 => p_0_in1_in(4),
+      I0 => bxclk_delay(4),
       I1 => Q(4),
-      I2 => p_0_in1_in(3),
+      I2 => bxclk_delay(3),
       I3 => Q(3),
       I4 => fw_bxclk_ff_i_6_n_0,
       I5 => Q(5),
@@ -567,7 +567,7 @@ fw_bxclk_ff_i_5: unisim.vcomponents.LUT3
     )
         port map (
       I0 => \config_static_0_reg_n_0_[4]\,
-      I1 => p_0_in1_in(3),
+      I1 => bxclk_delay(3),
       I2 => fw_bxclk_ff_i_9_n_0,
       O => fw_bxclk_ff_i_5_n_0
     );
@@ -577,11 +577,11 @@ fw_bxclk_ff_i_6: unisim.vcomponents.LUT6
     )
         port map (
       I0 => Q(0),
-      I1 => p_0_in1_in(0),
+      I1 => bxclk_delay(0),
       I2 => Q(1),
-      I3 => p_0_in1_in(1),
+      I3 => bxclk_delay(1),
       I4 => Q(2),
-      I5 => p_0_in1_in(2),
+      I5 => bxclk_delay(2),
       O => fw_bxclk_ff_i_6_n_0
     );
 fw_bxclk_ff_i_7: unisim.vcomponents.LUT6
@@ -591,10 +591,10 @@ fw_bxclk_ff_i_7: unisim.vcomponents.LUT6
         port map (
       I0 => Q(0),
       I1 => Q(1),
-      I2 => p_0_in1_in(0),
+      I2 => bxclk_delay(0),
       I3 => \config_static_0_reg_n_0_[1]\,
       I4 => \config_static_0_reg_n_0_[2]\,
-      I5 => p_0_in1_in(1),
+      I5 => bxclk_delay(1),
       O => fw_bxclk_ff_i_7_n_0
     );
 fw_bxclk_ff_i_8: unisim.vcomponents.LUT6
@@ -603,11 +603,11 @@ fw_bxclk_ff_i_8: unisim.vcomponents.LUT6
     )
         port map (
       I0 => \config_static_0_reg_n_0_[1]\,
-      I1 => p_0_in1_in(0),
-      I2 => p_0_in1_in(1),
+      I1 => bxclk_delay(0),
+      I2 => bxclk_delay(1),
       I3 => \config_static_0_reg_n_0_[2]\,
       I4 => \config_static_0_reg_n_0_[3]\,
-      I5 => p_0_in1_in(2),
+      I5 => bxclk_delay(2),
       O => fw_bxclk_ff_i_8_n_0
     );
 fw_bxclk_ff_i_9: unisim.vcomponents.LUT6
@@ -616,10 +616,10 @@ fw_bxclk_ff_i_9: unisim.vcomponents.LUT6
     )
         port map (
       I0 => \config_static_0_reg_n_0_[3]\,
-      I1 => p_0_in1_in(2),
+      I1 => bxclk_delay(2),
       I2 => \config_static_0_reg_n_0_[1]\,
-      I3 => p_0_in1_in(0),
-      I4 => p_0_in1_in(1),
+      I3 => bxclk_delay(0),
+      I4 => bxclk_delay(1),
       I5 => \config_static_0_reg_n_0_[2]\,
       O => fw_bxclk_ff_i_9_n_0
     );

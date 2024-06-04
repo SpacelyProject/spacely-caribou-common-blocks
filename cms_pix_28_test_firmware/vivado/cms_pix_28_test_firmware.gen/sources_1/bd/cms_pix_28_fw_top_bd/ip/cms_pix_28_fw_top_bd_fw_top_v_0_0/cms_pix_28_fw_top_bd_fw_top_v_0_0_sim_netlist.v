@@ -1,7 +1,7 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-// Date        : Mon Jun  3 19:46:13 2024
+// Date        : Tue Jun  4 12:35:51 2024
 // Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 // Command     : write_verilog -force -mode funcsim
 //               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/cms_pix_28_fw_top_bd_fw_top_v_0_0_sim_netlist.v
@@ -1016,6 +1016,7 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs
   wire [0:0]E;
   wire [5:0]Q;
   wire S_AXI_ACLK;
+  wire [4:0]bxclk_delay;
   wire [11:11]config_static_0;
   wire \config_static_0_reg[11]_0 ;
   wire [0:0]\config_static_0_reg[12]_0 ;
@@ -1042,7 +1043,6 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs
   wire \fw_pl_clk1_cnt[5]_i_5_n_0 ;
   wire \fw_pl_clk1_cnt_reg[0] ;
   wire p_0_in;
-  wire [4:0]p_0_in1_in;
 
   FDCE \config_static_0_reg[0] 
        (.C(S_AXI_ACLK),
@@ -1055,7 +1055,7 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs
         .CE(E),
         .CLR(p_0_in),
         .D(D[10]),
-        .Q(p_0_in1_in[4]));
+        .Q(bxclk_delay[4]));
   FDCE \config_static_0_reg[11] 
        (.C(S_AXI_ACLK),
         .CE(E),
@@ -1103,25 +1103,25 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs
         .CE(E),
         .CLR(p_0_in),
         .D(D[6]),
-        .Q(p_0_in1_in[0]));
+        .Q(bxclk_delay[0]));
   FDCE \config_static_0_reg[7] 
        (.C(S_AXI_ACLK),
         .CE(E),
         .CLR(p_0_in),
         .D(D[7]),
-        .Q(p_0_in1_in[1]));
+        .Q(bxclk_delay[1]));
   FDCE \config_static_0_reg[8] 
        (.C(S_AXI_ACLK),
         .CE(E),
         .CLR(p_0_in),
         .D(D[8]),
-        .Q(p_0_in1_in[2]));
+        .Q(bxclk_delay[2]));
   FDCE \config_static_0_reg[9] 
        (.C(S_AXI_ACLK),
         .CE(E),
         .CLR(p_0_in),
         .D(D[9]),
-        .Q(p_0_in1_in[3]));
+        .Q(bxclk_delay[3]));
   LUT6 #(
     .INIT(64'h00000000B2BB22B2)) 
     fw_bxclk_ana_ff_i_2
@@ -1155,7 +1155,7 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs
   LUT2 #(
     .INIT(4'h6)) 
     fw_bxclk_ff_i_10
-       (.I0(p_0_in1_in[3]),
+       (.I0(bxclk_delay[3]),
         .I1(\config_static_0_reg_n_0_[4] ),
         .O(fw_bxclk_ff_i_10_n_0));
   LUT6 #(
@@ -1165,15 +1165,15 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs
         .I1(Q[4]),
         .I2(Q[5]),
         .I3(\config_static_0_reg_n_0_[5] ),
-        .I4(p_0_in1_in[4]),
+        .I4(bxclk_delay[4]),
         .I5(fw_bxclk_ff_i_5_n_0),
         .O(fw_bxclk_ff_i_2_n_0));
   LUT6 #(
     .INIT(64'h00000000B2BB22B2)) 
     fw_bxclk_ff_i_3
-       (.I0(p_0_in1_in[4]),
+       (.I0(bxclk_delay[4]),
         .I1(Q[4]),
-        .I2(p_0_in1_in[3]),
+        .I2(bxclk_delay[3]),
         .I3(Q[3]),
         .I4(fw_bxclk_ff_i_6_n_0),
         .I5(Q[5]),
@@ -1193,47 +1193,47 @@ module cms_pix_28_fw_top_bd_fw_top_v_0_0_com_config_write_regs
     .INIT(8'hE8)) 
     fw_bxclk_ff_i_5
        (.I0(\config_static_0_reg_n_0_[4] ),
-        .I1(p_0_in1_in[3]),
+        .I1(bxclk_delay[3]),
         .I2(fw_bxclk_ff_i_9_n_0),
         .O(fw_bxclk_ff_i_5_n_0));
   LUT6 #(
     .INIT(64'hDF0DFFFF0000DF0D)) 
     fw_bxclk_ff_i_6
        (.I0(Q[0]),
-        .I1(p_0_in1_in[0]),
+        .I1(bxclk_delay[0]),
         .I2(Q[1]),
-        .I3(p_0_in1_in[1]),
+        .I3(bxclk_delay[1]),
         .I4(Q[2]),
-        .I5(p_0_in1_in[2]),
+        .I5(bxclk_delay[2]),
         .O(fw_bxclk_ff_i_6_n_0));
   LUT6 #(
     .INIT(64'h73311FF71FF77331)) 
     fw_bxclk_ff_i_7
        (.I0(Q[0]),
         .I1(Q[1]),
-        .I2(p_0_in1_in[0]),
+        .I2(bxclk_delay[0]),
         .I3(\config_static_0_reg_n_0_[1] ),
         .I4(\config_static_0_reg_n_0_[2] ),
-        .I5(p_0_in1_in[1]),
+        .I5(bxclk_delay[1]),
         .O(fw_bxclk_ff_i_7_n_0));
   LUT6 #(
     .INIT(64'hF880077F077FF880)) 
     fw_bxclk_ff_i_8
        (.I0(\config_static_0_reg_n_0_[1] ),
-        .I1(p_0_in1_in[0]),
-        .I2(p_0_in1_in[1]),
+        .I1(bxclk_delay[0]),
+        .I2(bxclk_delay[1]),
         .I3(\config_static_0_reg_n_0_[2] ),
         .I4(\config_static_0_reg_n_0_[3] ),
-        .I5(p_0_in1_in[2]),
+        .I5(bxclk_delay[2]),
         .O(fw_bxclk_ff_i_8_n_0));
   LUT6 #(
     .INIT(64'hEEEEE888E8888888)) 
     fw_bxclk_ff_i_9
        (.I0(\config_static_0_reg_n_0_[3] ),
-        .I1(p_0_in1_in[2]),
+        .I1(bxclk_delay[2]),
         .I2(\config_static_0_reg_n_0_[1] ),
-        .I3(p_0_in1_in[0]),
-        .I4(p_0_in1_in[1]),
+        .I3(bxclk_delay[0]),
+        .I4(bxclk_delay[1]),
         .I5(\config_static_0_reg_n_0_[2] ),
         .O(fw_bxclk_ff_i_9_n_0));
   LUT2 #(

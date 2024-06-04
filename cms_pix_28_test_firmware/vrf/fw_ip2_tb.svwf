@@ -1,0 +1,178 @@
+
+#
+# Mnemonic Maps
+#
+mmap new  -reuse -name {Boolean as Logic} -radix %b -contents {{%c=FALSE -edgepriority 1 -shape low}
+{%c=TRUE -edgepriority 1 -shape high}}
+mmap new  -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor orange -label REG:%x -linecolor yellow -shape bus}
+{%x=1F -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=2C -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=* -label %x -linecolor gray -shape bus}}
+
+array unset createdGroup
+array set createdGroup {}
+set id [waveform add -cdivider divider]
+set id [waveform add -label fw_ip2_tb.DUT -comment {}]
+waveform format $id -namecolor #ff0000
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_pl_clk1}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_axi_clk}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_rst_n}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_dev_id_enable}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_op_code_w_reset}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_op_code_w_cfg_static_0}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_op_code_r_cfg_static_0}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_op_code_w_cfg_array_0}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_op_code_r_cfg_array_0}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_op_code_w_cfg_array_1}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_op_code_r_cfg_array_1}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_op_code_r_data_array_0}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_op_code_r_data_array_1}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_op_code_r_status}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_op_code_w_execute}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sw_write24_0[23:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_read_data32[31:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_read_status32[31:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_super_pixel_sel}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_config_clk}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_reset_not}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_config_in}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_config_load}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_bxclk_ana}]}
+	} ]]
+waveform format $id -color #ff9900 -namecolor #ff9900
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_bxclk}]}
+	} ]]
+waveform format $id -color #ff9900 -namecolor #ff9900
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_vin_test_trig_out}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_scan_in}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_scan_load}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_config_out}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_scan_out}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_dnn_output_0}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_dnn_output_1}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_dn_event_toggle}]}
+	} ]]
+set id [waveform add -cdivider divider]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.tb_testcase}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.tb_number}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.tb_mismatch}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.tb_err[15:0]}]}
+	} ]]
+set id [waveform add -cdivider divider]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_pl_clk1_cnt[5:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.bxclk_period[5:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.bxclk_delay[4:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.bxclk_delay_sign}]}
+	} ]]
+set id [waveform add -cdivider divider]
+set id [waveform add -label fw_ip2_tb.DUT.com_config_write_regs_inst -comment {}]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.fw_clk_100}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.fw_rst_n}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.op_code_w_cfg_array_0}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.op_code_w_cfg_array_1}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.op_code_w_cfg_static_0}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.op_code_w_reset}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.sw_write24_0[23:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.config_static_0[23:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.config_array_0[255:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.config_array_1[255:0]}]}
+	} ]]
+set id [waveform add -cdivider divider]
+
+waveform xview limits 46.582ns 447.438ns
