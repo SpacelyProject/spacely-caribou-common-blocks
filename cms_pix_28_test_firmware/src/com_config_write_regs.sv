@@ -25,43 +25,43 @@ module com_config_write_regs (
     input  logic        op_code_w_cfg_array_1,
     input  logic [23:0] sw_write24_0,                      // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     //
-    output logic        [23:0] config_static_0,
-    output logic [255:0][15:0] config_array_0,
-    output logic [255:0][15:0] config_array_1
+    output logic        [23:0] w_cfg_static_0_reg,
+    output logic [255:0][15:0] w_cfg_array_0_reg,
+    output logic [255:0][15:0] w_cfg_array_1_reg
   );
 
   always @(posedge fw_clk_100 or negedge fw_rst_n) begin   // mapped to S_AXI_ACLK, S_AXI_ARESETN
     if(~fw_rst_n) begin
-      config_static_0 <= 24'b0;
+      w_cfg_static_0_reg <= 24'b0;
     end else begin
       if(op_code_w_reset) begin
-        config_static_0 <= 24'b0;
+        w_cfg_static_0_reg <= 24'b0;
       end else if(op_code_w_cfg_static_0) begin
-        config_static_0 <= sw_write24_0;
+        w_cfg_static_0_reg <= sw_write24_0;
       end
     end
   end
 
   always @(posedge fw_clk_100 or negedge fw_rst_n) begin   // mapped to S_AXI_ACLK, S_AXI_ARESETN
     if(~fw_rst_n) begin
-      config_array_0 <= 4096'b0;
+      w_cfg_array_0_reg <= 4096'b0;
     end else begin
       if(op_code_w_reset) begin
-        config_array_0 <= 4096'b0;
+        w_cfg_array_0_reg <= 4096'b0;
       end else if(op_code_w_cfg_array_0) begin
-        config_array_0[sw_write24_0[23:16]] <= sw_write24_0[15:0];
+        w_cfg_array_0_reg[sw_write24_0[23:16]] <= sw_write24_0[15:0];
       end
     end
   end
 
   always @(posedge fw_clk_100 or negedge fw_rst_n) begin   // mapped to S_AXI_ACLK, S_AXI_ARESETN
     if(~fw_rst_n) begin
-      config_array_1 <= 4096'b0;
+      w_cfg_array_1_reg <= 4096'b0;
     end else begin
       if(op_code_w_reset) begin
-        config_array_1 <= 4096'b0;
+        w_cfg_array_1_reg <= 4096'b0;
       end else if(op_code_w_cfg_array_1) begin
-        config_array_1[sw_write24_0[23:16]] <= sw_write24_0[15:0];
+        w_cfg_array_1_reg[sw_write24_0[23:16]] <= sw_write24_0[15:0];
       end
     end
   end

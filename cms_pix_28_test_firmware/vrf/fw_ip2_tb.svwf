@@ -128,6 +128,7 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.tb_err[15:0]}]}
 	} ]]
+waveform format $id -color #ff9900 -namecolor #ff9900
 set id [waveform add -cdivider divider]
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.fw_pl_clk1_cnt[5:0]}]}
@@ -165,14 +166,14 @@ set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.sw_write24_0[23:0]}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.config_static_0[23:0]}]}
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.w_cfg_static_0_reg[23:0]}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.config_array_0[255:0]}]}
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.w_cfg_array_0_reg[255:0]}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.config_array_1[255:0]}]}
+	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.w_cfg_array_1_reg[255:0]}]}
 	} ]]
 set id [waveform add -cdivider divider]
 
-waveform xview limits 46.582ns 447.438ns
+waveform xview limits 0 20130ns

@@ -201,8 +201,8 @@ module fw_top #(
   logic [3:0] fw_dnn_output_1;
   logic [3:0] fw_dn_event_toggle;
   com_fw_to_dut com_fw_to_dut_inst (
-    .iob_clk                 (pl_clk1),                    // FW clock              mapped to S_AXI_ACLK
-    .fw_dev_id_enable        (fw_dev_id_enable),           // up to 15 FWs can be connected;
+    .iob_clk                 (pl_clk1),                              // FM clock 400MHz       mapped to pl_clk1
+    .fw_dev_id_enable        (fw_dev_id_enable),                     // up to 15 FWs can be connected;
     // FW side ports
     // output signals from FW
     .fw_super_pixel_sel      (fw_super_pixel_sel),
@@ -261,7 +261,7 @@ module fw_top #(
     .sw_write24_0              (sw_write24_0),                       // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     .fw_read_data32            (fw_read_data32[0]),                  // 32-bit read_data   from FW to SW
     .fw_read_status32          (fw_read_status32[0]),                // 32-bit read_status from FW to SW
-    // DUT side signals to/from com_fw_to_dut                     // up to 15 FWs can be connected;
+    // DUT side signals to/from com_fw_to_dut                        // up to 15 FWs can be connected;
     // output signals from FW
     .fw_super_pixel_sel        (fw_super_pixel_sel[0]),
     .fw_config_clk             (fw_config_clk[0]),
@@ -302,7 +302,7 @@ module fw_top #(
     .sw_write24_0              (sw_write24_0),                       // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     .fw_read_data32            (fw_read_data32[1]),                  // 32-bit read_data   from FW to SW
     .fw_read_status32          (fw_read_status32[1]),                // 32-bit read_status from FW to SW
-    // DUT side signals to/from com_fw_to_dut                     // up to 15 FWs can be connected;
+    // DUT side signals to/from com_fw_to_dut                        // up to 15 FWs can be connected;
     // output signals from FW
     .fw_super_pixel_sel        (fw_super_pixel_sel[1]),
     .fw_config_clk             (fw_config_clk[1]),
@@ -342,7 +342,7 @@ module fw_top #(
     .sw_write24_0              (sw_write24_0),                       // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     .fw_read_data32            (fw_read_data32[2]),                  // 32-bit read_data   from FW to SW
     .fw_read_status32          (fw_read_status32[2]),                // 32-bit read_status from FW to SW
-    // DUT side signals to/from com_fw_to_dut                     // up to 15 FWs can be connected;
+    // DUT side signals to/from com_fw_to_dut                        // up to 15 FWs can be connected;
     // output signals from FW
     .fw_super_pixel_sel        (fw_super_pixel_sel[2]),
     .fw_config_clk             (fw_config_clk[2]),
@@ -382,7 +382,7 @@ module fw_top #(
     .sw_write24_0              (sw_write24_0),                       // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     .fw_read_data32            (fw_read_data32[3]),                  // 32-bit read_data   from FW to SW
     .fw_read_status32          (fw_read_status32[3]),                // 32-bit read_status from FW to SW
-    // DUT side signals to/from com_fw_to_dut                     // up to 15 FWs can be connected;
+    // DUT side signals to/from com_fw_to_dut                        // up to 15 FWs can be connected;
     // output signals from FW
     .fw_super_pixel_sel        (fw_super_pixel_sel[3]),
     .fw_config_clk             (fw_config_clk[3]),

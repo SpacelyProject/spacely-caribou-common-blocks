@@ -37,7 +37,7 @@ module fw_ip2 (
     output logic [31:0] fw_read_data32,                    // 32-bit read_data   from FW to SW
     output logic [31:0] fw_read_status32,                  // 32-bit read_status from FW to SW
     // DUT side signals to/from com_fw_to_dut.sv           // up to 15 FWs can be connected
-    // output signals from FW
+    // output signals from FW to DUT
     output logic fw_super_pixel_sel,
     output logic fw_config_clk,
     output logic fw_reset_not,
@@ -48,7 +48,7 @@ module fw_ip2 (
     output logic fw_vin_test_trig_out,
     output logic fw_scan_in,
     output logic fw_scan_load,
-    // input signals to FW
+    // input signals to FW from DUT
     input  logic fw_config_out,
     input  logic fw_scan_out,
     input  logic fw_dnn_output_0,
@@ -58,8 +58,8 @@ module fw_ip2 (
 
   // TODO Add real logic for output signals below;
   // TODO If the output signal is not used by this module, leave assignment to zero.
-  assign fw_read_data32       = 32'h0;
-  assign fw_read_status32     = 32'h0;
+//  assign fw_read_data32       = 32'h0;
+//  assign fw_read_status32     = 32'h0;
 //  assign fw_super_pixel_sel   = 1'b0;
   assign fw_config_clk        = 1'b0;
   assign fw_reset_not         = 1'b0;
@@ -111,23 +111,61 @@ module fw_ip2 (
   );
 
   // Instantiate module com_config_write_regs.sv
-  logic [23:0]        config_static_0;
-  logic [255:0][15:0] config_array_0;
-  logic [255:0][15:0] config_array_1;
+  logic [23:0]        w_cfg_static_0_reg;
+  logic [255:0][15:0] w_cfg_array_0_reg;
+  logic [255:0][15:0] w_cfg_array_1_reg;
   com_config_write_regs com_config_write_regs_inst (
-    .fw_clk_100              (fw_axi_clk),                        // FW clock 100MHz       mapped to S_AXI_ACLK
-    .fw_rst_n                (fw_rst_n),                          // FW reset, active low  mapped to S_AXI_ARESETN
+    .fw_clk_100              (fw_axi_clk),                 // FW clock 100MHz       mapped to S_AXI_ACLK
+    .fw_rst_n                (fw_rst_n),                   // FW reset, active low  mapped to S_AXI_ARESETN
     //
     .op_code_w_reset         (op_code_w_reset),
     .op_code_w_cfg_static_0  (op_code_w_cfg_static_0),
     .op_code_w_cfg_array_0   (op_code_w_cfg_array_0),
     .op_code_w_cfg_array_1   (op_code_w_cfg_array_1),
-    .sw_write24_0            (sw_write24_0),                      // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
+    .sw_write24_0            (sw_write24_0),               // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     //
-    .config_static_0         (config_static_0),
-    .config_array_0          (config_array_0),
-    .config_array_1          (config_array_1)
+    .w_cfg_static_0_reg      (w_cfg_static_0_reg),         // on clock domain fw_axi_clk
+    .w_cfg_array_0_reg       (w_cfg_array_0_reg),          // on clock domain fw_axi_clk
+    .w_cfg_array_1_reg       (w_cfg_array_1_reg)           // on clock domain fw_axi_clk
   );
+
+  //
+  logic [31:0] fw_read_data32_comb;                        // 32-bit read_data   from FW to SW
+  always_comb begin
+    if(op_code_r_cfg_static_0) begin
+      // AXI SW will readout com_config_write_regs.sv output signal w_cfg_static_0_reg, which is 24-bits. Must pad with zero up to 32-bits.
+      fw_read_data32_comb = {8'h0, w_cfg_static_0_reg};
+    end else if(op_code_r_cfg_array_0) begin
+      // AXI SW will readout com_config_write_regs.sv output signal w_cfg_array_0_reg, which is 16-bits for the requested address sw_write24_0[23:16].
+      // For efficiency, read also w_cfg_array_0_reg at next address. CAUTION: SW must take care not to OVERFLOW addresses
+      fw_read_data32_comb = {w_cfg_array_0_reg[sw_write24_0[23:16]+1], w_cfg_array_0_reg[sw_write24_0[23:16]]};
+    end else if(op_code_r_cfg_array_1) begin
+      // AXI SW will readout com_config_write_regs.sv output signal w_cfg_array_1_reg, which is 16-bits for the requested address sw_write24_0[23:16].
+      // For efficiency, read also w_cfg_array_1_reg at next address. CAUTION: SW must take care not to OVERFLOW addresses
+      fw_read_data32_comb = {w_cfg_array_1_reg[sw_write24_0[23:16]+1], w_cfg_array_1_reg[sw_write24_0[23:16]]};
+    end else if(op_code_r_data_array_0) begin
+      // TODO update code here
+      fw_read_data32_comb = 32'b0;                         // incoming data on clock domain fw_pl_clk1
+    end else if(op_code_r_data_array_1) begin
+      // TODO update code here
+      fw_read_data32_comb = 32'b0;                         // incoming data on clock domain fw_pl_clk1
+    end else begin
+      fw_read_data32_comb = 32'b0;
+    end
+  end
+  assign fw_read_data32 = fw_read_data32_comb;
+
+  //
+  logic [31:0] fw_read_status32_comb;                      // 32-bit read_status from FW to SW
+  always_comb begin
+    if(op_code_r_status) begin
+      // TODO add code here
+      fw_read_status32_comb = 32'b0;                       // incoming data on clock domain fw_pl_clk1
+    end else begin
+      fw_read_status32_comb = 32'b0;
+    end
+  end
+  assign fw_read_status32 = fw_read_status32_comb;
 
 //  // Instantiate module com_cdc_synch.sv
 //  logic synch_op_code_w_reset;
@@ -137,26 +175,26 @@ module fw_ip2 (
 //    .o_data        (synch_op_code_w_reset)
 //    );
 
-  localparam config_static_0_bxclk_period_index_min =  0;  // USAGE of first 6-bits: bit#0-to-5. USE to set clock PERIOD
-  localparam config_static_0_bxclk_period_index_max =  5;  // example for setting bxclk==40MHz derived from fw_pl_clk1==400MHz: write 6'h0A => 10*2.5ns=25ns;
-  localparam config_static_0_bxclk_delay_index_min  =  6;  // USAGE of next  5-bits: bit#6-to-10. Use to set clock DELAY (maximum is half clock PERIOD as set by bits 0-to-5)
-  localparam config_static_0_bxclk_delay_index_max  = 10;  //
-  localparam config_static_0_bxclk_delay_sign_index = 11;  // USAGE of next 1-bit: bit#11. Use it to set clock value (Lor H) in the first bxclk_delay clocks within a bxclk_period
+  localparam w_cfg_static_0_reg_bxclk_period_index_min =  0;  // USAGE of first 6-bits: bit#0-to-5. USE to set clock PERIOD
+  localparam w_cfg_static_0_reg_bxclk_period_index_max =  5;  // example for setting bxclk==40MHz derived from fw_pl_clk1==400MHz: write 6'h0A => 10*2.5ns=25ns;
+  localparam w_cfg_static_0_reg_bxclk_delay_index_min  =  6;  // USAGE of next  5-bits: bit#6-to-10. Use to set clock DELAY (maximum is half clock PERIOD as set by bits 0-to-5)
+  localparam w_cfg_static_0_reg_bxclk_delay_index_max  = 10;  //
+  localparam w_cfg_static_0_reg_bxclk_delay_sign_index = 11;  // USAGE of next 1-bit: bit#11. Use it to set clock value (Lor H) in the first bxclk_delay clocks within a bxclk_period
   // 00.00.00.01.02.03.04.05.06.07.08.09.10.01.02.03.04.05.06.07.08.09.10.               fw_pl_clk1_cnt
   // LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.            fw_bxclk_ana_ff
   // LL.LL.LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.      fw_bxclk_ff when bxclk_delay_sign==0 and bxclk_delay==2
   // LL.LL.LL.LL.HH.HH.HH.LL.LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.                  fw_bxclk_ff when bxclk_delay_sign==1 and bxclk_delay==2
-  localparam config_static_0_super_pix_sel_index    = 12;
+  localparam w_cfg_static_0_reg_super_pix_sel_index    = 12;
   //
-  logic [5:0] bxclk_period;
-  logic [4:0] bxclk_delay;
-  logic       bxclk_delay_sign;
-  logic       super_pix_sel;
+  logic [5:0] bxclk_period;                                // on clock domain fw_axi_clk
+  logic [4:0] bxclk_delay;                                 // on clock domain fw_axi_clk
+  logic       bxclk_delay_sign;                            // on clock domain fw_axi_clk
+  logic       super_pix_sel;                               // on clock domain fw_axi_clk
 
-  assign bxclk_period     = config_static_0[config_static_0_bxclk_period_index_max : config_static_0_bxclk_period_index_min];
-  assign bxclk_delay      = config_static_0[config_static_0_bxclk_delay_index_max  : config_static_0_bxclk_delay_index_min ];
-  assign bxclk_delay_sign = config_static_0[config_static_0_bxclk_delay_sign_index];
-  assign super_pix_sel    = config_static_0[config_static_0_super_pix_sel_index];
+  assign bxclk_period     = w_cfg_static_0_reg[w_cfg_static_0_reg_bxclk_period_index_max : w_cfg_static_0_reg_bxclk_period_index_min];
+  assign bxclk_delay      = w_cfg_static_0_reg[w_cfg_static_0_reg_bxclk_delay_index_max  : w_cfg_static_0_reg_bxclk_delay_index_min ];
+  assign bxclk_delay_sign = w_cfg_static_0_reg[w_cfg_static_0_reg_bxclk_delay_sign_index];
+  assign super_pix_sel    = w_cfg_static_0_reg[w_cfg_static_0_reg_super_pix_sel_index];
 
   logic [5:0] fw_pl_clk1_cnt;
   always @(posedge fw_pl_clk1) begin : fw_pl_clk1_cnt_proc
@@ -189,10 +227,10 @@ module fw_ip2 (
       if(fw_dev_id_enable) begin
         // this fw_ip2 device is active
         if(fw_pl_clk1_cnt <= (bxclk_period>>1))  begin
-          // keep bxclk_ana HIGH for first half of config_static_0_bxclk_period
+          // keep bxclk_ana HIGH for first half of bxclk_period
           fw_bxclk_ana_ff <= 1'b1;
         end else begin
-          // keep bxclk_ana LOW for second half of config_static_0_bxclk_period
+          // keep bxclk_ana LOW for second half of bxclk_period
           fw_bxclk_ana_ff <= 1'b0;
         end
       end else begin
@@ -213,7 +251,7 @@ module fw_ip2 (
       if(fw_dev_id_enable) begin
         // this fw_ip2 device is active
         if(bxclk_delay_sign==1'b0) begin
-          // bxclk_delay_sign is ZERO:
+          // bxclk_delay_sign is ZERO. The RE of bxclk is after RE of bxclk_ana by bxclk_delay ticks.
           // keep bxclk LOW for bxclk_delay; then HIGH for bxclk_period/2; then again LOW for bxclk_period/2-bxclk_delay
           if (fw_pl_clk1_cnt <= bxclk_delay) begin
             fw_bxclk_ff <= 1'b0;
@@ -223,7 +261,7 @@ module fw_ip2 (
             fw_bxclk_ff <= 1'b0;
           end
         end else begin
-          // bxclk_delay_sign is ONE:
+          // bxclk_delay_sign is ONE.  The FE of bxclk is after RE of bxclk_ana by bxclk_delay ticks
           // keep bxclk HIGH for bxclk_delay; then LOW for bxclk_period/2; then again HIGH for bxclk_period/2-bxclk_delay
           if (fw_pl_clk1_cnt <= bxclk_delay) begin
             fw_bxclk_ff <= 1'b1;
