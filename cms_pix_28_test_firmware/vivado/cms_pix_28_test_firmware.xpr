@@ -192,11 +192,11 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="cms_pix_28_fw_top_bd.bd" FileRelPathName="ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/cms_pix_28_fw_top_bd_fw_top_v_0_0.xci">
-          <Proxy FileSetName="cms_pix_28_fw_top_bd_fw_top_v_0_0"/>
-        </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="cms_pix_28_fw_top_bd.bd" FileRelPathName="ip/cms_pix_28_fw_top_bd_proc_sys_reset_0_0/cms_pix_28_fw_top_bd_proc_sys_reset_0_0.xci">
           <Proxy FileSetName="cms_pix_28_fw_top_bd_proc_sys_reset_0_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="cms_pix_28_fw_top_bd.bd" FileRelPathName="ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/cms_pix_28_fw_top_bd_fw_top_v_0_0.xci">
+          <Proxy FileSetName="cms_pix_28_fw_top_bd_fw_top_v_0_0"/>
         </CompFileExtendedInfo>
       </File>
       <File Path="$PGENDIR/sources_1/bd/cms_pix_28_fw_top_bd/hdl/cms_pix_28_fw_top_bd_wrapper.v">
