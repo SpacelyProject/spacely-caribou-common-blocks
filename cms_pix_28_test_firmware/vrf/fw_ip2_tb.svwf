@@ -129,6 +129,12 @@ set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.tb_err[15:0]}]}
 	} ]]
 waveform format $id -color #ff9900 -namecolor #ff9900
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.tb_w_cfg_array_counter[255:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.tb_w_cfg_array_random[255:0]}]}
+	} ]]
 set id [waveform add -cdivider divider]
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.fw_pl_clk1_cnt[5:0]}]}
@@ -174,9 +180,11 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.w_cfg_array_0_reg[255:0]}]}
 	} ]]
+waveform hierarchy collapse $id
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.w_cfg_array_1_reg[255:0]}]}
 	} ]]
+waveform hierarchy collapse $id
 set id [waveform add -cdivider divider]
 
-waveform xview limits 0 23680ns
+waveform xview limits 0 30720000ps

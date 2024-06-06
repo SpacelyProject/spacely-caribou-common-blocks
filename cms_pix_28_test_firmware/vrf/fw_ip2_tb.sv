@@ -118,7 +118,8 @@ module fw_ip2_tb ();
   localparam tb_err_index_bxclk_period              = 1;
   localparam tb_err_index_bxclk_phase               = 2;
   localparam tb_err_index_op_code_r_cfg_static_0    = 3;
-
+  localparam tb_err_index_op_code_r_cfg_array_0     = 4;
+  localparam tb_err_index_op_code_r_cfg_array_1     = 5;
   // Test Signals
   string  tb_testcase;
   integer tb_number;
@@ -127,10 +128,14 @@ module fw_ip2_tb ();
   logic [15:0] tb_err;
   real         tb_time_t1;
   real         tb_time_t2;
+  // Signals related with w_cfg_static_0_reg
   logic [5:0]  tb_bxclk_period;
   logic [4:0]  tb_bxclk_delay;
   logic        tb_bxclk_delay_sign;
   logic        tb_super_pix_sel;
+  // Signals related with w_cfg_array_0/1_reg
+  logic [255:0][15:0] tb_w_cfg_array_counter;
+  logic [255:0][15:0] tb_w_cfg_array_random;
 
   // Generate free running fw_pl_clk1;           // FM clock 400MHz       mapped to pl_clk1
   always begin: gen_fw_pl_clk1
@@ -182,7 +187,25 @@ module fw_ip2_tb ();
     fw_dn_event_toggle            = 1'b0;
   endfunction
 
-  task randomize_bxclk_period_and_delay();
+  function logic [255:0][15:0] conter_cfg_array();
+    logic [255:0][15:0] my_cfg_array;
+    for(int i=0; i<256; i++) begin
+      my_cfg_array[i][ 7:0] = i       & 8'hFF;
+      my_cfg_array[i][15:8] = (255-i) & 8'hFF;
+    end
+    return my_cfg_array;
+  endfunction
+
+  function logic [255:0][15:0] random_cfg_array();
+    logic [255:0][15:0] my_cfg_array;
+    for(int i=0; i<256; i++) begin
+      my_cfg_array[i] = $urandom_range(2**16-1, 0) & 16'hFFFF;
+    end
+    return my_cfg_array;
+  endfunction
+
+  task w_cfg_static_0_random();
+    @(negedge fw_axi_clk);             // ensure enter on FE of AXI CLK
     fw_op_code_w_cfg_static_0  = 1'b1;
     //if(tb_i_test%3==0) tb_bxclk_period = 6'h0A;                    //(400/10=40MHz)
     //if(tb_i_test%3==1) tb_bxclk_period = 6'h14;                    //(400/20=20MHz)
@@ -199,9 +222,34 @@ module fw_ip2_tb ();
     sw_write24_0              = {11'b0, 1'b0, 1'b0, 5'h0, 6'h0};
   endtask
 
+  task w_cfg_array_0_counter();
+    @(negedge fw_axi_clk);             // ensure enter on FE of AXI CLK
+    fw_op_code_w_cfg_array_0  = 1'b1;
+    sw_write24_0              = 24'h0;
+    #(5*fw_axi_clk_period);
+    for(int i_addr=0; i_addr<256; i_addr++) begin
+      sw_write24_0[23:16] = i_addr & 8'hFF;
+      sw_write24_0[15: 0] = tb_w_cfg_array_counter[i_addr];
+      #(1*fw_axi_clk_period);
+    end
+    fw_op_code_w_cfg_array_0  = 1'b0;
+  endtask
+
+  task w_cfg_array_1_random();
+    @(negedge fw_axi_clk);             // ensure enter on FE of AXI CLK
+    fw_op_code_w_cfg_array_1  = 1'b1;
+    sw_write24_0              = 24'h0;
+    #(5*fw_axi_clk_period);
+    for(int i_addr=0; i_addr<256; i_addr++) begin
+      sw_write24_0[23:16] = i_addr & 8'hFF;
+      sw_write24_0[15: 0] = tb_w_cfg_array_random[i_addr];
+      #(1*fw_axi_clk_period);
+    end
+    fw_op_code_w_cfg_array_1  = 1'b0;
+  endtask
+
   task check_bxclk_period_and_delay();
     begin
-      //
       // $time returns the current simulation time as a 64-bit unsigned integer
       // $stime returns the lower 32-bits of the current simulationt time as an unsigned integer.
       // $realtime returns the current simulation time as a real number.
@@ -209,14 +257,14 @@ module fw_ip2_tb ();
       @(posedge fw_bxclk_ana); tb_time_t1 = $realtime();
       @(posedge fw_bxclk_ana); tb_time_t2 = $realtime();
       if(tb_time_t2-tb_time_t1 != tb_bxclk_period * fw_pl_clk1_period) begin
-        $display("time=%06.2f fw_bxclk_ana FAIL PERIOD: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f bxclk_period=%02d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_period);
+        $display("time=%06.2f FAIL PERIOD fw_bxclk_ana: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f bxclk_period=%02d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_period);
         tb_err[tb_err_index_bxclk_ana_period]=1'b1;
       end
       // 2. CHECK fw_bxclk PERIOD
       @(posedge fw_bxclk); tb_time_t1 = $realtime();
       @(posedge fw_bxclk); tb_time_t2 = $realtime();
       if(tb_time_t2-tb_time_t1 != tb_bxclk_period * fw_pl_clk1_period) begin
-        $display("time=%06.2f fw_bxclk FAIL PERIOD: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f bxclk_period=%02d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_period);
+        $display("time=%06.2f FAIL PERIOD fw_bxclk: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f bxclk_period=%02d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_period);
         tb_err[tb_err_index_bxclk_period]=1'b1;
       end
       // 3. CHECK fw_bxclk vs fw_bxclk_ana PHASE DELAY
@@ -235,70 +283,123 @@ module fw_ip2_tb ();
       if(tb_bxclk_delay==0) begin
         // in this case the signals are either in phase (if tb_bxclk_delay_sign==1'b0) or inverted (if tb_bxclk_delay_sign==1'b1)
         if(tb_time_t2-tb_time_t1 != tb_bxclk_period * fw_pl_clk1_period) begin
-          $display("time=%06.2f FAIL DELAY: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f tb_bxclk_delay=%02d tb_bxclk_delay_sign=%01d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_delay, tb_bxclk_delay_sign);
+          $display("time=%06.2f FAIL DELAY fw_bxclk: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f tb_bxclk_delay=%02d tb_bxclk_delay_sign=%01d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_delay, tb_bxclk_delay_sign);
           tb_err[tb_err_index_bxclk_phase]=1'b1;
         end
       end else begin
         if(tb_time_t2-tb_time_t1 != tb_bxclk_delay * fw_pl_clk1_period) begin
-          $display("time=%06.2f FAIL DELAY: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f tb_bxclk_delay=%02d tb_bxclk_delay_sign=%01d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_delay, tb_bxclk_delay_sign);
+          $display("time=%06.2f FAIL DELAY fw_bxclk: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f tb_bxclk_delay=%02d tb_bxclk_delay_sign=%01d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_delay, tb_bxclk_delay_sign);
           tb_err[tb_err_index_bxclk_phase]=1'b1;
         end
       end
-      // ensure exit on FE of AXI CLK
-      @(negedge fw_axi_clk);
+      @(negedge fw_axi_clk);           // ensure exit on FE of AXI CLK
     end
   endtask
 
-  task check_op_code_r_cfg_static_0();
+  task check_r_cfg_static_0();
+    @(negedge fw_axi_clk);             // ensure enter on FE of AXI CLK
     fw_op_code_r_cfg_static_0  = 1'b1;
     #(1*fw_axi_clk_period);
     if(fw_read_data32 != {11'h0, tb_super_pix_sel, tb_bxclk_delay_sign, tb_bxclk_delay, tb_bxclk_period}) begin
-      $display("time=%06.2f FAIL fw_read_data32=0x%08h expected 0x%08h", $realtime(), fw_read_data32, {11'h0, tb_super_pix_sel, tb_bxclk_delay_sign, tb_bxclk_delay, tb_bxclk_period});
+      $display("time=%06.2f FAIL op_code_r_cfg_static_0 fw_read_data32=0x%08h expected 0x%08h", $realtime(), fw_read_data32, {11'h0, tb_super_pix_sel, tb_bxclk_delay_sign, tb_bxclk_delay, tb_bxclk_period});
       tb_err[tb_err_index_op_code_r_cfg_static_0]=1'b1;
     end
     fw_op_code_r_cfg_static_0  = 1'b0;
-    // ensure exit on FE of AXI CLK
+  endtask
+
+  task check_r_cfg_array_0_counter();  // ensure starting on FE of AXI CLK
     @(negedge fw_axi_clk);
+    fw_op_code_r_cfg_array_0  = 1'b1;
+    sw_write24_0              = 24'h0;
+    #(5*fw_axi_clk_period);
+    for(int i_addr=0; i_addr<256; i_addr=i_addr+2) begin
+      sw_write24_0[23:16] = i_addr & 8'hFF;
+      sw_write24_0[15: 0] = 16'hFFFF;
+      @(posedge fw_axi_clk);
+      if(fw_read_data32 != {tb_w_cfg_array_counter[i_addr+1], tb_w_cfg_array_counter[i_addr]}) begin
+        $display("time=%06.2f FAIL op_code_r_cfg_array_0 i_addr=%03d fw_read_data32=0x%08h expected {0x%04h 0x%04h}", $realtime(), i_addr, fw_read_data32, tb_w_cfg_array_counter[i_addr+1], tb_w_cfg_array_counter[i_addr]);
+        tb_err[tb_err_index_op_code_r_cfg_array_0]=1'b1;
+      end
+      @(negedge fw_axi_clk);
+    end
+    fw_op_code_r_cfg_array_0  = 1'b0;
+  endtask
+
+  task check_r_cfg_array_1_random();   // ensure starting on FE of AXI CLK
+    @(negedge fw_axi_clk);
+    fw_op_code_r_cfg_array_1  = 1'b1;
+    sw_write24_0              = 24'h0;
+    #(5*fw_axi_clk_period);
+    for(int i_addr=0; i_addr<256; i_addr=i_addr+2) begin
+      sw_write24_0[23:16] = i_addr & 8'hFF;
+      sw_write24_0[15: 0] = 16'hFFFF;
+      @(posedge fw_axi_clk);
+      if(fw_read_data32 != {tb_w_cfg_array_random[i_addr+1], tb_w_cfg_array_random[i_addr]}) begin
+        $display("time=%06.2f FAIL op_code_r_cfg_array_0 i_addr=%03d fw_read_data32=0x%08h expected {0x%04h 0x%04h}", $realtime(), i_addr, fw_read_data32, tb_w_cfg_array_random[i_addr+1], tb_w_cfg_array_random[i_addr]);
+        tb_err[tb_err_index_op_code_r_cfg_array_0]=1'b1;
+      end
+      @(negedge fw_axi_clk);
+    end
+    fw_op_code_r_cfg_array_1  = 1'b0;
   endtask
 
   initial begin
-
+    //---------------------------------------------------------------------------------------------
     initialize();
     tb_testcase = "T0. initialize";
     tb_number = 0;
     tb_mismatch = 0;
     tb_err = 16'b0;
-    $display("time %06.2f done: tb_testcase=%s", $realtime, tb_testcase);
-
+    tb_w_cfg_array_counter = {256{16'h0}};
+    tb_w_cfg_array_random  = {256{16'hFFFF}};
+    $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
+    //---------------------------------------------------------------------------------------------
     // Test 1: axi_reset
     tb_testcase = "T1. axi_reset";
-    tb_number = 1;
+    tb_number   = 1;
     axi_reset();
-    $display("time %06.2f done: tb_testcase=%s", $realtime, tb_testcase);
+    $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
     #(10*fw_axi_clk_period);
-
+    //---------------------------------------------------------------------------------------------
     // Test 2: BXCLK/ANA random period and delay test write/read
     tb_testcase = "T2. BXCLK/ANA random period and delay test write/read";
-    tb_number = 2;
+    tb_number   = 2;
     for (tb_i_test = 0; tb_i_test < 50; tb_i_test++) begin
       fw_dev_id_enable = 1'b1;
       // Randomize sw_write24_0 content and issue fw_op_code_w_cfg_static_0 for ONE fw_axi_clk_period
-      randomize_bxclk_period_and_delay();
+      w_cfg_static_0_random();
       // Dummy wait before doing check_bxclk_period_and_delay()
       #(5*fw_axi_clk_period);
       check_bxclk_period_and_delay();
-      // Dummy wait before doing check_op_code_r_cfg_static_0()
+      // Dummy wait before doing check_r_cfg_static_0()
       #(5*fw_axi_clk_period);
-      check_op_code_r_cfg_static_0();
+      check_r_cfg_static_0();
       // Dummy wait before disable fw_dev_id_enable => clocks will become ZERO
       #(5*fw_axi_clk_period);
       fw_dev_id_enable = 1'b0;
       // Dummy wait before next tb_i_test
       #(5*fw_axi_clk_period);
     end
-    $display("time %06.2f done: tb_testcase=%s", $realtime, tb_testcase);
-
-    // Test 3: TODO
+    $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
+    //---------------------------------------------------------------------------------------------
+    // Test 3: cfg_array_0/1 write/read counter/random
+    tb_testcase = "T3. cfg_array_0/1 write/read counter/random";
+    tb_number   = 3;
+    tb_w_cfg_array_counter = conter_cfg_array();
+    tb_w_cfg_array_random  = random_cfg_array();
+    fw_dev_id_enable       = 1'b1;
+    // WRITE fw_op_code_w_cfg_array_0
+    w_cfg_array_0_counter();
+    // WRITE fw_op_code_w_cfg_array_1
+    w_cfg_array_1_random();
+    // READ fw_op_code_r_cfg_array_0
+    check_r_cfg_array_0_counter();
+    // READ fw_op_code_r_cfg_array_1
+    check_r_cfg_array_1_random();
+    fw_dev_id_enable          = 1'b0;
+    #(5*fw_axi_clk_period);
+    $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
+    //---------------------------------------------------------------------------------------------
 
     $display("%s", {80{"-"}});
     $display("simulation done: time %06.2f tb_err = %016b", $realtime, tb_err);
