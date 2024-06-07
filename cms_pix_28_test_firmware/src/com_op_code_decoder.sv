@@ -26,7 +26,7 @@ module com_op_code_decoder (
     input  logic fw_op_code_r_cfg_array_1,
     input  logic fw_op_code_r_data_array_0,
     input  logic fw_op_code_r_data_array_1,
-    input  logic fw_op_code_r_status,
+    input  logic fw_op_code_w_status_clear,
     input  logic fw_op_code_w_execute,
     //
     output logic op_code_w_reset,
@@ -38,7 +38,7 @@ module com_op_code_decoder (
     output logic op_code_r_cfg_array_1,
     output logic op_code_r_data_array_0,
     output logic op_code_r_data_array_1,
-    output logic op_code_r_status,
+    output logic op_code_w_status_clear,
     output logic op_code_w_execute
   );
 
@@ -51,7 +51,7 @@ module com_op_code_decoder (
   assign op_code_r_cfg_array_1    = fw_dev_id_enable & fw_op_code_r_cfg_array_1;
   assign op_code_r_data_array_0   = fw_dev_id_enable & fw_op_code_r_data_array_0;
   assign op_code_r_data_array_1   = fw_dev_id_enable & fw_op_code_r_data_array_1;
-  assign op_code_r_status         = fw_dev_id_enable & fw_op_code_r_status;
+  assign op_code_w_status_clear   = fw_dev_id_enable & fw_op_code_w_status_clear;
   assign op_code_w_execute        = fw_dev_id_enable & fw_op_code_w_execute;
 
 endmodule

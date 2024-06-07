@@ -30,7 +30,7 @@ module fw_ip4 (
     input  logic        fw_op_code_r_cfg_array_1,
     input  logic        fw_op_code_r_data_array_0,
     input  logic        fw_op_code_r_data_array_1,
-    input  logic        fw_op_code_r_status,
+    input  logic        fw_op_code_w_status_clear,
     input  logic        fw_op_code_w_execute,
     input  logic [23:0] sw_write24_0,                      // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     output logic [31:0] fw_read_data32,                    // 32-bit read_data   from FW to SW

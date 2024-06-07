@@ -32,7 +32,7 @@ module fw_ip2_tb ();
   logic        fw_op_code_r_cfg_array_1;
   logic        fw_op_code_r_data_array_0;
   logic        fw_op_code_r_data_array_1;
-  logic        fw_op_code_r_status;
+  logic        fw_op_code_w_status_clear;
   logic        fw_op_code_w_execute;
   logic [23:0] sw_write24_0;                      // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
   logic [31:0] fw_read_data32;                    // 32-bit read_data   from FW to SW
@@ -71,7 +71,7 @@ module fw_ip2_tb ();
     .fw_op_code_r_cfg_array_1     (fw_op_code_r_cfg_array_1),
     .fw_op_code_r_data_array_0    (fw_op_code_r_data_array_0),
     .fw_op_code_r_data_array_1    (fw_op_code_r_data_array_1),
-    .fw_op_code_r_status          (fw_op_code_r_status),
+    .fw_op_code_w_status_clear    (fw_op_code_w_status_clear),
     .fw_op_code_w_execute         (fw_op_code_w_execute),
     .sw_write24_0                 (sw_write24_0),                      // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     .fw_read_data32               (fw_read_data32),                    // 32-bit read_data   from FW to SW
@@ -176,7 +176,7 @@ module fw_ip2_tb ();
     fw_op_code_r_cfg_array_1      = 1'b0;
     fw_op_code_r_data_array_0     = 1'b0;
     fw_op_code_r_data_array_1     = 1'b0;
-    fw_op_code_r_status           = 1'b0;
+    fw_op_code_w_status_clear     = 1'b0;
     fw_op_code_w_execute          = 1'b0;
     sw_write24_0                  = 24'h0;
     // DUT side signals FROM com_fw_to_dut.sv
@@ -246,6 +246,14 @@ module fw_ip2_tb ();
       #(1*fw_axi_clk_period);
     end
     fw_op_code_w_cfg_array_1  = 1'b0;
+  endtask
+
+  task w_status_clear();
+    @(negedge fw_axi_clk);             // ensure enter on FE of AXI CLK
+    fw_op_code_w_status_clear = 1'b1;
+    sw_write24_0              = 24'h0;
+    #(1*fw_axi_clk_period);
+    fw_op_code_w_status_clear = 1'b0;
   endtask
 
   task check_bxclk_period_and_delay();
@@ -361,9 +369,16 @@ module fw_ip2_tb ();
     $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
     #(10*fw_axi_clk_period);
     //---------------------------------------------------------------------------------------------
-    // Test 2: BXCLK/ANA random period and delay test write/read
-    tb_testcase = "T2. BXCLK/ANA random period and delay test write/read";
+    // Test 2: w_status_clear
+    tb_testcase = "T2. w_status_clear";
     tb_number   = 2;
+    fw_dev_id_enable = 1'b1;
+    w_status_clear();
+    $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
+    //---------------------------------------------------------------------------------------------
+    // Test 3: BXCLK/ANA random period and delay test write/read
+    tb_testcase = "T3. BXCLK/ANA random period and delay test write/read";
+    tb_number   = 3;
     for (tb_i_test = 0; tb_i_test < 50; tb_i_test++) begin
       fw_dev_id_enable = 1'b1;
       // Randomize sw_write24_0 content and issue fw_op_code_w_cfg_static_0 for ONE fw_axi_clk_period

@@ -154,7 +154,7 @@ module fw_top #(
   logic        fw_op_code_r_cfg_array_1;
   logic        fw_op_code_r_data_array_0;
   logic        fw_op_code_r_data_array_1;
-  logic        fw_op_code_r_status;
+  logic        fw_op_code_w_status_clear;
   logic        fw_op_code_w_execute;
   logic [23:0]      sw_write24_0;                                    // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
   logic [3:0][31:0] fw_read_data32;                                  // 32-bit read_data   from FW to SW
@@ -175,7 +175,7 @@ module fw_top #(
     .fw_op_code_r_cfg_array_1  (fw_op_code_r_cfg_array_1),
     .fw_op_code_r_data_array_0 (fw_op_code_r_data_array_0),
     .fw_op_code_r_data_array_1 (fw_op_code_r_data_array_1),
-    .fw_op_code_r_status       (fw_op_code_r_status),
+    .fw_op_code_w_status_clear (fw_op_code_w_status_clear),
     .fw_op_code_w_execute      (fw_op_code_w_execute),
     .sw_write24_0              (sw_write24_0),                       // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     .fw_read_data32            (fw_read_data32),                     // 32-bit read_data   from FW to SW
@@ -256,7 +256,7 @@ module fw_top #(
     .fw_op_code_r_cfg_array_1  (fw_op_code_r_cfg_array_1),
     .fw_op_code_r_data_array_0 (fw_op_code_r_data_array_0),
     .fw_op_code_r_data_array_1 (fw_op_code_r_data_array_1),
-    .fw_op_code_r_status       (fw_op_code_r_status),
+    .fw_op_code_w_status_clear (fw_op_code_w_status_clear),
     .fw_op_code_w_execute      (fw_op_code_w_execute),
     .sw_write24_0              (sw_write24_0),                       // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     .fw_read_data32            (fw_read_data32[0]),                  // 32-bit read_data   from FW to SW
@@ -297,7 +297,7 @@ module fw_top #(
     .fw_op_code_r_cfg_array_1  (fw_op_code_r_cfg_array_1),
     .fw_op_code_r_data_array_0 (fw_op_code_r_data_array_0),
     .fw_op_code_r_data_array_1 (fw_op_code_r_data_array_1),
-    .fw_op_code_r_status       (fw_op_code_r_status),
+    .fw_op_code_w_status_clear (fw_op_code_w_status_clear),
     .fw_op_code_w_execute      (fw_op_code_w_execute),
     .sw_write24_0              (sw_write24_0),                       // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     .fw_read_data32            (fw_read_data32[1]),                  // 32-bit read_data   from FW to SW
@@ -337,7 +337,7 @@ module fw_top #(
     .fw_op_code_r_cfg_array_1  (fw_op_code_r_cfg_array_1),
     .fw_op_code_r_data_array_0 (fw_op_code_r_data_array_0),
     .fw_op_code_r_data_array_1 (fw_op_code_r_data_array_1),
-    .fw_op_code_r_status       (fw_op_code_r_status),
+    .fw_op_code_w_status_clear (fw_op_code_w_status_clear),
     .fw_op_code_w_execute      (fw_op_code_w_execute),
     .sw_write24_0              (sw_write24_0),                       // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     .fw_read_data32            (fw_read_data32[2]),                  // 32-bit read_data   from FW to SW
@@ -377,7 +377,7 @@ module fw_top #(
     .fw_op_code_r_cfg_array_1  (fw_op_code_r_cfg_array_1),
     .fw_op_code_r_data_array_0 (fw_op_code_r_data_array_0),
     .fw_op_code_r_data_array_1 (fw_op_code_r_data_array_1),
-    .fw_op_code_r_status       (fw_op_code_r_status),
+    .fw_op_code_w_status_clear (fw_op_code_w_status_clear),
     .fw_op_code_w_execute      (fw_op_code_w_execute),
     .sw_write24_0              (sw_write24_0),                       // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     .fw_read_data32            (fw_read_data32[3]),                  // 32-bit read_data   from FW to SW

@@ -31,7 +31,7 @@ module fw_ip2 (
     input  logic        fw_op_code_r_cfg_array_1,
     input  logic        fw_op_code_r_data_array_0,
     input  logic        fw_op_code_r_data_array_1,
-    input  logic        fw_op_code_r_status,
+    input  logic        fw_op_code_w_status_clear,
     input  logic        fw_op_code_w_execute,
     input  logic [23:0] sw_write24_0,                      // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     output logic [31:0] fw_read_data32,                    // 32-bit read_data   from FW to SW
@@ -81,7 +81,7 @@ module fw_ip2 (
   logic op_code_r_cfg_array_1;
   logic op_code_r_data_array_0;
   logic op_code_r_data_array_1;
-  logic op_code_r_status;
+  logic op_code_w_status_clear;
   logic op_code_w_execute;
   com_op_code_decoder com_op_code_decoder_inst(
     .fw_dev_id_enable          (fw_dev_id_enable),
@@ -94,7 +94,7 @@ module fw_ip2 (
     .fw_op_code_r_cfg_array_1  (fw_op_code_r_cfg_array_1),
     .fw_op_code_r_data_array_0 (fw_op_code_r_data_array_0),
     .fw_op_code_r_data_array_1 (fw_op_code_r_data_array_1),
-    .fw_op_code_r_status       (fw_op_code_r_status),
+    .fw_op_code_w_status_clear (fw_op_code_w_status_clear),
     .fw_op_code_w_execute      (fw_op_code_w_execute),
     //
     .op_code_w_reset         (op_code_w_reset),
@@ -106,7 +106,7 @@ module fw_ip2 (
     .op_code_r_cfg_array_1   (op_code_r_cfg_array_1),
     .op_code_r_data_array_0  (op_code_r_data_array_0),
     .op_code_r_data_array_1  (op_code_r_data_array_1),
-    .op_code_r_status        (op_code_r_status),
+    .op_code_w_status_clear  (op_code_w_status_clear),
     .op_code_w_execute       (op_code_w_execute)
   );
 
@@ -129,9 +129,9 @@ module fw_ip2 (
     .w_cfg_array_1_reg       (w_cfg_array_1_reg)           // on clock domain fw_axi_clk
   );
 
-  //
+  // Combinatorial logic for SW readout data fw_read_data32
   logic [31:0] fw_read_data32_comb;                        // 32-bit read_data   from FW to SW
-  always_comb begin
+  always_comb begin : fw_read_data32_comb_proc
     if(op_code_r_cfg_static_0) begin
       // AXI SW will readout com_config_write_regs.sv output signal w_cfg_static_0_reg, which is 24-bits. Must pad with zero up to 32-bits.
       fw_read_data32_comb = {8'h0, w_cfg_static_0_reg};
@@ -144,10 +144,10 @@ module fw_ip2 (
       // For efficiency, read also w_cfg_array_1_reg at next address. CAUTION: SW must take care not to OVERFLOW addresses
       fw_read_data32_comb = {w_cfg_array_1_reg[sw_write24_0[23:16]+1], w_cfg_array_1_reg[sw_write24_0[23:16]]};
     end else if(op_code_r_data_array_0) begin
-      // TODO update code here
+      // TODO update code here with readout data coming from DUT
       fw_read_data32_comb = 32'b0;                         // incoming data on clock domain fw_pl_clk1
     end else if(op_code_r_data_array_1) begin
-      // TODO update code here
+      // TODO update code here with readout data coming from DUT
       fw_read_data32_comb = 32'b0;                         // incoming data on clock domain fw_pl_clk1
     end else begin
       fw_read_data32_comb = 32'b0;
@@ -155,17 +155,26 @@ module fw_ip2 (
   end
   assign fw_read_data32 = fw_read_data32_comb;
 
-  //
-  logic [31:0] fw_read_status32_comb;                      // 32-bit read_status from FW to SW
-  always_comb begin
-    if(op_code_r_status) begin
-      // TODO add code here
-      fw_read_status32_comb = 32'b0;                       // incoming data on clock domain fw_pl_clk1
+  // Logic for SW readout data fw_read_status32
+  logic [31:0] fw_read_status32_reg;                       // 32-bit read_status from FW to SW
+  always @(posedge fw_axi_clk) begin : fw_read_status32_reg_proc
+    if(op_code_w_status_clear) begin
+      fw_read_status32_reg <= 32'b0;                       // incoming data on clock domain fw_pl_clk1
     end else begin
-      fw_read_status32_comb = 32'b0;
+      if(op_code_w_reset)        fw_read_status32_reg[ 0] <= 1'b1;
+      if(op_code_w_cfg_static_0) fw_read_status32_reg[ 1] <= 1'b1;
+      if(op_code_r_cfg_static_0) fw_read_status32_reg[ 2] <= 1'b1;
+      if(op_code_w_cfg_array_0)  fw_read_status32_reg[ 3] <= 1'b1;
+      if(op_code_r_cfg_array_0)  fw_read_status32_reg[ 4] <= 1'b1;
+      if(op_code_w_cfg_array_1)  fw_read_status32_reg[ 5] <= 1'b1;
+      if(op_code_r_cfg_array_1)  fw_read_status32_reg[ 6] <= 1'b1;
+      if(op_code_r_data_array_0) fw_read_status32_reg[ 7] <= 1'b1;
+      if(op_code_r_data_array_1) fw_read_status32_reg[ 8] <= 1'b1;
+      if(op_code_w_execute)      fw_read_status32_reg[ 9] <= 1'b1;
+      fw_read_status32_reg[31:10] <= 22'b0;
     end
   end
-  assign fw_read_status32 = fw_read_status32_comb;
+  assign fw_read_status32 = fw_read_status32_reg;
 
 //  // Instantiate module com_cdc_synch.sv
 //  logic synch_op_code_w_reset;
@@ -196,12 +205,14 @@ module fw_ip2 (
   assign bxclk_delay_sign = w_cfg_static_0_reg[w_cfg_static_0_reg_bxclk_delay_sign_index];
   assign super_pix_sel    = w_cfg_static_0_reg[w_cfg_static_0_reg_super_pix_sel_index];
 
+  // Create helper counter fw_pl_clk1_cnt (used to create signals fw_bxclk_ana_ff and fw_bxclk_ff)
+  // TODO The following three processes may be factorized (for code clarity/reuse) into a separate hierarchical module.
   logic [5:0] fw_pl_clk1_cnt;
   always @(posedge fw_pl_clk1) begin : fw_pl_clk1_cnt_proc
     if(op_code_w_reset) begin
       fw_pl_clk1_cnt <= 6'h0;
     end else begin
-      if(fw_dev_id_enable)begin
+      if(fw_dev_id_enable) begin
         // this fw_ip2 device is active
         if (fw_pl_clk1_cnt == bxclk_period) begin
           // reached maximum => rollover counter to ONE
@@ -241,7 +252,7 @@ module fw_ip2 (
   end
   assign fw_bxclk_ana = fw_bxclk_ana_ff;
 
-// Create and Assign output port signal fw_bxclk
+  // Create and Assign output port signal fw_bxclk
   logic fw_bxclk_ff;
   always @(posedge fw_pl_clk1) begin : fw_bxclk_ff_proc
     if(fw_pl_clk1_cnt == 6'h0) begin

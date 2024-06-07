@@ -54,7 +54,7 @@ set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.fw_op_code_r_data_array_1}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{[format {fw_ip2_tb.DUT.fw_op_code_r_status}]}
+	{[format {fw_ip2_tb.DUT.fw_op_code_w_status_clear}]}
 	} ]]
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.fw_op_code_w_execute}]}
@@ -68,6 +68,7 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.fw_read_status32[31:0]}]}
 	} ]]
+waveform hierarchy expand $id
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.fw_super_pixel_sel}]}
 	} ]]
@@ -180,11 +181,9 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.w_cfg_array_0_reg[255:0]}]}
 	} ]]
-waveform hierarchy collapse $id
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.w_cfg_array_1_reg[255:0]}]}
 	} ]]
-waveform hierarchy collapse $id
 set id [waveform add -cdivider divider]
 
-waveform xview limits 0 30720000ps
+waveform xview limits 0 31730000ps
