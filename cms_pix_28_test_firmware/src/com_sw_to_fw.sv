@@ -40,7 +40,7 @@ module com_sw_to_fw(
   localparam windex_device_id_max  = 31;                   // write index for device_id       (upper)
   localparam windex_device_id_min  = 28;                   // write index for device_id       (lower)
   localparam windex_op_code_max    = 27;                   // write index for operation_code  (upper)
-  localparam windex_op_code_mmin   = 24;                   // write index for operation_code  (lower)
+  localparam windex_op_code_min    = 24;                   // write index for operation_code  (lower)
   localparam windex_body_max       = 23;                   // write index for body_data       (upper)
   localparam windex_body_min       =  0;                   // write index for body_data       (lower)
 
@@ -87,17 +87,17 @@ module com_sw_to_fw(
   end
 
   // Operation Code decoder:
-  assign fw_op_code_w_reset        = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_W_RST_FW          ) ? 1'b1 : 1'b0;
-  assign fw_op_code_w_cfg_static_0 = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_W_CFG_STATIC_0    ) ? 1'b1 : 1'b0;
-  assign fw_op_code_r_cfg_static_0 = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_R_CFG_STATIC_0    ) ? 1'b1 : 1'b0;
-  assign fw_op_code_w_cfg_array_0  = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_W_CFG_ARRAY_0     ) ? 1'b1 : 1'b0;
-  assign fw_op_code_r_cfg_array_0  = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_R_CFG_ARRAY_0     ) ? 1'b1 : 1'b0;
-  assign fw_op_code_w_cfg_array_1  = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_W_CFG_ARRAY_1     ) ? 1'b1 : 1'b0;
-  assign fw_op_code_r_cfg_array_1  = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_R_CFG_ARRAY_1     ) ? 1'b1 : 1'b0;
-  assign fw_op_code_r_data_array_0 = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_R_DATA_ARRAY_0    ) ? 1'b1 : 1'b0;
-  assign fw_op_code_r_data_array_1 = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_R_DATA_ARRAY_1    ) ? 1'b1 : 1'b0;
-  assign fw_op_code_w_status_clear = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_W_STATUS_FW_CLEAR ) ? 1'b1 : 1'b0;
-  assign fw_op_code_w_execute      = (sw_write32_0[windex_op_code_max:windex_op_code_mmin]==OP_CODE_W_EXECUTE         ) ? 1'b1 : 1'b0;
+  assign fw_op_code_w_reset        = (sw_write32_0[windex_op_code_max:windex_op_code_min]==OP_CODE_W_RST_FW          ) ? 1'b1 : 1'b0;
+  assign fw_op_code_w_cfg_static_0 = (sw_write32_0[windex_op_code_max:windex_op_code_min]==OP_CODE_W_CFG_STATIC_0    ) ? 1'b1 : 1'b0;
+  assign fw_op_code_r_cfg_static_0 = (sw_write32_0[windex_op_code_max:windex_op_code_min]==OP_CODE_R_CFG_STATIC_0    ) ? 1'b1 : 1'b0;
+  assign fw_op_code_w_cfg_array_0  = (sw_write32_0[windex_op_code_max:windex_op_code_min]==OP_CODE_W_CFG_ARRAY_0     ) ? 1'b1 : 1'b0;
+  assign fw_op_code_r_cfg_array_0  = (sw_write32_0[windex_op_code_max:windex_op_code_min]==OP_CODE_R_CFG_ARRAY_0     ) ? 1'b1 : 1'b0;
+  assign fw_op_code_w_cfg_array_1  = (sw_write32_0[windex_op_code_max:windex_op_code_min]==OP_CODE_W_CFG_ARRAY_1     ) ? 1'b1 : 1'b0;
+  assign fw_op_code_r_cfg_array_1  = (sw_write32_0[windex_op_code_max:windex_op_code_min]==OP_CODE_R_CFG_ARRAY_1     ) ? 1'b1 : 1'b0;
+  assign fw_op_code_r_data_array_0 = (sw_write32_0[windex_op_code_max:windex_op_code_min]==OP_CODE_R_DATA_ARRAY_0    ) ? 1'b1 : 1'b0;
+  assign fw_op_code_r_data_array_1 = (sw_write32_0[windex_op_code_max:windex_op_code_min]==OP_CODE_R_DATA_ARRAY_1    ) ? 1'b1 : 1'b0;
+  assign fw_op_code_w_status_clear = (sw_write32_0[windex_op_code_max:windex_op_code_min]==OP_CODE_W_STATUS_FW_CLEAR ) ? 1'b1 : 1'b0;
+  assign fw_op_code_w_execute      = (sw_write32_0[windex_op_code_max:windex_op_code_min]==OP_CODE_W_EXECUTE         ) ? 1'b1 : 1'b0;
 
   // Body data feed through: bytes 2, 1, 0
   assign sw_write24_0 = sw_write32_0[windex_body_max:windex_body_min];

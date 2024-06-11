@@ -68,7 +68,7 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.fw_read_status32[31:0]}]}
 	} ]]
-waveform hierarchy expand $id
+waveform hierarchy collapse $id
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.fw_super_pixel_sel}]}
 	} ]]
@@ -136,6 +136,12 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.tb_w_cfg_array_random[255:0]}]}
 	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.tb_fw_pl_clk1_initial}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.tb_fw_axi_clk_initial}]}
+	} ]]
 set id [waveform add -cdivider divider]
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.fw_pl_clk1_cnt[5:0]}]}
@@ -185,5 +191,120 @@ set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.com_config_write_regs_inst.w_cfg_array_1_reg[255:0]}]}
 	} ]]
 set id [waveform add -cdivider divider]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.fw_pl_clk1}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.test_number[1:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.test_delay[5:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test1[2:0]}]}
+	} ]]
+waveform hierarchy collapse $id
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.test1_enable}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.test2_enable}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.test3_enable}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.test1_enable_re}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.test2_enable_re}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.test3_enable_re}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_testx_i_scanchain_reg[767:0]}]}
+	} ]]
+waveform hierarchy collapse $id
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_testx_i_scanchain_reg_shift_cnt[9:0]}]}
+	} ]]
+waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test1_o_reset_not}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test1_o_scan_in}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test1_o_scan_load}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test1_o_scanchain_reg_load}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test1_o_scanchain_reg_shift_right}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test1_o_status_done}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test1_o_vin_test_trig_out}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test2_o_reset_not}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test2_o_scan_in}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test2_o_scan_load}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test2_o_scanchain_reg_load}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test2_o_scanchain_reg_shift_right}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test2_o_status_done}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test3_o_reset_not}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test3_o_scan_in}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test3_o_scan_load}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test3_o_scanchain_reg_load}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test3_o_scanchain_reg_shift_right}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test3_o_status_done}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test3_o_vin_test_trig_out}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_testx_i_config_out}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_testx_i_dn_event_toggle}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_testx_i_dnn_output_0}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_testx_i_dnn_output_1}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_testx_i_scan_out}]}
+	} ]]
+set id [waveform add -cdivider divider]
 
-waveform xview limits 0 31730000ps
+waveform xview limits 49988.949ns 50901.985ns

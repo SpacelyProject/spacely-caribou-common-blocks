@@ -226,7 +226,7 @@ module fw_top #(
     .super_pixel_sel         (super_pixel_sel),
     .config_clk              (config_clk),
     .reset_not               (reset_not),
-    .config_in,
+    .config_in               (config_in),
     .config_load             (config_load),
     .bxclk_ana               (bxclk_ana),
     .bxclk                   (bxclk),
