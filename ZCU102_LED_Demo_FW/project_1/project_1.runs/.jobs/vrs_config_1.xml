@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="demo2_led_sim_axi_gpio_0_0_synth_1" LaunchDir="/local/d1/mcp011/demo2_led/project_1/project_1.runs/demo2_led_sim_axi_gpio_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="demo2_led_sim_rst_clk_wiz_100M_0_synth_1" LaunchDir="/local/d1/mcp011/demo2_led/project_1/project_1.runs/demo2_led_sim_rst_clk_wiz_100M_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="demo2_led_sim_axi_gpio_1_0_synth_1" LaunchDir="/local/d1/mcp011/demo2_led/project_1/project_1.runs/demo2_led_sim_axi_gpio_1_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado" IsOrderedIPRun="true">
+		<Parent Id="demo2_led_sim_axi_gpio_0_0_synth_1"/>
+	</Run>
+	<Run Id="demo2_led_sim_xbar_0_synth_1" LaunchDir="/local/d1/mcp011/demo2_led/project_1/project_1.runs/demo2_led_sim_xbar_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="demo2_led_sim_auto_pc_0_synth_1" LaunchDir="/local/d1/mcp011/demo2_led/project_1/project_1.runs/demo2_led_sim_auto_pc_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="demo2_led_sim_clk_wiz_0_synth_1" LaunchDir="/local/d1/mcp011/demo2_led/project_1/project_1.runs/demo2_led_sim_clk_wiz_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="demo2_led_sim_axi_vip_0_0_synth_1" LaunchDir="/local/d1/mcp011/demo2_led/project_1/project_1.runs/demo2_led_sim_axi_vip_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="demo2_led_sim_ila_0_0_synth_1" LaunchDir="/local/d1/mcp011/demo2_led/project_1/project_1.runs/demo2_led_sim_ila_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="synth_1" LaunchDir="/local/d1/mcp011/demo2_led/project_1/project_1.runs/synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado">
+		<Parent Id="demo2_led_sim_axi_gpio_0_0_synth_1"/>
+		<Parent Id="demo2_led_sim_rst_clk_wiz_100M_0_synth_1"/>
+		<Parent Id="demo2_led_sim_axi_gpio_1_0_synth_1"/>
+		<Parent Id="demo2_led_sim_xbar_0_synth_1"/>
+		<Parent Id="demo2_led_sim_auto_pc_0_synth_1"/>
+		<Parent Id="demo2_led_sim_clk_wiz_0_synth_1"/>
+		<Parent Id="demo2_led_sim_axi_vip_0_0_synth_1"/>
+		<Parent Id="demo2_led_sim_ila_0_0_synth_1"/>
+	</Run>
+	<Run Id="impl_1" LaunchDir="/local/d1/mcp011/demo2_led/project_1/project_1.runs/impl_1" FlowId="Vivado_Implementation" FromStepId="init_design" ToStepId="write_bitstream">
+		<Parent Id="synth_1"/>
+		<Parent Id="demo2_led_sim_axi_gpio_0_0_synth_1"/>
+		<Parent Id="demo2_led_sim_rst_clk_wiz_100M_0_synth_1"/>
+		<Parent Id="demo2_led_sim_axi_gpio_1_0_synth_1"/>
+		<Parent Id="demo2_led_sim_xbar_0_synth_1"/>
+		<Parent Id="demo2_led_sim_auto_pc_0_synth_1"/>
+		<Parent Id="demo2_led_sim_clk_wiz_0_synth_1"/>
+		<Parent Id="demo2_led_sim_axi_vip_0_0_synth_1"/>
+		<Parent Id="demo2_led_sim_ila_0_0_synth_1"/>
+	</Run>
+	<Parameters>
+		<Parameter Name="runs.monitorLSFJobs" Val="true" Type="bool"/>
+		<Parameter Name="runs.enableClusterConf" Val="true" Type="bool"/>
+	</Parameters>
+</Runs>
+

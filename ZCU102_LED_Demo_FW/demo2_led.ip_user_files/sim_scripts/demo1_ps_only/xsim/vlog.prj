@@ -1,0 +1,7 @@
+verilog xil_defaultlib --include "/asic/cad/Xilinx/Vivado/2022.1/data/xilinx_vip/include" --include "../../../../demo1_ps_only.gen/sources_1/bd/demo1_ps_only/ipshared/ec67/hdl" --include "../../../../demo1_ps_only.gen/sources_1/bd/demo1_ps_only/ipshared/8cdf/hdl" \
+"../../../../demo1_ps_only.gen/sources_1/bd/demo1_ps_only/ip/demo1_ps_only_zynq_ultra_ps_e_0_0/sim/demo1_ps_only_zynq_ultra_ps_e_0_0_vip_wrapper.v" \
+"../../../../demo1_ps_only.gen/sources_1/bd/demo1_ps_only/sim/demo1_ps_only.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+nosort

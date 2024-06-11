@@ -1,0 +1,9 @@
+{
+	"version": "1.0",
+	"modules": {
+		"demo1_ps_only": {
+			"proto_instances": {
+			}
+		}
+	}
+}

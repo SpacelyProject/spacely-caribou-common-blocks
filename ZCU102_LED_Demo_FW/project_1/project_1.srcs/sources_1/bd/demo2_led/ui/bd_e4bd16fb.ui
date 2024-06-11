@@ -1,0 +1,37 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.676991",
+   "Default View_TopLeft":"882,-340",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
+#  -string -flagsOSRD
+preplace port push_buttons_5bits -pg 1 -lvl 6 -x 2170 -y 40 -defaultsOSRD
+preplace port led_8bits -pg 1 -lvl 6 -x 2170 -y 210 -defaultsOSRD
+preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 1 -x 590 -y 70 -defaultsOSRD
+preplace inst axi_timer_0 -pg 1 -lvl 4 -x 1810 -y 640 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 4 -x 1810 -y -160 -defaultsOSRD
+preplace inst axi_gpio_1 -pg 1 -lvl 4 -x 1810 -y 210 -defaultsOSRD
+preplace inst ps8_0_axi_periph -pg 1 -lvl 3 -x 1470 -y 220 -defaultsOSRD -resize 276 1002
+preplace inst rst_ps8_0_99M -pg 1 -lvl 2 -x 1100 -y 160 -defaultsOSRD
+preplace inst ila_0 -pg 1 -lvl 4 -x 1810 -y 840 -defaultsOSRD
+preplace inst jtag_axi_0 -pg 1 -lvl 3 -x 1470 -y 840 -defaultsOSRD
+preplace inst system_ila_0 -pg 1 -lvl 5 -x 2050 -y 790 -defaultsOSRD
+preplace netloc axi_timer_0_interrupt 1 0 5 20 -330 NJ -330 NJ -330 NJ -330 1940
+preplace netloc rst_ps8_0_99M_peripheral_aresetn 1 2 2 1290 -310 1660
+preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 5 30 160 910 60 1280 -320 1640 760 1950
+preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 1 1 900 70n
+preplace netloc axi_gpio_0_GPIO 1 4 2 1950 40 N
+preplace netloc axi_gpio_1_GPIO 1 4 2 N 210 N
+preplace netloc jtag_axi_0_M_AXI 1 2 2 1310 -300 1630
+preplace netloc ps8_0_axi_periph_M00_AXI 1 3 2 1680 770 N
+preplace netloc ps8_0_axi_periph_M01_AXI 1 3 1 1670 190n
+preplace netloc ps8_0_axi_periph_M02_AXI 1 3 1 1650 570n
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 1 2 NJ 50 1300
+levelinfo -pg 1 0 590 1100 1470 1810 2050 2170
+pagesize -pg 1 -db -bbox -sgen 0 -540 2360 950
+"
+}
+{
+   "da_axi4_cnt":"4",
+   "da_board_cnt":"2"
+}

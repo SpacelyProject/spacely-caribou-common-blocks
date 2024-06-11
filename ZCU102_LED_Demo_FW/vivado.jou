@@ -1,0 +1,45 @@
+#-----------------------------------------------------------
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 04:59:54 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Thu Apr 18 14:31:56 2024
+# Process ID: 1971764
+# Current directory: /local/d1/mcp011/demo2_led
+# Command line: vivado
+# Log file: /local/d1/mcp011/demo2_led/vivado.log
+# Journal file: /local/d1/mcp011/demo2_led/vivado.jou
+# Running On: kdplab01, OS: Linux, CPU Frequency: 3400.000 MHz, CPU Physical cores: 32, Host memory: 134204 MB
+#-----------------------------------------------------------
+start_gui
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+current_hw_device [get_hw_devices xczu9_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xczu9_0] 0]
+current_hw_device [get_hw_devices arm_dap_1]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices arm_dap_1] 0]
+current_hw_device [get_hw_devices xczu9_0]
+close_project
+open_project /local/d1/mcp011/demo2_led/project_1/project_1.xpr
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+current_hw_device [get_hw_devices xczu9_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xczu9_0] 0]
+current_hw_device [get_hw_devices arm_dap_1]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices arm_dap_1] 0]
+current_hw_device [get_hw_devices xczu9_0]
+launch_runs impl_1 -to_step write_bitstream -jobs 32
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 32
+wait_on_run impl_1
+set_property PROBES.FILE {/local/d1/mcp011/demo2_led/demo2_led.runs/impl_1/demo2_led_wrapper.ltx} [get_hw_devices xczu9_0]
+set_property FULL_PROBES.FILE {/local/d1/mcp011/demo2_led/demo2_led.runs/impl_1/demo2_led_wrapper.ltx} [get_hw_devices xczu9_0]
+set_property PROGRAM.FILE {/local/d1/mcp011/demo2_led/demo2_led.runs/impl_1/demo2_led_wrapper.bit} [get_hw_devices xczu9_0]
+program_hw_devices [get_hw_devices xczu9_0]
+refresh_hw_device [lindex [get_hw_devices xczu9_0] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xczu9_0] -filter {CELL_NAME=~"demo2_led_i/ila_0"}]]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_2 -of_objects [get_hw_ilas -of_objects [get_hw_devices xczu9_0] -filter {CELL_NAME=~"demo2_led_i/system_ila_0/inst/ila_lib"}]]
+save_wave_config {/local/d1/mcp011/demo2_led/project_1/project_1.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+save_wave_config {/local/d1/mcp011/demo2_led/project_1/project_1.hw/hw_1/wave/hw_ila_data_2/hw_ila_data_2.wcfg}

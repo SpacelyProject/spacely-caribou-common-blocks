@@ -1,0 +1,7 @@
+vhdl xil_defaultlib  \
+"../../../../demo2_led.gen/sources_1/bd/demo2_led/ip/demo2_led_axi_timer_0_0/sim/demo2_led_axi_timer_0_0.vhd" \
+"../../../../demo2_led.gen/sources_1/bd/demo2_led/ip/demo2_led_axi_gpio_0_0/sim/demo2_led_axi_gpio_0_0.vhd" \
+"../../../../demo2_led.gen/sources_1/bd/demo2_led/ip/demo2_led_axi_gpio_0_1/sim/demo2_led_axi_gpio_0_1.vhd" \
+"../../../../demo2_led.gen/sources_1/bd/demo2_led/ip/demo2_led_rst_ps8_0_99M_0/sim/demo2_led_rst_ps8_0_99M_0.vhd" \
+
+nosort
