@@ -195,7 +195,7 @@ set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.fw_pl_clk1}]}
 	} ]]
 set id [waveform add -signals [subst  {
-	{[format {fw_ip2_tb.DUT.test_number[1:0]}]}
+	{[format {fw_ip2_tb.DUT.test_number[3:0]}]}
 	} ]]
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.test_delay[5:0]}]}
@@ -203,7 +203,6 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.sm_test1[2:0]}]}
 	} ]]
-waveform hierarchy collapse $id
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.test1_enable}]}
 	} ]]
@@ -225,11 +224,17 @@ set id [waveform add -signals [subst  {
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.sm_testx_i_scanchain_reg[767:0]}]}
 	} ]]
-waveform hierarchy collapse $id
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.sm_testx_i_scanchain_reg_shift_cnt[9:0]}]}
 	} ]]
 waveform format $id -radix %d
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_testx_o_scanchain_reg[767:0]}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_testx_o_scanchain_reg_array32[23:0]}]}
+	} ]]
+waveform hierarchy collapse $id
 set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.sm_test1_o_reset_not}]}
 	} ]]
@@ -291,6 +296,27 @@ set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.sm_test3_o_vin_test_trig_out}]}
 	} ]]
 set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test4_o_reset_not}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test4_o_scan_in}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test4_o_scan_load}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test4_o_scanchain_reg_load}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test4_o_scanchain_reg_shift_right}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test4_o_status_done}]}
+	} ]]
+set id [waveform add -signals [subst  {
+	{[format {fw_ip2_tb.DUT.sm_test4_o_vin_test_trig_out}]}
+	} ]]
+set id [waveform add -signals [subst  {
 	{[format {fw_ip2_tb.DUT.sm_testx_i_config_out}]}
 	} ]]
 set id [waveform add -signals [subst  {
@@ -307,4 +333,4 @@ set id [waveform add -signals [subst  {
 	} ]]
 set id [waveform add -cdivider divider]
 
-waveform xview limits 49988.949ns 50901.985ns
+waveform xview limits 52713ns 52715ns
