@@ -20,9 +20,9 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu9eg
 INFO: [Device 21-403] Loading part xczu9eg-ffvb1156-2-e
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 39582
+INFO: [Synth 8-7075] Helper process launched with PID 39839
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 3247.195 ; gain = 220.812 ; free physical = 45700 ; free virtual = 400739
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 3248.227 ; gain = 221.781 ; free physical = 45816 ; free virtual = 400851
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'cms_pix_28_fw_top_bd_fw_top_v_0_0' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/synth/cms_pix_28_fw_top_bd_fw_top_v_0_0.v:53]
 INFO: [Synth 8-6157] synthesizing module 'fw_top_v' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_top_v.v:18]
@@ -35,6 +35,7 @@ INFO: [Synth 8-6157] synthesizing module 'mem_regs' [/asic/projects/C/CMS_PIX_28
 INFO: [Synth 8-6155] done synthesizing module 'mem_regs' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/axi4lite_interface/mem_regs.sv:3]
 INFO: [Synth 8-6155] done synthesizing module 'axi4lite_interface_top' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_interface_top.sv:5]
 INFO: [Synth 8-6155] done synthesizing module 'axi4lite_interface_top_for_pix28_fw' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/axi4lite_interface_top_for_pix28_fw.sv:18]
+INFO: [Synth 8-6157] synthesizing module 'fw_ipx_wrap' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ipx_wrap.sv:18]
 INFO: [Synth 8-6157] synthesizing module 'com_sw_to_fw' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/com_sw_to_fw.sv:17]
 INFO: [Synth 8-6155] done synthesizing module 'com_sw_to_fw' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/com_sw_to_fw.sv:17]
 INFO: [Synth 8-6157] synthesizing module 'com_fw_to_dut' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/com_fw_to_dut.sv:18]
@@ -51,13 +52,13 @@ INFO: [Synth 8-6157] synthesizing module 'fw_ip3' [/asic/projects/C/CMS_PIX_28/g
 INFO: [Synth 8-6155] done synthesizing module 'fw_ip3' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip3.sv:19]
 INFO: [Synth 8-6157] synthesizing module 'fw_ip4' [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip4.sv:19]
 INFO: [Synth 8-6155] done synthesizing module 'fw_ip4' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip4.sv:19]
+INFO: [Synth 8-6155] done synthesizing module 'fw_ipx_wrap' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ipx_wrap.sv:18]
 INFO: [Synth 8-6155] done synthesizing module 'fw_top' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_top.sv:18]
 INFO: [Synth 8-6155] done synthesizing module 'fw_top_v' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_top_v.v:18]
 INFO: [Synth 8-6155] done synthesizing module 'cms_pix_28_fw_top_bd_fw_top_v_0_0' (0#1) [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/synth/cms_pix_28_fw_top_bd_fw_top_v_0_0.v:53]
-WARNING: [Synth 8-6014] Unused sequential element test2_enable_del_reg was removed.  [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip2.sv:378]
-WARNING: [Synth 8-6014] Unused sequential element test3_enable_del_reg was removed.  [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip2.sv:379]
-WARNING: [Synth 8-6014] Unused sequential element test4_enable_del_reg was removed.  [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip2.sv:380]
-WARNING: [Synth 8-3848] Net test4_enable in module/entity fw_ip2 does not have driver. [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip2.sv:344]
+WARNING: [Synth 8-6014] Unused sequential element test2_enable_del_reg was removed.  [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip2.sv:379]
+WARNING: [Synth 8-6014] Unused sequential element test3_enable_del_reg was removed.  [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip2.sv:380]
+WARNING: [Synth 8-6014] Unused sequential element test4_enable_del_reg was removed.  [/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip2.sv:381]
 WARNING: [Synth 8-7129] Port fw_clk in module fw_ip4 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port fw_rst_n in module fw_ip4 is either unconnected or has no load
 WARNING: [Synth 8-7129] Port fw_dev_id_enable in module fw_ip4 is either unconnected or has no load
@@ -160,32 +161,32 @@ WARNING: [Synth 8-7129] Port fw_op_code_w_cfg_array_1 in module fw_ip1 is either
 WARNING: [Synth 8-7129] Port fw_op_code_r_cfg_array_1 in module fw_ip1 is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 3368.148 ; gain = 341.766 ; free physical = 46747 ; free virtual = 401787
+Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 3368.180 ; gain = 341.734 ; free physical = 46864 ; free virtual = 401901
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 3385.949 ; gain = 359.566 ; free physical = 46749 ; free virtual = 401789
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 3385.980 ; gain = 359.535 ; free physical = 46864 ; free virtual = 401901
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 3385.949 ; gain = 359.566 ; free physical = 46749 ; free virtual = 401789
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 3385.980 ; gain = 359.535 ; free physical = 46864 ; free virtual = 401901
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.15 ; elapsed = 00:00:00.15 . Memory (MB): peak = 3385.949 ; gain = 0.000 ; free physical = 46739 ; free virtual = 401779
+Netlist sorting complete. Time (s): cpu = 00:00:00.15 ; elapsed = 00:00:00.15 . Memory (MB): peak = 3385.980 ; gain = 0.000 ; free physical = 46854 ; free virtual = 401891
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3534.852 ; gain = 0.000 ; free physical = 46651 ; free virtual = 401692
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3533.883 ; gain = 0.000 ; free physical = 46880 ; free virtual = 401917
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.49 ; elapsed = 00:00:00.17 . Memory (MB): peak = 3557.668 ; gain = 22.816 ; free physical = 46646 ; free virtual = 401686
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.51 ; elapsed = 00:00:00.16 . Memory (MB): peak = 3557.699 ; gain = 23.816 ; free physical = 46874 ; free virtual = 401911
 INFO: [Designutils 20-5008] Incremental synthesis strategy off
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 3557.668 ; gain = 531.285 ; free physical = 46858 ; free virtual = 401898
+Finished Constraint Validation : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 3557.699 ; gain = 531.254 ; free physical = 46974 ; free virtual = 402011
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
@@ -193,13 +194,13 @@ Start Loading Part and Timing Information
 Loading part: xczu9eg-ffvb1156-2-e
 INFO: [Synth 8-6742] Reading net delay rules and data
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 3557.668 ; gain = 531.285 ; free physical = 46858 ; free virtual = 401898
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 3557.699 ; gain = 531.254 ; free physical = 46974 ; free virtual = 402011
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 3557.668 ; gain = 531.285 ; free physical = 46858 ; free virtual = 401898
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 3557.699 ; gain = 531.254 ; free physical = 46974 ; free virtual = 402011
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'sm_test1_reg' in module 'fw_ip2'
 ---------------------------------------------------------------------------------------------------
@@ -214,7 +215,7 @@ INFO: [Synth 8-802] inferred FSM for state register 'sm_test1_reg' in module 'fw
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'sm_test1_reg' using encoding 'sequential' in module 'fw_ip2'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:21 ; elapsed = 00:00:24 . Memory (MB): peak = 3557.668 ; gain = 531.285 ; free physical = 46838 ; free virtual = 401880
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 3557.699 ; gain = 531.254 ; free physical = 46984 ; free virtual = 402023
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -233,7 +234,7 @@ Detailed RTL Component Info :
 	               10 Bit    Registers := 1     
 	                6 Bit    Registers := 1     
 	                2 Bit    Registers := 2     
-	                1 Bit    Registers := 35    
+	                1 Bit    Registers := 36    
 +---Muxes : 
 	   2 Input  768 Bit        Muxes := 3     
 	   2 Input   32 Bit        Muxes := 3     
@@ -263,25 +264,25 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:47 . Memory (MB): peak = 3607.648 ; gain = 581.266 ; free physical = 46670 ; free virtual = 401726
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:47 . Memory (MB): peak = 3607.680 ; gain = 581.234 ; free physical = 46904 ; free virtual = 401957
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:54 ; elapsed = 00:01:05 . Memory (MB): peak = 3859.023 ; gain = 832.641 ; free physical = 46211 ; free virtual = 401267
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:53 ; elapsed = 00:01:02 . Memory (MB): peak = 3859.062 ; gain = 832.617 ; free physical = 46382 ; free virtual = 401435
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:56 ; elapsed = 00:01:07 . Memory (MB): peak = 3870.023 ; gain = 843.641 ; free physical = 46113 ; free virtual = 401169
+Finished Timing Optimization : Time (s): cpu = 00:00:56 ; elapsed = 00:01:05 . Memory (MB): peak = 3870.055 ; gain = 843.609 ; free physical = 46371 ; free virtual = 401424
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:00 ; elapsed = 00:01:11 . Memory (MB): peak = 3915.070 ; gain = 888.688 ; free physical = 46108 ; free virtual = 401164
+Finished Technology Mapping : Time (s): cpu = 00:00:59 ; elapsed = 00:01:10 . Memory (MB): peak = 3923.109 ; gain = 896.664 ; free physical = 46364 ; free virtual = 401417
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -299,37 +300,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:05 ; elapsed = 00:01:17 . Memory (MB): peak = 3923.980 ; gain = 897.598 ; free physical = 46219 ; free virtual = 401275
+Finished IO Insertion : Time (s): cpu = 00:01:04 ; elapsed = 00:01:14 . Memory (MB): peak = 3929.051 ; gain = 902.605 ; free physical = 46362 ; free virtual = 401415
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:05 ; elapsed = 00:01:17 . Memory (MB): peak = 3923.980 ; gain = 897.598 ; free physical = 46219 ; free virtual = 401275
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:04 ; elapsed = 00:01:14 . Memory (MB): peak = 3929.051 ; gain = 902.605 ; free physical = 46362 ; free virtual = 401415
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:06 ; elapsed = 00:01:18 . Memory (MB): peak = 3923.980 ; gain = 897.598 ; free physical = 46219 ; free virtual = 401275
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:05 ; elapsed = 00:01:16 . Memory (MB): peak = 3929.051 ; gain = 902.605 ; free physical = 46350 ; free virtual = 401402
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:06 ; elapsed = 00:01:18 . Memory (MB): peak = 3923.980 ; gain = 897.598 ; free physical = 46219 ; free virtual = 401275
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:06 ; elapsed = 00:01:16 . Memory (MB): peak = 3929.051 ; gain = 902.605 ; free physical = 46350 ; free virtual = 401402
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:07 ; elapsed = 00:01:18 . Memory (MB): peak = 3923.980 ; gain = 897.598 ; free physical = 46219 ; free virtual = 401275
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:06 ; elapsed = 00:01:16 . Memory (MB): peak = 3929.051 ; gain = 902.605 ; free physical = 46350 ; free virtual = 401402
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:07 ; elapsed = 00:01:18 . Memory (MB): peak = 3923.980 ; gain = 897.598 ; free physical = 46219 ; free virtual = 401275
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:06 ; elapsed = 00:01:16 . Memory (MB): peak = 3929.051 ; gain = 902.605 ; free physical = 46350 ; free virtual = 401403
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -348,41 +349,41 @@ Report Cell Usage:
 |1     |CARRY8 |     2|
 |2     |LUT1   |     2|
 |3     |LUT2   |    95|
-|4     |LUT3   |   785|
+|4     |LUT3   |   783|
 |5     |LUT4   |    32|
-|6     |LUT5   |    69|
+|6     |LUT5   |    72|
 |7     |LUT6   |  5171|
 |8     |MUXF7  |  2272|
 |9     |MUXF8  |  1088|
 |10    |FDCE   |  8216|
-|11    |FDRE   |  1805|
+|11    |FDRE   |  1806|
 |12    |FDSE   |     1|
 +------+-------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:07 ; elapsed = 00:01:18 . Memory (MB): peak = 3923.980 ; gain = 897.598 ; free physical = 46219 ; free virtual = 401275
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:06 ; elapsed = 00:01:16 . Memory (MB): peak = 3929.051 ; gain = 902.605 ; free physical = 46350 ; free virtual = 401403
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 11 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:02 ; elapsed = 00:01:14 . Memory (MB): peak = 3923.980 ; gain = 725.879 ; free physical = 46258 ; free virtual = 401314
-Synthesis Optimization Complete : Time (s): cpu = 00:01:07 ; elapsed = 00:01:18 . Memory (MB): peak = 3923.984 ; gain = 897.598 ; free physical = 46258 ; free virtual = 401314
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:01 ; elapsed = 00:01:12 . Memory (MB): peak = 3929.051 ; gain = 730.887 ; free physical = 46392 ; free virtual = 401445
+Synthesis Optimization Complete : Time (s): cpu = 00:01:06 ; elapsed = 00:01:16 . Memory (MB): peak = 3929.055 ; gain = 902.605 ; free physical = 46392 ; free virtual = 401445
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.12 ; elapsed = 00:00:00.12 . Memory (MB): peak = 3931.980 ; gain = 0.000 ; free physical = 46350 ; free virtual = 401406
+Netlist sorting complete. Time (s): cpu = 00:00:00.12 ; elapsed = 00:00:00.13 . Memory (MB): peak = 3940.020 ; gain = 0.000 ; free physical = 46431 ; free virtual = 401483
 INFO: [Netlist 29-17] Analyzing 3362 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 WARNING: [Netlist 29-101] Netlist 'cms_pix_28_fw_top_bd_fw_top_v_0_0' is not ideal for floorplanning, since the cellview 'com_config_write_regs' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3975.871 ; gain = 0.000 ; free physical = 46280 ; free virtual = 401336
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3977.973 ; gain = 0.000 ; free physical = 46307 ; free virtual = 401360
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete, checksum: 7663faa7
+Synth Design complete, checksum: 539b9e32
 INFO: [Common 17-83] Releasing license: Synthesis
-52 Infos, 106 Warnings, 0 Critical Warnings and 0 Errors encountered.
+54 Infos, 105 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:22 ; elapsed = 00:01:31 . Memory (MB): peak = 3975.871 ; gain = 977.703 ; free physical = 46500 ; free virtual = 401556
+synth_design: Time (s): cpu = 00:01:21 ; elapsed = 00:01:30 . Memory (MB): peak = 3977.973 ; gain = 985.742 ; free physical = 46529 ; free virtual = 401582
 INFO: [Common 17-1381] The checkpoint '/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1/cms_pix_28_fw_top_bd_fw_top_v_0_0.dcp' has been generated.
-INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP cms_pix_28_fw_top_bd_fw_top_v_0_0, cache-ID = 5bcb0f40258128f2
-INFO: [Coretcl 2-1174] Renamed 8 cell refs.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP cms_pix_28_fw_top_bd_fw_top_v_0_0, cache-ID = e60b39bd6eec6300
+INFO: [Coretcl 2-1174] Renamed 9 cell refs.
 INFO: [Common 17-1381] The checkpoint '/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1/cms_pix_28_fw_top_bd_fw_top_v_0_0.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file cms_pix_28_fw_top_bd_fw_top_v_0_0_utilization_synth.rpt -pb cms_pix_28_fw_top_bd_fw_top_v_0_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Wed Jun 12 17:30:48 2024...
+INFO: [Common 17-206] Exiting Vivado at Thu Jun 13 13:57:52 2024...

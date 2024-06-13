@@ -103,6 +103,7 @@ read_verilog -library xil_defaultlib -sv {
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip2.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip3.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip4.sv
+  /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ipx_wrap.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_top.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/axi4lite_interface/mem_regs.sv
 }
