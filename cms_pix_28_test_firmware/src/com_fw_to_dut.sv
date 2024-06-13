@@ -242,7 +242,7 @@ module com_fw_to_dut(
     vin_test_trig_out_iob    <= vin_test_trig_out_mux;
     scan_in_iob              <= scan_in_mux;
     scan_load_iob            <= scan_load_mux;
-  end;
+  end
   assign super_pixel_sel     = super_pixel_sel_iob;
   assign config_clk          = config_clk_iob;
   assign reset_not           = reset_not_iob;

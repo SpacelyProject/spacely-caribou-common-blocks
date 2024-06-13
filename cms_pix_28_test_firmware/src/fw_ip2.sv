@@ -347,6 +347,7 @@ module fw_ip2 (
       test1_enable  <= 1'b0;
       test2_enable  <= 1'b0;
       test3_enable  <= 1'b0;
+      test4_enable  <= 1'b0;
     end else begin
       if(op_code_w_execute==1'b1 && test_number==4'h1) begin
         test1_enable <= 1'b1;
@@ -367,9 +368,9 @@ module fw_ip2 (
       end
       //
       if(op_code_w_execute==1'b1 && test_number==4'h8) begin
-        test3_enable <= 1'b1;
+        test4_enable <= 1'b1;
       end else begin
-        test3_enable <= 1'b0;
+        test4_enable <= 1'b0;
       end
     end
   end
@@ -447,7 +448,7 @@ module fw_ip2 (
   logic           sm_testx_i_scan_out;
   logic           sm_testx_i_dnn_output_0;
   logic           sm_testx_i_dnn_output_1;
-  logic           sm_testx_i_dn_event_toggle;;
+  logic           sm_testx_i_dn_event_toggle;
   // State Machine Control signals from logic/configuration
   localparam                                     sm_testx_i_scanchain_reg_width = 768;
   logic [sm_testx_i_scanchain_reg_width-1 : 0]   sm_testx_i_scanchain_reg;               // 768-bits shift register; bit#0 drives DUT scan_in; used by all tests 1,2,3
