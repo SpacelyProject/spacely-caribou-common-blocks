@@ -18,7 +18,6 @@
           "auto_pc": ""
         }
       },
-      "xpm_cdc_gen_0": "",
       "fw_top_v_0": ""
     },
     "ports": {
@@ -3484,12 +3483,6 @@
           }
         }
       },
-      "xpm_cdc_gen_0": {
-        "vlnv": "xilinx.com:ip:xpm_cdc_gen:1.0",
-        "xci_name": "cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0",
-        "xci_path": "ip/cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0/cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0.xci",
-        "inst_hier_path": "xpm_cdc_gen_0"
-      },
       "fw_top_v_0": {
         "vlnv": "xilinx.com:module_ref:fw_top_v:1.0",
         "xci_name": "cms_pix_28_fw_top_bd_fw_top_v_0_0",
@@ -3941,14 +3934,12 @@
           "zynq_ultra_ps_e_0/maxihpm0_fpd_aclk",
           "axi_interconnect_0/S00_ACLK",
           "axi_interconnect_0/M00_ACLK",
-          "xpm_cdc_gen_0/src_clk",
           "fw_top_v_0/S_AXI_ACLK"
         ]
       },
       "zynq_ultra_ps_e_0_pl_clk1": {
         "ports": [
           "zynq_ultra_ps_e_0/pl_clk1",
-          "xpm_cdc_gen_0/dest_clk",
           "fw_top_v_0/pl_clk1"
         ]
       },

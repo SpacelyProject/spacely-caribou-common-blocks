@@ -1,7 +1,7 @@
 //Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-//Date        : Thu Jun 13 13:55:36 2024
+//Date        : Thu Jun 13 20:01:13 2024
 //Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 //Command     : generate_target cms_pix_28_fw_top_bd.bd
 //Design      : cms_pix_28_fw_top_bd
@@ -9,7 +9,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "cms_pix_28_fw_top_bd,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=cms_pix_28_fw_top_bd,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=7,numReposBlks=5,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "cms_pix_28_fw_top_bd.hwdef" *) 
+(* CORE_GENERATION_INFO = "cms_pix_28_fw_top_bd,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=cms_pix_28_fw_top_bd,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=6,numReposBlks=4,numNonXlnxBlks=0,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "cms_pix_28_fw_top_bd.hwdef" *) 
 module cms_pix_28_fw_top_bd
    (bxclk,
     bxclk_ana,
@@ -243,10 +243,6 @@ module cms_pix_28_fw_top_bd
         .mb_debug_sys_rst(1'b0),
         .peripheral_aresetn(proc_sys_reset_0_peripheral_aresetn),
         .slowest_sync_clk(zynq_ultra_ps_e_0_pl_clk0));
-  cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0 xpm_cdc_gen_0
-       (.dest_clk(zynq_ultra_ps_e_0_pl_clk1),
-        .src_clk(zynq_ultra_ps_e_0_pl_clk0),
-        .src_in({1'b0,1'b1}));
   cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0 zynq_ultra_ps_e_0
        (.maxigp0_araddr(zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARADDR),
         .maxigp0_arburst(zynq_ultra_ps_e_0_M_AXI_HPM0_FPD_ARBURST),

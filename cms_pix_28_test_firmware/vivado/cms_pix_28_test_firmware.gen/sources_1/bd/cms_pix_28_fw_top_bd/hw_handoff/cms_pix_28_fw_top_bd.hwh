@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Jun 13 13:55:38 2024" VIVADOVERSION="2022.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Jun 13 20:01:15 2024" VIVADOVERSION="2022.1">
 
   <SYSTEMINFO ARCH="zynquplus" BOARD="xilinx.com:zcu102:part0:3.4" DEVICE="xczu9eg" NAME="cms_pix_28_fw_top_bd" PACKAGE="ffvb1156" SPEEDGRADE="-2"/>
 
@@ -1094,46 +1094,6 @@
             <CONNECTION INSTANCE="fw_top_v_0" PORT="S_AXI_ARESETN"/>
           </CONNECTIONS>
         </PORT>
-      </PORTS>
-      <BUSINTERFACES/>
-    </MODULE>
-    <MODULE COREREVISION="1" FULLNAME="/xpm_cdc_gen_0" HWVERSION="1.0" INSTANCE="xpm_cdc_gen_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xpm_cdc_gen" VLNV="xilinx.com:ip:xpm_cdc_gen:1.0">
-      <DOCUMENTS>
-        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=xpm_cdc_gen;v=v1_0;d=pg382-xpm-cdc-gen.pdf"/>
-      </DOCUMENTS>
-      <PARAMETERS>
-        <PARAMETER NAME="C_CDC_TYPE" VALUE="1"/>
-        <PARAMETER NAME="SRC_CLK_PERIOD" VALUE="5000"/>
-        <PARAMETER NAME="DEST_CLK_PERIOD" VALUE="2500"/>
-        <PARAMETER NAME="SIM_ASSERT_CHK" VALUE="1"/>
-        <PARAMETER NAME="DEST_SYNC_FF" VALUE="4"/>
-        <PARAMETER NAME="INIT_SYNC_FF" VALUE="0"/>
-        <PARAMETER NAME="SRC_INPUT_REG" VALUE="1"/>
-        <PARAMETER NAME="WIDTH" VALUE="2"/>
-        <PARAMETER NAME="REG_OUTPUT" VALUE="0"/>
-        <PARAMETER NAME="SIM_LOSSLESS_GRAY_CHK" VALUE="0"/>
-        <PARAMETER NAME="SRC_SYNC_FF" VALUE="4"/>
-        <PARAMETER NAME="DEST_EXT_HSK" VALUE="1"/>
-        <PARAMETER NAME="RST_USED" VALUE="1"/>
-        <PARAMETER NAME="INIT" VALUE="1"/>
-        <PARAMETER NAME="RST_ACTIVE_HIGH" VALUE="0"/>
-        <PARAMETER NAME="CDC_TYPE" VALUE="xpm_cdc_array_single"/>
-        <PARAMETER NAME="Component_Name" VALUE="cms_pix_28_fw_top_bd_xpm_cdc_gen_0_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT CLKFREQUENCY="99990005" DIR="I" NAME="src_clk" SIGIS="clk" SIGNAME="zynq_ultra_ps_e_0_pl_clk0">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="pl_clk0"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT CLKFREQUENCY="399960052" DIR="I" NAME="dest_clk" SIGIS="clk" SIGNAME="zynq_ultra_ps_e_0_pl_clk1">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="pl_clk1"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="1" NAME="src_in" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="O" LEFT="1" NAME="dest_out" RIGHT="0" SIGIS="undef"/>
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
@@ -3077,13 +3037,11 @@
             <CONNECTION INSTANCE="zynq_ultra_ps_e_0" PORT="maxihpm0_fpd_aclk"/>
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="S00_ACLK"/>
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="M00_ACLK"/>
-            <CONNECTION INSTANCE="xpm_cdc_gen_0" PORT="src_clk"/>
             <CONNECTION INSTANCE="fw_top_v_0" PORT="S_AXI_ACLK"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="399960052" DIR="O" NAME="pl_clk1" SIGIS="clk" SIGNAME="zynq_ultra_ps_e_0_pl_clk1">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="xpm_cdc_gen_0" PORT="dest_clk"/>
             <CONNECTION INSTANCE="fw_top_v_0" PORT="pl_clk1"/>
           </CONNECTIONS>
         </PORT>
