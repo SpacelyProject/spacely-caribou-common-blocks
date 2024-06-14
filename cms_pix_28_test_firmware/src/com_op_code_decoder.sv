@@ -20,6 +20,8 @@ module com_op_code_decoder (
     input  logic fw_op_code_w_reset,
     input  logic fw_op_code_w_cfg_static_0,
     input  logic fw_op_code_r_cfg_static_0,
+    input  logic fw_op_code_w_cfg_static_1,
+    input  logic fw_op_code_r_cfg_static_1,
     input  logic fw_op_code_w_cfg_array_0,
     input  logic fw_op_code_r_cfg_array_0,
     input  logic fw_op_code_w_cfg_array_1,
@@ -32,6 +34,8 @@ module com_op_code_decoder (
     output logic op_code_w_reset,
     output logic op_code_w_cfg_static_0,
     output logic op_code_r_cfg_static_0,
+    output logic op_code_w_cfg_static_1,
+    output logic op_code_r_cfg_static_1,
     output logic op_code_w_cfg_array_0,
     output logic op_code_r_cfg_array_0,
     output logic op_code_w_cfg_array_1,
@@ -45,6 +49,8 @@ module com_op_code_decoder (
   assign op_code_w_reset          = fw_dev_id_enable & fw_op_code_w_reset;
   assign op_code_w_cfg_static_0   = fw_dev_id_enable & fw_op_code_w_cfg_static_0;
   assign op_code_r_cfg_static_0   = fw_dev_id_enable & fw_op_code_r_cfg_static_0;
+  assign op_code_w_cfg_static_1   = fw_dev_id_enable & fw_op_code_w_cfg_static_1;
+  assign op_code_r_cfg_static_1   = fw_dev_id_enable & fw_op_code_r_cfg_static_1;
   assign op_code_w_cfg_array_0    = fw_dev_id_enable & fw_op_code_w_cfg_array_0;
   assign op_code_r_cfg_array_0    = fw_dev_id_enable & fw_op_code_r_cfg_array_0;
   assign op_code_w_cfg_array_1    = fw_dev_id_enable & fw_op_code_w_cfg_array_1;

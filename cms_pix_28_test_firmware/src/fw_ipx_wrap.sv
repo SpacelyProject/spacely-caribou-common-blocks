@@ -52,6 +52,8 @@ module fw_ipx_wrap (
   logic        fw_op_code_w_reset;
   logic        fw_op_code_w_cfg_static_0;
   logic        fw_op_code_r_cfg_static_0;
+  logic        fw_op_code_w_cfg_static_1;
+  logic        fw_op_code_r_cfg_static_1;
   logic        fw_op_code_w_cfg_array_0;
   logic        fw_op_code_r_cfg_array_0;
   logic        fw_op_code_w_cfg_array_1;
@@ -73,6 +75,8 @@ module fw_ipx_wrap (
     .fw_op_code_w_reset        (fw_op_code_w_reset),
     .fw_op_code_w_cfg_static_0 (fw_op_code_w_cfg_static_0),
     .fw_op_code_r_cfg_static_0 (fw_op_code_r_cfg_static_0),
+    .fw_op_code_w_cfg_static_1 (fw_op_code_w_cfg_static_1),
+    .fw_op_code_r_cfg_static_1 (fw_op_code_r_cfg_static_1),
     .fw_op_code_w_cfg_array_0  (fw_op_code_w_cfg_array_0),
     .fw_op_code_r_cfg_array_0  (fw_op_code_r_cfg_array_0),
     .fw_op_code_w_cfg_array_1  (fw_op_code_w_cfg_array_1),
@@ -154,6 +158,8 @@ module fw_ipx_wrap (
     .fw_op_code_w_reset        (fw_op_code_w_reset),
     .fw_op_code_w_cfg_static_0 (fw_op_code_w_cfg_static_0),
     .fw_op_code_r_cfg_static_0 (fw_op_code_r_cfg_static_0),
+    .fw_op_code_w_cfg_static_1 (fw_op_code_w_cfg_static_1),
+    .fw_op_code_r_cfg_static_1 (fw_op_code_r_cfg_static_1),
     .fw_op_code_w_cfg_array_0  (fw_op_code_w_cfg_array_0),
     .fw_op_code_r_cfg_array_0  (fw_op_code_r_cfg_array_0),
     .fw_op_code_w_cfg_array_1  (fw_op_code_w_cfg_array_1),
@@ -195,6 +201,8 @@ module fw_ipx_wrap (
     .fw_op_code_w_reset        (fw_op_code_w_reset),
     .fw_op_code_w_cfg_static_0 (fw_op_code_w_cfg_static_0),
     .fw_op_code_r_cfg_static_0 (fw_op_code_r_cfg_static_0),
+    .fw_op_code_w_cfg_static_1 (fw_op_code_w_cfg_static_1),
+    .fw_op_code_r_cfg_static_1 (fw_op_code_r_cfg_static_1),
     .fw_op_code_w_cfg_array_0  (fw_op_code_w_cfg_array_0),
     .fw_op_code_r_cfg_array_0  (fw_op_code_r_cfg_array_0),
     .fw_op_code_w_cfg_array_1  (fw_op_code_w_cfg_array_1),
@@ -235,6 +243,8 @@ module fw_ipx_wrap (
     .fw_op_code_w_reset        (fw_op_code_w_reset),
     .fw_op_code_w_cfg_static_0 (fw_op_code_w_cfg_static_0),
     .fw_op_code_r_cfg_static_0 (fw_op_code_r_cfg_static_0),
+    .fw_op_code_w_cfg_static_1 (fw_op_code_w_cfg_static_1),
+    .fw_op_code_r_cfg_static_1 (fw_op_code_r_cfg_static_1),
     .fw_op_code_w_cfg_array_0  (fw_op_code_w_cfg_array_0),
     .fw_op_code_r_cfg_array_0  (fw_op_code_r_cfg_array_0),
     .fw_op_code_w_cfg_array_1  (fw_op_code_w_cfg_array_1),
@@ -275,6 +285,8 @@ module fw_ipx_wrap (
     .fw_op_code_w_reset        (fw_op_code_w_reset),
     .fw_op_code_w_cfg_static_0 (fw_op_code_w_cfg_static_0),
     .fw_op_code_r_cfg_static_0 (fw_op_code_r_cfg_static_0),
+    .fw_op_code_w_cfg_static_1 (fw_op_code_w_cfg_static_1),
+    .fw_op_code_r_cfg_static_1 (fw_op_code_r_cfg_static_1),
     .fw_op_code_w_cfg_array_0  (fw_op_code_w_cfg_array_0),
     .fw_op_code_r_cfg_array_0  (fw_op_code_r_cfg_array_0),
     .fw_op_code_w_cfg_array_1  (fw_op_code_w_cfg_array_1),

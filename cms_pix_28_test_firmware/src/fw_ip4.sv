@@ -24,6 +24,8 @@ module fw_ip4 (
     input  logic        fw_op_code_w_reset,
     input  logic        fw_op_code_w_cfg_static_0,
     input  logic        fw_op_code_r_cfg_static_0,
+    input  logic        fw_op_code_w_cfg_static_1,
+    input  logic        fw_op_code_r_cfg_static_1,
     input  logic        fw_op_code_w_cfg_array_0,
     input  logic        fw_op_code_r_cfg_array_0,
     input  logic        fw_op_code_w_cfg_array_1,

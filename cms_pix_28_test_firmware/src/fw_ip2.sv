@@ -25,6 +25,8 @@ module fw_ip2 (
     input  logic        fw_op_code_w_reset,
     input  logic        fw_op_code_w_cfg_static_0,
     input  logic        fw_op_code_r_cfg_static_0,
+    input  logic        fw_op_code_w_cfg_static_1,
+    input  logic        fw_op_code_r_cfg_static_1,
     input  logic        fw_op_code_w_cfg_array_0,
     input  logic        fw_op_code_r_cfg_array_0,
     input  logic        fw_op_code_w_cfg_array_1,
@@ -60,6 +62,8 @@ module fw_ip2 (
   logic op_code_w_reset;
   logic op_code_w_cfg_static_0;
   logic op_code_r_cfg_static_0;
+  logic op_code_w_cfg_static_1;
+  logic op_code_r_cfg_static_1;
   logic op_code_w_cfg_array_0;
   logic op_code_r_cfg_array_0;
   logic op_code_w_cfg_array_1;
@@ -73,6 +77,8 @@ module fw_ip2 (
     .fw_op_code_w_reset        (fw_op_code_w_reset),
     .fw_op_code_w_cfg_static_0 (fw_op_code_w_cfg_static_0),
     .fw_op_code_r_cfg_static_0 (fw_op_code_r_cfg_static_0),
+    .fw_op_code_w_cfg_static_1 (fw_op_code_w_cfg_static_1),
+    .fw_op_code_r_cfg_static_1 (fw_op_code_r_cfg_static_1),
     .fw_op_code_w_cfg_array_0  (fw_op_code_w_cfg_array_0),
     .fw_op_code_r_cfg_array_0  (fw_op_code_r_cfg_array_0),
     .fw_op_code_w_cfg_array_1  (fw_op_code_w_cfg_array_1),
@@ -85,6 +91,8 @@ module fw_ip2 (
     .op_code_w_reset         (op_code_w_reset),
     .op_code_w_cfg_static_0  (op_code_w_cfg_static_0),
     .op_code_r_cfg_static_0  (op_code_r_cfg_static_0),
+    .op_code_w_cfg_static_1  (op_code_w_cfg_static_1),
+    .op_code_r_cfg_static_1  (op_code_r_cfg_static_1),
     .op_code_w_cfg_array_0   (op_code_w_cfg_array_0),
     .op_code_r_cfg_array_0   (op_code_r_cfg_array_0),
     .op_code_w_cfg_array_1   (op_code_w_cfg_array_1),
@@ -97,6 +105,7 @@ module fw_ip2 (
 
   // Instantiate module com_config_write_regs.sv
   logic [23:0]        w_cfg_static_0_reg;
+  logic [23:0]        w_cfg_static_1_reg;
   logic [255:0][15:0] w_cfg_array_0_reg;
   logic [255:0][15:0] w_cfg_array_1_reg;
   com_config_write_regs com_config_write_regs_inst (
@@ -105,11 +114,13 @@ module fw_ip2 (
     //
     .op_code_w_reset         (op_code_w_reset),
     .op_code_w_cfg_static_0  (op_code_w_cfg_static_0),
+    .op_code_w_cfg_static_1  (op_code_w_cfg_static_1),
     .op_code_w_cfg_array_0   (op_code_w_cfg_array_0),
     .op_code_w_cfg_array_1   (op_code_w_cfg_array_1),
     .sw_write24_0            (sw_write24_0),               // feed-through bytes 2, 1, 0 of sw_write32_0 from SW to FW
     //
     .w_cfg_static_0_reg      (w_cfg_static_0_reg),         // on clock domain fw_axi_clk
+    .w_cfg_static_1_reg      (w_cfg_static_1_reg),         // on clock domain fw_axi_clk
     .w_cfg_array_0_reg       (w_cfg_array_0_reg),          // on clock domain fw_axi_clk
     .w_cfg_array_1_reg       (w_cfg_array_1_reg)           // on clock domain fw_axi_clk
   );
@@ -126,6 +137,9 @@ module fw_ip2 (
     if(op_code_r_cfg_static_0) begin
       // AXI SW will readout com_config_write_regs.sv output signal w_cfg_static_0_reg, which is 24-bits. Must pad with zero up to 32-bits.
       fw_read_data32_comb = {8'h0, w_cfg_static_0_reg};
+    end else if(op_code_r_cfg_static_1) begin
+      // AXI SW will readout com_config_write_regs.sv output signal w_cfg_static_1_reg, which is 24-bits. Must pad with zero up to 32-bits.
+      fw_read_data32_comb = {8'h0, w_cfg_static_1_reg};
     end else if(op_code_r_cfg_array_0) begin
       // AXI SW will readout com_config_write_regs.sv output signal w_cfg_array_0_reg, which is 16-bits for the requested address sw_write24_0[23:16].
       // For efficiency, read also w_cfg_array_0_reg at next address. CAUTION: SW must take care not to OVERFLOW addresses
@@ -165,18 +179,20 @@ module fw_ip2 (
       if(op_code_w_reset)        fw_read_status32_reg[ 0] <= 1'b1;
       if(op_code_w_cfg_static_0) fw_read_status32_reg[ 1] <= 1'b1;
       if(op_code_r_cfg_static_0) fw_read_status32_reg[ 2] <= 1'b1;
-      if(op_code_w_cfg_array_0)  fw_read_status32_reg[ 3] <= 1'b1;
-      if(op_code_r_cfg_array_0)  fw_read_status32_reg[ 4] <= 1'b1;
-      if(op_code_w_cfg_array_1)  fw_read_status32_reg[ 5] <= 1'b1;
-      if(op_code_r_cfg_array_1)  fw_read_status32_reg[ 6] <= 1'b1;
-      if(op_code_r_data_array_0) fw_read_status32_reg[ 7] <= 1'b1;
-      if(op_code_r_data_array_1) fw_read_status32_reg[ 8] <= 1'b1;
-      if(op_code_w_execute)      fw_read_status32_reg[ 9] <= 1'b1;
-      fw_read_status32_reg[10]    <= sm_test1_o_status_done;
-      fw_read_status32_reg[11]    <= sm_test2_o_status_done;
-      fw_read_status32_reg[12]    <= sm_test3_o_status_done;
-      fw_read_status32_reg[13]    <= sm_test4_o_status_done;
-      fw_read_status32_reg[30:14] <= 17'b0;
+      if(op_code_w_cfg_static_1) fw_read_status32_reg[ 3] <= 1'b1;
+      if(op_code_r_cfg_static_1) fw_read_status32_reg[ 4] <= 1'b1;
+      if(op_code_w_cfg_array_0)  fw_read_status32_reg[ 5] <= 1'b1;
+      if(op_code_r_cfg_array_0)  fw_read_status32_reg[ 6] <= 1'b1;
+      if(op_code_w_cfg_array_1)  fw_read_status32_reg[ 7] <= 1'b1;
+      if(op_code_r_cfg_array_1)  fw_read_status32_reg[ 8] <= 1'b1;
+      if(op_code_r_data_array_0) fw_read_status32_reg[ 9] <= 1'b1;
+      if(op_code_r_data_array_1) fw_read_status32_reg[10] <= 1'b1;
+      if(op_code_w_execute)      fw_read_status32_reg[11] <= 1'b1;
+      fw_read_status32_reg[12]    <= sm_test1_o_status_done;
+      fw_read_status32_reg[13]    <= sm_test2_o_status_done;
+      fw_read_status32_reg[14]    <= sm_test3_o_status_done;
+      fw_read_status32_reg[15]    <= sm_test4_o_status_done;
+      fw_read_status32_reg[30:16] <= 15'b0;
       fw_read_status32_reg[31]    <= error_w_execute_cfg;
     end
   end
