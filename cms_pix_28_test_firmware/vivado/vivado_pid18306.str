@@ -1,0 +1,86 @@
+/*
+
+Xilinx Vivado v2022.1 (64-bit) [Major: 2022, Minor: 1]
+SW Build: 3526262 on Mon Apr 18 15:47:01 MDT 2022
+IP Build: 3524634 on Mon Apr 18 20:55:01 MDT 2022
+
+Process ID (PID): 18306
+License: Customer
+Mode: GUI Mode
+
+Current time: 	Fri Jun 14 09:30:46 CDT 2024
+Time zone: 	Central Standard Time (America/Chicago)
+
+OS: Scientific Linux release 7.9 (Nitrogen)
+OS Version: 3.10.0-1160.118.1.el7.x86_64
+OS Architecture: amd64
+Available processors (cores): 12
+
+Display: 0
+Screen size: 1920x1080
+Screen resolution (DPI): 100
+Available screens: 1
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+Scale size: 12
+
+Java version: 	11.0.11 64-bit
+Java home: 	/asic/cad/Xilinx/Vivado/2022.1/tps/lnx64/jre11.0.11_9
+Java executable: 	/asic/cad/Xilinx/Vivado/2022.1/tps/lnx64/jre11.0.11_9/bin/java
+Java arguments: 	[-Dsun.java2d.pmoffscreen=false, -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2, -Dsun.java2d.xrender=false, -Djdk.gtk.version=2, -Dsun.java2d.uiScale.enabled=false, -Xverify:none, -Dswing.aatext=true, -XX:-UsePerfData, -Djdk.map.althashing.threshold=512, -XX:StringTableSize=4072, --add-opens=java.desktop/com.sun.awt=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.base/java.nio=ALL-UNNAMED, --add-opens=java.desktop/sun.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/java.awt.event=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.base/java.nio=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.table=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.desktop/sun.awt.shell=ALL-UNNAMED, --add-exports=java.base/sun.security.action=ALL-UNNAMED, --add-exports=java.desktop/sun.font=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED, -XX:NewSize=60m, -XX:MaxNewSize=60m, -Xms256m, -Xmx3072m, -Xss5m, -Xrs]
+Java initial memory (-Xms): 	256 MB
+Java maximum memory (-Xmx):	 3 GB
+
+
+User name: 	abadea
+User home directory: /fasic_home/abadea
+User working directory: /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /asic/cad/Xilinx/Vivado
+HDI_APPROOT: /asic/cad/Xilinx/Vivado/2022.1
+RDI_DATADIR: /asic/cad/Xilinx/Vivado/2022.1/data
+RDI_BINDIR: /asic/cad/Xilinx/Vivado/2022.1/bin
+
+Vivado preferences file: /fasic_home/abadea/.Xilinx/Vivado/2022.1/vivado.xml
+Vivado preferences directory: /fasic_home/abadea/.Xilinx/Vivado/2022.1/
+Vivado layouts directory: /fasic_home/abadea/.Xilinx/Vivado/2022.1/data/layouts
+PlanAhead jar file: 	/asic/cad/Xilinx/Vivado/2022.1/lib/classes/planAhead.jar
+Vivado log file: 	/asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/vivado.log
+Vivado journal file: 	/asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/vivado.jou
+Engine tmp dir: 	./.Xil/Vivado-18306-fasic-137645.fnal.gov
+
+Xilinx Environment Variables
+----------------------------
+XILINX: /asic/cad/Xilinx/Vivado/2022.1/ids_lite/ISE
+XILINXD_LICENSE_FILE: 2100@xilinx-lic
+XILINX_DSP: /asic/cad/Xilinx/Vivado/2022.1/ids_lite/ISE
+XILINX_HLS: /asic/cad/Xilinx/Vitis_HLS/2022.1
+XILINX_PLANAHEAD: /asic/cad/Xilinx/Vivado/2022.1
+XILINX_VITIS: 
+XILINX_VIVADO: /asic/cad/Xilinx/Vivado/2022.1
+XILINX_VIVADO_HLS: /asic/cad/Xilinx/Vivado/2022.1
+
+
+GUI allocated memory:	256 MB
+GUI max memory:		3,072 MB
+Engine allocated memory: 5,897 MB
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// HMemoryUtils.trashcanNow. Engine heap size: 5,897 MB. GUI used memory: 57 MB. Current time: 6/14/24, 9:30:47 AM CDT
+selectButton(PAResourceEtoH.GettingStartedView_OPEN_PROJECT, "Open Project"); // y
+// Run Command: PAResourceCommand.PACommandNames_OPEN_PROJECT
+setFileChooser("/asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.xpr");
+// [GUI Memory]: 110 MB (+112842kb) [00:00:23]
+// [Engine Memory]: 5,899 MB (+6033840kb) [00:00:23]
+// Opening Vivado Project: /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.xpr. Version: Vivado v2022.1 
+// Tcl Message: open_project /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.xpr 
+// Tcl Message: ERROR: [Common 17-1294] Unable to create directory [/asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/.Xil/Vivado-18306-fasic-137645.fnal.gov]. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Common 17-1294] Unable to create directory [/asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/.Xil/Vivado-18306-fasic-137645.fnal.gov].  
+dismissDialog("Open Project"); // bA

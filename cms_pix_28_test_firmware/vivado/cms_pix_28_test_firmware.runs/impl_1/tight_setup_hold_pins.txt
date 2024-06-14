@@ -1,0 +1,11 @@
++===========================================+===================+=========================================================================================================+
+| Launch Setup Clock                        | Launch Hold Clock | Pin                                                                                                     |
++===========================================+===================+=========================================================================================================+
+| clk_out1_cms_pix_28_fw_top_bd_clk_wiz_0_0 | clk_pl_0          | cms_pix_28_fw_top_bd_i/fw_top_v_0/inst/fw_top_inst/fw_ipx_wrap_inst/fw_ip2_inst/fw_bxclk_ana_ff_reg/D   |
+| clk_out1_cms_pix_28_fw_top_bd_clk_wiz_0_0 | clk_pl_0          | cms_pix_28_fw_top_bd_i/fw_top_v_0/inst/fw_top_inst/fw_ipx_wrap_inst/fw_ip2_inst/fw_bxclk_ff_reg/D       |
+| clk_out1_cms_pix_28_fw_top_bd_clk_wiz_0_0 | clk_pl_0          | cms_pix_28_fw_top_bd_i/fw_top_v_0/inst/fw_top_inst/fw_ipx_wrap_inst/fw_ip2_inst/fw_pl_clk1_cnt_reg[5]/R |
+| clk_out1_cms_pix_28_fw_top_bd_clk_wiz_0_0 | clk_pl_0          | cms_pix_28_fw_top_bd_i/fw_top_v_0/inst/fw_top_inst/fw_ipx_wrap_inst/fw_ip2_inst/fw_pl_clk1_cnt_reg[4]/R |
+| clk_out1_cms_pix_28_fw_top_bd_clk_wiz_0_0 | clk_pl_0          | cms_pix_28_fw_top_bd_i/fw_top_v_0/inst/fw_top_inst/fw_ipx_wrap_inst/fw_ip2_inst/fw_pl_clk1_cnt_reg[3]/R |
+| clk_out1_cms_pix_28_fw_top_bd_clk_wiz_0_0 | clk_pl_0          | cms_pix_28_fw_top_bd_i/fw_top_v_0/inst/fw_top_inst/fw_ipx_wrap_inst/fw_ip2_inst/fw_pl_clk1_cnt_reg[2]/R |
+| clk_out1_cms_pix_28_fw_top_bd_clk_wiz_0_0 | clk_pl_0          | cms_pix_28_fw_top_bd_i/fw_top_v_0/inst/fw_top_inst/fw_ipx_wrap_inst/fw_ip2_inst/fw_pl_clk1_cnt_reg[1]/R |
++-------------------------------------------+-------------------+---------------------------------------------------------------------------------------------------------+
