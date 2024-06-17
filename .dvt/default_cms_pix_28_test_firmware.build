@@ -114,6 +114,8 @@
 ./cms_pix_28_test_firmware/src/com_config_write_regs.sv
 #./cms_pix_28_test_firmware/src/com_cdc_synch.sv
 ./cms_pix_28_test_firmware/src/fw_ip1.sv
+./cms_pix_28_test_firmware/src/bxclks_generator.sv
+./cms_pix_28_test_firmware/src/ip2_test1.sv
 ./cms_pix_28_test_firmware/src/fw_ip2.sv
 ./cms_pix_28_test_firmware/src/fw_ip3.sv
 ./cms_pix_28_test_firmware/src/fw_ip4.sv

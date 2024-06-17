@@ -220,119 +220,30 @@ module fw_ip2 (
   logic [5:0] bxclk_period;                                // on clock domain fw_axi_clk
   logic [4:0] bxclk_delay;                                 // on clock domain fw_axi_clk
   logic       bxclk_delay_sign;                            // on clock domain fw_axi_clk
-  logic       super_pix_sel;                               // on clock domain fw_axi_clk
+  logic       super_pixel_sel;                             // on clock domain fw_axi_clk
 
   assign bxclk_period     = w_cfg_static_0_reg[w_cfg_static_0_reg_bxclk_period_index_max : w_cfg_static_0_reg_bxclk_period_index_min];
   assign bxclk_delay      = w_cfg_static_0_reg[w_cfg_static_0_reg_bxclk_delay_index_max  : w_cfg_static_0_reg_bxclk_delay_index_min ];
   assign bxclk_delay_sign = w_cfg_static_0_reg[w_cfg_static_0_reg_bxclk_delay_sign_index];
-  assign super_pix_sel    = w_cfg_static_0_reg[w_cfg_static_0_reg_super_pix_sel_index];
+  assign super_pixel_sel  = w_cfg_static_0_reg[w_cfg_static_0_reg_super_pix_sel_index];
 
-  // Create helper counter fw_pl_clk1_cnt (used to create signals fw_bxclk_ana_ff and fw_bxclk_ff)
-  // TODO The following three processes may be factorized (for code clarity/reuse) into a separate hierarchical module.
+  // Instantiate module bxclks_generators.sv
   logic [5:0] fw_pl_clk1_cnt;
-  always @(posedge fw_pl_clk1) begin : fw_pl_clk1_cnt_proc
-    if(op_code_w_reset) begin
-      fw_pl_clk1_cnt <= 6'h0;
-    end else begin
-      if(fw_dev_id_enable) begin
-        // this fw_ip2 device is active
-        if (fw_pl_clk1_cnt == bxclk_period) begin
-          // reached maximum => rollover counter to ONE
-          // example to generate 40MHs from 400 MHz => counting 1,2,3,4,5,6,7,8,9,10
-          fw_pl_clk1_cnt <= 6'h1;
-        end else begin
-          fw_pl_clk1_cnt <= fw_pl_clk1_cnt + 1;
-        end
-      end else begin
-        // this fw_ip2 device is NOT active
-        fw_pl_clk1_cnt <= 6'h0;
-      end
-    end
-  end
+  bxclks_generators bxclks_generators_inst (
+    .clk                (fw_pl_clk1),                      // FM clock 400MHz       mapped to pl_clk1
+    .reset              (op_code_w_reset),
+    .enable             (fw_dev_id_enable),                // up to 15 FW can be connected
+    // Input ports: controls
+    .bxclk_period       (bxclk_period),
+    .bxclk_delay        (bxclk_delay),
+    .bxclk_delay_sign   (bxclk_delay_sign),
+    // output ports
+    .clk_counter        (fw_pl_clk1_cnt),
+    .bxclk_ana          (fw_bxclk_ana),
+    .bxclk              (fw_bxclk)
+  );
 
-  // Create and Assign output port signal fw_bxclk_ana
-  logic fw_bxclk_ana_ff;
-  always @(posedge fw_pl_clk1) begin : fw_bxclk_ana_ff_proc
-    if(fw_pl_clk1_cnt == 6'h0) begin
-      // keep bxclk_ana LOW while in RESET
-      fw_bxclk_ana_ff <= 1'b0;
-    end else begin
-      if(fw_dev_id_enable) begin
-        // this fw_ip2 device is active
-        if(fw_pl_clk1_cnt <= (bxclk_period>>1))  begin
-          // keep bxclk_ana HIGH for first half of bxclk_period
-          fw_bxclk_ana_ff <= 1'b1;
-        end else begin
-          // keep bxclk_ana LOW for second half of bxclk_period
-          fw_bxclk_ana_ff <= 1'b0;
-        end
-      end else begin
-        // this fw_ip2 device is NOT active
-        fw_bxclk_ana_ff <= 1'b0;
-      end
-    end
-  end
-  assign fw_bxclk_ana = fw_bxclk_ana_ff;
-
-  // Create and Assign output port signal fw_bxclk
-  logic fw_bxclk_ff;
-  always @(posedge fw_pl_clk1) begin : fw_bxclk_ff_proc
-    if(fw_pl_clk1_cnt == 6'h0) begin
-      // keep bxclk LOW while in RESET
-      fw_bxclk_ff <= 1'b0;
-    end else begin
-      if(fw_dev_id_enable) begin
-        // this fw_ip2 device is active
-        if(bxclk_delay_sign==1'b0) begin
-          // bxclk_delay_sign is ZERO. The RE of bxclk is after RE of bxclk_ana by bxclk_delay ticks.
-          // keep bxclk LOW for bxclk_delay; then HIGH for bxclk_period/2; then again LOW for bxclk_period/2-bxclk_delay
-          if (fw_pl_clk1_cnt <= bxclk_delay) begin
-            fw_bxclk_ff <= 1'b0;
-          end else if (fw_pl_clk1_cnt <= bxclk_delay + (bxclk_period>>1)) begin
-            fw_bxclk_ff <= 1'b1;
-          end else begin
-            fw_bxclk_ff <= 1'b0;
-          end
-        end else begin
-          // bxclk_delay_sign is ONE.  The FE of bxclk is after RE of bxclk_ana by bxclk_delay ticks
-          // keep bxclk HIGH for bxclk_delay; then LOW for bxclk_period/2; then again HIGH for bxclk_period/2-bxclk_delay
-          if (fw_pl_clk1_cnt <= bxclk_delay) begin
-            fw_bxclk_ff <= 1'b1;
-          end else if (fw_pl_clk1_cnt <= bxclk_delay + (bxclk_period>>1)) begin
-            fw_bxclk_ff <= 1'b0;
-          end else begin
-            fw_bxclk_ff <= 1'b1;
-          end
-        end
-      end else begin
-        // this fw_ip2 device is NOT active
-        fw_bxclk_ff <= 1'b0;
-      end
-    end
-  end
-  assign fw_bxclk = fw_bxclk_ff;
-
-  // Create and Assign output port signal fw_super_pixel_sel
-  logic fw_super_pixel_sel_ff;
-  always @(posedge fw_pl_clk1) begin : fw_super_pixel_sel_ff_proc
-    if(op_code_w_reset) begin
-      fw_super_pixel_sel_ff <= 1'b0;
-    end else begin
-      if(fw_dev_id_enable)begin
-        // this fw_ip2 device is active
-        fw_super_pixel_sel_ff <= super_pix_sel;
-      end else begin
-        // this fw_ip2 device is NOT active
-        fw_super_pixel_sel_ff <= 1'b0;
-      end
-    end
-  end
-  assign fw_super_pixel_sel = fw_super_pixel_sel_ff;
-
-
-
-  //
-  // Test SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister. The test is configured using:
+  // SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister. The test is configured using:
   // 1. byte#3=={fw_dev_id_enable, fw_op_code_w_execute}
   // 2. byte#2-to-byte#0==sw_write24_0 where each bit defined as follows:
   localparam w_execute_cfg_test_delay_index_min  =  0;  //
@@ -401,35 +312,12 @@ module fw_ip2 (
   assign test3_enable_re = test3_enable & ~test3_enable_del;
   assign test4_enable_re = test4_enable & ~test4_enable_del;
   //
-  // Create signal error_w_execute_cfg; used as a bit in fw_read_status32 to flag wrong user settings
-  always @(posedge fw_axi_clk) begin
-    if(test1_enable) begin
-      if(test_delay==6'h0 |test_delay==6'h1 | test_delay==6'h2 | (test_delay>bxclk_period)) begin
-        // inferred from state machine sm_test1 logic
-        error_w_execute_cfg <= 1'b1;
-      end else begin
-        error_w_execute_cfg <= 1'b0;
-      end
-    end else if(test2_enable) begin
-      // use data specific for test case test2
-      error_w_execute_cfg <= 1'b0;     // TODO
-    end else if(test3_enable) begin
-      // use data specific for test case test3
-      error_w_execute_cfg <= 1'b0;     // TODO
-    end else if(test4_enable) begin
-      // use data specific for test case test4
-      error_w_execute_cfg <= 1'b0;     // TODO
-    end  else begin
-      // keep old value;
-      error_w_execute_cfg <= error_w_execute_cfg;
-    end
-  end
-  //
   // Define enumerated type scan_chain_mode: LOW==shift-register, HIGH==parallel-load-asic-internal-comparators; default=HIGH
   typedef enum logic {
     SHIFT_REG = 1'b0,
     LOAD_COMP = 1'b1
   } scan_chain_mode;
+  //
   // State Machine Output signals to DUT
   logic           sm_test1_o_config_clk;
   logic           sm_test1_o_reset_not;
@@ -437,28 +325,28 @@ module fw_ip2 (
   logic           sm_test1_o_config_load;
   logic           sm_test1_o_vin_test_trig_out;
   logic           sm_test1_o_scan_in;
-  scan_chain_mode sm_test1_o_scan_load;
+  logic           sm_test1_o_scan_load;
   logic           sm_test2_o_config_clk;         assign sm_test2_o_config_clk        = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_reset_not;          assign sm_test2_o_reset_not         = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_config_in;          assign sm_test2_o_config_in         = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_config_load;        assign sm_test2_o_config_load       = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_vin_test_trig_out;  assign sm_test2_o_vin_test_trig_out = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_scan_in;            assign sm_test2_o_scan_in           = 1'b0;       // TODO to be driven by sm_test2
-  scan_chain_mode sm_test2_o_scan_load;          assign sm_test2_o_scan_load         = LOAD_COMP;  // TODO to be driven by sm_test2
+  logic           sm_test2_o_scan_load;          assign sm_test2_o_scan_load         = LOAD_COMP;  // TODO to be driven by sm_test2
   logic           sm_test3_o_config_clk;         assign sm_test3_o_config_clk        = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_reset_not;          assign sm_test3_o_reset_not         = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_config_in;          assign sm_test3_o_config_in         = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_config_load;        assign sm_test3_o_config_load       = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_vin_test_trig_out;  assign sm_test3_o_vin_test_trig_out = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_scan_in;            assign sm_test3_o_scan_in           = 1'b0;       // TODO to be driven by sm_test3
-  scan_chain_mode sm_test3_o_scan_load;          assign sm_test3_o_scan_load         = LOAD_COMP;  // TODO to be driven by sm_test3
+  logic           sm_test3_o_scan_load;          assign sm_test3_o_scan_load         = LOAD_COMP;  // TODO to be driven by sm_test3
   logic           sm_test4_o_config_clk;         assign sm_test4_o_config_clk        = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_reset_not;          assign sm_test4_o_reset_not         = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_config_in;          assign sm_test4_o_config_in         = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_config_load;        assign sm_test4_o_config_load       = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_vin_test_trig_out;  assign sm_test4_o_vin_test_trig_out = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_scan_in;            assign sm_test4_o_scan_in           = 1'b0;       // TODO to be driven by sm_test4
-  scan_chain_mode sm_test4_o_scan_load;          assign sm_test4_o_scan_load         = LOAD_COMP;  // TODO to be driven by sm_test4
+  logic           sm_test4_o_scan_load;          assign sm_test4_o_scan_load         = LOAD_COMP;  // TODO to be driven by sm_test4
   // State Machine Input signals from DUT
   logic           sm_testx_i_config_out;
   logic           sm_testx_i_scan_out;
@@ -477,6 +365,7 @@ module fw_ip2 (
   logic                                          sm_test3_o_scanchain_reg_shift_right;   assign sm_test3_o_scanchain_reg_shift_right = 1'b0;    // TODO to be driven by sm_test3
   logic                                          sm_test4_o_scanchain_reg_load;          assign sm_test4_o_scanchain_reg_load        = 1'b0;    // TODO to be driven by sm_test4
   logic                                          sm_test4_o_scanchain_reg_shift_right;   assign sm_test4_o_scanchain_reg_shift_right = 1'b0;    // TODO to be driven by sm_test4
+  //
   always @(posedge fw_pl_clk1) begin : sm_testx_i_scanchain_reg_proc
     if(sm_test1_o_scanchain_reg_load | sm_test2_o_scanchain_reg_load | sm_test3_o_scanchain_reg_load | sm_test4_o_scanchain_reg_load) begin
       sm_testx_i_scanchain_reg           <= w_cfg_array_0_reg[sm_testx_i_scanchain_reg_width/16-1 : 0];
@@ -486,8 +375,8 @@ module fw_ip2 (
       sm_testx_i_scanchain_reg_shift_cnt <= sm_testx_i_scanchain_reg_shift_cnt + 1'b1;
     end
   end
-  // ------------------------------------------------------------------------------------------------------------------
-  // State Machine for "test1". Test SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister.
+
+  // State Machine for "test1": instantiate module ip2_test1.sv
   typedef enum logic [2:0] {
     IDLE           = 3'b000,
     DELAY_TEST     = 3'b001,
@@ -496,138 +385,34 @@ module fw_ip2 (
     SHIFT_IN       = 3'b100,
     DONE           = 3'b101
   } state_t_sm_test1;
-  state_t_sm_test1 sm_test1;
-  //
-  assign sm_test1_o_config_clk        = 1'b0;       // signal not used-in / diven-by sm_test1_proc
-  assign sm_test1_o_config_in         = 1'b0;       // signal not used-in / diven-by sm_test1_proc
-  assign sm_test1_o_config_load       = 1'b0;       // signal not used-in / diven-by sm_test1_proc
-  assign sm_test1_o_vin_test_trig_out = 1'b0;       // signal not used-in / diven-by sm_test1_proc
-  always @(posedge fw_pl_clk1) begin : sm_test1_proc
-    if(~fw_dev_id_enable | op_code_w_reset) begin
-      sm_test1 <= IDLE;
-    end else begin
-      case(sm_test1)
-        IDLE : begin
-          // next state machine state logic
-          if(test1_enable_re) begin
-            sm_test1 <= DELAY_TEST;
-          end else begin
-            sm_test1 <= IDLE;
-          end
-          // output state machine signal assignment
-          sm_test1_o_reset_not                   <= 1'b1;                      // active LOW signal; default is inactive
-          sm_test1_o_scan_in                     <= 1'b0;                      // arbitrary chosen default LOW
-          sm_test1_o_scan_load                   <= LOAD_COMP;                 // scan-chain-mode: LOW==shift-register, HIGH==parallel-load-asic-internal-comparators; default=HIGH
-          sm_test1_o_scanchain_reg_load          <= 1'b0;                      //
-          sm_test1_o_scanchain_reg_shift_right   <= 1'b0;                      // LOW==do-not-shift, HIGH==do-shift-right
-          sm_test1_o_status_done                 <= sm_test1_o_status_done;    // state machine STATUS flag
-        end
-        DELAY_TEST : begin
-          // next state machine state logic
-          if(test_delay==fw_pl_clk1_cnt) begin
-            sm_test1 <= RESET_NOT;
-          end else begin
-            sm_test1 <= DELAY_TEST;
-          end
-          // output state machine signal assignment
-          if(test_delay==fw_pl_clk1_cnt) begin
-            sm_test1_o_reset_not                 <= 1'b0;
-            sm_test1_o_scan_load                 <= SHIFT_REG;
-          end else begin
-            sm_test1_o_reset_not                 <= 1'b1;
-            sm_test1_o_scan_load                 <= LOAD_COMP;
-          end
-          sm_test1_o_scan_in                     <= 1'b0;
-          sm_test1_o_scanchain_reg_load          <= 1'b1;
-          sm_test1_o_scanchain_reg_shift_right   <= 1'b0;
-          sm_test1_o_status_done                 <= 1'b0;
-        end
-        RESET_NOT : begin
-          // next state machine state logic
-          if(test_delay==fw_pl_clk1_cnt) begin
-            sm_test1 <= SHIFT_IN_0;
-          end else begin
-            sm_test1 <= RESET_NOT;
-          end
-          // output state machine signal assignment
-          if(test_delay==fw_pl_clk1_cnt) begin
-            sm_test1_o_reset_not                 <= 1'b1;
-            sm_test1_o_scan_in                   <= sm_testx_i_scanchain_reg[0];
-          end else begin
-            sm_test1_o_reset_not                 <= 1'b0;
-            sm_test1_o_scan_in                   <= 1'b0;
-          end
-          sm_test1_o_scan_load                   <= SHIFT_REG;
-          sm_test1_o_scanchain_reg_load          <= 1'b0;
-          sm_test1_o_scanchain_reg_shift_right   <= 1'b0;
-          sm_test1_o_status_done                 <= 1'b0;
-        end
-        SHIFT_IN_0 : begin
-          // next state machine state logic
-          if(test_delay==fw_pl_clk1_cnt) begin
-            sm_test1 <= SHIFT_IN;
-          end else begin
-            sm_test1 <= SHIFT_IN_0;
-          end
-          // output state machine signal assignment
-          if(test_delay-2==fw_pl_clk1_cnt) begin
-            // latency sm_test1_o_scanchain_reg_shift_right to sm_testx_i_scanchain_reg is TWO fw_pl_clk1 clocks:
-            // * one clk latency due to this process for asserting signal sm_test1_o_scanchain_reg_shift_right
-            // * one clk latency due to process sm_testx_i_scanchain_reg_proc to execute the shift-right
-            sm_test1_o_scanchain_reg_shift_right <= 1'b1;
-          end else begin
-            sm_test1_o_scanchain_reg_shift_right <= 1'b0;
-          end
-          sm_test1_o_reset_not                   <= 1'b1;
-          sm_test1_o_scan_in                     <= sm_testx_i_scanchain_reg[0];
-          sm_test1_o_scan_load                   <= SHIFT_REG;
-          sm_test1_o_scanchain_reg_load          <= 1'b0;
-          sm_test1_o_status_done                 <= 1'b0;
-        end
-        SHIFT_IN : begin
-          // next state machine state logic
-          if(sm_testx_i_scanchain_reg_shift_cnt==sm_testx_i_scanchain_reg_width) begin
-            // done shifting all 768 bits;
-            sm_test1 <= DONE;
-            sm_test1_o_scan_load                 <= LOAD_COMP;
-            sm_test1_o_status_done               <= 1'b1;
-          end else begin
-            // continue shifting
-            sm_test1 <= SHIFT_IN;
-            sm_test1_o_scan_load                 <= SHIFT_REG;
-            sm_test1_o_status_done               <= 1'b0;
-          end
-          // output state machine signal assignment
-          if(test_delay-2==fw_pl_clk1_cnt) begin
-            // latency sm_test1_o_scanchain_reg_shift_right to sm_testx_i_scanchain_reg is TWO fw_pl_clk1 clocks:
-            // * one clk latency due to this process for asserting signal sm_test1_o_scanchain_reg_shift_right
-            // * one clk latency due to process sm_testx_i_scanchain_reg_proc to execute the shift-right
-            sm_test1_o_scanchain_reg_shift_right <= 1'b1;
-          end else begin
-            sm_test1_o_scanchain_reg_shift_right <= 1'b0;
-          end
-          sm_test1_o_reset_not                   <= 1'b1;
-          sm_test1_o_scan_in                     <= sm_testx_i_scanchain_reg[0];
-          sm_test1_o_scanchain_reg_load          <= 1'b0;
-        end
-        DONE : begin
-          // next state machine state logic
-          sm_test1 <= IDLE;
-          // output state machine signal assignment
-          sm_test1_o_reset_not                   <= 1'b1;
-          sm_test1_o_scan_in                     <= 1'b0;
-          sm_test1_o_scan_load                   <= LOAD_COMP;
-          sm_test1_o_scanchain_reg_load          <= 1'b0;
-          sm_test1_o_scanchain_reg_shift_right   <= 1'b0;
-          sm_test1_o_status_done                 <= 1'b1;
-        end
-        default : begin
-          sm_test1 <= IDLE;
-        end
-      endcase
-    end
-  end
-  // State Machine for "test1". Logic related with readout data from DUT.
+  logic [2:0] sm_test1;
+  ip2_test1 ip2_test1_inst (
+    .clk                                     (fw_pl_clk1),                     // FM clock 400MHz       mapped to pl_clk1
+    .reset                                   (op_code_w_reset),
+    .enable                                  (fw_dev_id_enable),                // up to 15 FW can be connected
+    // Control signals:
+    .clk_counter                             (fw_pl_clk1_cnt),
+    .test_delay                              (test_delay),
+    .test1_enable_re                         (test1_enable_re),
+    .sm_testx_i_scanchain_reg_bit0           (sm_testx_i_scanchain_reg[0]),
+    .sm_testx_i_scanchain_reg_shift_cnt      (sm_testx_i_scanchain_reg_shift_cnt),
+    .sm_testx_i_scanchain_reg_shift_cnt_max  (sm_testx_i_scanchain_reg_width),
+    .sm_test1_o_scanchain_reg_load           (sm_test1_o_scanchain_reg_load),
+    .sm_test1_o_scanchain_reg_shift          (sm_test1_o_scanchain_reg_shift_right),
+    .sm_test1_o_status_done                  (sm_test1_o_status_done),
+    // output ports
+    .sm_test1_state                          (sm_test1),
+    .sm_test1_o_config_clk                   (sm_test1_o_config_clk),
+    .sm_test1_o_reset_not                    (sm_test1_o_reset_not),
+    .sm_test1_o_config_in                    (sm_test1_o_config_in),
+    .sm_test1_o_config_load                  (sm_test1_o_config_load),
+    .sm_test1_o_vin_test_trig_out            (sm_test1_o_vin_test_trig_out),
+    .sm_test1_o_scan_in                      (sm_test1_o_scan_in),
+    .sm_test1_o_scan_load                    (sm_test1_o_scan_load)
+  );
+
+  // Logic related with readout data from DUT: sm_testx_o_scanchain_reg
+  // This is State Machine for test dependent: sm_test1, sm_test2, sm_test3, sm_test4
   always @(posedge fw_pl_clk1) begin : sm_testx_o_scanchain_reg_proc
     if(test1_enable) begin
       // use data specific for test case test1
@@ -663,11 +448,12 @@ module fw_ip2 (
       sm_testx_o_scanchain_reg <= sm_testx_o_scanchain_reg;
     end
   end
-  // ------------------------------------------------------------------------------------------------------------------
 
-  // assign module output signals from State Machine sm_test1, sm_test2, sm_test3
+  // Assign module output signals:
+  // They may be or may be not dependent of State Machine sm_test1, sm_test2, sm_test3, sm_test4
   always_comb begin
     if(test1_enable) begin
+      fw_super_pixel_sel     = super_pixel_sel;
       fw_config_clk          = sm_test1_o_config_clk;           // signal not used-in / diven-by sm_test1_proc
       fw_reset_not           = sm_test1_o_reset_not;
       fw_config_in           = sm_test1_o_config_in;            // signal not used-in / diven-by sm_test1_proc
@@ -676,6 +462,7 @@ module fw_ip2 (
       fw_scan_in             = sm_test1_o_scan_in;
       fw_scan_load           = sm_test1_o_scan_load;
     end else if(test2_enable) begin
+      fw_super_pixel_sel     = super_pixel_sel;
       fw_config_clk          = sm_test2_o_config_clk;
       fw_reset_not           = sm_test2_o_reset_not;
       fw_config_in           = sm_test2_o_config_in;
@@ -684,6 +471,7 @@ module fw_ip2 (
       fw_scan_in             = sm_test2_o_scan_in;
       fw_scan_load           = sm_test2_o_scan_load;
     end else if(test3_enable) begin
+      fw_super_pixel_sel     = super_pixel_sel;
       fw_config_clk          = sm_test3_o_config_clk;
       fw_reset_not           = sm_test3_o_reset_not;
       fw_config_in           = sm_test3_o_config_in;
@@ -692,6 +480,7 @@ module fw_ip2 (
       fw_scan_in             = sm_test3_o_scan_in;
       fw_scan_load           = sm_test3_o_scan_load;
     end else if(test4_enable) begin
+      fw_super_pixel_sel     = super_pixel_sel;
       fw_config_clk          = sm_test4_o_config_clk;
       fw_reset_not           = sm_test4_o_reset_not;
       fw_config_in           = sm_test4_o_config_in;
@@ -700,6 +489,7 @@ module fw_ip2 (
       fw_scan_in             = sm_test4_o_scan_in;
       fw_scan_load           = sm_test4_o_scan_load;
     end else begin
+      fw_super_pixel_sel     = 1'b0;
       fw_config_clk          = 1'b0;
       fw_reset_not           = 1'b0;
       fw_config_in           = 1'b0;
@@ -709,6 +499,31 @@ module fw_ip2 (
       fw_scan_load           = 1'b0;
     end
   end
+
+  // Create signal error_w_execute_cfg; used as a bit in fw_read_status32 to flag wrong user settings
+  always @(posedge fw_axi_clk) begin
+    if(test1_enable) begin
+      if(test_delay==6'h0 |test_delay==6'h1 | test_delay==6'h2 | (test_delay>bxclk_period)) begin
+        // inferred from state machine sm_test1 logic
+        error_w_execute_cfg <= 1'b1;
+      end else begin
+        error_w_execute_cfg <= 1'b0;
+      end
+    end else if(test2_enable) begin
+      // use data specific for test case test2
+      error_w_execute_cfg <= 1'b0;     // TODO
+    end else if(test3_enable) begin
+      // use data specific for test case test3
+      error_w_execute_cfg <= 1'b0;     // TODO
+    end else if(test4_enable) begin
+      // use data specific for test case test4
+      error_w_execute_cfg <= 1'b0;     // TODO
+    end  else begin
+      // keep old value;
+      error_w_execute_cfg <= error_w_execute_cfg;
+    end
+  end
+  //
 
 
 endmodule

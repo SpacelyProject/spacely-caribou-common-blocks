@@ -409,7 +409,7 @@ module fw_ipx_wrap_tb ();
     tb_function_id           = OP_CODE_R_CFG_ARRAY_0;
     tb_sw_write24_0          = 24'h0;
     sw_write32_0             = {tb_firmware_id, tb_function_id, tb_sw_write24_0};
-    #(5*fw_axi_clk_period);
+    #(1*fw_axi_clk_period);
     for(int i_addr=0; i_addr<256; i_addr=i_addr+2) begin
       tb_sw_write24_0[23:16] = i_addr & 8'hFF;
       tb_sw_write24_0[15: 0] = 16'hFFFF;
@@ -430,7 +430,7 @@ module fw_ipx_wrap_tb ();
     tb_function_id           = OP_CODE_R_CFG_ARRAY_1;
     tb_sw_write24_0          = 24'h0;
     sw_write32_0             = {tb_firmware_id, tb_function_id, tb_sw_write24_0};
-    #(5*fw_axi_clk_period);
+    #(1*fw_axi_clk_period);
     for(int i_addr=0; i_addr<256; i_addr=i_addr+2) begin
       tb_sw_write24_0[23:16] = i_addr & 8'hFF;
       tb_sw_write24_0[15: 0] = 16'hFFFF;
