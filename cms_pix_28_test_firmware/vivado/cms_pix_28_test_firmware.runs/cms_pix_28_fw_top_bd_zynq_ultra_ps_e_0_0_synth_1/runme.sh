@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_synth_1'
+HD_PWD='/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

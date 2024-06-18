@@ -17,7 +17,7 @@ proc create_report { reportName command } {
   }
 }
 namespace eval ::optrace {
-  variable script "/asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/impl_1/cms_pix_28_fw_top_bd_wrapper.tcl"
+  variable script "/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/impl_1/cms_pix_28_fw_top_bd_wrapper.tcl"
   variable category "vivado_impl"
 }
 
@@ -123,8 +123,12 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
+  set_param power.enableLutRouteBelPower 1
+  set_param power.enableCarry8RouteBelPower 1
+  set_param power.enableUnconnectedCarry8PinPower 1
   set_param xicom.use_bs_reader 1
   set_param chipscope.maxJobs 3
+  set_param power.BramSDPPropagationFix 1
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xczu9eg-ffvb1156-2-e
   set_property board_part xilinx.com:zcu102:part0:3.4 [current_project]
@@ -132,20 +136,20 @@ OPTRACE "create in-memory project" START { }
   set_param project.singleFileAddWarning.threshold 0
 OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
-  set_property webtalk.parent_dir /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.cache/wt [current_project]
-  set_property parent.project_path /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.xpr [current_project]
-  set_property ip_output_repo /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.cache/ip [current_project]
+  set_property webtalk.parent_dir /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.cache/wt [current_project]
+  set_property parent.project_path /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.xpr [current_project]
+  set_property ip_output_repo /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
-  add_files -quiet /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp
+  add_files -quiet /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp
   set_msg_config -source 4 -id {BD 41-1661} -limit 0
   set_param project.isImplRun true
-  add_files /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd
+  add_files /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd
   set_param project.isImplRun false
 OPTRACE "read constraints: implementation" START { }
-  read_xdc /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/constrs_1/new/cms_pix_28_test_firmware.xdc
+  read_xdc /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/constrs_1/new/cms_pix_28_test_firmware.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "add files" END { }
 OPTRACE "link_design" START { }

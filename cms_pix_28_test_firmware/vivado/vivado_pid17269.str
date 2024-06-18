@@ -1,0 +1,1675 @@
+/*
+
+Xilinx Vivado v2022.1 (64-bit) [Major: 2022, Minor: 1]
+SW Build: 3526262 on Mon Apr 18 15:47:01 MDT 2022
+IP Build: 3524634 on Mon Apr 18 20:55:01 MDT 2022
+
+Process ID (PID): 17269
+License: Customer
+Mode: GUI Mode
+
+Current time: 	Mon Jun 17 10:17:22 CDT 2024
+Time zone: 	Central Standard Time (America/Chicago)
+
+OS: Scientific Linux release 7.9 (Nitrogen)
+OS Version: 3.10.0-1160.118.1.el7.x86_64
+OS Architecture: amd64
+Available processors (cores): 12
+
+Display: 0
+Screen size: 1920x1080
+Screen resolution (DPI): 100
+Available screens: 1
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+Scale size: 12
+
+Java version: 	11.0.11 64-bit
+Java home: 	/asic/cad/Xilinx/Vivado/2022.1/tps/lnx64/jre11.0.11_9
+Java executable: 	/asic/cad/Xilinx/Vivado/2022.1/tps/lnx64/jre11.0.11_9/bin/java
+Java arguments: 	[-Dsun.java2d.pmoffscreen=false, -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2, -Dsun.java2d.xrender=false, -Djdk.gtk.version=2, -Dsun.java2d.uiScale.enabled=false, -Xverify:none, -Dswing.aatext=true, -XX:-UsePerfData, -Djdk.map.althashing.threshold=512, -XX:StringTableSize=4072, --add-opens=java.desktop/com.sun.awt=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.base/java.nio=ALL-UNNAMED, --add-opens=java.desktop/sun.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/java.awt.event=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.base/java.nio=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.table=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.desktop/sun.awt.shell=ALL-UNNAMED, --add-exports=java.base/sun.security.action=ALL-UNNAMED, --add-exports=java.desktop/sun.font=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED, -XX:NewSize=60m, -XX:MaxNewSize=60m, -Xms256m, -Xmx3072m, -Xss5m, -Xrs]
+Java initial memory (-Xms): 	256 MB
+Java maximum memory (-Xmx):	 3 GB
+
+
+User name: 	abadea
+User home directory: /fasic_home/abadea
+User working directory: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /asic/cad/Xilinx/Vivado
+HDI_APPROOT: /asic/cad/Xilinx/Vivado/2022.1
+RDI_DATADIR: /asic/cad/Xilinx/Vivado/2022.1/data
+RDI_BINDIR: /asic/cad/Xilinx/Vivado/2022.1/bin
+
+Vivado preferences file: /fasic_home/abadea/.Xilinx/Vivado/2022.1/vivado.xml
+Vivado preferences directory: /fasic_home/abadea/.Xilinx/Vivado/2022.1/
+Vivado layouts directory: /fasic_home/abadea/.Xilinx/Vivado/2022.1/data/layouts
+PlanAhead jar file: 	/asic/cad/Xilinx/Vivado/2022.1/lib/classes/planAhead.jar
+Vivado log file: 	/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/vivado.log
+Vivado journal file: 	/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/vivado.jou
+Engine tmp dir: 	./.Xil/Vivado-17269-fasic-137645.fnal.gov
+
+Xilinx Environment Variables
+----------------------------
+XILINX: /asic/cad/Xilinx/Vivado/2022.1/ids_lite/ISE
+XILINXD_LICENSE_FILE: 2100@xilinx-lic
+XILINX_DSP: /asic/cad/Xilinx/Vivado/2022.1/ids_lite/ISE
+XILINX_HLS: /asic/cad/Xilinx/Vitis_HLS/2022.1
+XILINX_PLANAHEAD: /asic/cad/Xilinx/Vivado/2022.1
+XILINX_VITIS: 
+XILINX_VIVADO: /asic/cad/Xilinx/Vivado/2022.1
+XILINX_VIVADO_HLS: /asic/cad/Xilinx/Vivado/2022.1
+
+
+GUI allocated memory:	256 MB
+GUI max memory:		3,072 MB
+Engine allocated memory: 5,898 MB
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// HMemoryUtils.trashcanNow. Engine heap size: 5,898 MB. GUI used memory: 55 MB. Current time: 6/17/24, 10:17:23 AM CDT
+selectList(PAResourceQtoS.SyntheticaGettingStartedView_RECENT_PROJECTS, "/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.xpr", 0); // r
+// [GUI Memory]: 99 MB (+101019kb) [00:02:06]
+// [Engine Memory]: 5,900 MB (+6034754kb) [00:02:06]
+// Opening Vivado Project: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.xpr. Version: Vivado v2022.1 
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// Tcl Message: open_project /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.xpr 
+// TclEventType: FLOW_ADDED
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_DASHBOARD_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// WARNING: HEventQueue.dispatchEvent() is taking  2440 ms.
+// Tcl Message: open_project /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.xpr 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/asic/cad/Xilinx/Vivado/2022.1/data/ip'. 
+// HMemoryUtils.trashcanNow. Engine heap size: 6,005 MB. GUI used memory: 70 MB. Current time: 6/17/24, 10:17:49 AM CDT
+// [GUI Memory]: 114 MB (+11191kb) [00:02:30]
+// Tcl Message: open_project: Time (s): cpu = 00:00:16 ; elapsed = 00:00:24 . Memory (MB): peak = 7758.938 ; gain = 102.441 ; free physical = 116778 ; free virtual = 131888 
+// Project name: cms_pix_28_test_firmware; location: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado; part: xczu9eg-ffvb1156-2-e
+// Elapsed time: 24 seconds
+dismissDialog("Open Project"); // bA
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: update_compile_order -fileset sources_1 
+// [GUI Memory]: 134 MB (+14952kb) [00:02:47]
+// Elapsed time: 19 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, IP Integrator, Open Block Design]", 7, false); // n
+// Run Command: PAResourceCommand.PACommandNames_OPEN_BLOCK_DESIGN
+// TclEventType: LOAD_FEATURE
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: open_bd_design {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd} 
+// Tcl Message: Reading block design file </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd>... 
+// TclEventType: RSB_CHANGE_CURRENT_DIAGRAM
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: LOAD_FEATURE
+// Tcl Message: Adding component instance block -- xilinx.com:ip:zynq_ultra_ps_e:3.4 - zynq_ultra_ps_e_0 Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - proc_sys_reset_0 Adding component instance block -- xilinx.com:ip:axi_interconnect:2.1 - axi_interconnect_0 
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: Adding component instance block -- xilinx.com:ip:axi_protocol_converter:2.1 - auto_pc Adding component instance block -- xilinx.com:ip:clk_wiz:6.0 - clk_wiz_0 Adding component instance block -- xilinx.com:module_ref:fw_top_v:1.0 - fw_top_v_0 Successfully read diagram <cms_pix_28_fw_top_bd> from block design file </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd> 
+// TclEventType: RSB_OPEN_DIAGRAM
+// WARNING: HEventQueue.dispatchEvent() is taking  1004 ms.
+closeView(PAResourceOtoP.PAViews_PROJECT_SUMMARY, "Project Summary"); // v
+// Tcl Message: open_bd_design: Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 7934.016 ; gain = 0.000 ; free physical = 115211 ; free virtual = 130337 
+// 'ca' command handler elapsed time: 9 seconds
+dismissDialog("Open Block Design"); // bA
+// JavaFX intialization before: 1718637500200
+// JavaFX initialization after: 1718637500902
+// WARNING: HTimer (Open addressing views timer) is taking 751ms to process. Increasing delay to 1300 ms.
+// [Engine Memory]: 7,282 MB (+1140576kb) [00:03:02]
+// HMemoryUtils.trashcanNow. Engine heap size: 7,292 MB. GUI used memory: 88 MB. Current time: 6/17/24, 10:18:23 AM CDT
+// Run Command: PAResourceCommand.PACommandNames_CUSTOMIZE_RSB_BLOC
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+// WARNING: HEventQueue.dispatchEvent() is taking  2219 ms.
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+// Elapsed time: 13 seconds
+dismissDialog("Re-customize IP"); // N
+selectButton("Clock Configuration", "Clock Configuration"); // j
+// [GUI Memory]: 146 MB (+5327kb) [00:03:17]
+selectTab(PAResourceOtoP.PSSPanelClockingPage_TABBED_PANE, PAResourceOtoP.PSSPanelClockingPage_OUTPUT_CLOCKS, "Output Clocks", 1); // i
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks", 0); // aq
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks", 3); // aq
+// [GUI Memory]: 175 MB (+22257kb) [00:03:46]
+// Elapsed time: 35 seconds
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a
+dismissDialog("Re-customize IP"); // r
+// [GUI Memory]: 188 MB (+4932kb) [00:03:59]
+maximizeView(PAResourceOtoP.PAViews_BASE_WORKSPACE, "BaseWorkspace"); // Q
+// Elapsed time: 110 seconds
+selectMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_REPORTS, "Reports"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_REPORTS, "Reports"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // aj
+selectMenu(RDIResourceCommand.RDICommands_CUSTOM_COMMANDS, "Custom Commands"); // ao
+// Elapsed time: 38 seconds
+dismissMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // aj
+// Run Command: PAResourceCommand.PACommandNames_CUSTOMIZE_RSB_BLOC
+// WARNING: HEventQueue.dispatchEvent() is taking  1536 ms.
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+dismissDialog("Re-customize IP"); // N
+// [GUI Memory]: 224 MB (+28187kb) [00:06:42]
+selectButton("Clock Configuration", "Clock Configuration"); // j
+selectTab(PAResourceOtoP.PSSPanelClockingPage_TABBED_PANE, PAResourceOtoP.PSSPanelClockingPage_OUTPUT_CLOCKS, "Output Clocks", 1); // i
+selectTab(PAResourceOtoP.PSSPanelClockingPage_TABBED_PANE, PAResourceOtoP.PSSPanelClockingPage_INPUT_CLOCKS, "Input Clocks", 0); // i
+selectTab(PAResourceOtoP.PSSPanelClockingPage_TABBED_PANE, PAResourceOtoP.PSSPanelClockingPage_OUTPUT_CLOCKS, "Output Clocks", 1); // i
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks", 0); // aq
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks", 3); // aq
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL1 ; RPLL ;  ; 100 ; 6 ; 1 ; 199.980026 ; 100", 5, "PL1", 0, false); // aq
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL2 ; RPLL ;  ; 100 ; 4 ; 1 ; 100 ; 100", 6, "PL2", 0, false); // aq
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL1 ; RPLL ;  ; 100 ; 12 ; 1 ; 99.990013 ; 100", 5, "100", 3, false); // aq
+setText("PL1", "150"); // B
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL2 ; RPLL ;  ; 100 ; 12 ; 1 ; 99.990013 ; 100", 6, "100", 3, false); // aq
+// Elapsed time: 14 seconds
+setText("PL2", "200"); // B
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Re-customize IP"); // r
+// Tcl Command: 'set_property -dict [list CONFIG.PSU__FPGA_PL1_ENABLE {1} CONFIG.PSU__FPGA_PL2_ENABLE {1} CONFIG.PSU__CRL_APB__PL1_REF_CTRL__FREQMHZ {150} CONFIG.PSU__CRL_APB__PL2_REF_CTRL__FREQMHZ {200}] [get_bd_cells zynq_ultra_ps_e_0]'
+// TclEventType: HW_HANDOFF_TARGET_STALE_EVENT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+// Tcl Message: startgroup 
+// Tcl Message: set_property -dict [list CONFIG.PSU__FPGA_PL1_ENABLE {1} CONFIG.PSU__FPGA_PL2_ENABLE {1} CONFIG.PSU__CRL_APB__PL1_REF_CTRL__FREQMHZ {150} CONFIG.PSU__CRL_APB__PL2_REF_CTRL__FREQMHZ {200}] [get_bd_cells zynq_ultra_ps_e_0] 
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// Tcl Message: endgroup 
+dismissDialog("Customize IP"); // bA
+// HMemoryUtils.trashcanNow. Engine heap size: 7,381 MB. GUI used memory: 149 MB. Current time: 6/17/24, 10:22:39 AM CDT
+// Elapsed time: 26 seconds
+selectMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_REPORTS, "Reports"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_REPORTS, "Reports"); // aj
+// Elapsed time: 13 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Implementation, Open Implemented Design]", 18, true); // n - Node
+// Run Command: PAResourceCommand.PACommandNames_GOTO_IMPLEMENTED_DESIGN
+selectButton(PAResourceQtoS.StaleRunDialog_YES, "Yes"); // a
+dismissDialog("Implementation is Out-of-date"); // cj
+// Tcl Message: open_run impl_1 
+// HMemoryUtils.trashcanNow. Engine heap size: 7,923 MB. GUI used memory: 149 MB. Current time: 6/17/24, 10:23:24 AM CDT
+// TclEventType: SDC_CONSTRAINT_ADD
+// HMemoryUtils.trashcanNow. Engine heap size: 8,151 MB. GUI used memory: 149 MB. Current time: 6/17/24, 10:23:44 AM CDT
+// TclEventType: POWER_CNS_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// HMemoryUtils.trashcanNow. Engine heap size: 8,462 MB. GUI used memory: 149 MB. Current time: 6/17/24, 10:23:49 AM CDT
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: DESIGN_NEW
+// HMemoryUtils.trashcanNow. Engine heap size: 8,582 MB. GUI used memory: 149 MB. Current time: 6/17/24, 10:23:52 AM CDT
+// [Engine Memory]: 8,582 MB (+980766kb) [00:08:32]
+// Xgd.load filename: /asic/cad/Xilinx/Vivado/2022.1/data/parts/xilinx/zynquplus/devint/zynquplus/xczu9eg/xczu9eg.xgd; ZipEntry: xczu9eg_detail.xgd elapsed time: 0.6s
+// DeviceModel: Load Xgds SwingWorker Join Forever elapsed time: 0.8s
+// TclEventType: DESIGN_NEW
+// [GUI Memory]: 247 MB (+11860kb) [00:08:34]
+// [GUI Memory]: 262 MB (+2446kb) [00:08:35]
+// DeviceView Instantiated
+// WARNING: HEventQueue.dispatchEvent() is taking  1475 ms.
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: INFO: [Device 21-403] Loading part xczu9eg-ffvb1156-2-e 
+// Tcl Message: Netlist sorting complete. Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.05 . Memory (MB): peak = 9991.113 ; gain = 0.000 ; free physical = 114160 ; free virtual = 129286 
+// Tcl Message: INFO: [Netlist 29-17] Analyzing 3 Unisim elements for replacement INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds INFO: [Project 1-479] Netlist was created with Vivado 2022.1 INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message: INFO: [Timing 38-478] Restoring timing data from binary archive. INFO: [Timing 38-479] Binary timing data restore complete. INFO: [Project 1-856] Restoring constraints from binary archive. INFO: [Project 1-853] Binary constraint restore complete. 
+// Tcl Message: Reading XDEF placement. Reading placer database... Reading XDEF routing. 
+// Tcl Message: Read XDEF Files: Time (s): cpu = 00:00:00.74 ; elapsed = 00:00:00.74 . Memory (MB): peak = 10274.918 ; gain = 0.000 ; free physical = 113842 ; free virtual = 128968 
+// Tcl Message: Restored from archive | CPU: 0.760000 secs | Memory: 1.389404 MB | 
+// Tcl Message: Finished XDEF File Restore: Time (s): cpu = 00:00:00.75 ; elapsed = 00:00:00.74 . Memory (MB): peak = 10274.918 ; gain = 0.000 ; free physical = 113842 ; free virtual = 128968 Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 10641.613 ; gain = 0.000 ; free physical = 113470 ; free virtual = 128597 
+// Tcl Message: INFO: [Project 1-111] Unisim Transformation Summary: No Unisim elements were transformed.  
+// ExpRunCommands.openImplResults elapsed time: 36.8s
+// TclEventType: DRC_ADDED
+// Device view-level: 0.0
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// RouteApi::loadEngineXgdAndInitRouteStorage elapsed time: 1.9s
+// Tcl Message: open_run: Time (s): cpu = 00:00:33 ; elapsed = 00:00:36 . Memory (MB): peak = 10837.629 ; gain = 1356.449 ; free physical = 113277 ; free virtual = 128405 
+// TclEventType: DRC_ADDED
+// Device view-level: 0.0
+// TclEventType: METHODOLOGY_ADDED
+// TclEventType: POWER_UPDATED
+// TclEventType: TIMING_SUMMARY_UPDATED
+// 'eq' command handler elapsed time: 41 seconds
+// Elapsed time: 39 seconds
+dismissDialog("Open Implemented Design"); // bA
+// [Engine Memory]: 9,182 MB (+178936kb) [00:08:39]
+// RouteApi::initDelayMediator elapsed time: 12.6s
+// RouteApi: Init Delay Mediator Swing Worker Finished
+// HMemoryUtils.trashcanNow. Engine heap size: 9,575 MB. GUI used memory: 222 MB. Current time: 6/17/24, 10:24:09 AM CDT
+// Elapsed time: 12 seconds
+dismissDialog("Critical Messages"); // X
+dismissDialog("Methodology Violations"); // aV
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Implementation, Open Implemented Design, Schematic]", 29, false); // n
+// Run Command: PAResourceCommand.PACommandNames_SCHEMATIC
+// [GUI Memory]: 276 MB (+854kb) [00:08:59]
+// Elapsed time: 43 seconds
+selectButton(PAResourceTtoZ.TaskBanner_CLOSE, (String) null); // j
+closeTask("Implementation", "Implemented Design", "DesignTask.RESULTS_ANALYSIS");
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Confirm Close"); // A
+// TclEventType: DESIGN_CLOSE
+// HMemoryUtils.trashcanNow. Engine heap size: 9,634 MB. GUI used memory: 204 MB. Current time: 6/17/24, 10:25:03 AM CDT
+// TclEventType: TIMING_RESULTS_UNLOAD
+// Engine heap size: 9,635 MB. GUI used memory: 204 MB. Current time: 6/17/24, 10:25:04 AM CDT
+// TclEventType: CURR_DESIGN_SET
+closeView(PAResourceOtoP.PAViews_PROJECT_SUMMARY, "Project Summary"); // v
+// Tcl Message: close_design 
+// TclEventType: DESIGN_CLOSE
+dismissDialog("Close"); // bA
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 148 MB. Current time: 6/17/24, 10:55:04 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,553 MB. GUI used memory: 133 MB. Current time: 6/17/24, 11:25:04 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 133 MB. Current time: 6/17/24, 11:55:04 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 134 MB. Current time: 6/17/24, 12:25:04 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 133 MB. Current time: 6/17/24, 12:55:04 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 133 MB. Current time: 6/17/24, 1:25:04 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 133 MB. Current time: 6/17/24, 1:55:04 PM CDT
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 1852 ms. Increasing delay to 5556 ms.
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 4059 ms. Increasing delay to 12177 ms.
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 41 ms. Decreasing delay to 2041 ms.
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 1717 ms. Increasing delay to 3000 ms.
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 1140 ms. Increasing delay to 3420 ms.
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 133 MB. Current time: 6/17/24, 2:25:04 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 133 MB. Current time: 6/17/24, 2:55:04 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 133 MB. Current time: 6/17/24, 3:25:04 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 133 MB. Current time: 6/17/24, 3:55:04 PM CDT
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 133 MB. Current time: 6/17/24, 4:25:04 PM CDT
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 9,511 MB. GUI used memory: 133 MB. Current time: 6/17/24, 4:55:04 PM CDT
+// TclEventType: FILE_SET_CHANGE
+// Run Command: PAResourceCommand.PACommandNames_CUSTOMIZE_RSB_BLOC
+// Elapsed time: 24858 seconds
+dismissDialog("Re-customize IP"); // N
+selectTab(PAResourceTtoZ.XPG_TabbedPane_TABBED_PANE, (HResource) null, "Clocking Options", 1); // cW
+// Elapsed time: 29 seconds
+selectTab(PAResourceTtoZ.XPG_TabbedPane_TABBED_PANE, (HResource) null, "Output Clocks", 2); // cW
+// Elapsed time: 30 seconds
+selectTab(PAResourceTtoZ.XPG_TabbedPane_TABBED_PANE, (HResource) null, "MMCM Settings", 3); // cW
+// Elapsed time: 16 seconds
+selectTab(PAResourceTtoZ.XPG_TabbedPane_TABBED_PANE, (HResource) null, "Summary", 4); // cW
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a
+dismissDialog("Re-customize IP"); // r
+// Run Command: PAResourceCommand.PACommandNames_CUSTOMIZE_RSB_BLOC
+// WARNING: HEventQueue.dispatchEvent() is taking  1448 ms.
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+dismissDialog("Re-customize IP"); // N
+selectButton("Clock Configuration", "Clock Configuration"); // j
+selectTab(PAResourceOtoP.PSSPanelClockingPage_TABBED_PANE, PAResourceOtoP.PSSPanelClockingPage_OUTPUT_CLOCKS, "Output Clocks", 1); // i
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks", 0, "Low Power Domain Clocks", 0, true); // aq - Node
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks", 0); // aq
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks", 3); // aq
+// Elapsed time: 17 seconds
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL1 ; RPLL ;  ; 150 ; 8 ; 1 ; 149.985016 ; 150", 5, "150", 3, false); // aq
+setText("PL1", (String) null); // B
+setText("PL1", "150"); // B
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL1 ; RPLL ;  ; 150 ; 8 ; 1 ; 149.985016 ; 150", 5, "PL1", 0, false); // aq
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL1 ; RPLL ;  ; 100 ; 8 ; 1 ; 149.985016 ; 100", 5, "PL1", 0, false); // aq
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL2 ; RPLL ;  ; 200 ; 6 ; 1 ; 199.980026 ; 200", 6, "PL2", 0, false); // aq
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL1 ; RPLL ;  ; 150 ; 5 ; 1 ; 149.985016 ; 150", 5, "PL1", 0, false); // aq
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Re-customize IP"); // r
+// Tcl Command: 'set_property -dict [list CONFIG.PSU__FPGA_PL1_ENABLE {0} CONFIG.PSU__FPGA_PL2_ENABLE {0}] [get_bd_cells zynq_ultra_ps_e_0]'
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_ADDRNETWORK
+// TclEventType: RSB_INSERT_ADDRNETWORK
+// TclEventType: RSB_PROPERTY_CHANGE
+// Tcl Message: startgroup 
+// Tcl Message: set_property -dict [list CONFIG.PSU__FPGA_PL1_ENABLE {0} CONFIG.PSU__FPGA_PL2_ENABLE {0}] [get_bd_cells zynq_ultra_ps_e_0] 
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+// Tcl Message: endgroup 
+dismissDialog("Customize IP"); // bA
+// Elapsed time: 24 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 30, false); // n
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+selectButton(PAResourceQtoS.SaveProjectUtils_SAVE, "Save"); // a
+dismissDialog("Save Project"); // al
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: save_bd_design 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd>  Wrote  : </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/ui/bd_1e28ddf7.ui>  
+dismissDialog("Save Constraints"); // bA
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a
+dismissDialog("Synthesis is Out-of-date"); // A
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// Tcl Message: reset_run synth_1 
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: INFO: [Project 1-1161] Replacing file /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/utils_1/imports/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp with file /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp 
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_synth_1 
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// 'cW' command handler elapsed time: 21 seconds
+dismissDialog("Launch Runs"); // cZ
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 6 
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate 
+// Tcl Message: INFO: [PSU-0] Address Range of DDR (0x7ff00000 to 0x7fffffff) is reserved by PMU for internal purpose. 
+// Tcl Message: INFO: [IP_Flow 19-5611] Unable to find an associated reset port for the interface 'M_AXI_HPM0_FPD'. A default connection has been created. 
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block zynq_ultra_ps_e_0 . 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_interconnect_0/s00_couplers/auto_pc . 
+// Tcl Message: Exporting to file /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/hw_handoff/cms_pix_28_fw_top_bd.hwh Generated Hardware Definition File /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/synth/cms_pix_28_fw_top_bd.hwdef 
+// TclEventType: PROJ_DESIGN_MODE_SET
+// Tcl Message: INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP cms_pix_28_fw_top_bd_auto_pc_0, cache-ID = d8897457a12002ae; cache size = 103.715 MB. 
+// [Engine Memory]: 9,702 MB (+64572kb) [07:07:32]
+// HMemoryUtils.trashcanNow. Engine heap size: 9,752 MB. GUI used memory: 173 MB. Current time: 6/17/24, 5:22:54 PM CDT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:31 ; elapsed = 00:00:36 . Memory (MB): peak = 11864.547 ; gain = 59.109 ; free physical = 108193 ; free virtual = 123638 
+// Elapsed time: 35 seconds
+dismissDialog("Generate Bitstream"); // bA
+// TclEventType: RUN_STATUS_CHANGE
+// Run Command: PAResourceCommand.PACommandNames_CUSTOMIZE_RSB_BLOC
+// WARNING: HEventQueue.dispatchEvent() is taking  1613 ms.
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+// Elapsed time: 19 seconds
+dismissDialog("Re-customize IP"); // N
+selectButton("Clock Configuration", "Clock Configuration"); // j
+selectTab(PAResourceOtoP.PSSPanelClockingPage_TABBED_PANE, PAResourceOtoP.PSSPanelClockingPage_OUTPUT_CLOCKS, "Output Clocks", 1); // i
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks", 0); // aq
+selectTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks", 3, "PL Fabric Clocks", 0, true); // aq - Node
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks", 3); // aq
+// Elapsed time: 18 seconds
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a
+dismissDialog("Re-customize IP"); // r
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 1149 ms. Increasing delay to 3000 ms.
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 700 seconds
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a
+dismissDialog("Bitstream Generation Completed"); // ag
+// Run Command: PAResourceCommand.PACommandNames_CUSTOMIZE_RSB_BLOC
+dismissDialog("Re-customize IP"); // N
+selectTab(PAResourceTtoZ.XPG_TabbedPane_TABBED_PANE, (HResource) null, "Clocking Options", 1); // cW
+// [GUI Memory]: 302 MB (+13233kb) [07:20:35]
+// Elapsed time: 23 seconds
+selectTab(PAResourceTtoZ.XPG_TabbedPane_TABBED_PANE, (HResource) null, "Output Clocks", 2); // cW
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a
+dismissDialog("Re-customize IP"); // r
+// HMemoryUtils.trashcanNow. Engine heap size: 9,660 MB. GUI used memory: 219 MB. Current time: 6/17/24, 5:52:55 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 216 MB. Current time: 6/17/24, 6:22:55 PM CDT
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/17/24, 6:52:55 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/17/24, 7:22:55 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/17/24, 7:52:55 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/17/24, 8:22:55 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/17/24, 8:52:55 PM CDT
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 1531 ms. Increasing delay to 4000 ms.
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 8457 ms. Increasing delay to 25371 ms.
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 5664 ms. Increasing delay to 5000 ms.
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 2694 ms. Increasing delay to 6000 ms.
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 4018 ms. Increasing delay to 7000 ms.
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 49 ms. Decreasing delay to 2049 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/17/24, 9:22:55 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/17/24, 9:52:55 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/17/24, 10:22:55 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/17/24, 10:52:55 PM CDT
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 1253 ms. Increasing delay to 3759 ms.
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 3904 ms. Increasing delay to 11712 ms.
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 389 ms. Decreasing delay to 2389 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/17/24, 11:22:55 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/17/24, 11:52:55 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 216 MB. Current time: 6/18/24, 12:22:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 12:52:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 1:22:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 1:52:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 2:22:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 2:52:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 216 MB. Current time: 6/18/24, 3:22:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 3:52:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 4:22:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 4:52:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 5:22:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 5:52:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 6:22:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 6:52:56 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 7:22:57 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 7:52:57 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 8:22:57 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 8:52:57 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 9:22:57 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 9:52:57 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 10:22:57 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 216 MB. Current time: 6/18/24, 10:52:57 AM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 9,618 MB. GUI used memory: 215 MB. Current time: 6/18/24, 11:22:57 AM CDT
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking 2491 ms. Increasing delay to 7473 ms.
+// Elapsed time: 64629 seconds
+unmaximizeView(PAResourceOtoP.PAViews_BASE_WORKSPACE, "BaseWorkspace"); // Q
+// Elapsed time: 36 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Editor", 1); // m
+selectTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "/fw_top_v_0/S_AXI ; S_AXI ; reg0 ; 0x00_A000_0000 ; 4K ; 0x00_A000_0FFF", 3, "0x00_A000_0000", 3, false); // r
+// Elapsed time: 24 seconds
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_IP, "IP"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_IP, "IP"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_TEXT_EDITOR, "Text Editor"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ao
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+// Tcl Command: 'set_property offset 0x0400000000 [get_bd_addr_segs {zynq_ultra_ps_e_0/Data/SEG_fw_top_v_0_reg0}]'
+// TclEventType: RSB_UPDATE_ADDRASSIGN
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// Tcl Message: set_property offset 0x0400000000 [get_bd_addr_segs {zynq_ultra_ps_e_0/Data/SEG_fw_top_v_0_reg0}] 
+selectTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "Network 0 ;  ;  ;  ;  ; ", 0, "Network 0", 0, true); // r - Node
+expandTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "Network 0 ;  ;  ;  ;  ; ", 0); // r
+expandTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "zynq_ultra_ps_e_0 ;  ;  ;  ;  ; ", 1); // r
+// HMemoryUtils.trashcanNow. Engine heap size: 9,849 MB. GUI used memory: 220 MB. Current time: 6/18/24, 11:34:42 AM CDT
+selectButton(PAResourceCommand.PACommandNames_SAVE_RSB_DESIGN, "save_rsb_design"); // D
+// Run Command: PAResourceCommand.PACommandNames_SAVE_RSB_DESIGN
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: save_bd_design 
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd>  Wrote  : </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/ui/bd_1e28ddf7.ui>  
+expandTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "/zynq_ultra_ps_e_0/Data (40 address bits : 0x00A0000000 [ 256M ] ,0x0400000000 [ 4G ] ,0x1000000000 [ 224G ]) ;  ;  ;  ;  ; ", 2); // r
+// Elapsed time: 20 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // n
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a
+dismissDialog("Synthesis is Out-of-date"); // A
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run synth_1 
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: INFO: [Project 1-1161] Replacing file /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/utils_1/imports/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp with file /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp 
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// 'cW' command handler elapsed time: 9 seconds
+dismissDialog("Launch Runs"); // cZ
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 6 
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// Tcl Message: INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate 
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd>  
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: Verilog Output written to : /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/synth/cms_pix_28_fw_top_bd.v Verilog Output written to : /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/sim/cms_pix_28_fw_top_bd.v Verilog Output written to : /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/hdl/cms_pix_28_fw_top_bd_wrapper.v 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_interconnect_0/s00_couplers/auto_pc . 
+// Tcl Message: Exporting to file /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/hw_handoff/cms_pix_28_fw_top_bd.hwh Generated Hardware Definition File /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/synth/cms_pix_28_fw_top_bd.hwdef 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJ_DESIGN_MODE_SET
+// Tcl Message: INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP cms_pix_28_fw_top_bd_auto_pc_0, cache-ID = d8897457a12002ae; cache size = 105.583 MB. 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Tue Jun 18 11:35:31 2024] Launched synth_1... Run output will be captured here: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/runme.log [Tue Jun 18 11:35:31 2024] Launched impl_1... Run output will be captured here: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/impl_1/runme.log 
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:09 ; elapsed = 00:00:14 . Memory (MB): peak = 11973.035 ; gain = 33.031 ; free physical = 107017 ; free virtual = 123084 
+// Elapsed time: 14 seconds
+dismissDialog("Generate Bitstream"); // bA
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 61 seconds
+expandTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "Network 0 ;  ;  ;  ;  ; ", 0); // r
+expandTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "zynq_ultra_ps_e_0 ;  ;  ;  ;  ; ", 1); // r
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 51 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v)]", 2); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv)]", 3); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv)]", 4); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv)]", 5); // D
+// TclEventType: RUN_STEP_COMPLETED
+// Elapsed time: 12 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv), axi4_slave_inst : axi4lite_slave_interface (axi4lite_slave_interface.sv)]", 6, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv), mem_regs_inst : mem_regs (mem_regs.sv)]", 7, false); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), fw_ipx_wrap_inst : fw_ipx_wrap (fw_ipx_wrap.sv)]", 8); // D
+// Elapsed time: 55 seconds
+expandTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "/zynq_ultra_ps_e_0/Data (40 address bits : 0x00A0000000 [ 256M ] ,0x0400000000 [ 4G ] ,0x1000000000 [ 224G ]) ;  ;  ;  ;  ; ", 2); // r
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 119 seconds
+dismissDialog("Bitstream Generation Completed"); // ag
+// Elapsed time: 39 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv), axi4_slave_inst : axi4lite_slave_interface (axi4lite_slave_interface.sv)]", 6, false); // D
+// Elapsed time: 17 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv), mem_regs_inst : mem_regs (mem_regs.sv)]", 7, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv), mem_regs_inst : mem_regs (mem_regs.sv)]", 7, false, false, false, false, false, true); // D - Double Click
+// WARNING: HEventQueue.dispatchEvent() is taking  1653 ms.
+dismissDialog("Opening Editor"); // bA
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv), axi4_slave_inst : axi4lite_slave_interface (axi4lite_slave_interface.sv)]", 6, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv), axi4_slave_inst : axi4lite_slave_interface (axi4lite_slave_interface.sv)]", 6, false, false, false, false, false, true); // D - Double Click
+// WARNING: HEventQueue.dispatchEvent() is taking  1586 ms.
+dismissDialog("Opening Editor"); // bA
+// Elapsed time: 40 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v)]", 1); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v)]", 4); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v)]", 3); // D
+// Elapsed time: 13 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), clk_wiz_0 : cms_pix_28_fw_top_bd_clk_wiz_0_0 (cms_pix_28_fw_top_bd_clk_wiz_0_0.xci)]", 6); // D
+dismissDialog("Show IP Hierarchy"); // A
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), proc_sys_reset_0 : cms_pix_28_fw_top_bd_proc_sys_reset_0_0 (cms_pix_28_fw_top_bd_proc_sys_reset_0_0.xci)]", 8); // D
+dismissDialog("Show IP Hierarchy"); // A
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), zynq_ultra_ps_e_0 : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0 (cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0.xci)]", 9); // D
+dismissDialog("Show IP Hierarchy"); // A
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), clk_wiz_0 : cms_pix_28_fw_top_bd_clk_wiz_0_0 (cms_pix_28_fw_top_bd_clk_wiz_0_0.xci)]", 8); // D
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a
+dismissDialog("Show IP Hierarchy"); // A
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), clk_wiz_0 : cms_pix_28_fw_top_bd_clk_wiz_0_0 (cms_pix_28_fw_top_bd_clk_wiz_0_0.xci)]", 6); // D
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// TclEventType: DG_GRAPH_STALE
+dismissDialog("Show IP Hierarchy"); // A
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v)]", 10); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv)]", 12); // D
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), fw_ipx_wrap_inst : fw_ipx_wrap (fw_ipx_wrap.sv)]", 14); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd)]", 2, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd)]", 2, true, false, false, false, false, true); // D - Double Click - Node
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: open_bd_design {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd} 
+dismissDialog("Open Block Design"); // bA
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd)]", 2); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), clk_wiz_0 : cms_pix_28_fw_top_bd_clk_wiz_0_0 (cms_pix_28_fw_top_bd_clk_wiz_0_0.xci), cms_pix_28_fw_top_bd_clk_wiz_0_0 (cms_pix_28_fw_top_bd_clk_wiz_0_0.v)]", 7); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper)]", 9); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv)]", 16, true); // D - Node
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), proc_sys_reset_0 : cms_pix_28_fw_top_bd_proc_sys_reset_0_0 (cms_pix_28_fw_top_bd_proc_sys_reset_0_0.xci)]", 13); // D
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a
+dismissDialog("Show IP Hierarchy"); // A
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), proc_sys_reset_0 : cms_pix_28_fw_top_bd_proc_sys_reset_0_0 (cms_pix_28_fw_top_bd_proc_sys_reset_0_0.xci)]", 8); // D
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// TclEventType: DG_GRAPH_STALE
+dismissDialog("Show IP Hierarchy"); // A
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "IP Sources", 1); // i
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Block Designs, cms_pix_28_fw_top_bd]", 1); // D
+selectTab(PAResourceEtoH.FileSetView_TABBED_PANE, (HResource) null, "Hierarchy", 0); // i
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "mem_regs.sv", 3); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_slave_interface.sv", 4); // m
+// Elapsed time: 54 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4, true, false, false, false, false, true); // D - Double Click - Node
+dismissDialog("Opening Editor"); // bA
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v), s00_couplers : s00_couplers_imp_1IHNVIV (cms_pix_28_fw_top_bd.v), auto_pc : cms_pix_28_fw_top_bd_auto_pc_0 (cms_pix_28_fw_top_bd_auto_pc_0.xci)]", 6, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v), s00_couplers : s00_couplers_imp_1IHNVIV (cms_pix_28_fw_top_bd.v), auto_pc : cms_pix_28_fw_top_bd_auto_pc_0 (cms_pix_28_fw_top_bd_auto_pc_0.xci)]", 6, false, false, false, false, false, true); // D - Double Click
+// Run Command: PAResourceCommand.PACommandNames_RECUSTOMIZE_CORE
+// HOptionPane Warning: ''cms_pix_28_fw_top_bd_auto_pc_0.xci' IP is part of a block design. Please use the block design 'cms_pix_28_fw_top_bd' to customize the IP. (Re-customize IP)'
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), axi_interconnect_0 : cms_pix_28_fw_top_bd_axi_interconnect_0_0 (cms_pix_28_fw_top_bd.v)]", 4, true, false, false, false, false, true); // D - Double Click - Node
+dismissDialog("Opening Editor"); // bA
+closeView(PAResourceOtoP.PAViews_CODE, "Code"); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper)]", 7); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper)]", 7, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper)]", 7, true, false, false, false, false, true); // D - Double Click - Node
+// Run Command: PAResourceCommand.PACommandNames_RECUSTOMIZE_CORE
+// HOptionPane Warning: ''cms_pix_28_fw_top_bd_fw_top_v_0_0.xci' IP is part of a block design. Please use the block design 'cms_pix_28_fw_top_bd' to customize the IP. (Re-customize IP)'
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper)]", 7); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper), cms_pix_28_fw_top_bd_fw_top_v_0_0 (cms_pix_28_fw_top_bd_fw_top_v_0_0.v), inst : fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv)]", 10); // D
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper), cms_pix_28_fw_top_bd_fw_top_v_0_0 (cms_pix_28_fw_top_bd_fw_top_v_0_0.v), inst : fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv)]", 11); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper), cms_pix_28_fw_top_bd_fw_top_v_0_0 (cms_pix_28_fw_top_bd_fw_top_v_0_0.v), inst : fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv)]", 11, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper), cms_pix_28_fw_top_bd_fw_top_v_0_0 (cms_pix_28_fw_top_bd_fw_top_v_0_0.v), inst : fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv)]", 11, true, false, false, false, false, true); // D - Double Click - Node
+// WARNING: HEventQueue.dispatchEvent() is taking  1631 ms.
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper), cms_pix_28_fw_top_bd_fw_top_v_0_0 (cms_pix_28_fw_top_bd_fw_top_v_0_0.v), inst : fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv)]", 11, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper), cms_pix_28_fw_top_bd_fw_top_v_0_0 (cms_pix_28_fw_top_bd_fw_top_v_0_0.v), inst : fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv)]", 11, true, false, false, false, false, true); // D - Double Click - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v), cms_pix_28_fw_top_bd_i : cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.bd), cms_pix_28_fw_top_bd (cms_pix_28_fw_top_bd.v), fw_top_v_0 : cms_pix_28_fw_top_bd_fw_top_v_0_0 (Module Reference Wrapper), cms_pix_28_fw_top_bd_fw_top_v_0_0 (cms_pix_28_fw_top_bd_fw_top_v_0_0.v), inst : fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv)]", 11, true); // D - Node
+// Elapsed time: 339 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Editor", 1); // m
+// Elapsed time: 320 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 4); // m
+// Elapsed time: 23 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 23, 233); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 189, 246); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 255, 208); // be
+// Elapsed time: 50 seconds
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // aj
+dismissMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // aj
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // m
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_IP, "IP"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_TEXT_EDITOR, "Text Editor"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ao
+selectMenuItem(PAResourceCommand.PACommandNames_EXPORT_HARDWARE, "Export Hardware..."); // ar
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+// Run Command: PAResourceCommand.PACommandNames_EXPORT_HARDWARE
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd}]'
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd}]'
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd}]'
+selectButton("NEXT", "Next >"); // JButton
+selectRadioButton(PAResourceEtoH.ExportFixedPlatformWizard_INCLUDE_BITSTREAM, "Include bitstream. This platform includes the complete hardware implementation and bitstream, in addition to the hardware specification for software tools."); // b
+selectButton("NEXT", "Next >"); // JButton
+selectButton("NEXT", "Next >"); // JButton
+selectButton("OptionPane.button", "Yes"); // JButton
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd}]'
+selectButton("FINISH", "Finish"); // JButton
+// 'n' command handler elapsed time: 10 seconds
+dismissDialog("Export Hardware Platform"); // g
+// Tcl Message: write_hw_platform -fixed -include_bit -force -file /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_fw_top_bd_wrapper.xsa 
+// Tcl Message: INFO: [Project 1-1918] Creating Hardware Platform: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_fw_top_bd_wrapper.xsa ... 
+// Tcl Message: INFO: [Project 1-1943] The Hardware Platform can be used for Hardware INFO: [Project 1-1941] Successfully created Hardware Platform: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_fw_top_bd_wrapper.xsa 
+// Tcl Message: INFO: [Hsi 55-2053] elapsed time for repository (/asic/cad/Xilinx/Vivado/2022.1/data/embeddedsw) loading 1 seconds 
+// Tcl Message: write_hw_platform: Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 11988.992 ; gain = 0.000 ; free physical = 106708 ; free virtual = 122851 
+dismissDialog("Export Hardware Platform"); // bA
+// Elapsed time: 24 seconds
+collapseTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager]", 21); // n
+expandTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager]", 21); // n
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager, Open Target]", 22, false); // n
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HW_TARGET
+selectMenuItem(PAResourceCommand.PACommandNames_AUTO_CONNECT_TARGET, "Auto Connect"); // ar
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HARDWARE_MANAGER
+// Tcl Command: 'rdi::info_commands get_hw_probes'
+// Tcl Command: 'load_features labtools'
+// TclEventType: LOAD_FEATURE
+// TclEventType: HW_SESSION_OPEN
+// Tcl Message: open_hw_manager 
+// Run Command: PAResourceCommand.PACommandNames_AUTO_CONNECT_TARGET
+dismissDialog("Open Hardware Manager"); // bA
+// Tcl Message: connect_hw_server -allow_non_jtag 
+// Tcl Message: INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121 INFO: [Labtools 27-2222] Launching hw_server... INFO: [Labtools 27-2221] Launch Output:  ****** Xilinx hw_server v2022.1   **** Build date : Apr 18 2022 at 16:10:30     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.   
+// TclEventType: HW_SERVER_UPDATE
+// Tcl Message: INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:3042 INFO: [Labtools 27-3417] Launching cs_server... 
+// TclEventType: HW_SERVER_UPDATE
+// Tcl Message: INFO: [Labtools 27-2221] Launch Output:   ******** Xilinx cs_server v2022.1.0   ****** Build date   : Apr 12 2022-14:12:08     **** Build number : 2022.1.1649790728       ** Copyright 2017-2024 Xilinx, Inc. All Rights Reserved.    
+// TclEventType: HW_TARGET_CHANGE
+// TclEventType: HW_TARGET_CLOSE
+// Tcl Message: open_hw_target 
+// Tcl Message: INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210308B52DAC 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_ADD
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_ADD
+// TclEventType: HW_TARGET_UPDATE
+// WARNING: HEventQueue.dispatchEvent() is taking  2353 ms.
+// Tcl Message: open_hw_target: Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 13125.543 ; gain = 1136.551 ; free physical = 104900 ; free virtual = 121084 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/impl_1/cms_pix_28_fw_top_bd_wrapper.bit} [get_hw_devices xczu9_0] 
+// Tcl Message: current_hw_device [get_hw_devices xczu9_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xczu9_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xczu9 (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+// Tcl Message: current_hw_device [get_hw_devices arm_dap_1] 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: refresh_hw_device -update_hw_probes false [lindex [get_hw_devices arm_dap_1] 0] 
+// Tcl Message: current_hw_device [get_hw_devices xczu9_0] 
+dismissDialog("Auto Connect"); // bA
+// [Engine Memory]: 11,077 MB (+933121kb) [25:43:57]
+// HMemoryUtils.trashcanNow. Engine heap size: 11,102 MB. GUI used memory: 228 MB. Current time: 6/18/24, 11:59:17 AM CDT
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager, Program Device]", 23, false); // n
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+selectMenuItem((HResource) null, "xczu9_0"); // ar
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HARDWARE_MANAGER
+// Tcl Command: 'rdi::info_commands get_hw_probes'
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a
+// TclEventType: HW_DEVICE_CHANGE
+dismissDialog("Program Device"); // bC
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xczu9_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xczu9_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/impl_1/cms_pix_28_fw_top_bd_wrapper.bit} [get_hw_devices xczu9_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xczu9_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// Tcl Message: program_hw_devices: Time (s): cpu = 00:00:16 ; elapsed = 00:00:15 . Memory (MB): peak = 13182.246 ; gain = 0.000 ; free physical = 104890 ; free virtual = 121074 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xczu9_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xczu9 (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+// 'I' command handler elapsed time: 20 seconds
+// Elapsed time: 15 seconds
+dismissDialog("Program Device"); // bA
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, IP Integrator, Open Block Design]", 7, false); // n
+// Run Command: PAResourceCommand.PACommandNames_OPEN_BLOCK_DESIGN
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: open_bd_design {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd} 
+dismissDialog("Open Block Design"); // bA
+// Elapsed time: 36 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Editor", 1); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "mem_regs.sv", 3); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 4); // m
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 77, 318); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 1, 323, false, false, false, false, true); // be - Double Click
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 73, 309); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 101, 229); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 59, 309); // be
+selectButton(RDIResourceCommand.RDICommands_LINE_COMMENT, (String) null); // D
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 214, 215); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 208, 493); // be
+selectButton(RDIResourceCommand.RDICommands_SAVE_FILE, (String) null); // D
+// TclEventType: IP_LOCK_CHANGE
+// WARNING: HEventQueue.dispatchEvent() is taking  1844 ms.
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectButton(PAResourceOtoP.PlanAheadTab_REFRESH_CHANGED_MODULES, "Refresh Changed Modules"); // g
+// TclEventType: IP_LOCK_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 11,187 MB. GUI used memory: 234 MB. Current time: 6/18/24, 12:01:02 PM CDT
+// Tcl Message: update_module_reference cms_pix_28_fw_top_bd_fw_top_v_0_0 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: PACKAGER_OBJECT_ADD
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_MESSAGE_UPDATE
+// TclEventType: RSB_BITABEN_IPREPODATA_REFRESH
+// TclEventType: BDCELL_LOCK_CHANGE
+// TclEventType: RSB_OPEN_DIAGRAM
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_DELETE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_DELETE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified 
+// Tcl Message: Upgrading '/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd' 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILESET_UPDATE_IP
+// TclEventType: IP_UPGRADE_COMPLETE
+// Tcl Message: INFO: [IP_Flow 19-3420] Updated cms_pix_28_fw_top_bd_fw_top_v_0_0 to use current project options 
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd>  Wrote  : </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/ui/bd_1e28ddf7.ui>  
+dismissDialog("Refresh Changed Modules"); // bA
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f
+dismissDialog("Critical Messages"); // a
+// Elapsed time: 23 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // n
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a
+dismissDialog("Synthesis is Out-of-date"); // A
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+// Tcl Message: INFO: [Project 1-1161] Replacing file /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/utils_1/imports/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp with file /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp 
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// 'cW' command handler elapsed time: 3 seconds
+dismissDialog("Launch Runs"); // cZ
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 6 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate 
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block fw_top_v_0 . 
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking 1126 ms. Increasing delay to 3000 ms.
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_interconnect_0/s00_couplers/auto_pc . 
+// Tcl Message: Exporting to file /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/hw_handoff/cms_pix_28_fw_top_bd.hwh Generated Hardware Definition File /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/synth/cms_pix_28_fw_top_bd.hwdef 
+// TclEventType: PROJ_DESIGN_MODE_SET
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// Tcl Message: INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP cms_pix_28_fw_top_bd_auto_pc_0, cache-ID = d8897457a12002ae; cache size = 105.583 MB. 
+// HMemoryUtils.trashcanNow. Engine heap size: 11,267 MB. GUI used memory: 235 MB. Current time: 6/18/24, 12:01:42 PM CDT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Tue Jun 18 12:01:49 2024] Launched cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1, synth_1... Run output will be captured here: cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1/runme.log synth_1: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/runme.log [Tue Jun 18 12:01:49 2024] Launched impl_1... Run output will be captured here: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/impl_1/runme.log 
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 13395.340 ; gain = 50.980 ; free physical = 104869 ; free virtual = 121042 
+// Elapsed time: 14 seconds
+dismissDialog("Generate Bitstream"); // bA
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 77 seconds
+collapseTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager]", 21); // n
+expandTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager]", 21); // n
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 11,300 MB. GUI used memory: 236 MB. Current time: 6/18/24, 12:03:32 PM CDT
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Elapsed time: 1026 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 4); // m
+// Elapsed time: 103 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 333, 364); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 332, 364, false, false, false, false, true); // be - Double Click
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 59, 366); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 59, 366, false, false, false, false, true); // be - Double Click
+// HMemoryUtils.trashcanNow. Engine heap size: 11,156 MB. GUI used memory: 236 MB. Current time: 6/18/24, 12:33:32 PM CDT
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 11,148 MB. GUI used memory: 236 MB. Current time: 6/18/24, 1:03:32 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 11,148 MB. GUI used memory: 235 MB. Current time: 6/18/24, 1:33:32 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 11,148 MB. GUI used memory: 235 MB. Current time: 6/18/24, 2:03:32 PM CDT
+// HMemoryUtils.trashcanNow. Engine heap size: 11,148 MB. GUI used memory: 235 MB. Current time: 6/18/24, 2:33:32 PM CDT
+// Elapsed time: 9690 seconds
+dismissDialog("Bitstream Generation Completed"); // ag
+// HMemoryUtils.trashcanNow. Engine heap size: 11,182 MB. GUI used memory: 234 MB. Current time: 6/18/24, 3:03:33 PM CDT
+// Elapsed time: 172 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Editor", 1); // m
+expandTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "Network 0 ;  ;  ;  ;  ; ", 0); // r
+expandTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "zynq_ultra_ps_e_0 ;  ;  ;  ;  ; ", 1); // r
+selectTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "/zynq_ultra_ps_e_0/Data (40 address bits : 0x00A0000000 [ 256M ] ,0x0400000000 [ 4G ] ,0x1000000000 [ 224G ]) ;  ;  ;  ;  ; ", 2, "/zynq_ultra_ps_e_0/Data (40 address bits : 0x00A0000000 [ 256M ] ,0x0400000000 [ 4G ] ,0x1000000000 [ 224G ])", 0, true); // r - Node
+// Elapsed time: 349 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 4); // m
+// Elapsed time: 48 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 485, 232); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 485, 232, false, false, false, false, true); // be - Double Click
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 117, 493); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 117, 493, false, false, false, false, true); // be - Double Click
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 447, 67); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 447, 67); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 447, 67, false, false, false, false, true); // be - Double Click
+// Elapsed time: 55 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // m
+// Elapsed time: 16 seconds
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 720, 135, 1349, 669, false, false, false, true, false); // hw - Popup Trigger
+// Elapsed time: 57 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 4); // m
+// Elapsed time: 741 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 668, 117); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 404, 142); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 290, 119); // be
+// Elapsed time: 53 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "reg_rddin"); // k
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 170, 459); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 137, 460); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 178, 470); // be
+// Elapsed time: 34 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 316, 399); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 345, 399); // be
+// Elapsed time: 40 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "sw_write32_0"); // k
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 185, 280); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 186, 278); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 183, 291); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 185, 306); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 184, 316); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 189, 310); // be
+// Elapsed time: 35 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "reg_wrB"); // k
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 183, 219); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 187, 241); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 187, 227); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 187, 217); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 189, 259); // be
+// HMemoryUtils.trashcanNow. Engine heap size: 11,148 MB. GUI used memory: 236 MB. Current time: 6/18/24, 3:33:33 PM CDT
+// Elapsed time: 222 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 346, 205); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 143, 456); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 177, 492); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 143, 475); // be
+// Elapsed time: 76 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 226, 157); // be
+// Elapsed time: 55 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 350, 308); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 344, 323); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 344, 339); // be
+// Elapsed time: 50 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 142, 458); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 145, 466); // be
+selectButton(RDIResourceCommand.RDICommands_SAVE_FILE, (String) null); // D
+// TclEventType: IP_LOCK_CHANGE
+// WARNING: HEventQueue.dispatchEvent() is taking  1919 ms.
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 70 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 139, 454); // be
+// Elapsed time: 164 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 63, 461); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 135, 461); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 141, 461); // be
+// Elapsed time: 199 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 64, 64); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 127, 454); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 113, 73); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 113, 73, false, false, false, false, true); // be - Double Click
+// Elapsed time: 14 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv)]", 6); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv)]", 7, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv)]", 7, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv)]", 7, true, false, false, false, false, true); // D - Double Click - Node
+// WARNING: HEventQueue.dispatchEvent() is taking  1645 ms.
+dismissDialog("Opening Editor"); // bA
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv), axi4_slave_inst : axi4lite_slave_interface (axi4lite_slave_interface.sv)]", 8, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, fw_top_v (fw_top_v.v), fw_top_inst : fw_top (fw_top.sv), axi4lite_interface_top_for_pix28_fw_inst : axi4lite_interface_top_for_pix28_fw (axi4lite_interface_top_for_pix28_fw.sv), axi4lite_interface_inst : axi4lite_interface_top (axi4lite_interface_top.sv), axi4_slave_inst : axi4lite_slave_interface (axi4lite_slave_interface.sv)]", 8, false, false, false, false, false, true); // D - Double Click
+// WARNING: HEventQueue.dispatchEvent() is taking  1599 ms.
+dismissDialog("Opening Editor"); // bA
+// Elapsed time: 11 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 4); // m
+// Elapsed time: 10 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 83, 423); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 115, 58); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 39, 161); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 198, 416); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 78, 154); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 79, 187); // be
+// Elapsed time: 95 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 174, 50); // be
+// Elapsed time: 547 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 224, 215); // be
+// Elapsed time: 11 seconds
+selectButton(RDIResourceCommand.RDICommands_SAVE_FILE, (String) null); // D
+// TclEventType: DG_GRAPH_STALE
+// WARNING: HEventQueue.dispatchEvent() is taking  1824 ms.
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 12 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 140, 422); // be
+selectButton(RDIResourceCommand.RDICommands_SAVE_FILE, (String) null); // D
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 11,373 MB. GUI used memory: 238 MB. Current time: 6/18/24, 3:57:43 PM CDT
+// Elapsed time: 98 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 226, 365); // be
+// Elapsed time: 50 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 253, 418); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 257, 441); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 23, 422); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 23, 422); // be
+typeControlKey((HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 'v'); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 38, 425); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 34, 426, false, false, false, true, false); // be - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PASTE, "Paste"); // ar
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 15, 443); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 212, 430); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 212, 429, false, false, false, true, false); // be - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_PASTE, "Paste"); // ar
+// Elapsed time: 13 seconds
+selectButton(RDIResourceCommand.RDICommands_SAVE_FILE, (String) null); // D
+// TclEventType: DG_GRAPH_STALE
+// WARNING: HEventQueue.dispatchEvent() is taking  1783 ms.
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 11,396 MB. GUI used memory: 238 MB. Current time: 6/18/24, 4:00:38 PM CDT
+// Elapsed time: 14 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 428, 24); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 70, 432); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 70, 432, false, false, false, false, true); // be - Double Click
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 494, 16); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 494, 15, false, false, false, false, true); // be - Double Click
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 482, 23); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 482, 23, false, false, false, false, true); // be - Double Click
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 83, 438); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 83, 438, false, false, false, false, true); // be - Double Click
+// Elapsed time: 80 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Map", 2); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Editor", 1); // m
+// Elapsed time: 82 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // m
+// Elapsed time: 22 seconds
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 870, 50, 1349, 642, false, false, false, true, false); // hw - Popup Trigger
+selectMenu(PAResourceQtoS.SystemBuilderView_PINNING, "Pinning"); // ao
+selectMenu(PAResourceQtoS.SystemBuilderView_EXPAND_COLLAPSE, "Expand/Collapse"); // ao
+selectMenu(PAResourceQtoS.SystemBuilderView_EXPAND_COLLAPSE, "Expand/Collapse"); // ao
+selectMenu(PAResourceQtoS.SystemBuilderView_EXPAND_COLLAPSE, "Expand/Collapse"); // ao
+selectMenu(PAResourceQtoS.SystemBuilderView_PINNING, "Pinning"); // ao
+selectView(PAResourceOtoP.PAViews_SYSTEM, "System", 803, 103, 1349, 642, false, true, false, true, false); // hw - Control Key - Popup Trigger
+// Elapsed time: 78 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Map", 2); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Editor", 1); // m
+selectTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "/zynq_ultra_ps_e_0/Data (40 address bits : 0x00A0000000 [ 256M ] ,0x0400000000 [ 4G ] ,0x1000000000 [ 224G ]) ;  ;  ;  ;  ; ", 2, "/zynq_ultra_ps_e_0/Data (40 address bits : 0x00A0000000 [ 256M ] ,0x0400000000 [ 4G ] ,0x1000000000 [ 224G ])", 0, true); // r - Node
+expandTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "/zynq_ultra_ps_e_0/Data (40 address bits : 0x00A0000000 [ 256M ] ,0x0400000000 [ 4G ] ,0x1000000000 [ 224G ]) ;  ;  ;  ;  ; ", 2); // r
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Map", 2); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // m
+// Elapsed time: 36 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Editor", 1); // m
+// Elapsed time: 48 seconds
+selectTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "/fw_top_v_0/S_AXI ; S_AXI ; reg0 ; 0x04_0000_0000 ; 4K ; 0x04_0000_0FFF", 3, "4K", 4, false); // r
+// Elapsed time: 208 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // m
+editTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "4K", 3, "Range", 4); // r
+// Run Command: PAResourceCommand.PACommandNames_CUSTOMIZE_RSB_BLOC
+// WARNING: HEventQueue.dispatchEvent() is taking  1596 ms.
+// Tcl Message: INFO: [PSU-1]  DP_AUDIO clock source: RPLL is also being used by other peripheral clocks. Their outputs may get impacted if any driver changes DP_AUDIO PLL source to support runtime audio change  
+dismissDialog("Re-customize IP"); // N
+selectButton("Clock Configuration", "Clock Configuration"); // j
+selectTab(PAResourceOtoP.PSSPanelClockingPage_TABBED_PANE, PAResourceOtoP.PSSPanelClockingPage_OUTPUT_CLOCKS, "Output Clocks", 1); // i
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks ; Low Power Domain Clocks", 0); // aq
+expandTreeTable(PAResourceOtoP.PSSTreeTablePanelBuilder_ADV_CLK_TREE, "PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks ; PL Fabric Clocks", 3); // aq
+// HMemoryUtils.trashcanNow. Engine heap size: 11,416 MB. GUI used memory: 272 MB. Current time: 6/18/24, 4:10:58 PM CDT
+// [GUI Memory]: 331 MB (+14468kb) [29:55:42]
+// Elapsed time: 41 seconds
+dismissDialog("Re-customize IP"); // r
+// Elapsed time: 307 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints]", 11); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, cms_pix_28_test_firmware.xdc]", 13, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, cms_pix_28_test_firmware.xdc]", 13, false, false, false, false, false, true); // D - Double Click
+// WARNING: HEventQueue.dispatchEvent() is taking  1610 ms.
+dismissDialog("Opening Editor"); // bA
+// Elapsed time: 614 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // n
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// 'cW' command handler elapsed time: 3 seconds
+dismissDialog("Synthesis is Out-of-date"); // A
+selectButton(PAResourceOtoP.PlanAheadTab_REFRESH_CHANGED_MODULES, "Refresh Changed Modules"); // g
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: PACKAGER_OBJECT_ADD
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_MESSAGE_UPDATE
+// TclEventType: RSB_BITABEN_IPREPODATA_REFRESH
+// TclEventType: BDCELL_LOCK_CHANGE
+// TclEventType: RSB_OPEN_DIAGRAM
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_DELETE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_DELETE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_module_reference cms_pix_28_fw_top_bd_fw_top_v_0_0 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified 
+// Tcl Message: Upgrading '/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd' 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILESET_UPDATE_IP
+// TclEventType: IP_UPGRADE_COMPLETE
+// Tcl Message: INFO: [IP_Flow 19-3420] Updated cms_pix_28_fw_top_bd_fw_top_v_0_0 to use current project options 
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd>  Wrote  : </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/ui/bd_1e28ddf7.ui>  
+dismissDialog("Refresh Changed Modules"); // bA
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f
+dismissDialog("Critical Messages"); // a
+// HMemoryUtils.trashcanNow. Engine heap size: 11,498 MB. GUI used memory: 266 MB. Current time: 6/18/24, 4:27:08 PM CDT
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // n
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a
+dismissDialog("Synthesis is Out-of-date"); // A
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// Tcl Message: reset_run synth_1 
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: INFO: [Project 1-1161] Replacing file /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/utils_1/imports/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp with file /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp 
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// 'cW' command handler elapsed time: 3 seconds
+dismissDialog("Launch Runs"); // cZ
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 6 
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate 
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block fw_top_v_0 . 
+// WARNING: HSwingWorker (Monitor File Timestamp Swing Worker) is taking 1168 ms to process. Increasing delay to 2000 ms.
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_interconnect_0/s00_couplers/auto_pc . 
+// Tcl Message: Exporting to file /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/hw_handoff/cms_pix_28_fw_top_bd.hwh Generated Hardware Definition File /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/synth/cms_pix_28_fw_top_bd.hwdef 
+// TclEventType: PROJ_DESIGN_MODE_SET
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// Tcl Message: INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP cms_pix_28_fw_top_bd_auto_pc_0, cache-ID = d8897457a12002ae; cache size = 120.272 MB. 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Tue Jun 18 16:27:26 2024] Launched cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1, synth_1... Run output will be captured here: cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1/runme.log synth_1: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/runme.log [Tue Jun 18 16:27:26 2024] Launched impl_1... Run output will be captured here: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/impl_1/runme.log 
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 13716.152 ; gain = 16.125 ; free physical = 104280 ; free virtual = 120509 
+// Elapsed time: 14 seconds
+dismissDialog("Generate Bitstream"); // bA
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_FAILED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 153 seconds
+selectCheckBox(PAResourceItoN.MsgView_CRITICAL_WARNINGS, (String) null, false); // g: FALSE
+selectCheckBox(PAResourceItoN.MsgView_INFORMATION_MESSAGES, (String) null, false); // g: FALSE
+selectCheckBox(PAResourceItoN.MsgView_WARNING_MESSAGES, (String) null, false); // g: FALSE
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 4); // m
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 224, 145); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 86, 261); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 192, 217); // be
+selectButton(RDIResourceCommand.RDICommands_SAVE_FILE, (String) null); // D
+// TclEventType: IP_LOCK_CHANGE
+// WARNING: HEventQueue.dispatchEvent() is taking  1792 ms.
+// TclEventType: IP_LOCK_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectButton(PAResourceOtoP.PlanAheadTab_REFRESH_CHANGED_MODULES, "Refresh Changed Modules"); // g
+// TclEventType: IP_LOCK_CHANGE
+// Tcl Message: update_module_reference cms_pix_28_fw_top_bd_fw_top_v_0_0 
+// HMemoryUtils.trashcanNow. Engine heap size: 11,620 MB. GUI used memory: 265 MB. Current time: 6/18/24, 4:30:33 PM CDT
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: PACKAGER_OBJECT_ADD
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_MESSAGE_UPDATE
+// TclEventType: RSB_BITABEN_IPREPODATA_REFRESH
+// TclEventType: BDCELL_LOCK_CHANGE
+// TclEventType: RSB_OPEN_DIAGRAM
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_DELETE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_DELETE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILESET_UPDATE_IP
+// TclEventType: IP_UPGRADE_COMPLETE
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified 
+// Tcl Message: Upgrading '/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd' 
+// Tcl Message: INFO: [IP_Flow 19-3420] Updated cms_pix_28_fw_top_bd_fw_top_v_0_0 to use current project options 
+// Tcl Message: Wrote  : </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd>  Wrote  : </asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/ui/bd_1e28ddf7.ui>  
+// Tcl Message: update_module_reference: Time (s): cpu = 00:00:13 ; elapsed = 00:00:06 . Memory (MB): peak = 13732.051 ; gain = 15.898 ; free physical = 104477 ; free virtual = 120706 
+dismissDialog("Refresh Changed Modules"); // bA
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f
+dismissDialog("Critical Messages"); // a
+collapseTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager]", 21); // n
+expandTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager]", 21); // n
+// [Engine Memory]: 11,650 MB (+19957kb) [30:15:21]
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // n
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a
+dismissDialog("No Implementation Results Available"); // A
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run synth_1 
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Launch Runs"); // cZ
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: REPORT_IP_STATUS_STALE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 6 
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate INFO: [xilinx.com:ip:clk_wiz:6.0-1] /clk_wiz_0 clk_wiz propagate 
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block fw_top_v_0 . 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_interconnect_0/s00_couplers/auto_pc . 
+// Tcl Message: Exporting to file /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/hw_handoff/cms_pix_28_fw_top_bd.hwh Generated Hardware Definition File /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/synth/cms_pix_28_fw_top_bd.hwdef 
+// TclEventType: PROJ_DESIGN_MODE_SET
+// TclEventType: FILE_SET_NEW
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_ADD
+// Tcl Message: INFO: [IP_Flow 19-4993] Using cached IP synthesis design for IP cms_pix_28_fw_top_bd_auto_pc_0, cache-ID = d8897457a12002ae; cache size = 120.272 MB. 
+// HMemoryUtils.trashcanNow. Engine heap size: 11,680 MB. GUI used memory: 267 MB. Current time: 6/18/24, 4:30:53 PM CDT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Tue Jun 18 16:30:59 2024] Launched cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1, synth_1... Run output will be captured here: cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1/runme.log synth_1: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/runme.log [Tue Jun 18 16:30:59 2024] Launched impl_1... Run output will be captured here: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/impl_1/runme.log 
+// Tcl Message: launch_runs: Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 13829.105 ; gain = 77.992 ; free physical = 104478 ; free virtual = 120707 
+// Elapsed time: 14 seconds
+dismissDialog("Generate Bitstream"); // bA
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 68 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 4); // m
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 185, 227); // be
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Elapsed time: 38 seconds
+collapseTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager]", 21); // n
+expandTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager]", 21); // n
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// Elapsed time: 1613 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 212, 232); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 184, 236); // be
+typeControlKey((HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 'c'); // be
+// Elapsed time: 56 seconds
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 253, 216); // be
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 183, 233); // be
+typeControlKey((HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 'c'); // be
+// HMemoryUtils.trashcanNow. Engine heap size: 11,600 MB. GUI used memory: 267 MB. Current time: 6/18/24, 5:00:58 PM CDT
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// Elapsed time: 556 seconds
+dismissDialog("Bitstream Generation Completed"); // ag
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+selectMenu(PAResourceItoN.MainMenuMgr_PROJECT, "Project"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_CHECKPOINT, "Checkpoint"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_IP, "IP"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_TEXT_EDITOR, "Text Editor"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ao
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // ao
+selectMenuItem(PAResourceCommand.PACommandNames_EXPORT_HARDWARE, "Export Hardware..."); // ar
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // aj
+// Run Command: PAResourceCommand.PACommandNames_EXPORT_HARDWARE
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd}]'
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd}]'
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd}]'
+selectButton("NEXT", "Next >"); // JButton
+selectButton("NEXT", "Next >"); // JButton
+selectButton("NEXT", "Next >"); // JButton
+selectButton("OptionPane.button", "Yes"); // JButton
+// Tcl Command: 'get_property pfm_name [get_files -all {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd}]'
+selectButton("FINISH", "Finish"); // JButton
+// 'n' command handler elapsed time: 8 seconds
+dismissDialog("Export Hardware Platform"); // g
+// Tcl Message: write_hw_platform -fixed -include_bit -force -file /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_fw_top_bd_wrapper.xsa 
+// Tcl Message: INFO: [Project 1-1918] Creating Hardware Platform: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_fw_top_bd_wrapper.xsa ... 
+// Tcl Message: INFO: [Project 1-1943] The Hardware Platform can be used for Hardware INFO: [Project 1-1941] Successfully created Hardware Platform: /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_fw_top_bd_wrapper.xsa 
+// Tcl Message: write_hw_platform: Time (s): cpu = 00:00:08 ; elapsed = 00:00:12 . Memory (MB): peak = 13829.105 ; gain = 0.000 ; free physical = 104293 ; free virtual = 120621 
+// Elapsed time: 12 seconds
+dismissDialog("Export Hardware Platform"); // bA
+// Elapsed time: 10 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Open Hardware Manager, Program Device]", 23, false); // n
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+selectMenuItem((HResource) null, "xczu9_0"); // ar
+// Run Command: PAResourceCommand.PACommandNames_OPEN_HARDWARE_MANAGER
+// Tcl Command: 'rdi::info_commands get_hw_probes'
+// Run Command: PAResourceCommand.PACommandNames_PROGRAM_FPGA
+selectButton(PAResourceOtoP.ProgramFpgaDialog_PROGRAM, "Program"); // a
+// TclEventType: HW_DEVICE_CHANGE
+dismissDialog("Program Device"); // bC
+// Tcl Message: set_property PROBES.FILE {} [get_hw_devices xczu9_0] 
+// Tcl Message: set_property FULL_PROBES.FILE {} [get_hw_devices xczu9_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: set_property PROGRAM.FILE {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/impl_1/cms_pix_28_fw_top_bd_wrapper.bit} [get_hw_devices xczu9_0] 
+// Tcl Message: program_hw_devices [get_hw_devices xczu9_0] 
+// TclEventType: HW_DEVICE_CHANGE
+// Tcl Message: INFO: [Labtools 27-3164] End of startup status: HIGH 
+// Tcl Message: program_hw_devices: Time (s): cpu = 00:00:16 ; elapsed = 00:00:15 . Memory (MB): peak = 13829.105 ; gain = 0.000 ; free physical = 104162 ; free virtual = 120490 
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_SYSMON_CHANGE
+// TclEventType: HW_DEVICE_UPDATE
+// TclEventType: HW_DEVICE_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: HW_DEVICE_PROBES_CHANGE
+// Tcl Message: refresh_hw_device [lindex [get_hw_devices xczu9_0] 0] 
+// Tcl Message: INFO: [Labtools 27-1434] Device xczu9 (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it. 
+// 'I' command handler elapsed time: 18 seconds
+// Elapsed time: 15 seconds
+dismissDialog("Program Device"); // bA
+// Elapsed time: 49 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 1); // m
+// Elapsed time: 27 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, IP Integrator, Open Block Design]", 7, false); // n
+// Run Command: PAResourceCommand.PACommandNames_OPEN_BLOCK_DESIGN
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: open_bd_design {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd} 
+dismissDialog("Open Block Design"); // bA
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, IP Integrator, Open Block Design]", 7, false); // n
+// Run Command: PAResourceCommand.PACommandNames_OPEN_BLOCK_DESIGN
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: open_bd_design {/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd} 
+dismissDialog("Open Block Design"); // bA
+// Elapsed time: 1113 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Map", 2); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Address Editor", 1); // m
+selectTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "Network 0 ;  ;  ;  ;  ; ", 0, "Network 0", 0, true); // r - Node
+expandTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "Network 0 ;  ;  ;  ;  ; ", 0); // r
+// HMemoryUtils.trashcanNow. Engine heap size: 11,603 MB. GUI used memory: 269 MB. Current time: 6/18/24, 5:30:58 PM CDT
+expandTreeTable(PAResourceAtoD.AddressNetworkTreeTablePanel_ADDRESS_NETWORK_TREE_TABLE_PANEL, "zynq_ultra_ps_e_0 ;  ;  ;  ;  ; ", 1); // r
+// Elapsed time: 713 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "System", 0); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 4); // m
+selectCodeEditor("axi4lite_interface_top_for_pix28_fw.sv", 179, 18); // be
+// Elapsed time: 1066 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top.sv", 5); // m
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "axi4lite_interface_top_for_pix28_fw.sv", 4); // m
+// HMemoryUtils.trashcanNow. Engine heap size: 11,561 MB. GUI used memory: 270 MB. Current time: 6/18/24, 6:00:58 PM CDT
+// Elapsed time: 381 seconds
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, cms_pix_28_fw_top_bd_wrapper (cms_pix_28_fw_top_bd_wrapper.v)]", 1); // D
+// HMemoryUtils.trashcanNow. Engine heap size: 11,553 MB. GUI used memory: 269 MB. Current time: 6/18/24, 6:30:58 PM CDT

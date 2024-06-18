@@ -1571,10 +1571,10 @@
             "value": "IOPLL"
           },
           "PSU__CRL_APB__PL1_REF_CTRL__ACT_FREQMHZ": {
-            "value": "199.980026"
+            "value": "149.985016"
           },
           "PSU__CRL_APB__PL2_REF_CTRL__ACT_FREQMHZ": {
-            "value": "100"
+            "value": "199.980026"
           },
           "PSU__CRL_APB__PL3_REF_CTRL__ACT_FREQMHZ": {
             "value": "100"
@@ -3976,7 +3976,7 @@
             "segments": {
               "SEG_fw_top_v_0_reg0": {
                 "address_block": "/fw_top_v_0/S_AXI/reg0",
-                "offset": "0x00A0000000",
+                "offset": "0x0400000000",
                 "range": "4K"
               }
             }

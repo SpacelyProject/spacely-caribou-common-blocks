@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "/asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/cms_pix_28_fw_top_bd_wrapper.tcl"
+  variable script "/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1/cms_pix_28_fw_top_bd_wrapper.tcl"
   variable category "vivado_synth"
 }
 
@@ -70,8 +70,12 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param power.enableLutRouteBelPower 1
+set_param power.enableCarry8RouteBelPower 1
+set_param power.enableUnconnectedCarry8PinPower 1
 set_param xicom.use_bs_reader 1
 set_param chipscope.maxJobs 3
+set_param power.BramSDPPropagationFix 1
 set_msg_config -id {HDL-1065} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xczu9eg-ffvb1156-2-e
@@ -80,28 +84,28 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.cache/wt [current_project]
-set_property parent.project_path /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.xpr [current_project]
+set_property webtalk.parent_dir /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.cache/wt [current_project]
+set_property parent.project_path /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property board_part xilinx.com:zcu102:part0:3.4 [current_project]
-set_property ip_output_repo /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.cache/ip [current_project]
+set_property ip_output_repo /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_verilog -library xil_defaultlib /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/hdl/cms_pix_28_fw_top_bd_wrapper.v
-add_files /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd
-set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0.xdc]
-set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_proc_sys_reset_0_0/cms_pix_28_fw_top_bd_proc_sys_reset_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_proc_sys_reset_0_0/cms_pix_28_fw_top_bd_proc_sys_reset_0_0.xdc]
-set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_proc_sys_reset_0_0/cms_pix_28_fw_top_bd_proc_sys_reset_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0.xdc]
-set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_auto_pc_0/cms_pix_28_fw_top_bd_auto_pc_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd_ooc.xdc]
+read_verilog -library xil_defaultlib /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/hdl/cms_pix_28_fw_top_bd_wrapper.v
+add_files /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd
+set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0.xdc]
+set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_proc_sys_reset_0_0/cms_pix_28_fw_top_bd_proc_sys_reset_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_proc_sys_reset_0_0/cms_pix_28_fw_top_bd_proc_sys_reset_0_0.xdc]
+set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_proc_sys_reset_0_0/cms_pix_28_fw_top_bd_proc_sys_reset_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0.xdc]
+set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_auto_pc_0/cms_pix_28_fw_top_bd_auto_pc_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -112,8 +116,8 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/constrs_1/new/cms_pix_28_test_firmware.xdc
-set_property used_in_implementation false [get_files /asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/constrs_1/new/cms_pix_28_test_firmware.xdc]
+read_xdc /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/constrs_1/new/cms_pix_28_test_firmware.xdc
+set_property used_in_implementation false [get_files /asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/constrs_1/new/cms_pix_28_test_firmware.xdc]
 
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]

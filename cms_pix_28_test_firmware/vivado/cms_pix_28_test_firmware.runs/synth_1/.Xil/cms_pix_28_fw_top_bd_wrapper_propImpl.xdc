@@ -1,4 +1,4 @@
-set_property SRC_FILE_INFO {cfile:/asic/projects/C/CMS_PIX_28/testing/cristian_code/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/constrs_1/new/cms_pix_28_test_firmware.xdc rfile:../../../cms_pix_28_test_firmware.srcs/constrs_1/new/cms_pix_28_test_firmware.xdc id:1} [current_design]
+set_property SRC_FILE_INFO {cfile:/asic/projects/C/CMS_PIX_28/abadea/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.srcs/constrs_1/new/cms_pix_28_test_firmware.xdc rfile:../../../cms_pix_28_test_firmware.srcs/constrs_1/new/cms_pix_28_test_firmware.xdc id:1} [current_design]
 set_property src_info {type:XDC file:1 line:1 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN W2  [get_ports super_pixel_sel]
 set_property src_info {type:XDC file:1 line:2 export:INPUT save:INPUT read:READ} [current_design]
