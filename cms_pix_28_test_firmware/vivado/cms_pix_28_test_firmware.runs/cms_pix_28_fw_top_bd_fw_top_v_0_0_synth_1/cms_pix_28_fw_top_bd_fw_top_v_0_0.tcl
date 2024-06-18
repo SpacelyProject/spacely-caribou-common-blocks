@@ -70,7 +70,6 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "cms_pix_28_fw_top_bd_fw_top_v_0_0_synth_1" START { ROLLUP_AUTO }
-set_msg_config -id {HDL-1065} -limit 10000
 set_param project.vivado.isBlockSynthRun true
 OPTRACE "Creating in-memory project" START { }
 set_param ips.modRefOverrideMrefDirPath /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/mref
@@ -95,6 +94,7 @@ read_verilog -library xil_defaultlib -sv {
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_interface_top.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/axi4lite_interface_top_for_pix28_fw.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/axi4lite_interface/axi4lite_slave_interface.sv
+  /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/bxclks_generator.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/com_config_write_regs.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/com_fw_to_dut.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/com_op_code_decoder.sv
@@ -105,6 +105,7 @@ read_verilog -library xil_defaultlib -sv {
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ip4.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_ipx_wrap.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_top.sv
+  /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/ip2_test1.sv
   /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/axi4lite_interface/mem_regs.sv
 }
 read_verilog -library xil_defaultlib /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/src/fw_top_v.v

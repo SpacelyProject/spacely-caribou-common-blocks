@@ -1,4 +1,0 @@
-vhdl xil_defaultlib  \
-"../../../bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_proc_sys_reset_0_0/sim/cms_pix_28_fw_top_bd_proc_sys_reset_0_0.vhd" \
-
-nosort

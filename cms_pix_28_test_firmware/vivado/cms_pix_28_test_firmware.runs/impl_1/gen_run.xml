@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xczu9eg-ffvb1156-2-e" LaunchTime="1718391734">
+<GenRun Id="impl_1" LaunchPart="xczu9eg-ffvb1156-2-e" LaunchTime="1718668356">
   <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
   <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
   <File Type="POSTROUTE-PHYSOPT-RQS" Name="cms_pix_28_fw_top_bd_wrapper_postroute_physopted.rqs"/>
@@ -102,6 +102,13 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PPRDIR/../src/bxclks_generator.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PPRDIR/../src/com_config_write_regs.sv">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -166,6 +173,13 @@
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../src/fw_top.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../src/ip2_test1.sv">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -245,5 +259,6 @@
     <Step Id="write_bitstream"/>
   </Strategy>
   <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_fw_top_v_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_proc_sys_reset_0_0"/>
 </GenRun>

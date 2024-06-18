@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-| Date         : Fri Jun 14 14:00:43 2024
+| Date         : Mon Jun 17 16:34:09 2024
 | Host         : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 | Command      : report_utilization -file cms_pix_28_fw_top_bd_fw_top_v_0_0_utilization_synth.rpt -pb cms_pix_28_fw_top_bd_fw_top_v_0_0_utilization_synth.pb
 | Design       : cms_pix_28_fw_top_bd_fw_top_v_0_0
@@ -35,8 +35,8 @@ Table of Contents
 | CLB LUTs*               |  5735 |     0 |          0 |    274080 |  2.09 |
 |   LUT as Logic          |  5735 |     0 |          0 |    274080 |  2.09 |
 |   LUT as Memory         |     0 |     0 |          0 |    144000 |  0.00 |
-| CLB Registers           | 10049 |     0 |          0 |    548160 |  1.83 |
-|   Register as Flip Flop | 10049 |     0 |          0 |    548160 |  1.83 |
+| CLB Registers           | 10048 |     0 |          0 |    548160 |  1.83 |
+|   Register as Flip Flop | 10048 |     0 |          0 |    548160 |  1.83 |
 |   Register as Latch     |     0 |     0 |          0 |    548160 |  0.00 |
 | CARRY8                  |     2 |     0 |          0 |     34260 | <0.01 |
 | F7 Muxes                |  2272 |     0 |          0 |    137040 |  1.66 |
@@ -61,7 +61,7 @@ Table of Contents
 | 0     |          Yes |           - |          Set |
 | 8240  |          Yes |           - |        Reset |
 | 1     |          Yes |         Set |            - |
-| 1808  |          Yes |       Reset |            - |
+| 1807  |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -154,14 +154,14 @@ Table of Contents
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
 | FDCE     | 8240 |            Register |
-| LUT6     | 5186 |                 CLB |
+| LUT6     | 5191 |                 CLB |
 | MUXF7    | 2272 |                 CLB |
-| FDRE     | 1808 |            Register |
+| FDRE     | 1807 |            Register |
 | MUXF8    | 1088 |                 CLB |
-| LUT3     |  783 |                 CLB |
-| LUT2     |   96 |                 CLB |
-| LUT5     |   74 |                 CLB |
-| LUT4     |   32 |                 CLB |
+| LUT3     |  784 |                 CLB |
+| LUT2     |   93 |                 CLB |
+| LUT5     |   72 |                 CLB |
+| LUT4     |   31 |                 CLB |
 | LUT1     |    2 |                 CLB |
 | CARRY8   |    2 |                 CLB |
 | FDSE     |    1 |            Register |

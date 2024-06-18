@@ -1,9 +1,0 @@
-verilog xil_defaultlib --include "/asic/cad/Xilinx/Vivado/2022.1/data/xilinx_vip/include" --include "../../../../cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ipshared/ec67/hdl" --include "../../../../cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ipshared/8cdf/hdl" \
-"../../../bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0/sim/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_vip_wrapper.v" \
-"../../../bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_fw_top_v_0_0/sim/cms_pix_28_fw_top_bd_fw_top_v_0_0.v" \
-"../../../bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_auto_pc_0/sim/cms_pix_28_fw_top_bd_auto_pc_0.v" \
-"../../../bd/cms_pix_28_fw_top_bd/sim/cms_pix_28_fw_top_bd.v" \
-
-verilog xil_defaultlib "glbl.v"
-
-nosort

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <Runs Version="1" Minor="0">
-	<Run Id="cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_synth_1" LaunchDir="/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
-	<Run Id="cms_pix_28_fw_top_bd_proc_sys_reset_0_0_synth_1" LaunchDir="/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_proc_sys_reset_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
-	<Run Id="cms_pix_28_fw_top_bd_cms_pix_28_fw_top_v_0_0_synth_1" LaunchDir="/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_cms_pix_28_fw_top_v_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="cms_pix_28_fw_top_bd_clk_wiz_0_0_synth_1" LaunchDir="/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_clk_wiz_0_0_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
 	<Run Id="synth_1" LaunchDir="/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado">
-		<Parent Id="cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_synth_1"/>
-		<Parent Id="cms_pix_28_fw_top_bd_proc_sys_reset_0_0_synth_1"/>
-		<Parent Id="cms_pix_28_fw_top_bd_cms_pix_28_fw_top_v_0_0_synth_1"/>
+		<Parent Id="cms_pix_28_fw_top_bd_clk_wiz_0_0_synth_1"/>
+	</Run>
+	<Run Id="impl_1" LaunchDir="/asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/impl_1" FlowId="Vivado_Implementation" FromStepId="init_design" ToStepId="write_bitstream">
+		<Parent Id="synth_1"/>
+		<Parent Id="cms_pix_28_fw_top_bd_clk_wiz_0_0_synth_1"/>
 	</Run>
 	<Parameters>
 		<Parameter Name="runs.monitorLSFJobs" Val="true" Type="bool"/>
