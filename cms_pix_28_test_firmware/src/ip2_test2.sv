@@ -23,7 +23,8 @@ module ip2_test2 (
     input  logic [5:0] clk_counter,
     input  logic [5:0] test_delay,
     input  logic [5:0] test_trig_out_phase,
-    input  logic       test1_enable_re,
+    input  logic       test_mask_reset_not,
+    input  logic       test2_enable_re,
     input  logic       sm_testx_i_scanchain_reg_bit0,
     input  logic [9:0] sm_testx_i_scanchain_reg_shift_cnt,
     input  logic [9:0] sm_testx_i_scanchain_reg_shift_cnt_max,
@@ -82,7 +83,7 @@ module ip2_test2 (
       case(sm_test2)
         IDLE_T2 : begin
           // next state machine state logic
-          if(test1_enable_re) begin
+          if(test2_enable_re) begin
             sm_test2 <= DELAY_TEST_T2;
           end else begin
             sm_test2 <= IDLE_T2;
@@ -104,7 +105,11 @@ module ip2_test2 (
           end
           // output state machine signal assignment
           if(test_delay==clk_counter) begin
-            sm_test2_o_reset_not                 <= 1'b0;
+            if(test_mask_reset_not==1'b1) begin
+              sm_test2_o_reset_not               <= 1'b1;
+            end else begin
+              sm_test2_o_reset_not               <= 1'b0;
+            end
             sm_test2_o_scan_load                 <= SHIFT_REG;
           end else begin
             sm_test2_o_reset_not                 <= 1'b1;
@@ -127,7 +132,11 @@ module ip2_test2 (
             sm_test2_o_reset_not                 <= 1'b1;
             sm_test2_o_scan_load                 <= LOAD_COMP;
           end else begin
-            sm_test2_o_reset_not                 <= 1'b0;
+            if(test_mask_reset_not==1'b1) begin
+              sm_test2_o_reset_not               <= 1'b1;
+            end else begin
+              sm_test2_o_reset_not               <= 1'b0;
+            end
             sm_test2_o_scan_load                 <= SHIFT_REG;
           end
           sm_test2_o_scan_in                     <= 1'b0;

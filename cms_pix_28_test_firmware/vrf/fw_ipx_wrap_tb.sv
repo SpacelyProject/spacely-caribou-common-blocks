@@ -142,7 +142,7 @@ module fw_ipx_wrap_tb ();
   localparam w_execute_cfg_test_loopback                             = 16;     //
   localparam w_execute_cfg_test_vin_test_trig_out_index_min          = 17;     // this field controls the position of vin_test_trig_out pulse, one bxclk_period wide, within
   localparam w_execute_cfg_test_vin_test_trig_out_index_max          = 22;     // within time-window defined by state machine sm_test2==SCANLOAD_HIGH_1_T2 + SCANLOAD_HIGH_2_T2
-  localparam w_execute_cfg_test_spare_index                          = 23;     //
+  localparam w_execute_cfg_test_mask_reset_not_index                 = 23;     //
   //
   localparam logic [3:0] firmware_id_1           = 4'h1;
   localparam logic [3:0] firmware_id_2           = 4'h2;
@@ -179,6 +179,7 @@ module fw_ipx_wrap_tb ();
   logic [3:0]  tb_test_number;                             // on clock domain fw_axi_clk
   logic        tb_test_loopback;                           // on clock domain fw_axi_clk
   logic [5:0]  tb_test_trig_out_phase;                     // on clock domain fw_axi_clk
+  logic        tb_test_mask_reset_not;                     // on clock domain fw_axi_clk
 
   // Generate free running fw_pl_clk1;           // FM clock 400MHz       mapped to pl_clk1
   always begin: gen_fw_pl_clk1
@@ -337,10 +338,11 @@ module fw_ipx_wrap_tb ();
     tb_sw_write24_0[w_execute_cfg_test_number_index_max            : w_execute_cfg_test_number_index_min            ] = tb_test_number;
     tb_sw_write24_0[w_execute_cfg_test_loopback                                                                     ] = tb_test_loopback;
     tb_sw_write24_0[w_execute_cfg_test_vin_test_trig_out_index_max : w_execute_cfg_test_vin_test_trig_out_index_min ] = tb_test_trig_out_phase;
-    tb_sw_write24_0[w_execute_cfg_test_spare_index                                                                  ] = 1'b0;
+    tb_sw_write24_0[w_execute_cfg_test_mask_reset_not_index                                                         ] = tb_test_mask_reset_not;
     sw_write32_0             = {tb_firmware_id, tb_function_id, tb_sw_write24_0};
     #(1*fw_axi_clk_period);
-    $display("time=%06.2f tb_test_number=%02d tb_test_delay=%02d tb_test_sample=%02d tb_test_loopback=%02d tb_test_trig_out_phase=%02d", $realtime(), tb_test_number, tb_test_delay, tb_test_sample, tb_test_loopback, tb_test_trig_out_phase);
+    $display("time=%06.2f tb_test_number=%02d tb_test_delay=%02d tb_test_sample=%02d tb_test_loopback=%02d tb_test_trig_out_phase=%02d tb_test_mask_reset_not=%01d",
+      $realtime(), tb_test_number, tb_test_delay, tb_test_sample, tb_test_loopback, tb_test_trig_out_phase, tb_test_mask_reset_not);
     //fw_op_code_w_execute     = 1'b0;
     //sw_write24_0             = 24'h0;
   endtask
@@ -570,7 +572,8 @@ module fw_ipx_wrap_tb ();
     tb_test_sample           = 6'h04;                      // on clock domain fw_axi_clk
     tb_test_number           = 4'h1;                       // on clock domain fw_axi_clk
     tb_test_loopback         = 1'b0;                       // on clock domain fw_axi_clk
-    tb_test_trig_out_phase   = 6'h00;
+    tb_test_trig_out_phase   = 6'h00;                      // on clock domain fw_axi_clk
+    tb_test_mask_reset_not   = 1'b0;                       // on clock domain fw_axi_clk
     w_execute();
     tb_number   = 503;
     #(770*tb_bxclk_period*fw_pl_clk1_period);              // execution: wait for at least 768+1 BXCLK cycles; alternatively check when bit#10 is set in fw_read_status32_reg[10] <= sm_test1_o_status_done;
@@ -608,7 +611,8 @@ module fw_ipx_wrap_tb ();
     tb_test_sample           = 6'h05;                      // on clock domain fw_axi_clk
     tb_test_number           = 4'h2;                       // on clock domain fw_axi_clk
     tb_test_loopback         = 1'b1;                       // on clock domain fw_axi_clk
-    tb_test_trig_out_phase   = 6'h04;
+    tb_test_trig_out_phase   = 6'h04;                      // on clock domain fw_axi_clk
+    tb_test_mask_reset_not   = 1'b0;                       // on clock domain fw_axi_clk
     w_execute();
     tb_number   = 603;
     #(770*tb_bxclk_period*fw_pl_clk1_period);              // execution: wait for at least 768+1 BXCLK cycles; alternatively check when bit#10 is set in fw_read_status32_reg[10] <= sm_test1_o_status_done;

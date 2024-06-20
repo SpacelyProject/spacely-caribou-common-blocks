@@ -257,18 +257,20 @@ module fw_ip2 (
   localparam w_execute_cfg_test_loopback                             = 16;     //
   localparam w_execute_cfg_test_vin_test_trig_out_index_min          = 17;     // this field controls the position of vin_test_trig_out pulse, one bxclk_period wide, within
   localparam w_execute_cfg_test_vin_test_trig_out_index_max          = 22;     // within time-window defined by state machine sm_test2==SCANLOAD_HIGH_1_T2 + SCANLOAD_HIGH_2_T2
-  localparam w_execute_cfg_test_spare_index                          = 23;     //
+  localparam w_execute_cfg_test_mask_reset_not_index                 = 23;     //
   //
   logic [5:0] test_delay;                                  // on clock domain fw_axi_clk
   logic [5:0] test_sample;                                 // on clock domain fw_axi_clk
   logic [3:0] test_number;                                 // on clock domain fw_axi_clk
   logic       test_loopback;                               // on clock domain fw_axi_clk
   logic [5:0] test_trig_out_phase;                         // on clock domain fw_axi_clk
+  logic       test_mask_reset_not;                         // on clock domain fw_axi_clk
   assign test_delay          = sw_write24_0[w_execute_cfg_test_delay_index_max             : w_execute_cfg_test_delay_index_min            ];
   assign test_sample         = sw_write24_0[w_execute_cfg_test_sample_index_max            : w_execute_cfg_test_sample_index_min           ];
   assign test_number         = sw_write24_0[w_execute_cfg_test_number_index_max            : w_execute_cfg_test_number_index_min           ];
-  assign test_loopback       = sw_write24_0[w_execute_cfg_test_loopback];
+  assign test_loopback       = sw_write24_0[w_execute_cfg_test_loopback                                                                    ];
   assign test_trig_out_phase = sw_write24_0[w_execute_cfg_test_vin_test_trig_out_index_max : w_execute_cfg_test_vin_test_trig_out_index_min];
+  assign test_mask_reset_not = sw_write24_0[w_execute_cfg_test_mask_reset_not_index                                                        ];
   //
   logic test1_enable; logic test1_enable_del; logic test1_enable_re;
   logic test2_enable; logic test2_enable_del; logic test2_enable_re;
@@ -398,6 +400,7 @@ module fw_ip2 (
     // Control signals:
     .clk_counter                             (fw_pl_clk1_cnt),
     .test_delay                              (test_delay),
+    .test_mask_reset_not                     (test_mask_reset_not),
     .test1_enable_re                         (test1_enable_re),
     .sm_testx_i_scanchain_reg_bit0           (sm_testx_i_scanchain_reg[0]),
     .sm_testx_i_scanchain_reg_shift_cnt      (sm_testx_i_scanchain_reg_shift_cnt),
@@ -436,7 +439,8 @@ module fw_ip2 (
     .clk_counter                             (fw_pl_clk1_cnt),
     .test_delay                              (test_delay),
     .test_trig_out_phase                     (test_trig_out_phase),
-    .test1_enable_re                         (test2_enable_re),
+    .test_mask_reset_not                     (test_mask_reset_not),
+    .test2_enable_re                         (test2_enable_re),
     .sm_testx_i_scanchain_reg_bit0           (sm_testx_i_scanchain_reg[0]),
     .sm_testx_i_scanchain_reg_shift_cnt      (sm_testx_i_scanchain_reg_shift_cnt),
     .sm_testx_i_scanchain_reg_shift_cnt_max  (sm_testx_i_scanchain_reg_width),

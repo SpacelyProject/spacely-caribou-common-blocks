@@ -22,6 +22,7 @@ module ip2_test1 (
     // Control signals:
     input  logic [5:0] clk_counter,
     input  logic [5:0] test_delay,
+    input  logic       test_mask_reset_not,
     input  logic       test1_enable_re,
     input  logic       sm_testx_i_scanchain_reg_bit0,
     input  logic [9:0] sm_testx_i_scanchain_reg_shift_cnt,
@@ -91,7 +92,11 @@ module ip2_test1 (
           end
           // output state machine signal assignment
           if(test_delay==clk_counter) begin
-            sm_test1_o_reset_not                 <= 1'b0;
+            if(test_mask_reset_not==1'b1) begin
+              sm_test1_o_reset_not               <= 1'b1;
+            end else begin
+              sm_test1_o_reset_not               <= 1'b0;
+            end
             sm_test1_o_scan_load                 <= SHIFT_REG;
           end else begin
             sm_test1_o_reset_not                 <= 1'b1;
@@ -114,7 +119,11 @@ module ip2_test1 (
             sm_test1_o_reset_not                 <= 1'b1;
             sm_test1_o_scan_in                   <= sm_testx_i_scanchain_reg_bit0;
           end else begin
-            sm_test1_o_reset_not                 <= 1'b0;
+            if(test_mask_reset_not==1'b1) begin
+              sm_test1_o_reset_not               <= 1'b1;
+            end else begin
+              sm_test1_o_reset_not               <= 1'b0;
+            end
             sm_test1_o_scan_in                   <= 1'b0;
           end
           sm_test1_o_scan_load                   <= SHIFT_REG;
