@@ -18,6 +18,7 @@ module spi_controller_interface_top #(
     output wire 			      cs_b,
     output wire 			      spi_clk,
     input wire 				      ext_spi_clk,
+    output wire [2:0]             dbg_state,
 
     //////////////////////////////
     //    AXI BUS SIGNALS       //
@@ -95,6 +96,7 @@ spi_controller_interface #(
     .pico(pico),
     .cs_b(cs_b),
     .spi_clk(spi_clk),
+    .dbg_state(dbg_state),
     .ext_spi_clk(ext_spi_clk),
     .S_AXI_ACLK(S_AXI_ACLK),
     .S_AXI_ARESETN(S_AXI_ARESETN),

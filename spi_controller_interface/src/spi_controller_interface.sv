@@ -20,6 +20,8 @@ module spi_controller_interface #(
 
   // Optional external SPI Clock
   input logic 				    ext_spi_clk,
+  
+  output logic [2:0] dbg_state,
 
         //////////////////////////////
 	//    AXI BUS SIGNALS       //
@@ -387,7 +389,7 @@ always_comb begin
   end
 
   if (reg_wrByteStrobe[FPGA_USE_EXT_SPI_CLK] == 4'b1111) begin
-     fpga_reg_use_ext_spi_clk = reg_wrdout[0];
+     fpga_reg_use_ext_spi_clk_c = reg_wrdout[0];
   end
 
   // *** SPI READS ***
@@ -449,6 +451,7 @@ spi_controller_SP3A #(
   .cs_b(cs_b),
   .spi_clk(spi_clk),
   .poci(poci),
+  .dbg_state(dbg_state),
   .done(done)
 );
 
