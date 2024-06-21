@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-| Date         : Mon Jun 17 16:34:09 2024
+| Date         : Fri Jun 21 09:26:14 2024
 | Host         : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 | Command      : report_utilization -file cms_pix_28_fw_top_bd_fw_top_v_0_0_utilization_synth.rpt -pb cms_pix_28_fw_top_bd_fw_top_v_0_0_utilization_synth.pb
 | Design       : cms_pix_28_fw_top_bd_fw_top_v_0_0
@@ -32,13 +32,13 @@ Table of Contents
 +-------------------------+-------+-------+------------+-----------+-------+
 |        Site Type        |  Used | Fixed | Prohibited | Available | Util% |
 +-------------------------+-------+-------+------------+-----------+-------+
-| CLB LUTs*               |  5735 |     0 |          0 |    274080 |  2.09 |
-|   LUT as Logic          |  5735 |     0 |          0 |    274080 |  2.09 |
+| CLB LUTs*               |  6559 |     0 |          0 |    274080 |  2.39 |
+|   LUT as Logic          |  6559 |     0 |          0 |    274080 |  2.39 |
 |   LUT as Memory         |     0 |     0 |          0 |    144000 |  0.00 |
-| CLB Registers           | 10048 |     0 |          0 |    548160 |  1.83 |
-|   Register as Flip Flop | 10048 |     0 |          0 |    548160 |  1.83 |
+| CLB Registers           | 10090 |     0 |          0 |    548160 |  1.84 |
+|   Register as Flip Flop | 10090 |     0 |          0 |    548160 |  1.84 |
 |   Register as Latch     |     0 |     0 |          0 |    548160 |  0.00 |
-| CARRY8                  |     2 |     0 |          0 |     34260 | <0.01 |
+| CARRY8                  |     4 |     0 |          0 |     34260 |  0.01 |
 | F7 Muxes                |  2272 |     0 |          0 |    137040 |  1.66 |
 | F8 Muxes                |  1088 |     0 |          0 |     68520 |  1.59 |
 | F9 Muxes                |     0 |     0 |          0 |     34260 |  0.00 |
@@ -61,7 +61,7 @@ Table of Contents
 | 0     |          Yes |           - |          Set |
 | 8240  |          Yes |           - |        Reset |
 | 1     |          Yes |         Set |            - |
-| 1807  |          Yes |       Reset |            - |
+| 1849  |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -154,16 +154,16 @@ Table of Contents
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
 | FDCE     | 8240 |            Register |
-| LUT6     | 5191 |                 CLB |
+| LUT6     | 5202 |                 CLB |
 | MUXF7    | 2272 |                 CLB |
-| FDRE     | 1807 |            Register |
+| FDRE     | 1849 |            Register |
 | MUXF8    | 1088 |                 CLB |
-| LUT3     |  784 |                 CLB |
-| LUT2     |   93 |                 CLB |
-| LUT5     |   72 |                 CLB |
-| LUT4     |   31 |                 CLB |
+| LUT4     |  802 |                 CLB |
+| LUT3     |  802 |                 CLB |
+| LUT5     |   98 |                 CLB |
+| LUT2     |   96 |                 CLB |
+| CARRY8   |    4 |                 CLB |
 | LUT1     |    2 |                 CLB |
-| CARRY8   |    2 |                 CLB |
 | FDSE     |    1 |            Register |
 +----------+------+---------------------+
 
