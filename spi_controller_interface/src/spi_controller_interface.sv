@@ -13,81 +13,89 @@ module spi_controller_interface #(
 ) (
 
   // Ports to/from spi_controller to lpgtbFpga
-  input   logic   poci,
-  output  logic   pico,
-  output  logic   cs_b,
-  output  logic   spi_clk,
+  input logic 				    poci,
+  output logic 				    pico,
+  output logic 				    cs_b,
+  output logic 				    spi_clk,
 
-  //////////////////////////////
+  // Optional external SPI Clock
+  input logic 				    ext_spi_clk,
+
+        //////////////////////////////
 	//    AXI BUS SIGNALS       //
 	//////////////////////////////
 	
 	//	Global Clock Signal
-  input wire  S_AXI_ACLK,
+  input wire 				    S_AXI_ACLK,
   // Global Reset Signal. This Signal is Active LOW
-  input wire  S_AXI_ARESETN,
+  input wire 				    S_AXI_ARESETN,
   // Write address (issued by master, accepted by Slave)
-  input wire [C_S_AXI_ADDR_WIDTH-1 : 0] S_AXI_AWADDR,
+  input wire [C_S_AXI_ADDR_WIDTH-1 : 0]     S_AXI_AWADDR,
   // Write channel Protection type. This signal indicates the
   // privilege and security level of the transaction, and whether
   // the transaction is a data access or an instruction access.
-  input wire [2 : 0] S_AXI_AWPROT,
+  input wire [2 : 0] 			    S_AXI_AWPROT,
   // Write address valid. This signal indicates that the master signaling
   // valid write address and control information.
-  input wire  S_AXI_AWVALID,
+  input wire 				    S_AXI_AWVALID,
   // Write address ready. This signal indicates that the slave is ready
   // to accept an address and associated control signals.
-  output wire  S_AXI_AWREADY,
+  output wire 				    S_AXI_AWREADY,
   // Write data (issued by master, accepted by Slave)
-  input wire [C_S_AXI_DATA_WIDTH-1 : 0] S_AXI_WDATA,
+  input wire [C_S_AXI_DATA_WIDTH-1 : 0]     S_AXI_WDATA,
   // Write strobes. This signal indicates which byte lanes hold
   // valid data. There is one write strobe bit for each eight
   // bits of the write data bus.
   input wire [(C_S_AXI_DATA_WIDTH/8)-1 : 0] S_AXI_WSTRB,
   // Write valid. This signal indicates that valid write
   // data and strobes are available.
-  input wire  S_AXI_WVALID,
+  input wire 				    S_AXI_WVALID,
   // Write ready. This signal indicates that the slave
   // can accept the write data.
-  output wire  S_AXI_WREADY,
+  output wire 				    S_AXI_WREADY,
   // Write response. This signal indicates the status
   // of the write transaction.
-  output wire [1 : 0] S_AXI_BRESP,
+  output wire [1 : 0] 			    S_AXI_BRESP,
   // Write response valid. This signal indicates that the channel
   // is signaling a valid write response.
-  output wire  S_AXI_BVALID,
+  output wire 				    S_AXI_BVALID,
   // Response ready. This signal indicates that the master
   // can accept a write response.
-  input wire  S_AXI_BREADY,
+  input wire 				    S_AXI_BREADY,
   // Read address (issued by master, accepted by Slave)
-  input wire [C_S_AXI_ADDR_WIDTH-1 : 0] S_AXI_ARADDR,
+  input wire [C_S_AXI_ADDR_WIDTH-1 : 0]     S_AXI_ARADDR,
   // Protection type. This signal indicates the privilege
   // and security level of the transaction, and whether the
   // transaction is a data access or an instruction access.
-  input wire [2 : 0] S_AXI_ARPROT,
+  input wire [2 : 0] 			    S_AXI_ARPROT,
   // Read address valid. This signal indicates that the channel
   // is signaling valid read address and control information.
-  input wire  S_AXI_ARVALID,
+  input wire 				    S_AXI_ARVALID,
   // Read address ready. This signal indicates that the slave is
   // ready to accept an address and associated control signals.
-  output wire  S_AXI_ARREADY,
+  output wire 				    S_AXI_ARREADY,
   // Read data (issued by slave)
-  output wire [C_S_AXI_DATA_WIDTH-1 : 0] S_AXI_RDATA,
+  output wire [C_S_AXI_DATA_WIDTH-1 : 0]    S_AXI_RDATA,
   // Read response. This signal indicates the status of the
   // read transfer.
-  output wire [1 : 0] S_AXI_RRESP,
+  output wire [1 : 0] 			    S_AXI_RRESP,
   // Read valid. This signal indicates that the channel is
   // signaling the required read data.
-  output wire  S_AXI_RVALID,
+  output wire 				    S_AXI_RVALID,
   // Read ready. This signal indicates that the master can
   // accept the read data and response information.
-  input wire  S_AXI_RREADY
+  input wire 				    S_AXI_RREADY
   
 );
 
-localparam integer FPGA_REGISTER_N = 8;
+   /////////////////////////////////////////////
+   // AXI-Mapped Registers Address Definition //
+   /////////////////////////////////////////////
 
-// [lucahhot]: AXI register mapping 
+   //Total number of AXI-mapped registers in this firmware block.
+localparam integer FPGA_REGISTER_N = 9;
+
+// Addresses of all AXI-mapped registers in this firmware block.
 localparam byte unsigned FPGA_SPI_WR = 0;
 localparam byte unsigned FPGA_SPI_ADDRESS = 1;
 localparam byte unsigned FPGA_SPI_DATA_LEN = 2;
@@ -95,8 +103,10 @@ localparam byte unsigned FPGA_SPI_OPCODE_GROUP = 3;
 localparam byte unsigned FPGA_SPI_WRITE_DATA = 4;
 localparam byte unsigned FPGA_SPI_READ_DATA = 5;
 localparam byte unsigned FPGA_CLOCK_DIVIDE_FACTOR = 6;
-localparam byte unsigned FPGA_SPI_DONE = 7;
+localparam byte unsigned FPGA_USE_EXT_SPI_CLK = 7;
+localparam byte unsigned FPGA_SPI_DONE = 8;
 
+   
 logic [C_S_AXI_DATA_WIDTH-1:0]        reg_wrdout;
 logic [((C_S_AXI_DATA_WIDTH-1)/8):0]  reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
 logic                                 reg_rdStrobe [FPGA_REGISTER_N-1:0];
@@ -149,6 +159,7 @@ logic [1:0]                    fpga_reg_spi_opcode_group, fpga_reg_spi_opcode_gr
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_write_data, fpga_reg_spi_write_data_c;
 logic [C_S_AXI_DATA_WIDTH-1:0] fpga_reg_spi_read_data;
 logic [4:0]                    fpga_reg_clock_divide_factor, fpga_reg_clock_divide_factor_c; // [lucahhot]: Shouldn't need to divide by more than 2^31 = 2.1 billion
+logic 		               fpga_reg_use_ext_spi_clk, fpga_reg_use_ext_spi_clk_c;
 logic                          fpga_reg_spi_done, fpga_reg_spi_done_c; // [lucahhot]: Flag to indicate when a SPI transaction has completed (cannot be written to)
 
 // SPI command FIFO signals
@@ -218,6 +229,8 @@ logic [4:0] temp_clock_divide_factor, temp_clock_divide_factor_c;
 // [lucahhot]: Flag to indicate if spi_controller is currently in the process of going through a SPI transaction
 logic spi_busy, spi_busy_c;
 
+
+//This always_ff block will assign the values of AXI-mapped registers on every AXI clock cycle.
 always_ff @(posedge S_AXI_ACLK) begin
   if (~S_AXI_ARESETN) begin
     // [lucahhot]: Reseting spi_interface fpga_regs
@@ -227,6 +240,7 @@ always_ff @(posedge S_AXI_ACLK) begin
     fpga_reg_spi_write_data <= '0;
     fpga_reg_spi_opcode_group <= '0;
     fpga_reg_clock_divide_factor <= '0;
+    fpga_reg_use_ext_spi_clk <= '0;
     fpga_reg_spi_done <= '0;
     // [lucahhot]: Reseting temporary registers
     temp_WnR <= '0;
@@ -247,6 +261,7 @@ always_ff @(posedge S_AXI_ACLK) begin
     fpga_reg_spi_write_data <= fpga_reg_spi_write_data_c;
     fpga_reg_spi_opcode_group <= fpga_reg_spi_opcode_group_c;
     fpga_reg_clock_divide_factor <= fpga_reg_clock_divide_factor_c;
+    fpga_reg_use_ext_spi_clk <= fpga_reg_use_ext_spi_clk_c;
     fpga_reg_spi_done <= fpga_reg_spi_done_c; // [lucahhot]: This will be assigned by logic in this module so it cannot be written to by a Spacely user
 
     temp_WnR <= temp_WnR_c;
@@ -268,6 +283,7 @@ assign reg_rddin[FPGA_SPI_WRITE_DATA] = fpga_reg_spi_write_data;
 assign reg_rddin[FPGA_SPI_READ_DATA] = fpga_reg_spi_read_data;
 assign reg_rddin[FPGA_SPI_OPCODE_GROUP] = fpga_reg_spi_opcode_group;
 assign reg_rddin[FPGA_CLOCK_DIVIDE_FACTOR] = fpga_reg_clock_divide_factor;
+assign reg_rddin[FPGA_USE_EXT_SPI_CLK] = fpga_reg_use_ext_spi_clk;   
 assign reg_rddin[FPGA_SPI_DONE] = fpga_reg_spi_done;
 
 // [lucahhot]: fpga_reg_spi_read_data is driven by the head of spi_read_buffer FIFO (read enable set in the combinational loop below)
@@ -286,7 +302,7 @@ always_comb begin
   spi_read_rd_en = 1'b0;
   spi_command_din = '0;
 
-  // Default combinational value assignment to registered value
+  // Default combinational value assignment to registered value (i.e. keep current stored value)
   spi_busy_c = spi_busy;
   temp_WnR_c = temp_WnR;
   temp_spi_address_c = temp_spi_address;
@@ -300,6 +316,7 @@ always_comb begin
   fpga_reg_spi_write_data_c = fpga_reg_spi_write_data;
   fpga_reg_spi_opcode_group_c = fpga_reg_spi_opcode_group;
   fpga_reg_clock_divide_factor_c = fpga_reg_clock_divide_factor;
+  fpga_reg_use_ext_spi_clk_c = fpga_reg_use_ext_spi_clk; 
   fpga_reg_spi_done_c = fpga_reg_spi_done;
 
   // [lucahhot]: divider_reset should by default be 0
@@ -369,6 +386,10 @@ always_comb begin
     end
   end
 
+  if (reg_wrByteStrobe[FPGA_USE_EXT_SPI_CLK] == 4'b1111) begin
+     fpga_reg_use_ext_spi_clk = reg_wrdout[0];
+  end
+
   // *** SPI READS ***
 
   // [lucahhot]: We need to pop a new value from the spi_read_buffer FIFO everytime AXI tries to read fpga_reg_read_data
@@ -381,6 +402,13 @@ always_comb begin
 
 end
 
+
+   ///////////////////////////////////////////
+   ///////////////////////////////////////////
+   // SPI Controller Core Instantiation   ////
+   ///////////////////////////////////////////
+   ///////////////////////////////////////////
+   
 // [lucahhot]: Instantiate SPI controller to send configuration instructions to SPI peripheral on SP3 chip
 // spi_controller_SP3 #(
 // .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH)
@@ -424,9 +452,18 @@ spi_controller_SP3A #(
   .done(done)
 );
 
+   logic clock_divider_source;
+   
+
+   always_comb begin
+      if (fpga_reg_use_ext_spi_clk == 1'b1) clock_divider_source = ext_spi_clk;
+      else clock_divider_source = S_AXI_ACLK;
+   end
+   
+
 // [lucahhot]: Instantiate clock divider for spi_clk
 clock_divider clock_divider_inst (
-  .input_clock(S_AXI_ACLK),
+  .input_clock(clock_divider_source),
   .reset(S_AXI_ARESETN),
   .divider_reset(divider_reset),
   .clock_divider_factor(temp_clock_divide_factor),
