@@ -362,7 +362,7 @@ module fw_ip1 (
     end
   end
 
-  // State Machine for "test1": instantiate module ip2_test1.sv
+  // State Machine for "test1": instantiate module ip1_test1.sv
   typedef enum logic [2:0] {
     IDLE           = 3'b000,
     DELAY_TEST     = 3'b001,
@@ -372,7 +372,7 @@ module fw_ip1 (
     DONE           = 3'b101
   } state_t_sm_test1;
   logic [2:0] sm_test1;
-  ip2_test1 ip2_test1_inst (
+  ip1_test1 ip1_test1_inst (
     .clk                                     (fw_axi_clk),                     // FM clock 400MHz       mapped to pl_clk1
     .reset                                   (op_code_w_reset),
     .enable                                  (fw_dev_id_enable),                // up to 15 FW can be connected
@@ -406,10 +406,10 @@ module fw_ip1 (
         if(test_sample==fw_axi_clk_cnt) begin
           if(test_loopback) begin
             // shift-in new bit using loop-back data from sm_test1_o_scan_in
-            sm_testx_o_shift_reg <= {sm_test1_o_scan_in, sm_testx_o_shift_reg[sm_testx_o_shift_reg_width-1 : 1]};
+            sm_testx_o_shift_reg <= {sm_test1_o_config_in, sm_testx_o_shift_reg[sm_testx_o_shift_reg_width-1 : 1]};
           end else begin
             // shift-in new bit using readout-data from DUT
-            sm_testx_o_shift_reg <= {fw_scan_out,        sm_testx_o_shift_reg[sm_testx_o_shift_reg_width-1 : 1]};
+            sm_testx_o_shift_reg <= {fw_config_out,        sm_testx_o_shift_reg[sm_testx_o_shift_reg_width-1 : 1]};
           end
         end else begin
           // keep old value

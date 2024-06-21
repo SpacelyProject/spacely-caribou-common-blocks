@@ -58,9 +58,9 @@ module ip1_test1 (
     LOAD_COMP = 1'b1
   } shift_reg_mode;
   //
-  assign sm_test1_o_config_clk        = 1'b0;       // signal not used-in / driven-by sm_test1_proc
-  assign sm_test1_o_config_in         = 1'b0;       // signal not used-in / driven-by sm_test1_proc
-  assign sm_test1_o_config_load       = 1'b0;       // signal not used-in / driven-by sm_test1_proc
+  assign sm_test1_o_config_clk      = 1'b0;       // signal not used-in / driven-by sm_test1_proc
+  assign sm_test1_o_scan_in         = 1'b0;       // signal not used-in / driven-by sm_test1_proc
+  assign sm_test1_o_scan_load       = 1'b0;       // signal not used-in / driven-by sm_test1_proc
   assign sm_test1_o_vin_test_trig_out = 1'b0;       // signal not used-in / diven-by sm_test1_proc
   always @(posedge clk) begin : sm_test1_proc
     if(~enable | reset) begin
