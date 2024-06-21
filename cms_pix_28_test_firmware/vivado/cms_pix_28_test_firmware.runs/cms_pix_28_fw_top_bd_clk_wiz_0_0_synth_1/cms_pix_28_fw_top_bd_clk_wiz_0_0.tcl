@@ -95,6 +95,7 @@ read_ip -quiet /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-
 set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0_board.xdc]
 set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0.xdc]
 set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0_late.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being

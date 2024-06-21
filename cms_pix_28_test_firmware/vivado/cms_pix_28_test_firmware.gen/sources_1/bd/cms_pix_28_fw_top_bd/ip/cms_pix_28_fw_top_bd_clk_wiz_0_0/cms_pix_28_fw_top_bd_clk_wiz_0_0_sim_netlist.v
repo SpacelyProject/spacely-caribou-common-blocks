@@ -1,7 +1,7 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-// Date        : Fri Jun 21 13:37:48 2024
+// Date        : Fri Jun 21 17:56:56 2024
 // Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 // Command     : write_verilog -force -mode funcsim
 //               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0_sim_netlist.v
@@ -19,7 +19,7 @@ module cms_pix_28_fw_top_bd_clk_wiz_0_0
   output clk_out1;
   input clk_in1;
 
-  (* IBUF_LOW_PWR *) wire clk_in1;
+  wire clk_in1;
   wire clk_out1;
 
   cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_wiz inst
@@ -34,12 +34,11 @@ module cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_wiz
   input clk_in1;
 
   wire clk_in1;
-  wire clk_in1_cms_pix_28_fw_top_bd_clk_wiz_0_0;
   wire clk_out1;
   wire clk_out1_cms_pix_28_fw_top_bd_clk_wiz_0_0;
+  wire clkfbout_buf_cms_pix_28_fw_top_bd_clk_wiz_0_0;
+  wire clkfbout_cms_pix_28_fw_top_bd_clk_wiz_0_0;
   wire NLW_mmcme4_adv_inst_CDDCDONE_UNCONNECTED;
-  wire NLW_mmcme4_adv_inst_CLKFBIN_UNCONNECTED;
-  wire NLW_mmcme4_adv_inst_CLKFBOUT_UNCONNECTED;
   wire NLW_mmcme4_adv_inst_CLKFBOUTB_UNCONNECTED;
   wire NLW_mmcme4_adv_inst_CLKFBSTOPPED_UNCONNECTED;
   wire NLW_mmcme4_adv_inst_CLKINSTOPPED_UNCONNECTED;
@@ -59,14 +58,15 @@ module cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_wiz
   wire [15:0]NLW_mmcme4_adv_inst_DO_UNCONNECTED;
 
   (* BOX_TYPE = "PRIMITIVE" *) 
-  (* CAPACITANCE = "DONT_CARE" *) 
-  (* IBUF_DELAY_VALUE = "0" *) 
-  (* IFD_DELAY_VALUE = "AUTO" *) 
-  IBUF #(
-    .IOSTANDARD("DEFAULT")) 
-    clkin1_ibuf
-       (.I(clk_in1),
-        .O(clk_in1_cms_pix_28_fw_top_bd_clk_wiz_0_0));
+  (* XILINX_LEGACY_PRIM = "BUFG" *) 
+  (* XILINX_TRANSFORM_PINMAP = "VCC:CE" *) 
+  BUFGCE #(
+    .CE_TYPE("ASYNC"),
+    .SIM_DEVICE("ULTRASCALE_PLUS")) 
+    clkf_buf
+       (.CE(1'b1),
+        .I(clkfbout_cms_pix_28_fw_top_bd_clk_wiz_0_0),
+        .O(clkfbout_buf_cms_pix_28_fw_top_bd_clk_wiz_0_0));
   (* BOX_TYPE = "PRIMITIVE" *) 
   (* XILINX_LEGACY_PRIM = "BUFG" *) 
   (* XILINX_TRANSFORM_PINMAP = "VCC:CE" *) 
@@ -78,7 +78,6 @@ module cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_wiz
         .I(clk_out1_cms_pix_28_fw_top_bd_clk_wiz_0_0),
         .O(clk_out1));
   (* BOX_TYPE = "PRIMITIVE" *) 
-  (* OPT_MODIFIED = "MLO" *) 
   MMCME4_ADV #(
     .BANDWIDTH("OPTIMIZED"),
     .CLKFBOUT_MULT_F(12.000000),
@@ -115,7 +114,7 @@ module cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_wiz
     .CLKOUT6_DUTY_CYCLE(0.500000),
     .CLKOUT6_PHASE(0.000000),
     .CLKOUT6_USE_FINE_PS("FALSE"),
-    .COMPENSATION("INTERNAL"),
+    .COMPENSATION("ZHOLD"),
     .DIVCLK_DIVIDE(1),
     .IS_CLKFBIN_INVERTED(1'b0),
     .IS_CLKIN1_INVERTED(1'b0),
@@ -134,11 +133,11 @@ module cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_wiz
     mmcme4_adv_inst
        (.CDDCDONE(NLW_mmcme4_adv_inst_CDDCDONE_UNCONNECTED),
         .CDDCREQ(1'b0),
-        .CLKFBIN(NLW_mmcme4_adv_inst_CLKFBIN_UNCONNECTED),
-        .CLKFBOUT(NLW_mmcme4_adv_inst_CLKFBOUT_UNCONNECTED),
+        .CLKFBIN(clkfbout_buf_cms_pix_28_fw_top_bd_clk_wiz_0_0),
+        .CLKFBOUT(clkfbout_cms_pix_28_fw_top_bd_clk_wiz_0_0),
         .CLKFBOUTB(NLW_mmcme4_adv_inst_CLKFBOUTB_UNCONNECTED),
         .CLKFBSTOPPED(NLW_mmcme4_adv_inst_CLKFBSTOPPED_UNCONNECTED),
-        .CLKIN1(clk_in1_cms_pix_28_fw_top_bd_clk_wiz_0_0),
+        .CLKIN1(clk_in1),
         .CLKIN2(1'b0),
         .CLKINSEL(1'b1),
         .CLKINSTOPPED(NLW_mmcme4_adv_inst_CLKINSTOPPED_UNCONNECTED),

@@ -534,17 +534,71 @@
         "xci_path": "ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0.xci",
         "inst_hier_path": "clk_wiz_0",
         "parameters": {
+          "AUTO_PRIMITIVE": {
+            "value": "MMCM"
+          },
+          "CLKOUT1_DRIVES": {
+            "value": "Buffer"
+          },
           "CLKOUT1_JITTER": {
             "value": "90.075"
           },
+          "CLKOUT1_PHASE_ERROR": {
+            "value": "87.181"
+          },
           "CLKOUT1_REQUESTED_OUT_FREQ": {
-            "value": "400.000"
+            "value": "399.99600"
+          },
+          "CLKOUT2_DRIVES": {
+            "value": "Buffer"
+          },
+          "CLKOUT3_DRIVES": {
+            "value": "Buffer"
+          },
+          "CLKOUT4_DRIVES": {
+            "value": "Buffer"
+          },
+          "CLKOUT5_DRIVES": {
+            "value": "Buffer"
+          },
+          "CLKOUT6_DRIVES": {
+            "value": "Buffer"
+          },
+          "CLKOUT7_DRIVES": {
+            "value": "Buffer"
+          },
+          "FEEDBACK_SOURCE": {
+            "value": "FDBK_AUTO"
+          },
+          "MMCM_BANDWIDTH": {
+            "value": "OPTIMIZED"
+          },
+          "MMCM_CLKFBOUT_MULT_F": {
+            "value": "12.000"
           },
           "MMCM_CLKOUT0_DIVIDE_F": {
             "value": "3.000"
           },
+          "MMCM_COMPENSATION": {
+            "value": "AUTO"
+          },
+          "OPTIMIZE_CLOCKING_STRUCTURE_EN": {
+            "value": "true"
+          },
+          "PRIMITIVE": {
+            "value": "Auto"
+          },
+          "PRIM_SOURCE": {
+            "value": "No_buffer"
+          },
+          "SECONDARY_SOURCE": {
+            "value": "Single_ended_clock_capable_pin"
+          },
           "USE_LOCKED": {
             "value": "false"
+          },
+          "USE_PHASE_ALIGNMENT": {
+            "value": "true"
           },
           "USE_RESET": {
             "value": "false"
@@ -820,8 +874,8 @@
                 "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_out1",
-                "value_src": "default_prop"
+                "value": "cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_pl_clk0",
+                "value_src": "ip_prop"
               }
             }
           },

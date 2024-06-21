@@ -1,10 +1,10 @@
 // Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-// Date        : Fri Jun 21 13:38:04 2024
+// Date        : Fri Jun 21 13:38:02 2024
 // Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
-// Command     : write_verilog -force -mode synth_stub
-//               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_auto_pc_0/cms_pix_28_fw_top_bd_auto_pc_0_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top cms_pix_28_fw_top_bd_auto_pc_0 -prefix
+//               cms_pix_28_fw_top_bd_auto_pc_0_ cms_pix_28_fw_top_bd_auto_pc_0_stub.v
 // Design      : cms_pix_28_fw_top_bd_auto_pc_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xczu9eg-ffvb1156-2-e

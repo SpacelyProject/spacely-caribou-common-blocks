@@ -76,9 +76,7 @@ module cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_wiz
   //------------------------------------
 wire clk_in1_cms_pix_28_fw_top_bd_clk_wiz_0_0;
 wire clk_in2_cms_pix_28_fw_top_bd_clk_wiz_0_0;
-  IBUF clkin1_ibuf
-   (.O (clk_in1_cms_pix_28_fw_top_bd_clk_wiz_0_0),
-    .I (clk_in1));
+  assign clk_in1_cms_pix_28_fw_top_bd_clk_wiz_0_0 = clk_in1;
 
 
 
@@ -103,6 +101,7 @@ wire clk_in2_cms_pix_28_fw_top_bd_clk_wiz_0_0;
   wire        psdone_unused;
   wire        locked_int;
   wire        clkfbout_cms_pix_28_fw_top_bd_clk_wiz_0_0;
+  wire        clkfbout_buf_cms_pix_28_fw_top_bd_clk_wiz_0_0;
   wire        clkfboutb_unused;
     wire clkout0b_unused;
    wire clkout1_unused;
@@ -116,6 +115,10 @@ wire clk_in2_cms_pix_28_fw_top_bd_clk_wiz_0_0;
   wire        clkout6_unused;
   wire        clkfbstopped_unused;
   wire        clkinstopped_unused;
+
+ 
+
+// Auto Instantiation//
 
 
   
@@ -135,7 +138,7 @@ wire clk_in2_cms_pix_28_fw_top_bd_clk_wiz_0_0;
     .CLKOUT0_USE_FINE_PS  ("FALSE"),
     .CLKIN1_PERIOD        (10.000))
   
-  mmcme4_adv_inst
+     mmcme4_adv_inst
     // Output clocks
    (
     .CLKFBOUT            (clkfbout_cms_pix_28_fw_top_bd_clk_wiz_0_0),
@@ -152,7 +155,7 @@ wire clk_in2_cms_pix_28_fw_top_bd_clk_wiz_0_0;
     .CLKOUT5             (clkout5_unused),
     .CLKOUT6             (clkout6_unused),
      // Input clock control
-    .CLKFBIN             (clkfbout_cms_pix_28_fw_top_bd_clk_wiz_0_0),
+    .CLKFBIN             (clkfbout_buf_cms_pix_28_fw_top_bd_clk_wiz_0_0),
     .CLKIN1              (clk_in1_cms_pix_28_fw_top_bd_clk_wiz_0_0),
     .CLKIN2              (1'b0),
      // Tied to always select the primary input clock
@@ -179,10 +182,16 @@ wire clk_in2_cms_pix_28_fw_top_bd_clk_wiz_0_0;
     .PWRDWN              (1'b0),
     .RST                 (1'b0));
 
+
+
 // Clock Monitor clock assigning
 //--------------------------------------
  // Output buffering
   //-----------------------------------
+
+  BUFG clkf_buf
+   (.O (clkfbout_buf_cms_pix_28_fw_top_bd_clk_wiz_0_0),
+    .I (clkfbout_cms_pix_28_fw_top_bd_clk_wiz_0_0));
 
 
 

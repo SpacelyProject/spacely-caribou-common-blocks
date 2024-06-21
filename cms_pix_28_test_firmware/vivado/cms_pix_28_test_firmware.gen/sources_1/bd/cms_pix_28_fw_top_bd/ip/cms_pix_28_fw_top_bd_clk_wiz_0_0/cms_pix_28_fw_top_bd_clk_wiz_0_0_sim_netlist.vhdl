@@ -1,7 +1,7 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
--- Date        : Fri Jun 21 13:37:48 2024
+-- Date        : Fri Jun 21 17:56:56 2024
 -- Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 -- Command     : write_vhdl -force -mode funcsim
 --               /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd/ip/cms_pix_28_fw_top_bd_clk_wiz_0_0/cms_pix_28_fw_top_bd_clk_wiz_0_0_sim_netlist.vhdl
@@ -22,11 +22,10 @@ entity cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_wiz is
 end cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_wiz;
 
 architecture STRUCTURE of cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_wiz is
-  signal clk_in1_cms_pix_28_fw_top_bd_clk_wiz_0_0 : STD_LOGIC;
   signal clk_out1_cms_pix_28_fw_top_bd_clk_wiz_0_0 : STD_LOGIC;
+  signal clkfbout_buf_cms_pix_28_fw_top_bd_clk_wiz_0_0 : STD_LOGIC;
+  signal clkfbout_cms_pix_28_fw_top_bd_clk_wiz_0_0 : STD_LOGIC;
   signal NLW_mmcme4_adv_inst_CDDCDONE_UNCONNECTED : STD_LOGIC;
-  signal NLW_mmcme4_adv_inst_CLKFBIN_UNCONNECTED : STD_LOGIC;
-  signal NLW_mmcme4_adv_inst_CLKFBOUT_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcme4_adv_inst_CLKFBOUTB_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcme4_adv_inst_CLKFBSTOPPED_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcme4_adv_inst_CLKINSTOPPED_UNCONNECTED : STD_LOGIC;
@@ -45,29 +44,25 @@ architecture STRUCTURE of cms_pix_28_fw_top_bd_clk_wiz_0_0_clk_wiz is
   signal NLW_mmcme4_adv_inst_PSDONE_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcme4_adv_inst_DO_UNCONNECTED : STD_LOGIC_VECTOR ( 15 downto 0 );
   attribute BOX_TYPE : string;
-  attribute BOX_TYPE of clkin1_ibuf : label is "PRIMITIVE";
-  attribute CAPACITANCE : string;
-  attribute CAPACITANCE of clkin1_ibuf : label is "DONT_CARE";
-  attribute IBUF_DELAY_VALUE : string;
-  attribute IBUF_DELAY_VALUE of clkin1_ibuf : label is "0";
-  attribute IFD_DELAY_VALUE : string;
-  attribute IFD_DELAY_VALUE of clkin1_ibuf : label is "AUTO";
-  attribute BOX_TYPE of clkout1_buf : label is "PRIMITIVE";
+  attribute BOX_TYPE of clkf_buf : label is "PRIMITIVE";
   attribute XILINX_LEGACY_PRIM : string;
-  attribute XILINX_LEGACY_PRIM of clkout1_buf : label is "BUFG";
+  attribute XILINX_LEGACY_PRIM of clkf_buf : label is "BUFG";
   attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of clkf_buf : label is "VCC:CE";
+  attribute BOX_TYPE of clkout1_buf : label is "PRIMITIVE";
+  attribute XILINX_LEGACY_PRIM of clkout1_buf : label is "BUFG";
   attribute XILINX_TRANSFORM_PINMAP of clkout1_buf : label is "VCC:CE";
   attribute BOX_TYPE of mmcme4_adv_inst : label is "PRIMITIVE";
-  attribute OPT_MODIFIED : string;
-  attribute OPT_MODIFIED of mmcme4_adv_inst : label is "MLO";
 begin
-clkin1_ibuf: unisim.vcomponents.IBUF
+clkf_buf: unisim.vcomponents.BUFGCE
     generic map(
-      IOSTANDARD => "DEFAULT"
+      CE_TYPE => "ASYNC",
+      SIM_DEVICE => "ULTRASCALE_PLUS"
     )
         port map (
-      I => clk_in1,
-      O => clk_in1_cms_pix_28_fw_top_bd_clk_wiz_0_0
+      CE => '1',
+      I => clkfbout_cms_pix_28_fw_top_bd_clk_wiz_0_0,
+      O => clkfbout_buf_cms_pix_28_fw_top_bd_clk_wiz_0_0
     );
 clkout1_buf: unisim.vcomponents.BUFGCE
     generic map(
@@ -116,7 +111,7 @@ mmcme4_adv_inst: unisim.vcomponents.MMCME4_ADV
       CLKOUT6_DUTY_CYCLE => 0.500000,
       CLKOUT6_PHASE => 0.000000,
       CLKOUT6_USE_FINE_PS => "FALSE",
-      COMPENSATION => "INTERNAL",
+      COMPENSATION => "ZHOLD",
       DIVCLK_DIVIDE => 1,
       IS_CLKFBIN_INVERTED => '0',
       IS_CLKIN1_INVERTED => '0',
@@ -136,11 +131,11 @@ mmcme4_adv_inst: unisim.vcomponents.MMCME4_ADV
         port map (
       CDDCDONE => NLW_mmcme4_adv_inst_CDDCDONE_UNCONNECTED,
       CDDCREQ => '0',
-      CLKFBIN => NLW_mmcme4_adv_inst_CLKFBIN_UNCONNECTED,
-      CLKFBOUT => NLW_mmcme4_adv_inst_CLKFBOUT_UNCONNECTED,
+      CLKFBIN => clkfbout_buf_cms_pix_28_fw_top_bd_clk_wiz_0_0,
+      CLKFBOUT => clkfbout_cms_pix_28_fw_top_bd_clk_wiz_0_0,
       CLKFBOUTB => NLW_mmcme4_adv_inst_CLKFBOUTB_UNCONNECTED,
       CLKFBSTOPPED => NLW_mmcme4_adv_inst_CLKFBSTOPPED_UNCONNECTED,
-      CLKIN1 => clk_in1_cms_pix_28_fw_top_bd_clk_wiz_0_0,
+      CLKIN1 => clk_in1,
       CLKIN2 => '0',
       CLKINSEL => '1',
       CLKINSTOPPED => NLW_mmcme4_adv_inst_CLKINSTOPPED_UNCONNECTED,

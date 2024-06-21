@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xczu9eg-ffvb1156-2-e" LaunchTime="1719009306" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp">
-  <File Type="VDS-TIMINGSUMMARY" Name="clock_wizard_wrapper_timing_summary_synth.rpt"/>
-  <File Type="RDS-DCP" Name="clock_wizard_wrapper.dcp"/>
-  <File Type="RDS-UTIL-PB" Name="clock_wizard_wrapper_utilization_synth.pb"/>
-  <File Type="RDS-UTIL" Name="clock_wizard_wrapper_utilization_synth.rpt"/>
-  <File Type="RDS-PROPCONSTRS" Name="clock_wizard_wrapper_drc_synth.rpt"/>
-  <File Type="RDS-RDS" Name="clock_wizard_wrapper.vds"/>
-  <File Type="REPORTS-TCL" Name="clock_wizard_wrapper_reports.tcl"/>
-  <File Type="VDS-TIMING-PB" Name="clock_wizard_wrapper_timing_summary_synth.pb"/>
-  <File Type="PA-TCL" Name="clock_wizard_wrapper.tcl"/>
+<GenRun Id="synth_1" LaunchPart="xczu9eg-ffvb1156-2-e" LaunchTime="1719010528" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/cms_pix_28_fw_top_bd_wrapper.dcp">
+  <File Type="VDS-TIMINGSUMMARY" Name="cms_pix_28_fw_top_bd_wrapper_timing_summary_synth.rpt"/>
+  <File Type="RDS-DCP" Name="cms_pix_28_fw_top_bd_wrapper.dcp"/>
+  <File Type="RDS-UTIL-PB" Name="cms_pix_28_fw_top_bd_wrapper_utilization_synth.pb"/>
+  <File Type="RDS-UTIL" Name="cms_pix_28_fw_top_bd_wrapper_utilization_synth.rpt"/>
+  <File Type="RDS-PROPCONSTRS" Name="cms_pix_28_fw_top_bd_wrapper_drc_synth.rpt"/>
+  <File Type="RDS-RDS" Name="cms_pix_28_fw_top_bd_wrapper.vds"/>
+  <File Type="REPORTS-TCL" Name="cms_pix_28_fw_top_bd_wrapper_reports.tcl"/>
+  <File Type="VDS-TIMING-PB" Name="cms_pix_28_fw_top_bd_wrapper_timing_summary_synth.pb"/>
+  <File Type="PA-TCL" Name="cms_pix_28_fw_top_bd_wrapper.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PPRDIR/../../axi4lite_interface/axi4lite_interface_top.sv">
@@ -137,21 +137,21 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/bd/clock_wizard/clock_wizard.bd">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PGENDIR/sources_1/bd/clock_wizard/hdl/clock_wizard_wrapper.v">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/bd/cms_pix_28_fw_top_bd/cms_pix_28_fw_top_bd.bd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PGENDIR/sources_1/bd/cms_pix_28_fw_top_bd/hdl/cms_pix_28_fw_top_bd_wrapper.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/bd/clock_wizard/clock_wizard.bd">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -159,7 +159,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PGENDIR/sources_1/bd/cms_pix_28_fw_top_bd/hdl/cms_pix_28_fw_top_bd_wrapper.v">
+    <File Path="$PGENDIR/sources_1/bd/clock_wizard/hdl/clock_wizard_wrapper.v">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -169,7 +169,7 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="clock_wizard_wrapper"/>
+      <Option Name="TopModule" Val="cms_pix_28_fw_top_bd_wrapper"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
@@ -206,8 +206,6 @@
   </Strategy>
   <BlockFileSet Type="BlockSrcs" Name="clock_wizard_proc_sys_reset_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="clock_wizard_zynq_ultra_ps_e_0_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_auto_ds_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_auto_pc_0"/>
   <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_fw_top_v_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_clk_wiz_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="clock_wizard_fw_top_v_0_0"/>
