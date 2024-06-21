@@ -518,15 +518,19 @@ module fw_ipx_wrap_tb ();
         tb_firmware_id = firmware_id_2;
         // Randomize sw_write24_0 content and issue fw_op_code_w_cfg_static_0 for ONE fw_axi_clk_period
         w_cfg_static_random(.index(i));
+        tb_number   = 301;
         // Dummy wait before doing check_bxclk_period_and_delay()
         #(5*fw_axi_clk_period);
         if(i==0) check_bxclk_period_and_delay();
+        tb_number   = 302;
         // Dummy wait before doing check_r_cfg_static()
         #(5*fw_axi_clk_period);
         check_r_cfg_static(.index(i));
+        tb_number   = 303;
         // Dummy wait before disable tb_firmware_id => clocks will become ZERO
         #(5*fw_axi_clk_period);
         tb_firmware_id = firmware_id_none;
+        tb_number   = 304;
         // Dummy wait before next tb_i_test
         #(5*fw_axi_clk_period);
       end
@@ -541,14 +545,19 @@ module fw_ipx_wrap_tb ();
     tb_firmware_id       = firmware_id_2;
     #(5*fw_axi_clk_period);
     w_reset();
+    tb_number   = 401;
     // WRITE fw_op_code_w_cfg_array_0
     w_cfg_array_0_counter();
+    tb_number   = 402;
     // WRITE fw_op_code_w_cfg_array_1
     w_cfg_array_1_random();
+    tb_number   = 403;
     // READ fw_op_code_r_cfg_array_0
     check_r_cfg_array_0_counter();
+    tb_number   = 404;
     // READ fw_op_code_r_cfg_array_1
     check_r_cfg_array_1_random();
+    tb_number   = 405;
     tb_firmware_id         = firmware_id_none;
     #(5*fw_axi_clk_period);
     $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
