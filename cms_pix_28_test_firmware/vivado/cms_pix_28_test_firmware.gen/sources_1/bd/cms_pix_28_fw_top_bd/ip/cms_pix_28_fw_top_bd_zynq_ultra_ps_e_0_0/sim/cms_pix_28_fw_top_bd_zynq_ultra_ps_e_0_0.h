@@ -92,8 +92,8 @@ public:
   sc_core::sc_out< bool > maxigp0_awvalid;
   sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_awuser;
   sc_core::sc_in< bool > maxigp0_awready;
-  sc_core::sc_out< sc_dt::sc_bv<32> > maxigp0_wdata;
-  sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_wstrb;
+  sc_core::sc_out< sc_dt::sc_bv<128> > maxigp0_wdata;
+  sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_wstrb;
   sc_core::sc_out< bool > maxigp0_wlast;
   sc_core::sc_out< bool > maxigp0_wvalid;
   sc_core::sc_in< bool > maxigp0_wready;
@@ -113,17 +113,15 @@ public:
   sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_aruser;
   sc_core::sc_in< bool > maxigp0_arready;
   sc_core::sc_in< sc_dt::sc_bv<16> > maxigp0_rid;
-  sc_core::sc_in< sc_dt::sc_bv<32> > maxigp0_rdata;
+  sc_core::sc_in< sc_dt::sc_bv<128> > maxigp0_rdata;
   sc_core::sc_in< sc_dt::sc_bv<2> > maxigp0_rresp;
   sc_core::sc_in< bool > maxigp0_rlast;
   sc_core::sc_in< bool > maxigp0_rvalid;
   sc_core::sc_out< bool > maxigp0_rready;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_awqos;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_arqos;
-  sc_core::sc_in< sc_dt::sc_bv<1> > pl_ps_irq0;
   sc_core::sc_out< bool > pl_resetn0;
   sc_core::sc_out< bool > pl_clk0;
-  sc_core::sc_out< bool > pl_clk1;
 
   // Dummy Signals for IP Ports
 
@@ -134,7 +132,7 @@ protected:
 
 private:
 
-  xtlm::xaximm_xtlm2pin_t<32,40,16,16,1,1,16,1>* mp_M_AXI_HPM0_FPD_transactor;
+  xtlm::xaximm_xtlm2pin_t<128,40,16,16,1,1,16,1>* mp_M_AXI_HPM0_FPD_transactor;
   sc_signal< bool > m_M_AXI_HPM0_FPD_transactor_rst_signal;
 
 };
@@ -165,8 +163,8 @@ public:
   sc_core::sc_out< bool > maxigp0_awvalid;
   sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_awuser;
   sc_core::sc_in< bool > maxigp0_awready;
-  sc_core::sc_out< sc_dt::sc_bv<32> > maxigp0_wdata;
-  sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_wstrb;
+  sc_core::sc_out< sc_dt::sc_bv<128> > maxigp0_wdata;
+  sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_wstrb;
   sc_core::sc_out< bool > maxigp0_wlast;
   sc_core::sc_out< bool > maxigp0_wvalid;
   sc_core::sc_in< bool > maxigp0_wready;
@@ -186,17 +184,15 @@ public:
   sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_aruser;
   sc_core::sc_in< bool > maxigp0_arready;
   sc_core::sc_in< sc_dt::sc_bv<16> > maxigp0_rid;
-  sc_core::sc_in< sc_dt::sc_bv<32> > maxigp0_rdata;
+  sc_core::sc_in< sc_dt::sc_bv<128> > maxigp0_rdata;
   sc_core::sc_in< sc_dt::sc_bv<2> > maxigp0_rresp;
   sc_core::sc_in< bool > maxigp0_rlast;
   sc_core::sc_in< bool > maxigp0_rvalid;
   sc_core::sc_out< bool > maxigp0_rready;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_awqos;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_arqos;
-  sc_core::sc_in< sc_dt::sc_bv<1> > pl_ps_irq0;
   sc_core::sc_out< bool > pl_resetn0;
   sc_core::sc_out< bool > pl_clk0;
-  sc_core::sc_out< bool > pl_clk1;
 
   // Dummy Signals for IP Ports
 
@@ -207,7 +203,7 @@ protected:
 
 private:
 
-  xtlm::xaximm_xtlm2pin_t<32,40,16,16,1,1,16,1>* mp_M_AXI_HPM0_FPD_transactor;
+  xtlm::xaximm_xtlm2pin_t<128,40,16,16,1,1,16,1>* mp_M_AXI_HPM0_FPD_transactor;
   sc_signal< bool > m_M_AXI_HPM0_FPD_transactor_rst_signal;
 
 };
@@ -238,8 +234,8 @@ public:
   sc_core::sc_out< bool > maxigp0_awvalid;
   sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_awuser;
   sc_core::sc_in< bool > maxigp0_awready;
-  sc_core::sc_out< sc_dt::sc_bv<32> > maxigp0_wdata;
-  sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_wstrb;
+  sc_core::sc_out< sc_dt::sc_bv<128> > maxigp0_wdata;
+  sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_wstrb;
   sc_core::sc_out< bool > maxigp0_wlast;
   sc_core::sc_out< bool > maxigp0_wvalid;
   sc_core::sc_in< bool > maxigp0_wready;
@@ -259,17 +255,15 @@ public:
   sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_aruser;
   sc_core::sc_in< bool > maxigp0_arready;
   sc_core::sc_in< sc_dt::sc_bv<16> > maxigp0_rid;
-  sc_core::sc_in< sc_dt::sc_bv<32> > maxigp0_rdata;
+  sc_core::sc_in< sc_dt::sc_bv<128> > maxigp0_rdata;
   sc_core::sc_in< sc_dt::sc_bv<2> > maxigp0_rresp;
   sc_core::sc_in< bool > maxigp0_rlast;
   sc_core::sc_in< bool > maxigp0_rvalid;
   sc_core::sc_out< bool > maxigp0_rready;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_awqos;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_arqos;
-  sc_core::sc_in< sc_dt::sc_bv<1> > pl_ps_irq0;
   sc_core::sc_out< bool > pl_resetn0;
   sc_core::sc_out< bool > pl_clk0;
-  sc_core::sc_out< bool > pl_clk1;
 
   // Dummy Signals for IP Ports
 
@@ -280,7 +274,7 @@ protected:
 
 private:
 
-  xtlm::xaximm_xtlm2pin_t<32,40,16,16,1,1,16,1>* mp_M_AXI_HPM0_FPD_transactor;
+  xtlm::xaximm_xtlm2pin_t<128,40,16,16,1,1,16,1>* mp_M_AXI_HPM0_FPD_transactor;
   sc_signal< bool > m_M_AXI_HPM0_FPD_transactor_rst_signal;
 
 };
@@ -313,8 +307,8 @@ public:
   sc_core::sc_out< bool > maxigp0_awvalid;
   sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_awuser;
   sc_core::sc_in< bool > maxigp0_awready;
-  sc_core::sc_out< sc_dt::sc_bv<32> > maxigp0_wdata;
-  sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_wstrb;
+  sc_core::sc_out< sc_dt::sc_bv<128> > maxigp0_wdata;
+  sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_wstrb;
   sc_core::sc_out< bool > maxigp0_wlast;
   sc_core::sc_out< bool > maxigp0_wvalid;
   sc_core::sc_in< bool > maxigp0_wready;
@@ -334,17 +328,15 @@ public:
   sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_aruser;
   sc_core::sc_in< bool > maxigp0_arready;
   sc_core::sc_in< sc_dt::sc_bv<16> > maxigp0_rid;
-  sc_core::sc_in< sc_dt::sc_bv<32> > maxigp0_rdata;
+  sc_core::sc_in< sc_dt::sc_bv<128> > maxigp0_rdata;
   sc_core::sc_in< sc_dt::sc_bv<2> > maxigp0_rresp;
   sc_core::sc_in< bool > maxigp0_rlast;
   sc_core::sc_in< bool > maxigp0_rvalid;
   sc_core::sc_out< bool > maxigp0_rready;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_awqos;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_arqos;
-  sc_core::sc_in< sc_dt::sc_bv<1> > pl_ps_irq0;
   sc_core::sc_out< bool > pl_resetn0;
   sc_core::sc_out< bool > pl_clk0;
-  sc_core::sc_out< bool > pl_clk1;
 
   // Dummy Signals for IP Ports
 
@@ -355,7 +347,7 @@ protected:
 
 private:
 
-  xtlm::xaximm_xtlm2pin_t<32,40,16,16,1,1,16,1>* mp_M_AXI_HPM0_FPD_transactor;
+  xtlm::xaximm_xtlm2pin_t<128,40,16,16,1,1,16,1>* mp_M_AXI_HPM0_FPD_transactor;
   sc_signal< bool > m_M_AXI_HPM0_FPD_transactor_rst_signal;
 
   // Transactor stubs
@@ -394,8 +386,8 @@ public:
   sc_core::sc_out< bool > maxigp0_awvalid;
   sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_awuser;
   sc_core::sc_in< bool > maxigp0_awready;
-  sc_core::sc_out< sc_dt::sc_bv<32> > maxigp0_wdata;
-  sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_wstrb;
+  sc_core::sc_out< sc_dt::sc_bv<128> > maxigp0_wdata;
+  sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_wstrb;
   sc_core::sc_out< bool > maxigp0_wlast;
   sc_core::sc_out< bool > maxigp0_wvalid;
   sc_core::sc_in< bool > maxigp0_wready;
@@ -415,17 +407,15 @@ public:
   sc_core::sc_out< sc_dt::sc_bv<16> > maxigp0_aruser;
   sc_core::sc_in< bool > maxigp0_arready;
   sc_core::sc_in< sc_dt::sc_bv<16> > maxigp0_rid;
-  sc_core::sc_in< sc_dt::sc_bv<32> > maxigp0_rdata;
+  sc_core::sc_in< sc_dt::sc_bv<128> > maxigp0_rdata;
   sc_core::sc_in< sc_dt::sc_bv<2> > maxigp0_rresp;
   sc_core::sc_in< bool > maxigp0_rlast;
   sc_core::sc_in< bool > maxigp0_rvalid;
   sc_core::sc_out< bool > maxigp0_rready;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_awqos;
   sc_core::sc_out< sc_dt::sc_bv<4> > maxigp0_arqos;
-  sc_core::sc_in< sc_dt::sc_bv<1> > pl_ps_irq0;
   sc_core::sc_out< bool > pl_resetn0;
   sc_core::sc_out< bool > pl_clk0;
-  sc_core::sc_out< bool > pl_clk1;
 
   // Dummy Signals for IP Ports
 
@@ -436,7 +426,7 @@ protected:
 
 private:
 
-  xtlm::xaximm_xtlm2pin_t<32,40,16,16,1,1,16,1>* mp_M_AXI_HPM0_FPD_transactor;
+  xtlm::xaximm_xtlm2pin_t<128,40,16,16,1,1,16,1>* mp_M_AXI_HPM0_FPD_transactor;
   sc_signal< bool > m_M_AXI_HPM0_FPD_transactor_rst_signal;
 
   // Transactor stubs
