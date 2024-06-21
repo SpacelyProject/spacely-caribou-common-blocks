@@ -93,7 +93,7 @@ module axi4lite_interface_top_for_pix28_fw #(
   ///////////////////////////
   // REG INTERFACE SIGNALS //
   ///////////////////////////
-  localparam FPGA_REGISTER_N = 2;
+  localparam FPGA_REGISTER_N = 3;
   logic [C_S_AXI_DATA_WIDTH-1:0]       reg_wrdout;                             // 32-bit data from AXI interface
   logic [((C_S_AXI_DATA_WIDTH-1)/8):0] reg_wrByteStrobe [FPGA_REGISTER_N-1:0]; // write strobe per byte of reg_wrdout per FPGA register
   logic                                reg_rdStrobe     [FPGA_REGISTER_N-1:0]; // read strobe per FPGA register
@@ -165,8 +165,9 @@ module axi4lite_interface_top_for_pix28_fw #(
 //    end
 //  end
   // Option 3: simple assignment
-  assign reg_rddin[0] = sw_read32_0;
-  assign reg_rddin[1] = sw_read32_1;
+  assign reg_rddin[0] = sw_write32_0;
+  assign reg_rddin[1] = sw_read32_0;
+  assign reg_rddin[2] = sw_read32_1;
 
 endmodule
 
