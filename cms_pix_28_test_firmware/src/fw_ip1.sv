@@ -163,11 +163,12 @@ module fw_ip1 (
       end else begin
         fw_read_data32_comb = 32'b0;
       end
+    end
   end
   assign fw_read_data32 = fw_read_data32_comb;
 
   // Logic for SW readout data fw_read_status32
-  logic [31:0] fw_read_status32_reg;                       // 32-bit read_status from FW to SW
+  logic[31:0] fw_read_status32_reg;                       // 32-bit read_status from FW to SW
   logic sm_test1_o_status_done;
   logic sm_test2_o_status_done; assign sm_test2_o_status_done = 1'b0;
   logic sm_test3_o_status_done; assign sm_test3_o_status_done = 1'b0;
