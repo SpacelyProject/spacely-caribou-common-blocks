@@ -1,0 +1,17 @@
+#
+# An unexpected error has occurred (11)
+#
+Stack:
+/lib64/libc.so.6(+0x36400) [0x7fb5b41b0400]
+/lib64/libc.so.6(+0x39c4d) [0x7fb5b41b3c4d]
+/lib64/libc.so.6(+0x39d37) [0x7fb5b41b3d37]
+/asic/cad/Xilinx/Vivado/2022.1/lib/lnx64.o/Default/libgomp.so.1(+0x99c3) [0x7fb5acc189c3]
+/asic/cad/Xilinx/Vivado/2022.1/lib/lnx64.o/Default/libgomp.so.1(+0x9a5c) [0x7fb5acc18a5c]
+/asic/cad/Xilinx/Vivado/2022.1/lib/lnx64.o/Default/libgomp.so.1(+0x1765c) [0x7fb5acc2665c]
+/asic/cad/Xilinx/Vivado/2022.1/lib/lnx64.o/Default/libgomp.so.1(GOMP_parallel_sections+0x77) [0x7fb5acc1cd27]
+/asic/cad/Xilinx/Vivado/2022.1/lib/lnx64.o/librdi_common.so(HCNSparseSolver::solveCG1(HCNSparseSolver::PrecondType, HSTVector<double, std::allocator<double> > const&, HSTVector<double, std::allocator<double> >&, HSTVector<double, std::allocator<double> > const&, unsigned int&, double&, unsigned int, std::pair<double, double> const&) const+0x15ba) [0x7fb5b534989a]
+/asic/cad/Xilinx/Vivado/2022.1/lib/lnx64.o/librdi_common.so(+0x869dab) [0x7fb5b534bdab]
+/asic/cad/Xilinx/Vivado/2022.1/lib/lnx64.o/librdi_common.so(+0x868ce4) [0x7fb5b534ace4]
+/asic/cad/Xilinx/Vivado/2022.1/lib/lnx64.o/Default/libgomp.so.1(+0x161e1) [0x7fb5acc251e1]
+/lib64/libpthread.so.0(+0x7ea5) [0x7fb5b3f65ea5]
+/lib64/libc.so.6(clone+0x6d) [0x7fb5b4278b0d]

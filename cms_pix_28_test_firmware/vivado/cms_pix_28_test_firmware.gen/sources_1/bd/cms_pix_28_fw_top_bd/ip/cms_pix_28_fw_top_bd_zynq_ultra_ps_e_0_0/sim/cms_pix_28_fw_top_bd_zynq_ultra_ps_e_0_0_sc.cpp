@@ -63,7 +63,7 @@ cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc::cms_pix_28_fw_top_bd_zynq_ultra_ps_
     xsc::common_cpp::properties model_param_props;
     model_param_props.addLong("C_DP_USE_AUDIO", "0");
     model_param_props.addLong("C_DP_USE_VIDEO", "0");
-    model_param_props.addLong("C_MAXIGP0_DATA_WIDTH", "32");
+    model_param_props.addLong("C_MAXIGP0_DATA_WIDTH", "128");
     model_param_props.addLong("C_MAXIGP1_DATA_WIDTH", "128");
     model_param_props.addLong("C_MAXIGP2_DATA_WIDTH", "32");
     model_param_props.addLong("C_SAXIGP0_DATA_WIDTH", "128");
@@ -85,7 +85,7 @@ cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc::cms_pix_28_fw_top_bd_zynq_ultra_ps_
     model_param_props.addLong("C_TRACE_DATA_WIDTH", "32");
     model_param_props.addLong("C_USE_DEBUG_TEST", "0");
     model_param_props.addLong("C_SD0_INTERNAL_BUS_WIDTH", "5");
-    model_param_props.addLong("C_SD1_INTERNAL_BUS_WIDTH", "8");
+    model_param_props.addLong("C_SD1_INTERNAL_BUS_WIDTH", "5");
     model_param_props.addLong("C_NUM_F2P_0_INTR_INPUTS", "1");
     model_param_props.addLong("C_NUM_F2P_1_INTR_INPUTS", "1");
     model_param_props.addLong("C_EMIO_GPIO_WIDTH", "1");
@@ -95,7 +95,7 @@ cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc::cms_pix_28_fw_top_bd_zynq_ultra_ps_
     model_param_props.addString("C_EN_FIFO_ENET2", "0");
     model_param_props.addString("C_EN_FIFO_ENET3", "0");
     model_param_props.addString("C_PL_CLK0_BUF", "TRUE");
-    model_param_props.addString("C_PL_CLK1_BUF", "TRUE");
+    model_param_props.addString("C_PL_CLK1_BUF", "FALSE");
     model_param_props.addString("C_PL_CLK2_BUF", "FALSE");
     model_param_props.addString("C_PL_CLK3_BUF", "FALSE");
     model_param_props.addString("COMPONENT_NAME", "cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0");

@@ -61,15 +61,13 @@
 
 
 #ifdef XILINX_SIMULATOR
-cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0(const sc_core::sc_module_name& nm) : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc(nm), maxihpm0_fpd_aclk("maxihpm0_fpd_aclk"), maxigp0_awid("maxigp0_awid"), maxigp0_awaddr("maxigp0_awaddr"), maxigp0_awlen("maxigp0_awlen"), maxigp0_awsize("maxigp0_awsize"), maxigp0_awburst("maxigp0_awburst"), maxigp0_awlock("maxigp0_awlock"), maxigp0_awcache("maxigp0_awcache"), maxigp0_awprot("maxigp0_awprot"), maxigp0_awvalid("maxigp0_awvalid"), maxigp0_awuser("maxigp0_awuser"), maxigp0_awready("maxigp0_awready"), maxigp0_wdata("maxigp0_wdata"), maxigp0_wstrb("maxigp0_wstrb"), maxigp0_wlast("maxigp0_wlast"), maxigp0_wvalid("maxigp0_wvalid"), maxigp0_wready("maxigp0_wready"), maxigp0_bid("maxigp0_bid"), maxigp0_bresp("maxigp0_bresp"), maxigp0_bvalid("maxigp0_bvalid"), maxigp0_bready("maxigp0_bready"), maxigp0_arid("maxigp0_arid"), maxigp0_araddr("maxigp0_araddr"), maxigp0_arlen("maxigp0_arlen"), maxigp0_arsize("maxigp0_arsize"), maxigp0_arburst("maxigp0_arburst"), maxigp0_arlock("maxigp0_arlock"), maxigp0_arcache("maxigp0_arcache"), maxigp0_arprot("maxigp0_arprot"), maxigp0_arvalid("maxigp0_arvalid"), maxigp0_aruser("maxigp0_aruser"), maxigp0_arready("maxigp0_arready"), maxigp0_rid("maxigp0_rid"), maxigp0_rdata("maxigp0_rdata"), maxigp0_rresp("maxigp0_rresp"), maxigp0_rlast("maxigp0_rlast"), maxigp0_rvalid("maxigp0_rvalid"), maxigp0_rready("maxigp0_rready"), maxigp0_awqos("maxigp0_awqos"), maxigp0_arqos("maxigp0_arqos"), pl_ps_irq0("pl_ps_irq0"), pl_resetn0("pl_resetn0"), pl_clk0("pl_clk0"), pl_clk1("pl_clk1")
+cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0(const sc_core::sc_module_name& nm) : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc(nm), maxihpm0_fpd_aclk("maxihpm0_fpd_aclk"), maxigp0_awid("maxigp0_awid"), maxigp0_awaddr("maxigp0_awaddr"), maxigp0_awlen("maxigp0_awlen"), maxigp0_awsize("maxigp0_awsize"), maxigp0_awburst("maxigp0_awburst"), maxigp0_awlock("maxigp0_awlock"), maxigp0_awcache("maxigp0_awcache"), maxigp0_awprot("maxigp0_awprot"), maxigp0_awvalid("maxigp0_awvalid"), maxigp0_awuser("maxigp0_awuser"), maxigp0_awready("maxigp0_awready"), maxigp0_wdata("maxigp0_wdata"), maxigp0_wstrb("maxigp0_wstrb"), maxigp0_wlast("maxigp0_wlast"), maxigp0_wvalid("maxigp0_wvalid"), maxigp0_wready("maxigp0_wready"), maxigp0_bid("maxigp0_bid"), maxigp0_bresp("maxigp0_bresp"), maxigp0_bvalid("maxigp0_bvalid"), maxigp0_bready("maxigp0_bready"), maxigp0_arid("maxigp0_arid"), maxigp0_araddr("maxigp0_araddr"), maxigp0_arlen("maxigp0_arlen"), maxigp0_arsize("maxigp0_arsize"), maxigp0_arburst("maxigp0_arburst"), maxigp0_arlock("maxigp0_arlock"), maxigp0_arcache("maxigp0_arcache"), maxigp0_arprot("maxigp0_arprot"), maxigp0_arvalid("maxigp0_arvalid"), maxigp0_aruser("maxigp0_aruser"), maxigp0_arready("maxigp0_arready"), maxigp0_rid("maxigp0_rid"), maxigp0_rdata("maxigp0_rdata"), maxigp0_rresp("maxigp0_rresp"), maxigp0_rlast("maxigp0_rlast"), maxigp0_rvalid("maxigp0_rvalid"), maxigp0_rready("maxigp0_rready"), maxigp0_awqos("maxigp0_awqos"), maxigp0_arqos("maxigp0_arqos"), pl_resetn0("pl_resetn0"), pl_clk0("pl_clk0")
 {
 
   // initialize pins
   mp_impl->maxihpm0_fpd_aclk(maxihpm0_fpd_aclk);
-  mp_impl->pl_ps_irq0(pl_ps_irq0);
   mp_impl->pl_resetn0(pl_resetn0);
   mp_impl->pl_clk0(pl_clk0);
-  mp_impl->pl_clk1(pl_clk1);
 
   // initialize transactors
   mp_M_AXI_HPM0_FPD_transactor = NULL;
@@ -90,8 +88,8 @@ void cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::before_end_of_elaboration()
     xsc::common_cpp::properties M_AXI_HPM0_FPD_transactor_param_props;
     M_AXI_HPM0_FPD_transactor_param_props.addLong("NUM_WRITE_OUTSTANDING", "8");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("NUM_READ_OUTSTANDING", "8");
-    M_AXI_HPM0_FPD_transactor_param_props.addLong("DATA_WIDTH", "32");
-    M_AXI_HPM0_FPD_transactor_param_props.addLong("FREQ_HZ", "99990005");
+    M_AXI_HPM0_FPD_transactor_param_props.addLong("DATA_WIDTH", "128");
+    M_AXI_HPM0_FPD_transactor_param_props.addLong("FREQ_HZ", "99999001");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("ID_WIDTH", "16");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("ADDR_WIDTH", "40");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("AWUSER_WIDTH", "16");
@@ -121,7 +119,7 @@ void cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::before_end_of_elaboration()
     M_AXI_HPM0_FPD_transactor_param_props.addString("READ_WRITE_MODE", "READ_WRITE");
     M_AXI_HPM0_FPD_transactor_param_props.addString("CLK_DOMAIN", "cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_pl_clk0");
 
-    mp_M_AXI_HPM0_FPD_transactor = new xtlm::xaximm_xtlm2pin_t<32,40,16,16,1,1,16,1>("M_AXI_HPM0_FPD_transactor", M_AXI_HPM0_FPD_transactor_param_props);
+    mp_M_AXI_HPM0_FPD_transactor = new xtlm::xaximm_xtlm2pin_t<128,40,16,16,1,1,16,1>("M_AXI_HPM0_FPD_transactor", M_AXI_HPM0_FPD_transactor_param_props);
 
     // M_AXI_HPM0_FPD' transactor ports
 
@@ -185,15 +183,13 @@ void cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::before_end_of_elaboration()
 
 
 #ifdef XM_SYSTEMC
-cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0(const sc_core::sc_module_name& nm) : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc(nm), maxihpm0_fpd_aclk("maxihpm0_fpd_aclk"), maxigp0_awid("maxigp0_awid"), maxigp0_awaddr("maxigp0_awaddr"), maxigp0_awlen("maxigp0_awlen"), maxigp0_awsize("maxigp0_awsize"), maxigp0_awburst("maxigp0_awburst"), maxigp0_awlock("maxigp0_awlock"), maxigp0_awcache("maxigp0_awcache"), maxigp0_awprot("maxigp0_awprot"), maxigp0_awvalid("maxigp0_awvalid"), maxigp0_awuser("maxigp0_awuser"), maxigp0_awready("maxigp0_awready"), maxigp0_wdata("maxigp0_wdata"), maxigp0_wstrb("maxigp0_wstrb"), maxigp0_wlast("maxigp0_wlast"), maxigp0_wvalid("maxigp0_wvalid"), maxigp0_wready("maxigp0_wready"), maxigp0_bid("maxigp0_bid"), maxigp0_bresp("maxigp0_bresp"), maxigp0_bvalid("maxigp0_bvalid"), maxigp0_bready("maxigp0_bready"), maxigp0_arid("maxigp0_arid"), maxigp0_araddr("maxigp0_araddr"), maxigp0_arlen("maxigp0_arlen"), maxigp0_arsize("maxigp0_arsize"), maxigp0_arburst("maxigp0_arburst"), maxigp0_arlock("maxigp0_arlock"), maxigp0_arcache("maxigp0_arcache"), maxigp0_arprot("maxigp0_arprot"), maxigp0_arvalid("maxigp0_arvalid"), maxigp0_aruser("maxigp0_aruser"), maxigp0_arready("maxigp0_arready"), maxigp0_rid("maxigp0_rid"), maxigp0_rdata("maxigp0_rdata"), maxigp0_rresp("maxigp0_rresp"), maxigp0_rlast("maxigp0_rlast"), maxigp0_rvalid("maxigp0_rvalid"), maxigp0_rready("maxigp0_rready"), maxigp0_awqos("maxigp0_awqos"), maxigp0_arqos("maxigp0_arqos"), pl_ps_irq0("pl_ps_irq0"), pl_resetn0("pl_resetn0"), pl_clk0("pl_clk0"), pl_clk1("pl_clk1")
+cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0(const sc_core::sc_module_name& nm) : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc(nm), maxihpm0_fpd_aclk("maxihpm0_fpd_aclk"), maxigp0_awid("maxigp0_awid"), maxigp0_awaddr("maxigp0_awaddr"), maxigp0_awlen("maxigp0_awlen"), maxigp0_awsize("maxigp0_awsize"), maxigp0_awburst("maxigp0_awburst"), maxigp0_awlock("maxigp0_awlock"), maxigp0_awcache("maxigp0_awcache"), maxigp0_awprot("maxigp0_awprot"), maxigp0_awvalid("maxigp0_awvalid"), maxigp0_awuser("maxigp0_awuser"), maxigp0_awready("maxigp0_awready"), maxigp0_wdata("maxigp0_wdata"), maxigp0_wstrb("maxigp0_wstrb"), maxigp0_wlast("maxigp0_wlast"), maxigp0_wvalid("maxigp0_wvalid"), maxigp0_wready("maxigp0_wready"), maxigp0_bid("maxigp0_bid"), maxigp0_bresp("maxigp0_bresp"), maxigp0_bvalid("maxigp0_bvalid"), maxigp0_bready("maxigp0_bready"), maxigp0_arid("maxigp0_arid"), maxigp0_araddr("maxigp0_araddr"), maxigp0_arlen("maxigp0_arlen"), maxigp0_arsize("maxigp0_arsize"), maxigp0_arburst("maxigp0_arburst"), maxigp0_arlock("maxigp0_arlock"), maxigp0_arcache("maxigp0_arcache"), maxigp0_arprot("maxigp0_arprot"), maxigp0_arvalid("maxigp0_arvalid"), maxigp0_aruser("maxigp0_aruser"), maxigp0_arready("maxigp0_arready"), maxigp0_rid("maxigp0_rid"), maxigp0_rdata("maxigp0_rdata"), maxigp0_rresp("maxigp0_rresp"), maxigp0_rlast("maxigp0_rlast"), maxigp0_rvalid("maxigp0_rvalid"), maxigp0_rready("maxigp0_rready"), maxigp0_awqos("maxigp0_awqos"), maxigp0_arqos("maxigp0_arqos"), pl_resetn0("pl_resetn0"), pl_clk0("pl_clk0")
 {
 
   // initialize pins
   mp_impl->maxihpm0_fpd_aclk(maxihpm0_fpd_aclk);
-  mp_impl->pl_ps_irq0(pl_ps_irq0);
   mp_impl->pl_resetn0(pl_resetn0);
   mp_impl->pl_clk0(pl_clk0);
-  mp_impl->pl_clk1(pl_clk1);
 
   // initialize transactors
   mp_M_AXI_HPM0_FPD_transactor = NULL;
@@ -214,8 +210,8 @@ void cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::before_end_of_elaboration()
     xsc::common_cpp::properties M_AXI_HPM0_FPD_transactor_param_props;
     M_AXI_HPM0_FPD_transactor_param_props.addLong("NUM_WRITE_OUTSTANDING", "8");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("NUM_READ_OUTSTANDING", "8");
-    M_AXI_HPM0_FPD_transactor_param_props.addLong("DATA_WIDTH", "32");
-    M_AXI_HPM0_FPD_transactor_param_props.addLong("FREQ_HZ", "99990005");
+    M_AXI_HPM0_FPD_transactor_param_props.addLong("DATA_WIDTH", "128");
+    M_AXI_HPM0_FPD_transactor_param_props.addLong("FREQ_HZ", "99999001");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("ID_WIDTH", "16");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("ADDR_WIDTH", "40");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("AWUSER_WIDTH", "16");
@@ -245,7 +241,7 @@ void cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::before_end_of_elaboration()
     M_AXI_HPM0_FPD_transactor_param_props.addString("READ_WRITE_MODE", "READ_WRITE");
     M_AXI_HPM0_FPD_transactor_param_props.addString("CLK_DOMAIN", "cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_pl_clk0");
 
-    mp_M_AXI_HPM0_FPD_transactor = new xtlm::xaximm_xtlm2pin_t<32,40,16,16,1,1,16,1>("M_AXI_HPM0_FPD_transactor", M_AXI_HPM0_FPD_transactor_param_props);
+    mp_M_AXI_HPM0_FPD_transactor = new xtlm::xaximm_xtlm2pin_t<128,40,16,16,1,1,16,1>("M_AXI_HPM0_FPD_transactor", M_AXI_HPM0_FPD_transactor_param_props);
 
     // M_AXI_HPM0_FPD' transactor ports
 
@@ -309,15 +305,13 @@ void cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::before_end_of_elaboration()
 
 
 #ifdef RIVIERA
-cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0(const sc_core::sc_module_name& nm) : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc(nm), maxihpm0_fpd_aclk("maxihpm0_fpd_aclk"), maxigp0_awid("maxigp0_awid"), maxigp0_awaddr("maxigp0_awaddr"), maxigp0_awlen("maxigp0_awlen"), maxigp0_awsize("maxigp0_awsize"), maxigp0_awburst("maxigp0_awburst"), maxigp0_awlock("maxigp0_awlock"), maxigp0_awcache("maxigp0_awcache"), maxigp0_awprot("maxigp0_awprot"), maxigp0_awvalid("maxigp0_awvalid"), maxigp0_awuser("maxigp0_awuser"), maxigp0_awready("maxigp0_awready"), maxigp0_wdata("maxigp0_wdata"), maxigp0_wstrb("maxigp0_wstrb"), maxigp0_wlast("maxigp0_wlast"), maxigp0_wvalid("maxigp0_wvalid"), maxigp0_wready("maxigp0_wready"), maxigp0_bid("maxigp0_bid"), maxigp0_bresp("maxigp0_bresp"), maxigp0_bvalid("maxigp0_bvalid"), maxigp0_bready("maxigp0_bready"), maxigp0_arid("maxigp0_arid"), maxigp0_araddr("maxigp0_araddr"), maxigp0_arlen("maxigp0_arlen"), maxigp0_arsize("maxigp0_arsize"), maxigp0_arburst("maxigp0_arburst"), maxigp0_arlock("maxigp0_arlock"), maxigp0_arcache("maxigp0_arcache"), maxigp0_arprot("maxigp0_arprot"), maxigp0_arvalid("maxigp0_arvalid"), maxigp0_aruser("maxigp0_aruser"), maxigp0_arready("maxigp0_arready"), maxigp0_rid("maxigp0_rid"), maxigp0_rdata("maxigp0_rdata"), maxigp0_rresp("maxigp0_rresp"), maxigp0_rlast("maxigp0_rlast"), maxigp0_rvalid("maxigp0_rvalid"), maxigp0_rready("maxigp0_rready"), maxigp0_awqos("maxigp0_awqos"), maxigp0_arqos("maxigp0_arqos"), pl_ps_irq0("pl_ps_irq0"), pl_resetn0("pl_resetn0"), pl_clk0("pl_clk0"), pl_clk1("pl_clk1")
+cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0(const sc_core::sc_module_name& nm) : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc(nm), maxihpm0_fpd_aclk("maxihpm0_fpd_aclk"), maxigp0_awid("maxigp0_awid"), maxigp0_awaddr("maxigp0_awaddr"), maxigp0_awlen("maxigp0_awlen"), maxigp0_awsize("maxigp0_awsize"), maxigp0_awburst("maxigp0_awburst"), maxigp0_awlock("maxigp0_awlock"), maxigp0_awcache("maxigp0_awcache"), maxigp0_awprot("maxigp0_awprot"), maxigp0_awvalid("maxigp0_awvalid"), maxigp0_awuser("maxigp0_awuser"), maxigp0_awready("maxigp0_awready"), maxigp0_wdata("maxigp0_wdata"), maxigp0_wstrb("maxigp0_wstrb"), maxigp0_wlast("maxigp0_wlast"), maxigp0_wvalid("maxigp0_wvalid"), maxigp0_wready("maxigp0_wready"), maxigp0_bid("maxigp0_bid"), maxigp0_bresp("maxigp0_bresp"), maxigp0_bvalid("maxigp0_bvalid"), maxigp0_bready("maxigp0_bready"), maxigp0_arid("maxigp0_arid"), maxigp0_araddr("maxigp0_araddr"), maxigp0_arlen("maxigp0_arlen"), maxigp0_arsize("maxigp0_arsize"), maxigp0_arburst("maxigp0_arburst"), maxigp0_arlock("maxigp0_arlock"), maxigp0_arcache("maxigp0_arcache"), maxigp0_arprot("maxigp0_arprot"), maxigp0_arvalid("maxigp0_arvalid"), maxigp0_aruser("maxigp0_aruser"), maxigp0_arready("maxigp0_arready"), maxigp0_rid("maxigp0_rid"), maxigp0_rdata("maxigp0_rdata"), maxigp0_rresp("maxigp0_rresp"), maxigp0_rlast("maxigp0_rlast"), maxigp0_rvalid("maxigp0_rvalid"), maxigp0_rready("maxigp0_rready"), maxigp0_awqos("maxigp0_awqos"), maxigp0_arqos("maxigp0_arqos"), pl_resetn0("pl_resetn0"), pl_clk0("pl_clk0")
 {
 
   // initialize pins
   mp_impl->maxihpm0_fpd_aclk(maxihpm0_fpd_aclk);
-  mp_impl->pl_ps_irq0(pl_ps_irq0);
   mp_impl->pl_resetn0(pl_resetn0);
   mp_impl->pl_clk0(pl_clk0);
-  mp_impl->pl_clk1(pl_clk1);
 
   // initialize transactors
   mp_M_AXI_HPM0_FPD_transactor = NULL;
@@ -338,8 +332,8 @@ void cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::before_end_of_elaboration()
     xsc::common_cpp::properties M_AXI_HPM0_FPD_transactor_param_props;
     M_AXI_HPM0_FPD_transactor_param_props.addLong("NUM_WRITE_OUTSTANDING", "8");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("NUM_READ_OUTSTANDING", "8");
-    M_AXI_HPM0_FPD_transactor_param_props.addLong("DATA_WIDTH", "32");
-    M_AXI_HPM0_FPD_transactor_param_props.addLong("FREQ_HZ", "99990005");
+    M_AXI_HPM0_FPD_transactor_param_props.addLong("DATA_WIDTH", "128");
+    M_AXI_HPM0_FPD_transactor_param_props.addLong("FREQ_HZ", "99999001");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("ID_WIDTH", "16");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("ADDR_WIDTH", "40");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("AWUSER_WIDTH", "16");
@@ -369,7 +363,7 @@ void cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::before_end_of_elaboration()
     M_AXI_HPM0_FPD_transactor_param_props.addString("READ_WRITE_MODE", "READ_WRITE");
     M_AXI_HPM0_FPD_transactor_param_props.addString("CLK_DOMAIN", "cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_pl_clk0");
 
-    mp_M_AXI_HPM0_FPD_transactor = new xtlm::xaximm_xtlm2pin_t<32,40,16,16,1,1,16,1>("M_AXI_HPM0_FPD_transactor", M_AXI_HPM0_FPD_transactor_param_props);
+    mp_M_AXI_HPM0_FPD_transactor = new xtlm::xaximm_xtlm2pin_t<128,40,16,16,1,1,16,1>("M_AXI_HPM0_FPD_transactor", M_AXI_HPM0_FPD_transactor_param_props);
 
     // M_AXI_HPM0_FPD' transactor ports
 
@@ -433,14 +427,12 @@ void cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::before_end_of_elaboration()
 
 
 #ifdef VCSSYSTEMC
-cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0(const sc_core::sc_module_name& nm) : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc(nm),  maxihpm0_fpd_aclk("maxihpm0_fpd_aclk"), maxigp0_awid("maxigp0_awid"), maxigp0_awaddr("maxigp0_awaddr"), maxigp0_awlen("maxigp0_awlen"), maxigp0_awsize("maxigp0_awsize"), maxigp0_awburst("maxigp0_awburst"), maxigp0_awlock("maxigp0_awlock"), maxigp0_awcache("maxigp0_awcache"), maxigp0_awprot("maxigp0_awprot"), maxigp0_awvalid("maxigp0_awvalid"), maxigp0_awuser("maxigp0_awuser"), maxigp0_awready("maxigp0_awready"), maxigp0_wdata("maxigp0_wdata"), maxigp0_wstrb("maxigp0_wstrb"), maxigp0_wlast("maxigp0_wlast"), maxigp0_wvalid("maxigp0_wvalid"), maxigp0_wready("maxigp0_wready"), maxigp0_bid("maxigp0_bid"), maxigp0_bresp("maxigp0_bresp"), maxigp0_bvalid("maxigp0_bvalid"), maxigp0_bready("maxigp0_bready"), maxigp0_arid("maxigp0_arid"), maxigp0_araddr("maxigp0_araddr"), maxigp0_arlen("maxigp0_arlen"), maxigp0_arsize("maxigp0_arsize"), maxigp0_arburst("maxigp0_arburst"), maxigp0_arlock("maxigp0_arlock"), maxigp0_arcache("maxigp0_arcache"), maxigp0_arprot("maxigp0_arprot"), maxigp0_arvalid("maxigp0_arvalid"), maxigp0_aruser("maxigp0_aruser"), maxigp0_arready("maxigp0_arready"), maxigp0_rid("maxigp0_rid"), maxigp0_rdata("maxigp0_rdata"), maxigp0_rresp("maxigp0_rresp"), maxigp0_rlast("maxigp0_rlast"), maxigp0_rvalid("maxigp0_rvalid"), maxigp0_rready("maxigp0_rready"), maxigp0_awqos("maxigp0_awqos"), maxigp0_arqos("maxigp0_arqos"), pl_ps_irq0("pl_ps_irq0"), pl_resetn0("pl_resetn0"), pl_clk0("pl_clk0"), pl_clk1("pl_clk1")
+cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0(const sc_core::sc_module_name& nm) : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc(nm),  maxihpm0_fpd_aclk("maxihpm0_fpd_aclk"), maxigp0_awid("maxigp0_awid"), maxigp0_awaddr("maxigp0_awaddr"), maxigp0_awlen("maxigp0_awlen"), maxigp0_awsize("maxigp0_awsize"), maxigp0_awburst("maxigp0_awburst"), maxigp0_awlock("maxigp0_awlock"), maxigp0_awcache("maxigp0_awcache"), maxigp0_awprot("maxigp0_awprot"), maxigp0_awvalid("maxigp0_awvalid"), maxigp0_awuser("maxigp0_awuser"), maxigp0_awready("maxigp0_awready"), maxigp0_wdata("maxigp0_wdata"), maxigp0_wstrb("maxigp0_wstrb"), maxigp0_wlast("maxigp0_wlast"), maxigp0_wvalid("maxigp0_wvalid"), maxigp0_wready("maxigp0_wready"), maxigp0_bid("maxigp0_bid"), maxigp0_bresp("maxigp0_bresp"), maxigp0_bvalid("maxigp0_bvalid"), maxigp0_bready("maxigp0_bready"), maxigp0_arid("maxigp0_arid"), maxigp0_araddr("maxigp0_araddr"), maxigp0_arlen("maxigp0_arlen"), maxigp0_arsize("maxigp0_arsize"), maxigp0_arburst("maxigp0_arburst"), maxigp0_arlock("maxigp0_arlock"), maxigp0_arcache("maxigp0_arcache"), maxigp0_arprot("maxigp0_arprot"), maxigp0_arvalid("maxigp0_arvalid"), maxigp0_aruser("maxigp0_aruser"), maxigp0_arready("maxigp0_arready"), maxigp0_rid("maxigp0_rid"), maxigp0_rdata("maxigp0_rdata"), maxigp0_rresp("maxigp0_rresp"), maxigp0_rlast("maxigp0_rlast"), maxigp0_rvalid("maxigp0_rvalid"), maxigp0_rready("maxigp0_rready"), maxigp0_awqos("maxigp0_awqos"), maxigp0_arqos("maxigp0_arqos"), pl_resetn0("pl_resetn0"), pl_clk0("pl_clk0")
 {
   // initialize pins
   mp_impl->maxihpm0_fpd_aclk(maxihpm0_fpd_aclk);
-  mp_impl->pl_ps_irq0(pl_ps_irq0);
   mp_impl->pl_resetn0(pl_resetn0);
   mp_impl->pl_clk0(pl_clk0);
-  mp_impl->pl_clk1(pl_clk1);
 
   // initialize transactors
   mp_M_AXI_HPM0_FPD_transactor = NULL;
@@ -451,8 +443,8 @@ cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0
     xsc::common_cpp::properties M_AXI_HPM0_FPD_transactor_param_props;
     M_AXI_HPM0_FPD_transactor_param_props.addLong("NUM_WRITE_OUTSTANDING", "8");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("NUM_READ_OUTSTANDING", "8");
-    M_AXI_HPM0_FPD_transactor_param_props.addLong("DATA_WIDTH", "32");
-    M_AXI_HPM0_FPD_transactor_param_props.addLong("FREQ_HZ", "99990005");
+    M_AXI_HPM0_FPD_transactor_param_props.addLong("DATA_WIDTH", "128");
+    M_AXI_HPM0_FPD_transactor_param_props.addLong("FREQ_HZ", "99999001");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("ID_WIDTH", "16");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("ADDR_WIDTH", "40");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("AWUSER_WIDTH", "16");
@@ -482,7 +474,7 @@ cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0
     M_AXI_HPM0_FPD_transactor_param_props.addString("READ_WRITE_MODE", "READ_WRITE");
     M_AXI_HPM0_FPD_transactor_param_props.addString("CLK_DOMAIN", "cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_pl_clk0");
 
-    mp_M_AXI_HPM0_FPD_transactor = new xtlm::xaximm_xtlm2pin_t<32,40,16,16,1,1,16,1>("M_AXI_HPM0_FPD_transactor", M_AXI_HPM0_FPD_transactor_param_props);
+    mp_M_AXI_HPM0_FPD_transactor = new xtlm::xaximm_xtlm2pin_t<128,40,16,16,1,1,16,1>("M_AXI_HPM0_FPD_transactor", M_AXI_HPM0_FPD_transactor_param_props);
   mp_M_AXI_HPM0_FPD_transactor->AWID(maxigp0_awid);
   mp_M_AXI_HPM0_FPD_transactor->AWADDR(maxigp0_awaddr);
   mp_M_AXI_HPM0_FPD_transactor->AWLEN(maxigp0_awlen);
@@ -558,14 +550,12 @@ void cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::before_end_of_elaboration()
 
 
 #ifdef MTI_SYSTEMC
-cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0(const sc_core::sc_module_name& nm) : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc(nm),  maxihpm0_fpd_aclk("maxihpm0_fpd_aclk"), maxigp0_awid("maxigp0_awid"), maxigp0_awaddr("maxigp0_awaddr"), maxigp0_awlen("maxigp0_awlen"), maxigp0_awsize("maxigp0_awsize"), maxigp0_awburst("maxigp0_awburst"), maxigp0_awlock("maxigp0_awlock"), maxigp0_awcache("maxigp0_awcache"), maxigp0_awprot("maxigp0_awprot"), maxigp0_awvalid("maxigp0_awvalid"), maxigp0_awuser("maxigp0_awuser"), maxigp0_awready("maxigp0_awready"), maxigp0_wdata("maxigp0_wdata"), maxigp0_wstrb("maxigp0_wstrb"), maxigp0_wlast("maxigp0_wlast"), maxigp0_wvalid("maxigp0_wvalid"), maxigp0_wready("maxigp0_wready"), maxigp0_bid("maxigp0_bid"), maxigp0_bresp("maxigp0_bresp"), maxigp0_bvalid("maxigp0_bvalid"), maxigp0_bready("maxigp0_bready"), maxigp0_arid("maxigp0_arid"), maxigp0_araddr("maxigp0_araddr"), maxigp0_arlen("maxigp0_arlen"), maxigp0_arsize("maxigp0_arsize"), maxigp0_arburst("maxigp0_arburst"), maxigp0_arlock("maxigp0_arlock"), maxigp0_arcache("maxigp0_arcache"), maxigp0_arprot("maxigp0_arprot"), maxigp0_arvalid("maxigp0_arvalid"), maxigp0_aruser("maxigp0_aruser"), maxigp0_arready("maxigp0_arready"), maxigp0_rid("maxigp0_rid"), maxigp0_rdata("maxigp0_rdata"), maxigp0_rresp("maxigp0_rresp"), maxigp0_rlast("maxigp0_rlast"), maxigp0_rvalid("maxigp0_rvalid"), maxigp0_rready("maxigp0_rready"), maxigp0_awqos("maxigp0_awqos"), maxigp0_arqos("maxigp0_arqos"), pl_ps_irq0("pl_ps_irq0"), pl_resetn0("pl_resetn0"), pl_clk0("pl_clk0"), pl_clk1("pl_clk1")
+cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0(const sc_core::sc_module_name& nm) : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_sc(nm),  maxihpm0_fpd_aclk("maxihpm0_fpd_aclk"), maxigp0_awid("maxigp0_awid"), maxigp0_awaddr("maxigp0_awaddr"), maxigp0_awlen("maxigp0_awlen"), maxigp0_awsize("maxigp0_awsize"), maxigp0_awburst("maxigp0_awburst"), maxigp0_awlock("maxigp0_awlock"), maxigp0_awcache("maxigp0_awcache"), maxigp0_awprot("maxigp0_awprot"), maxigp0_awvalid("maxigp0_awvalid"), maxigp0_awuser("maxigp0_awuser"), maxigp0_awready("maxigp0_awready"), maxigp0_wdata("maxigp0_wdata"), maxigp0_wstrb("maxigp0_wstrb"), maxigp0_wlast("maxigp0_wlast"), maxigp0_wvalid("maxigp0_wvalid"), maxigp0_wready("maxigp0_wready"), maxigp0_bid("maxigp0_bid"), maxigp0_bresp("maxigp0_bresp"), maxigp0_bvalid("maxigp0_bvalid"), maxigp0_bready("maxigp0_bready"), maxigp0_arid("maxigp0_arid"), maxigp0_araddr("maxigp0_araddr"), maxigp0_arlen("maxigp0_arlen"), maxigp0_arsize("maxigp0_arsize"), maxigp0_arburst("maxigp0_arburst"), maxigp0_arlock("maxigp0_arlock"), maxigp0_arcache("maxigp0_arcache"), maxigp0_arprot("maxigp0_arprot"), maxigp0_arvalid("maxigp0_arvalid"), maxigp0_aruser("maxigp0_aruser"), maxigp0_arready("maxigp0_arready"), maxigp0_rid("maxigp0_rid"), maxigp0_rdata("maxigp0_rdata"), maxigp0_rresp("maxigp0_rresp"), maxigp0_rlast("maxigp0_rlast"), maxigp0_rvalid("maxigp0_rvalid"), maxigp0_rready("maxigp0_rready"), maxigp0_awqos("maxigp0_awqos"), maxigp0_arqos("maxigp0_arqos"), pl_resetn0("pl_resetn0"), pl_clk0("pl_clk0")
 {
   // initialize pins
   mp_impl->maxihpm0_fpd_aclk(maxihpm0_fpd_aclk);
-  mp_impl->pl_ps_irq0(pl_ps_irq0);
   mp_impl->pl_resetn0(pl_resetn0);
   mp_impl->pl_clk0(pl_clk0);
-  mp_impl->pl_clk1(pl_clk1);
 
   // initialize transactors
   mp_M_AXI_HPM0_FPD_transactor = NULL;
@@ -576,8 +566,8 @@ cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0
     xsc::common_cpp::properties M_AXI_HPM0_FPD_transactor_param_props;
     M_AXI_HPM0_FPD_transactor_param_props.addLong("NUM_WRITE_OUTSTANDING", "8");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("NUM_READ_OUTSTANDING", "8");
-    M_AXI_HPM0_FPD_transactor_param_props.addLong("DATA_WIDTH", "32");
-    M_AXI_HPM0_FPD_transactor_param_props.addLong("FREQ_HZ", "99990005");
+    M_AXI_HPM0_FPD_transactor_param_props.addLong("DATA_WIDTH", "128");
+    M_AXI_HPM0_FPD_transactor_param_props.addLong("FREQ_HZ", "99999001");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("ID_WIDTH", "16");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("ADDR_WIDTH", "40");
     M_AXI_HPM0_FPD_transactor_param_props.addLong("AWUSER_WIDTH", "16");
@@ -607,7 +597,7 @@ cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0::cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0
     M_AXI_HPM0_FPD_transactor_param_props.addString("READ_WRITE_MODE", "READ_WRITE");
     M_AXI_HPM0_FPD_transactor_param_props.addString("CLK_DOMAIN", "cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_pl_clk0");
 
-    mp_M_AXI_HPM0_FPD_transactor = new xtlm::xaximm_xtlm2pin_t<32,40,16,16,1,1,16,1>("M_AXI_HPM0_FPD_transactor", M_AXI_HPM0_FPD_transactor_param_props);
+    mp_M_AXI_HPM0_FPD_transactor = new xtlm::xaximm_xtlm2pin_t<128,40,16,16,1,1,16,1>("M_AXI_HPM0_FPD_transactor", M_AXI_HPM0_FPD_transactor_param_props);
   mp_M_AXI_HPM0_FPD_transactor->AWID(maxigp0_awid);
   mp_M_AXI_HPM0_FPD_transactor->AWADDR(maxigp0_awaddr);
   mp_M_AXI_HPM0_FPD_transactor->AWLEN(maxigp0_awlen);
@@ -698,6 +688,6 @@ XMSC_MODULE_EXPORT(cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0);
 
 #ifdef RIVIERA
 SC_MODULE_EXPORT(cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0);
-SC_REGISTER_BV(40);
+SC_REGISTER_BV(128);
 #endif
 

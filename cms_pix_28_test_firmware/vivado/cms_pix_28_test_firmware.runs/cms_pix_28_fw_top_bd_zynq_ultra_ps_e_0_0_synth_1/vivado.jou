@@ -2,12 +2,12 @@
 # Vivado v2022.1 (64-bit)
 # SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
 # IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-# Start of session at: Mon Jun 17 18:52:40 2024
-# Process ID: 81476
+# Start of session at: Fri Jun 21 13:36:27 2024
+# Process ID: 30433
 # Current directory: /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_synth_1
 # Command line: vivado -log cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0.tcl
 # Log file: /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_synth_1/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0.vds
 # Journal file: /asic/projects/C/CMS_PIX_28/gingu/spacely/spacely-caribou-common-blocks/cms_pix_28_test_firmware/vivado/cms_pix_28_test_firmware.runs/cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_synth_1/vivado.jou
-# Running On: fasic-beast2.fnal.gov, OS: Linux, CPU Frequency: 1200.305 MHz, CPU Physical cores: 32, Host memory: 540748 MB
+# Running On: fasic-beast2.fnal.gov, OS: Linux, CPU Frequency: 1243.139 MHz, CPU Physical cores: 32, Host memory: 540748 MB
 #-----------------------------------------------------------
 source cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0.tcl -notrace
