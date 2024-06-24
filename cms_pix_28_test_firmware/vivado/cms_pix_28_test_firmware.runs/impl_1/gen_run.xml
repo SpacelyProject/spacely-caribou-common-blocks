@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xczu9eg-ffvb1156-2-e" LaunchTime="1719010537">
+<GenRun Id="impl_1" LaunchPart="xczu9eg-ffvb1156-2-e" LaunchTime="1719237226">
   <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
   <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
   <File Type="POSTROUTE-PHYSOPT-RQS" Name="cms_pix_28_fw_top_bd_wrapper_postroute_physopted.rqs"/>
@@ -269,9 +269,7 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022">
-      <Desc>Default settings for Implementation.</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
     <Step Id="init_design"/>
     <Step Id="opt_design"/>
     <Step Id="power_opt_design"/>
@@ -284,10 +282,8 @@
   </Strategy>
   <BlockFileSet Type="BlockSrcs" Name="clock_wizard_proc_sys_reset_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="clock_wizard_zynq_ultra_ps_e_0_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_fw_top_v_0_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_clk_wiz_0_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="clock_wizard_fw_top_v_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="clock_wizard_clk_wiz_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_clk_wiz_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="cms_pix_28_fw_top_bd_proc_sys_reset_0_0"/>
 </GenRun>

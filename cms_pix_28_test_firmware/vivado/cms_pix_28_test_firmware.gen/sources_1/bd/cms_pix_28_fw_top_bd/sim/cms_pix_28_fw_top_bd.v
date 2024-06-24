@@ -1,7 +1,7 @@
 //Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-//Date        : Fri Jun 21 17:55:13 2024
+//Date        : Mon Jun 24 08:53:25 2024
 //Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 //Command     : generate_target cms_pix_28_fw_top_bd.bd
 //Design      : cms_pix_28_fw_top_bd
@@ -28,7 +28,7 @@ module cms_pix_28_fw_top_bd
     vin_test_trig_out);
   output bxclk;
   output bxclk_ana;
-  output config_clk;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CONFIG_CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CONFIG_CLK, CLK_DOMAIN cms_pix_28_fw_top_bd_fw_top_v_0_0_config_clk, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, INSERT_VIP 0, PHASE 0.0" *) output config_clk;
   output config_in;
   output config_load;
   input config_out;

@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xB302199D10A6EAB6",
+      "boundary_crc": "0xB302199D1736D0AC",
       "device": "xczu9eg-ffvb1156-2-e",
       "gen_directory": "../../../../cms_pix_28_test_firmware.gen/sources_1/bd/cms_pix_28_fw_top_bd",
       "name": "cms_pix_28_fw_top_bd",
@@ -47,23 +47,6 @@
       "scan_in": {
         "direction": "O"
       },
-      "config_clk": {
-        "direction": "O",
-        "parameters": {
-          "CLK_DOMAIN": {
-            "value": "cms_pix_28_fw_top_bd_fw_top_v_0_0_config_clk",
-            "value_src": "default_prop"
-          },
-          "FREQ_HZ": {
-            "value": "100000000",
-            "value_src": "default_prop"
-          },
-          "PHASE": {
-            "value": "0.0",
-            "value_src": "default_prop"
-          }
-        }
-      },
       "reset_not": {
         "type": "rst",
         "direction": "O",
@@ -92,6 +75,32 @@
       },
       "vin_test_trig_out": {
         "direction": "O"
+      },
+      "config_clk": {
+        "type": "clk",
+        "direction": "O",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "cms_pix_28_fw_top_bd_fw_top_v_0_0_config_clk",
+            "value_src": "default_prop"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
       }
     },
     "components": {
@@ -947,8 +956,8 @@
       "ARESETN_1": {
         "ports": [
           "proc_sys_reset_0/peripheral_aresetn",
-          "fw_top_v_0/S_AXI_ARESETN",
-          "axi_interconnect_0/ARESETN"
+          "axi_interconnect_0/ARESETN",
+          "fw_top_v_0/S_AXI_ARESETN"
         ]
       },
       "clk_wiz_0_clk_out1": {

@@ -25,26 +25,26 @@ preplace inst clk_wiz_0 -pg 1 -lvl 2 -x 1170 -y -220 -defaultsOSRD
 preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 620 -y -390 -defaultsOSRD
 preplace inst axi_interconnect_0 -pg 1 -lvl 2 -x 1170 -y -380 -defaultsOSRD
 preplace inst fw_top_v_0 -pg 1 -lvl 2 -x 1170 -y -10 -defaultsOSRD
-preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 2 0 -500 930
-preplace netloc proc_sys_reset_0_interconnect_aresetn 1 1 1 950 -370n
 preplace netloc ARESETN_1 1 1 1 970 -400n
+preplace netloc clk_wiz_0_clk_out1 1 1 2 990 -160 1340
 preplace netloc config_out_1 1 0 2 N -10 NJ
-preplace netloc scan_out_1 1 0 2 NJ 10 N
+preplace netloc dn_event_toggle_1 1 0 2 NJ 70 N
 preplace netloc dnn_output_0_1 1 0 2 NJ 30 N
 preplace netloc dnn_output_1_1 1 0 2 NJ 50 N
-preplace netloc dn_event_toggle_1 1 0 2 NJ 70 N
-preplace netloc fw_top_v_0_scan_load 1 2 1 N 80
-preplace netloc fw_top_v_0_scan_in 1 2 1 N 60
-preplace netloc fw_top_v_0_vin_test_trig_out 1 2 1 N 40
 preplace netloc fw_top_v_0_bxclk 1 2 1 N 20
 preplace netloc fw_top_v_0_bxclk_ana 1 2 1 N 0
-preplace netloc fw_top_v_0_config_load 1 2 1 N -20
-preplace netloc fw_top_v_0_config_in 1 2 1 N -40
-preplace netloc fw_top_v_0_reset_not 1 2 1 N -60
-preplace netloc fw_top_v_0_super_pixel_sel 1 2 1 N -100
-preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 2 10 -490 960
 preplace netloc fw_top_v_0_config_clk 1 2 1 N -80
-preplace netloc clk_wiz_0_clk_out1 1 1 2 990 -160 1340
+preplace netloc fw_top_v_0_config_in 1 2 1 N -40
+preplace netloc fw_top_v_0_config_load 1 2 1 N -20
+preplace netloc fw_top_v_0_reset_not 1 2 1 N -60
+preplace netloc fw_top_v_0_scan_in 1 2 1 N 60
+preplace netloc fw_top_v_0_scan_load 1 2 1 N 80
+preplace netloc fw_top_v_0_super_pixel_sel 1 2 1 N -100
+preplace netloc fw_top_v_0_vin_test_trig_out 1 2 1 N 40
+preplace netloc proc_sys_reset_0_interconnect_aresetn 1 1 1 950 -370n
+preplace netloc scan_out_1 1 0 2 NJ 10 N
+preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 2 10 -490 960
+preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 2 0 -500 930
 preplace netloc S00_AXI_1 1 1 1 940 -440n
 preplace netloc axi_interconnect_0_M00_AXI 1 1 2 980 -500 1340
 levelinfo -pg 1 -20 620 1170 1670

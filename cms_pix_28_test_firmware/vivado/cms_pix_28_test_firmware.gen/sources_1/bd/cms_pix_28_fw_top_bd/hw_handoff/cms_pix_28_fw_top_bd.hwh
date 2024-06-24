@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Jun 21 17:55:19 2024" VIVADOVERSION="2022.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Jun 24 08:53:28 2024" VIVADOVERSION="2022.1">
 
   <SYSTEMINFO ARCH="zynquplus" BOARD="xilinx.com:zcu102:part0:3.4" DEVICE="xczu9eg" NAME="cms_pix_28_fw_top_bd" PACKAGE="ffvb1156" SPEEDGRADE="-2"/>
 
@@ -44,11 +44,6 @@
         <CONNECTION INSTANCE="fw_top_v_0" PORT="scan_in"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" NAME="config_clk" SIGIS="undef" SIGNAME="fw_top_v_0_config_clk">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="fw_top_v_0" PORT="config_clk"/>
-      </CONNECTIONS>
-    </PORT>
     <PORT DIR="O" NAME="reset_not" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="fw_top_v_0_reset_not">
       <CONNECTIONS>
         <CONNECTION INSTANCE="fw_top_v_0" PORT="reset_not"/>
@@ -77,6 +72,11 @@
     <PORT DIR="O" NAME="vin_test_trig_out" SIGIS="undef" SIGNAME="fw_top_v_0_vin_test_trig_out">
       <CONNECTIONS>
         <CONNECTION INSTANCE="fw_top_v_0" PORT="vin_test_trig_out"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT CLKFREQUENCY="100000000" DIR="O" NAME="config_clk" SIGIS="clk" SIGNAME="fw_top_v_0_config_clk">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="fw_top_v_0" PORT="config_clk"/>
       </CONNECTIONS>
     </PORT>
   </EXTERNALPORTS>
@@ -1683,8 +1683,8 @@
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="peripheral_aresetn" POLARITY="ACTIVE_LOW" RIGHT="0" SIGIS="rst" SIGNAME="proc_sys_reset_0_peripheral_aresetn">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="fw_top_v_0" PORT="S_AXI_ARESETN"/>
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="ARESETN"/>
+            <CONNECTION INSTANCE="fw_top_v_0" PORT="S_AXI_ARESETN"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>

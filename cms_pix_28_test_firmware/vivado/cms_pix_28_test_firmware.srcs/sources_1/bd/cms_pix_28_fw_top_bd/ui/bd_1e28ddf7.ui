@@ -1,7 +1,7 @@
 {
    "ActiveEmotionalView":"Default View",
    "Default View_ScaleFactor":"0.891051",
-   "Default View_TopLeft":"-168,-430",
+   "Default View_TopLeft":"-168,-405",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:10.0 TLS
 #  -string -flagsOSRD
@@ -13,13 +13,13 @@ preplace port port-id_dn_event_toggle -pg 1 -lvl 0 -x 0 -y 300 -defaultsOSRD
 preplace port port-id_super_pixel_sel -pg 1 -lvl 4 -x 1720 -y 130 -defaultsOSRD
 preplace port port-id_scan_load -pg 1 -lvl 4 -x 1720 -y 310 -defaultsOSRD
 preplace port port-id_scan_in -pg 1 -lvl 4 -x 1720 -y 290 -defaultsOSRD
-preplace port port-id_config_clk -pg 1 -lvl 4 -x 1720 -y 150 -defaultsOSRD
 preplace port port-id_reset_not -pg 1 -lvl 4 -x 1720 -y 170 -defaultsOSRD
 preplace port port-id_config_in -pg 1 -lvl 4 -x 1720 -y 190 -defaultsOSRD
 preplace port port-id_config_load -pg 1 -lvl 4 -x 1720 -y 210 -defaultsOSRD
 preplace port port-id_bxclk_ana -pg 1 -lvl 4 -x 1720 -y 230 -defaultsOSRD
 preplace port port-id_bxclk -pg 1 -lvl 4 -x 1720 -y 250 -defaultsOSRD
 preplace port port-id_vin_test_trig_out -pg 1 -lvl 4 -x 1720 -y 270 -defaultsOSRD
+preplace port port-id_config_clk -pg 1 -lvl 4 -x 1720 -y 150 -defaultsOSRD
 preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 1 -x 660 -y 0 -defaultsOSRD
 preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 660 -y -180 -defaultsOSRD
 preplace inst axi_interconnect_0 -pg 1 -lvl 2 -x 1160 -y 40 -defaultsOSRD
@@ -33,7 +33,6 @@ preplace netloc dnn_output_0_1 1 0 3 NJ 260 NJ 260 N
 preplace netloc dnn_output_1_1 1 0 3 NJ 280 NJ 280 N
 preplace netloc fw_top_v_0_bxclk 1 3 1 N 250
 preplace netloc fw_top_v_0_bxclk_ana 1 3 1 N 230
-preplace netloc fw_top_v_0_config_clk 1 3 1 N 150
 preplace netloc fw_top_v_0_config_in 1 3 1 N 190
 preplace netloc fw_top_v_0_config_load 1 3 1 N 210
 preplace netloc fw_top_v_0_reset_not 1 3 1 N 170
@@ -45,6 +44,7 @@ preplace netloc proc_sys_reset_0_interconnect_aresetn 1 1 1 1000 -160n
 preplace netloc scan_out_1 1 0 3 NJ 240 NJ 240 N
 preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 3 20 -290 980 160 N
 preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 2 30 -280 970
+preplace netloc fw_top_v_0_config_clk 1 3 1 N 150
 preplace netloc axi_interconnect_0_M00_AXI 1 2 1 1310 40n
 preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM0_FPD 1 1 1 N -20
 levelinfo -pg 1 0 660 1160 1530 1720
