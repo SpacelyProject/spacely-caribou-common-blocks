@@ -70,6 +70,8 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "cms_pix_28_fw_top_bd_proc_sys_reset_0_0_synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 21
+set_msg_config -id {HDL-1065} -limit 10000
 set_param project.vivado.isBlockSynthRun true
 set_msg_config -msgmgr_mode ooc_run
 OPTRACE "Creating in-memory project" START { }

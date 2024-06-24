@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-| Date         : Mon Jun 17 18:53:59 2024
+| Date         : Fri Jun 21 13:37:53 2024
 | Host         : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 | Command      : report_utilization -file cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_utilization_synth.rpt -pb cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0_utilization_synth.pb
 | Design       : cms_pix_28_fw_top_bd_zynq_ultra_ps_e_0_0
@@ -104,11 +104,11 @@ Table of Contents
 +----------------------+------+-------+------------+-----------+-------+
 |       Site Type      | Used | Fixed | Prohibited | Available | Util% |
 +----------------------+------+-------+------------+-----------+-------+
-| GLOBAL CLOCK BUFFERs |    2 |     0 |          0 |       404 |  0.50 |
+| GLOBAL CLOCK BUFFERs |    1 |     0 |          0 |       404 |  0.25 |
 |   BUFGCE             |    0 |     0 |          0 |       116 |  0.00 |
 |   BUFGCE_DIV         |    0 |     0 |          0 |        16 |  0.00 |
 |   BUFG_GT            |    0 |     0 |          0 |       168 |  0.00 |
-|   BUFG_PS            |    2 |     0 |          0 |        72 |  2.78 |
+|   BUFG_PS            |    1 |     0 |          0 |        72 |  1.39 |
 |   BUFGCTRL*          |    0 |     0 |          0 |        32 |  0.00 |
 | PLL                  |    0 |     0 |          0 |         8 |  0.00 |
 | MMCM                 |    0 |     0 |          0 |         4 |  0.00 |
@@ -154,8 +154,8 @@ Table of Contents
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
 | LUT1     |  264 |                 CLB |
-| BUFG_PS  |    2 |               Clock |
 | PS8      |    1 |            Advanced |
+| BUFG_PS  |    1 |               Clock |
 +----------+------+---------------------+
 
 
