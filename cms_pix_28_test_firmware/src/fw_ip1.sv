@@ -201,8 +201,8 @@ module fw_ip1 (
 
   localparam w_cfg_static_1_reg_configclk_period_index_min =  0;  // USAGE of first 24-bits: bit#0-to-24. USE to set clock PERIOD
   localparam w_cfg_static_1_reg_configclk_period_index_max =  23; // Covers approx 6Hz to 100MHz;
-  localparam w_cfg_static_0_reg_configclk_period_index_min =  12; // bit 12-14 to cover upper side of targeted 27 bits
-  localparam w_cfg_static_0_reg_configclk_period_index_max =  14;
+  localparam w_cfg_static_0_reg_configclk_period_index_min =  13; // bit 13-15 to cover upper side of targeted 27 bits
+  localparam w_cfg_static_0_reg_configclk_period_index_max =  15;
   localparam w_cfg_static_0_reg_super_pix_sel_index        =  12;
   //
 
@@ -222,7 +222,7 @@ module fw_ip1 (
     .configclk_period   (configclk_period),
     // output ports
     .clk_counter        (fw_axi_clk_cnt),
-    .configclk          (fw_configclk),
+    .configclk          (fw_config_clk),
   );
 
   // SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister. The test is configured using:
