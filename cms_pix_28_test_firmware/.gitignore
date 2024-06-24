@@ -1,0 +1,12 @@
+*
+!.gitignore
+!*/
+!*.xdc
+!*.xpr
+!*.xci
+!*.bd
+!*.bda
+!*.ui
+!*.dcp
+!src/**
+!vrf/**
