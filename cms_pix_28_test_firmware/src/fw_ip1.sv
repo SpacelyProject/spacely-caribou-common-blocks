@@ -442,11 +442,11 @@ module fw_ip1 (
       fw_super_pixel_sel     = super_pixel_sel;
       fw_config_clk          = sm_test1_o_config_clk;           // signal not used-in / diven-by sm_test1_proc
       fw_reset_not           = sm_test1_o_reset_not;
-      fw_config_in           = sm_test1_o_config_in;            // signal not used-in / diven-by sm_test1_proc
-      fw_config_load         = sm_test1_o_config_load;          // signal not used-in / diven-by sm_test1_proc
+      fw_config_in           = sm_test1_o_config_in;
+      fw_config_load         = sm_test1_o_config_load;
       fw_vin_test_trig_out   = sm_test1_o_vin_test_trig_out;    // signal not used-in / diven-by sm_test1_proc
-      fw_scan_in             = sm_test1_o_scan_in;
-      fw_scan_load           = sm_test1_o_scan_load;
+      fw_scan_in             = sm_test1_o_scan_in;              // signal not used-in / diven-by sm_test1_proc
+      fw_scan_load           = sm_test1_o_scan_load;            // signal not used-in / diven-by sm_test1_proc
     end else if(test2_enable) begin
       fw_super_pixel_sel     = super_pixel_sel;
       fw_config_clk          = sm_test2_o_config_clk;
