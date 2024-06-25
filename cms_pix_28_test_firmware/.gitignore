@@ -8,5 +8,6 @@
 !*.bda
 !*.ui
 !*.dcp
+!*_wrapper.v
 !src/**
 !vrf/**
