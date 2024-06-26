@@ -21,7 +21,7 @@ module spi_controller_interface #(
   // Optional external SPI Clock
   input logic 				    ext_spi_clk,
   
-  output logic [2:0] dbg_state,
+  output logic [3:0] dbg_state,
 
         //////////////////////////////
 	//    AXI BUS SIGNALS       //

@@ -1,0 +1,19 @@
+//outputs
+PORT cs_b 1 1
+PORT pico 1 1
+PORT dbg_status 3 1
+PORT dbg_current_bit 6 1
+
+//inputs
+PORT serial_clk 1 0
+PORT axi_clk 1 0
+PORT axi_resetn 1 0
+PORT poci 1 0
+
+//AXI registers
+REGISTER write_data 32 0
+REGISTER read_data  32 1
+REGISTER data_len   32 0
+REGISTER trigger     1 2
+REGISTER status      3 1
+REGISTER transaction_count 32 1

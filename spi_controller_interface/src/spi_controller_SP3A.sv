@@ -33,7 +33,7 @@ module spi_controller_SP3A #(
 
     input   logic   poci,
     
-    output logic [2:0] dbg_state,
+    output logic [3:0] dbg_state,
 
     // Output back to SParkDream_device to indicate that the SPI transaction has been completed
     // and it can read in a new SPI command from the AXI interface
@@ -42,15 +42,16 @@ module spi_controller_SP3A #(
 
 // Define states for SPI controller operations
 // Need more states than spi_controller_SP3 and SPI operations are a lot more complicated
-typedef enum logic[2:0] {
+typedef enum logic[3:0] {
     IDLE=0,
-    SETUP=1,
-    SEND_ADDRESS=2,
-    OPCODE_GROUP=3,
-    WE=4,                       
-    ZERO=5,
-    SEND_DATA=6,
-    RECEIVE_DATA=7
+    SETUP1=1,
+    SETUP2=2,
+    SEND_ADDRESS=3,
+    OPCODE_GROUP=4,
+    WE=5,                       
+    ZERO=6,
+    SEND_DATA=7,
+    RECEIVE_DATA=8
 } state;
 
 //////////////////////////
@@ -167,7 +168,7 @@ always_comb begin
             if (spi_data_len == 0)
                 next_state = IDLE;
             else begin
-                next_state = SETUP;
+                next_state = SETUP1;
                 // Start the SPI command by sending the WnR bit over pico and setting cs_b to low (active-low signal)
                 cs_b_c = 1'b0;
                 pico_c = 1'b0; // After cs_b is asserted, the first 2 values of pico are not important and not read by the SPI peripheral 
@@ -175,8 +176,8 @@ always_comb begin
             end
         end // case: IDLE
         
-        // *** SETUP STATE ***
-        SETUP: begin
+        // *** SETUP1 STATE ***
+        SETUP1: begin
             // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
             if (spi_data_len == 0)
                 next_state = IDLE;
@@ -189,6 +190,21 @@ always_comb begin
                 address_counter_c = 0; 
             end
         end // case: SETUP
+        
+        // *** SETUP2 STATE ***
+        /*SETUP2: begin
+            // For some reason, if spi_data_len is set to 0, reset everything by going back to the IDLE state
+            if (spi_data_len == 0)
+                next_state = IDLE;
+            else begin
+                // Constantly assert cs_b
+                cs_b_c = 1'b0;
+                pico_c = 1'b0;
+                // After 1 cycle of SETUP, we have already completed the 2 cycles of setup and can send the address
+                next_state = SEND_ADDRESS; // NOTE: SP3A_spi_slave_register_files expects the address first (versus the zero bit)
+                address_counter_c = 0; 
+            end
+        end // case: SETUP*/
         
         // *** SEND_ADDRESS ***
         SEND_ADDRESS: begin

@@ -1,24 +1,22 @@
-// SPI Interface wrapper that instantiates spi_controller_interface and is in Verilog
 
-// Author: Luc Ah-Hot
-// Last updated: 03/25/24
-
-module spi_controller_interface_top #(
+module simple_serial_top #(
+   
 // Width of S_AXI data bus
   parameter integer C_S_AXI_DATA_WIDTH=32,
   // Width of S_AXI address bus
-  parameter integer C_S_AXI_ADDR_WIDTH=11,
-  //Length of SPI FIFO Buffer
-  parameter integer FIFO_BUFFER_SIZE=10
+  parameter integer C_S_AXI_ADDR_WIDTH=11
 ) (
     
-    // Ports to/from spi_controller to lpgtbFpga
-    input wire 				      poci,
-    output wire 			      pico,
-    output wire 			      cs_b,
-    output wire 			      spi_clk,
-    input wire 				      ext_spi_clk,
-    output wire [3:0]             dbg_state,
+    // I/O ports specific to this module
+   output wire  cs_b,
+output wire  pico,
+output wire [2:0] dbg_status,
+output wire [5:0] dbg_current_bit,
+input wire  serial_clk,
+input wire  axi_clk,
+input wire  axi_resetn,
+input wire  poci,
+   
 
     //////////////////////////////
     //    AXI BUS SIGNALS       //
@@ -87,17 +85,20 @@ module spi_controller_interface_top #(
 );
 
 // Instantiate spi_controller_interface
-spi_controller_interface #(
+simple_serial_interface #(
+		     
    .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
-   .C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH),
-   .FIFO_BUFFER_SIZE(FIFO_BUFFER_SIZE)
-) spi_controller_interface_inst (
-    .poci(poci),
-    .pico(pico),
+   .C_S_AXI_ADDR_WIDTH(C_S_AXI_ADDR_WIDTH)
+) simple_serial_interface_inst (
     .cs_b(cs_b),
-    .spi_clk(spi_clk),
-    .dbg_state(dbg_state),
-    .ext_spi_clk(ext_spi_clk),
+.pico(pico),
+.dbg_status(dbg_status),
+.dbg_current_bit(dbg_current_bit),
+.serial_clk(serial_clk),
+.axi_clk(axi_clk),
+.axi_resetn(axi_resetn),
+.poci(poci),
+
     .S_AXI_ACLK(S_AXI_ACLK),
     .S_AXI_ARESETN(S_AXI_ARESETN),
     .S_AXI_AWADDR(S_AXI_AWADDR),

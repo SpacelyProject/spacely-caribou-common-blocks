@@ -1,0 +1,3 @@
+sim/**
+!sim/simple_serial_no_axi_tb.sv
+!sim/sim.args

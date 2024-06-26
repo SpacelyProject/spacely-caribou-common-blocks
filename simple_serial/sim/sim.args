@@ -1,0 +1,5 @@
+-clean
+-access +rwc
+-timescale 1ns/1ps
+simple_serial_no_axi_tb.sv
+../simple_serial.sv
