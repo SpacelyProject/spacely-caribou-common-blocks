@@ -1,7 +1,10 @@
 # simple_serial
 
 ### Block Function
-(TODO: Please write a paragraph describing the intended function of this firmware block. Make sure you describe all the major sub-blocks with enough detail that someone could read the firmware and easily understand your intent.)
+This is a controller block for a simple serial interface which has a chip select, and up to 32b read/writes.
+When a transaction is triggered by writing to the "trigger" register, bits from the write_data register are sent over the serial interface (pico), and bits from the serial interface (poci) are written to the read_data register simultaneously, allowing either simplex or duplex communication.
+
+Status and transaction_count registers are provided for debug, or for polling to ensure the transaction is complete. 
 
 ### Configurable Parameters
 
@@ -24,12 +27,12 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 | Register Name       | Register Width            | R?   | W?   | Function                             |
 | -------------       | -------------------- | ---- | ---- | ------------------------------------ |
-|write_data | 32 | Y | Y | (TODO: What is the function of this register?) |
-|read_data | 32 | Y | N | (TODO: What is the function of this register?) |
-|data_len | 32 | Y | Y | (TODO: What is the function of this register?) |
-|trigger | 1 | N | Y | (TODO: What is the function of this register?) |
-|status | 3 | Y | N | (TODO: What is the function of this register?) |
-|transaction_count | 32 | Y | N | (TODO: What is the function of this register?) |
+|write_data | 32 | Y | Y | The user writes data bits to this register, which will be sent over pico |
+|read_data | 32 | Y | N | Data bits received over poci are stored in this register |
+|data_len | 32 | Y | Y | This register determines the length of the transaction. (NOTE: Currently max data length is 32, anything above this will be ignored.) |
+|trigger | 1 | N | Y | Write to this register to initiate a single serial transaction. If a transaction is already in progress, repeated writes to this register will be ignored. |
+|status | 3 | Y | N | status[2] reads 1 when a trigger is pending. status[1:0] reads the controller state: 2'b0 = IDLE, 2'b1 = TRANSACTION, 2'b2 = DONE |
+|transaction_count | 32 | Y | N | Increments after every completed transaction |
 
 
 
@@ -37,14 +40,14 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 | Signal Name       | Bit Width + Direction          | Clock   | I/O Function and Connection Guidance |
 | -------------     | ------------------------------ | ------- | ------------------------------------ |
-|cs_b| 1b output | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|pico| 1b output | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|dbg_status| 3b output | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|dbg_current_bit| 6b output | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|serial_clk| 1b input | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|axi_clk| 1b input | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|axi_resetn| 1b input | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|poci| 1b input | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
+|cs_b| 1b output | serial_clk | Chip Select (inverse polarity) -- connect to peripheral/ASIC |
+|pico| 1b output | serial_clk | Peripheral In / Controller Out -- connect to peripheral/ASIC |
+|dbg_status| 3b output | serial_clk | Debug signal, equivalent to status register -- connect to ILA if desired |
+|dbg_current_bit| 6b output | serial_clk | Debug signal, shows which bit of the transaction is in progress -- connect to ILA if desired |
+|serial_clk| 1b input | serial_clk | Clock for the serial interface. Must be provided to this block. |
+|axi_clk| 1b input | axi_clk | Connect to AXI clock |
+|axi_resetn| 1b input | axi_clk | Connect to AXI reset signal |
+|poci| 1b input | serial_clk | Peripheral Out / Controller In -- connect to peripheral/ASIC|
 
 
 
