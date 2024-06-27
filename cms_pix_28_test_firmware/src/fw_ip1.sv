@@ -200,30 +200,38 @@ module fw_ip1 (
   end
   assign fw_read_status32 = fw_read_status32_reg;
 
-  localparam w_cfg_static_1_reg_configclk_period_index_min =  0;  // USAGE of first 24-bits: bit#0-to-24. USE to set clock PERIOD
-  localparam w_cfg_static_1_reg_configclk_period_index_max =  23; // Covers approx 6Hz to 100MHz;
-  localparam w_cfg_static_0_reg_configclk_period_index_min =  13; // bit 13-15 to cover upper side of targeted 27 bits
-  localparam w_cfg_static_0_reg_configclk_period_index_max =  15;
-  localparam w_cfg_static_0_reg_super_pix_sel_index        =  12;
+  localparam w_cfg_static_0_reg_fast_configclk_period_index_min = 0;
+  localparam w_cfg_static_0_reg_fast_configclk_period_index_max = 6;
+  localparam w_cfg_static_0_reg_super_pix_sel_index             = 7;
+  localparam w_cfg_static_0_reg_slow_configclk_period_index_min = 8;
+  localparam w_cfg_static_0_reg_slow_configclk_period_index_max = 23;
+  localparam w_cfg_static_1_reg_slow_configclk_period_index_min = 0;
+  localparam w_cfg_static_1_reg_slow_configclk_period_index_max = 10;
+  localparam w_cfg_static_1_reg_spare_index_min                 = 11;
+  localparam w_cfg_static_1_reg_spare_index_max                 = 23;
+
   //
 
-  logic [26:0] configclk_period;                           // on clock domain fw_axi_clk
+  logic [6:0]  fast_configclk_period;                      // on clock domain fw_axi_clk
+  logic [26:0] slow_configclk_period;                      // on clock domain fw_axi_clk
   logic       super_pixel_sel;                             // on clock domain fw_axi_clk
 
-  assign configclk_period = {w_cfg_static_0_reg[w_cfg_static_0_reg_configclk_period_index_max : w_cfg_static_0_reg_configclk_period_index_min],w_cfg_static_1_reg[w_cfg_static_1_reg_configclk_period_index_max:w_cfg_static_1_reg_configclk_period_index_min]};
+  assign fast_configclk_period = w_cfg_static_0_reg[w_cfg_static_0_reg_fast_configclk_period_index_max:w_cfg_static_0_reg_fast_configclk_period_index_min];
+  assign slow_configclk_period = {w_cfg_static_0_reg[w_cfg_static_0_reg_slow_configclk_period_index_max:w_cfg_static_0_reg_slow_configclk_period_index_min],w_cfg_static_1_reg[w_cfg_static_1_reg_slow_configclk_period_index_max:w_cfg_s                                 tatic_1_reg_slow_configclk_period_index_min]};
+
   assign super_pixel_sel  = w_cfg_static_0_reg[w_cfg_static_0_reg_super_pix_sel_index];
 
-  // Instantiate module configclk_generators.sv
-  logic [27:0] fw_axi_clk_cnt;
-  configclk_generators configclk_generators_inst (
-    .clk                (fw_axi_clk),                      // FM clock 400MHz       mapped to pl_clk1
-    .reset              (op_code_w_reset),
-    .enable             (fw_dev_id_enable),                // up to 15 FW can be connected
+  // Instantiate module fast_configclk_generator.sv
+  logic [6:0] fw_axi_clk_cnt;
+  fast_configclk_generator fast_configclk_generator_inst (
+    .clk                     (fw_axi_clk),                      // FM clock 400MHz       mapped to pl_clk1
+    .reset                   (op_code_w_reset),
+    .enable                  (fw_dev_id_enable),                // up to 15 FW can be connected
     // Input ports: controls
-    .configclk_period   (configclk_period),
+    .fast_configclk_period   (fast_configclk_period),
     // output ports
-    .clk_counter        (fw_axi_clk_cnt),
-    .configclk          (fw_config_clk),
+    .fast_clk_counter        (fw_axi_clk_cnt),
+    .fast_configclk          (fw_config_clk),
   );
 
   // SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister. The test is configured using:
