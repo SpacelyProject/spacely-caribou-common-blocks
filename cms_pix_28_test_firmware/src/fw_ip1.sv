@@ -158,7 +158,7 @@ module fw_ip1 (
       end
     end else if(op_code_r_data_array_1) begin
       // Read remaining words, start indexing from 128
-      if(sw_write24_0[23:16]>= 128 && sw_write24_0[23:16]<256) begin
+      if(sw_write24_0[23:16]>= 128 && sw_write24_0[23:16]<164) begin
         fw_read_data32_comb = sm_testx_o_shift_reg_array32[sw_write24_0[23:16] - 128];
       end else begin
         fw_read_data32_comb = 32'b0;
@@ -168,7 +168,7 @@ module fw_ip1 (
   assign fw_read_data32 = fw_read_data32_comb;
 
   // Logic for SW readout data fw_read_status32
-  logic[31:0] fw_read_status32_reg;                       // 32-bit read_status from FW to SW
+  logic [31:0] fw_read_status32_reg;                       // 32-bit read_status from FW to SW
   logic sm_test1_o_status_done;
   logic sm_test2_o_status_done; assign sm_test2_o_status_done = 1'b0;
   logic sm_test3_o_status_done; assign sm_test3_o_status_done = 1'b0;
@@ -215,7 +215,7 @@ module fw_ip1 (
 
   // Instantiate module configclk_generators.sv
   logic [27:0] fw_axi_clk_cnt;
-  bxclks_generators bxclks_generators_inst (
+  configclk_generators configclk_generators_inst (
     .clk                (fw_axi_clk),                      // FM clock 400MHz       mapped to pl_clk1
     .reset              (op_code_w_reset),
     .enable             (fw_dev_id_enable),                // up to 15 FW can be connected
@@ -298,7 +298,7 @@ module fw_ip1 (
   // Define enumerated type shift_reg_mode: LOW==shift-register, HIGH==parallel-load-asic-internal-comparators; default=HIGH
   typedef enum logic {
     SHIFT_REG = 1'b0,
-    LOAD_COMP = 1'b1
+    LOAD_CONFIG = 1'b1
   } shift_reg_mode;
   //
   // State Machine Output signals to DUT
@@ -312,21 +312,21 @@ module fw_ip1 (
   logic           sm_test2_o_config_clk;         assign sm_test2_o_config_clk        = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_reset_not;          assign sm_test2_o_reset_not         = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_config_in;          assign sm_test2_o_config_in         = 1'b0;       // TODO to be driven by sm_test2
-  logic           sm_test2_o_config_load;        assign sm_test2_o_config_load       = LOAD_COMP;  // TODO to be driven by sm_test2
+  logic           sm_test2_o_config_load;        assign sm_test2_o_config_load       = LOAD_CONFIG;  // TODO to be driven by sm_test2
   logic           sm_test2_o_vin_test_trig_out;  assign sm_test2_o_vin_test_trig_out = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_scan_in;            assign sm_test2_o_scan_in           = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_scan_load;          assign sm_test2_o_scan_load         = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test3_o_config_clk;         assign sm_test3_o_config_clk        = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_reset_not;          assign sm_test3_o_reset_not         = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_config_in;          assign sm_test3_o_config_in         = 1'b0;       // TODO to be driven by sm_test3
-  logic           sm_test3_o_config_load;        assign sm_test3_o_config_load       = LOAD_COMP;  // TODO to be driven by sm_test3
+  logic           sm_test3_o_config_load;        assign sm_test3_o_config_load       = LOAD_CONFIG;  // TODO to be driven by sm_test3
   logic           sm_test3_o_vin_test_trig_out;  assign sm_test3_o_vin_test_trig_out = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_scan_in;            assign sm_test3_o_scan_in           = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_scan_load;          assign sm_test3_o_scan_load         = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test4_o_config_clk;         assign sm_test4_o_config_clk        = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_reset_not;          assign sm_test4_o_reset_not         = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_config_in;          assign sm_test4_o_config_in         = 1'b0;       // TODO to be driven by sm_test4
-  logic           sm_test4_o_config_load;        assign sm_test4_o_config_load       = LOAD_COMP;  // TODO to be driven by sm_test4
+  logic           sm_test4_o_config_load;        assign sm_test4_o_config_load       = LOAD_CONFIG;  // TODO to be driven by sm_test4
   logic           sm_test4_o_vin_test_trig_out;  assign sm_test4_o_vin_test_trig_out = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_scan_in;            assign sm_test4_o_scan_in           = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_scan_load;          assign sm_test4_o_scan_load         = 1'b0;       // TODO to be driven by sm_test4
@@ -351,11 +351,7 @@ module fw_ip1 (
   //
   always @(posedge fw_axi_clk) begin : sm_testx_i_shift_reg_proc
     if(sm_test1_o_shift_reg_load | sm_test2_o_shift_reg_load | sm_test3_o_shift_reg_load | sm_test4_o_shift_reg_load) begin
-      if(sm_testx_i_shift_reg_shift_cnt < 4096) begin
-        sm_testx_i_shift_reg           <= w_cfg_array_0_reg[sm_testx_i_shift_reg_shift_cnt >> 4][sm_testx_i_shift_reg_shift_cnt & 16'hF];
-      end else begin
-        sm_testx_i_shift_reg           <= w_cfg_array_1_reg[(sm_testx_i_shift_reg_shift_cnt-4096) >> 4][(sm_testx_i_shift_reg_shift_cnt - 4096) & 16'hF];
-      end
+      sm_testx_i_shift_reg           <= {w_cfg_array_0_reg, w_cfg_array_1_reg[(sm_testsx_i_shift_reg_shift_cnt-4096):0]};
       sm_testx_i_shift_reg_shift_cnt <= 13'h0;
     end else if(sm_test1_o_shift_reg_shift_right | sm_test2_o_shift_reg_shift_right | sm_test3_o_shift_reg_shift_right | sm_test4_o_shift_reg_shift_right) begin
       sm_testx_i_shift_reg           <= {1'b0, sm_testx_i_shift_reg[sm_testx_i_shift_reg_width-1 : 1]};
@@ -363,14 +359,14 @@ module fw_ip1 (
     end
   end
 
-  // State Machine for "test1": instantiate module ip1_test1.sv
+  // State Machine for "test1": instantiate module ip2_test1.sv
   typedef enum logic [2:0] {
-    IDLE           = 3'b000,
-    DELAY_TEST     = 3'b001,
-    RESET_NOT      = 3'b010,
-    SHIFT_IN_0     = 3'b011,
-    SHIFT_IN       = 3'b100,
-    DONE           = 3'b101
+    IDLE_T1           = 3'b000,
+    DELAY_TEST_T1     = 3'b001,
+    RESET_NOT_T1      = 3'b010,
+    SHIFT_IN_0_T1  = 3'b011,
+    SHIFT_IN_T1       = 3'b100,
+    DONE_T1           = 3'b101
   } state_t_sm_test1;
   logic [2:0] sm_test1;
   ip1_test1 ip1_test1_inst (
@@ -403,7 +399,7 @@ module fw_ip1 (
   always @(posedge fw_axi_clk) begin : sm_testx_o_shift_reg_proc
     if(test1_enable) begin
       // use data specific for test case test1
-      if(sm_test1==SHIFT_IN_0 | sm_test1==SHIFT_IN) begin
+      if(sm_test1==SHIFT_IN_0_T1 | sm_test1==SHIFT_IN_T1) begin
         if(test_sample==fw_axi_clk_cnt) begin
           if(test_loopback) begin
             // shift-in new bit using loop-back data from sm_test1_o_scan_in
