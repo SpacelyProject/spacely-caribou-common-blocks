@@ -20,7 +20,7 @@ module ip1_test1 (
     input  logic        reset,
     input  logic        enable,                             // up to 15 FW can be connected
     // Control signals:
-    input  logic [26:0] clk_counter,
+    input  logic [6:0] clk_counter,
     input  logic [5:0]  test_delay,
     input  logic        test1_enable_re,
     input  logic        sm_testx_i_shift_reg_reg_bit0,
