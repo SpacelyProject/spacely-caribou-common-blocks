@@ -128,9 +128,9 @@ module fw_ip1 (
   // Combinatorial logic for SW readout data fw_read_data32
   logic [31:0] fw_read_data32_comb;               // 32-bit read_data   from FW to SW
   localparam                                      sm_testx_o_shift_reg_width = 5188;
-  logic [sm_testx_o_shift_reg_width-1   :0]       sm_testx_o_shift_reg;                    // 5188 bit shft register
-  logic [(sm_testx_o_shift_reg_width+31)/32-1:0][31:0] sm_testx_o_shift_reg_array32;       // round up to nearest whole number of 32-bits
-  for(genvar i = 0; i < (sm_testx_o_shift_reg_width+31)/32; i++) begin: sm_testx_o_shift_reg_array32_gen
+  logic [sm_testx_o_shift_reg_width-1   :0]       sm_testx_o_shift_reg;               // 5188 bit shft register
+  logic [(sm_testx_o_shift_reg_width+28)/32-1:0][31:0] sm_testx_o_shift_reg_array32;  // round up to nearest whole number of 32-bits
+  for(genvar i = 0; i < (sm_testx_o_shift_reg_width+28)/32; i++) begin: sm_testx_o_shift_reg_array32_gen
     assign sm_testx_o_shift_reg_array32[i] = sm_testx_o_shift_reg[(i+1)*32-1 : i*32];
   end
   always_comb begin : fw_read_data32_comb_proc
@@ -149,8 +149,8 @@ module fw_ip1 (
       // For efficiency, read also w_cfg_array_1_reg at next address. CAUTION: SW must take care not to OVERFLOW addresses
       fw_read_data32_comb = {w_cfg_array_1_reg[sw_write24_0[23:16]+1], w_cfg_array_1_reg[sw_write24_0[23:16]]};
     end else if(op_code_r_data_array_0) begin
-      // AXI SW will readout sm_testx_o_shift_reg signal which is 768-bits for the requested address sw_write24_0[23:16].
-      // CAUTION: SW must take care not to OVERFLOW addresses: valid are 0-to-23 (768/32=24 words, 32-bits each)
+      // AXI SW will readout sm_testx_o_shift_reg signal which is 5188-bits for the requested address sw_write24_0[23:16].
+      // CAUTION: SW must take care not to OVERFLOW addresses: valid are 0-to-127 (4096/32=128 words, 32-bits each)
       if(sw_write24_0[23:16]<128) begin
         fw_read_data32_comb = sm_testx_o_shift_reg_array32[sw_write24_0[23:16]];
       end else begin
@@ -158,8 +158,8 @@ module fw_ip1 (
       end
     end else if(op_code_r_data_array_1) begin
       // Read remaining words, start indexing from 128
-      if(sw_write24_0[23:16]>= 128 && sw_write24_0[23:16]<164) begin
-        fw_read_data32_comb = sm_testx_o_shift_reg_array32[sw_write24_0[23:16] - 128];
+      if(sw_write24_0[23:16]>= 128 && sw_write24_0[23:16]<163) begin
+        fw_read_data32_comb = sm_testx_o_shift_reg_array32[sw_write24_0[23:16]];
       end else begin
         fw_read_data32_comb = 32'b0;
       end
@@ -214,15 +214,15 @@ module fw_ip1 (
 
   logic [6:0]  fast_configclk_period;                      // on clock domain fw_axi_clk
   logic [26:0] slow_configclk_period;                      // on clock domain fw_axi_clk
-  logic       super_pixel_sel;                             // on clock domain fw_axi_clk
+  logic        super_pixel_sel;                            // on clock domain fw_axi_clk
 
   assign fast_configclk_period = w_cfg_static_0_reg[w_cfg_static_0_reg_fast_configclk_period_index_max:w_cfg_static_0_reg_fast_configclk_period_index_min];
-  assign slow_configclk_period = {w_cfg_static_0_reg[w_cfg_static_0_reg_slow_configclk_period_index_max:w_cfg_static_0_reg_slow_configclk_period_index_min],w_cfg_static_1_reg[w_cfg_static_1_reg_slow_configclk_period_index_max:w_cfg_s                                 tatic_1_reg_slow_configclk_period_index_min]};
+  assign slow_configclk_period = {w_cfg_static_1_reg[w_cfg_static_1_reg_slow_configclk_period_index_max:w_cfg_static_1_reg_slow_configclk_period_index_min],w_cfg_static_0_reg[w_cfg_static_0_reg_slow_configclk_period_index_max:w_cfg_static_0_reg_slow_configclk_period_index_min]};
 
   assign super_pixel_sel  = w_cfg_static_0_reg[w_cfg_static_0_reg_super_pix_sel_index];
 
   // Instantiate module fast_configclk_generator.sv
-  logic [6:0] fw_axi_clk_cnt;
+  logic [6:0] fast_configclk_counter;
   fast_configclk_generator fast_configclk_generator_inst (
     .clk                     (fw_axi_clk),                      // FM clock 400MHz       mapped to pl_clk1
     .reset                   (op_code_w_reset),
@@ -230,11 +230,13 @@ module fw_ip1 (
     // Input ports: controls
     .fast_configclk_period   (fast_configclk_period),
     // output ports
-    .fast_clk_counter        (fw_axi_clk_cnt),
+    .fast_clk_counter        (fast_configclk_counter),
     .fast_configclk          (fw_config_clk),
   );
 
-  // SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister. The test is configured using:
+  // TODO - slow_configclk
+
+  // SHIFT_REG-MODULE as a serial-in / serial-out shift-tegister. The test is configured using:
   // 1. byte#3=={fw_dev_id_enable, fw_op_code_w_execute}
   // 2. byte#2-to-byte#0==sw_write24_0 where each bit defined as follows:
   localparam w_execute_cfg_test_delay_index_min  =  0;  //
@@ -347,7 +349,7 @@ module fw_ip1 (
   // State Machine Control signals from logic/configuration
   localparam                                     sm_testx_i_shift_reg_width = 5188;
   logic [sm_testx_i_shift_reg_width-1 : 0]       sm_testx_i_shift_reg;               // 5188-bits shift register; bit#0 drives DUT config_in; used by all tests 1,2,3
-  logic [12 : 0]                                 sm_testx_i_shift_reg_shift_cnt;    // counting from 0 to sm_testx_i_shift_reg_width = 5188
+  logic [12 : 0]                                 sm_testx_i_shift_reg_shift_cnt;     // counting from 0 to sm_testx_i_shift_reg_width = 5188
   logic                                          sm_test1_o_shift_reg_load;          // LOAD  control for shift register; independent control by each test 1,2,3
   logic                                          sm_test1_o_shift_reg_shift_right;   // SHIFT control for shift register; independent control by each test 1,2,3
   logic                                          sm_test2_o_shift_reg_load;          assign sm_test2_o_shift_reg_load        = 1'b0;    // TODO to be driven by sm_test2
@@ -359,7 +361,7 @@ module fw_ip1 (
   //
   always @(posedge fw_axi_clk) begin : sm_testx_i_shift_reg_proc
     if(sm_test1_o_shift_reg_load | sm_test2_o_shift_reg_load | sm_test3_o_shift_reg_load | sm_test4_o_shift_reg_load) begin
-      sm_testx_i_shift_reg           <= {w_cfg_array_0_reg, w_cfg_array_1_reg[(sm_testsx_i_shift_reg_shift_cnt-4096):0]};
+      sm_testx_i_shift_reg           <= {w_cfg_array_1_reg[(sm_testsx_i_shift_reg_shift_cnt-4096):0],w_cfg_array_0_reg};
       sm_testx_i_shift_reg_shift_cnt <= 13'h0;
     end else if(sm_test1_o_shift_reg_shift_right | sm_test2_o_shift_reg_shift_right | sm_test3_o_shift_reg_shift_right | sm_test4_o_shift_reg_shift_right) begin
       sm_testx_i_shift_reg           <= {1'b0, sm_testx_i_shift_reg[sm_testx_i_shift_reg_width-1 : 1]};
@@ -367,22 +369,22 @@ module fw_ip1 (
     end
   end
 
-  // State Machine for "test1": instantiate module ip2_test1.sv
+  // State Machine for "test1": instantiate module ip1_test1.sv
   typedef enum logic [2:0] {
-    IDLE_T1           = 3'b000,
-    DELAY_TEST_T1     = 3'b001,
-    RESET_NOT_T1      = 3'b010,
+    IDLE_T1        = 3'b000,
+    DELAY_TEST_T1  = 3'b001,
+    RESET_NOT_T1   = 3'b010,
     SHIFT_IN_0_T1  = 3'b011,
-    SHIFT_IN_T1       = 3'b100,
-    DONE_T1           = 3'b101
+    SHIFT_IN_T1    = 3'b100,
+    DONE_T1        = 3'b101
   } state_t_sm_test1;
   logic [2:0] sm_test1;
   ip1_test1 ip1_test1_inst (
     .clk                                     (fw_axi_clk),                     // FM clock 400MHz       mapped to pl_clk1
     .reset                                   (op_code_w_reset),
-    .enable                                  (fw_dev_id_enable),                // up to 15 FW can be connected
+    .enable                                  (fw_dev_id_enable),               // up to 15 FW can be connected
     // Control signals:
-    .clk_counter                             (fw_axi_clk_cnt),
+    .clk_counter                             (fast_configclk_counter),
     .test_delay                              (test_delay),
     .test1_enable_re                         (test1_enable_re),
     .sm_testx_i_shift_reg_bit0               (sm_testx_i_shift_reg[0]),
@@ -408,7 +410,7 @@ module fw_ip1 (
     if(test1_enable) begin
       // use data specific for test case test1
       if(sm_test1==SHIFT_IN_0_T1 | sm_test1==SHIFT_IN_T1) begin
-        if(test_sample==fw_axi_clk_cnt) begin
+        if(test_sample==fast_configclk_counter) begin
           if(test_loopback) begin
             // shift-in new bit using loop-back data from sm_test1_o_scan_in
             sm_testx_o_shift_reg <= {sm_test1_o_config_in, sm_testx_o_shift_reg[sm_testx_o_shift_reg_width-1 : 1]};
@@ -445,7 +447,7 @@ module fw_ip1 (
   always_comb begin
     if(test1_enable) begin
       fw_super_pixel_sel     = super_pixel_sel;
-      fw_config_clk          = sm_test1_o_config_clk;           // signal not used-in / diven-by sm_test1_proc
+      fw_config_clk          = sm_test1_o_config_clk;
       fw_reset_not           = sm_test1_o_reset_not;
       fw_config_in           = sm_test1_o_config_in;
       fw_config_load         = sm_test1_o_config_load;
@@ -494,7 +496,7 @@ module fw_ip1 (
   // Create signal error_w_execute_cfg; used as a bit in fw_read_status32 to flag wrong user settings
   always @(posedge fw_axi_clk) begin
     if(test1_enable) begin
-      if(test_delay==6'h0 |test_delay==6'h1 | test_delay==6'h2 | (test_delay>configclk_period)) begin
+      if(test_delay==6'h0 |test_delay==6'h1 | test_delay==6'h2 | (test_delay>fast_configclk_period)) begin
         // inferred from state machine sm_test1 logic
         error_w_execute_cfg <= 1'b1;
       end else begin
@@ -519,4 +521,3 @@ module fw_ip1 (
 endmodule
 
 `endif
-
