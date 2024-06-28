@@ -77,8 +77,7 @@ module fw_ipx_wrap_tb_ip1 ();
   );
 
   // Constants
-  localparam fw_pl_clk1_period =  2.5;           // FM clock 400MHz       mapped to pl_clk1
-  localparam fw_axi_clk_period = 10.0;           // FW clock 100MHz       mapped to S_AXI_ACLK
+  localparam fw_axi_clk_period = 10.0;                     // FW clock 100MHz       mapped to S_AXI_ACLK
   //
   localparam windex_device_id_max  = 31;                   // write index for device_id       (upper)
   localparam windex_device_id_min  = 28;                   // write index for device_id       (lower)
@@ -104,18 +103,6 @@ module fw_ipx_wrap_tb_ip1 ();
     OP_CODE_W_EXECUTE        = 4'hD
   } op_code;
   //
-  localparam config_static_0_bxclk_period_index_min =  0;  // USAGE of first 6-bits: bit#0-to-5. USE to set clock PERIOD
-  localparam config_static_0_bxclk_period_index_max =  5;  // example for setting bxclk==40MHz derived from fw_pl_clk1==400MHz: write 6'h0A => 10*2.5ns=25ns;
-  localparam config_static_0_bxclk_delay_index_min  =  6;  // USAGE of next  5-bits: bit#6-to-10. Use to set clock DELAY (maximum is half clock PERIOD as set by bits 0-to-5)
-  localparam config_static_0_bxclk_delay_index_max  = 10;  //
-  localparam config_static_0_bxclk_delay_sign_index = 11;  // USAGE of next 1-bit: bit#11. Use it to set clock value (Lor H) in the first bxclk_delay clocks within a bxclk_period
-//  logic [5:0] bxclk_period     = config_static_0[config_static_0_bxclk_period_index_max : config_static_0_bxclk_period_index_min];
-//  logic [4:0] bxclk_delay      = config_static_0[config_static_0_bxclk_delay_index_max  : config_static_0_bxclk_delay_index_min ];
-//  logic       bxclk_delay_sign = config_static_0[config_static_0_bxclk_delay_sign_index];
-  // 00.00.00.01.02.03.04.05.06.07.08.09.10.01.02.03.04.05.06.07.08.09.10.               fw_pl_clk1_cnt
-  // LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.            fw_bxclk_ana_ff
-  // LL.LL.LL.LL.LL.LL.HH.HH.HH.HH.HHlogic [63:0].LL.LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.      fw_bxclk_ff when bxclk_delay_sign==0 and bxclk_delay==2
-  // LL.LL.LL.LL.HH.HH.HH.LL.LL.LL.LL.LL.HH.HH.HH.HH.HH.LL.LL.LL.LL.LL.                  fw_bxclk_ff when bxclk_delay_sign==1 and bxclk_delay==2
 
   localparam w_cfg_static_0_fast_configclk_period_index_min = 0;
   localparam w_cfg_static_0_fast_configclk_period_index_max = 6;
@@ -129,20 +116,17 @@ module fw_ipx_wrap_tb_ip1 ();
 
 
   //
-  localparam tb_err_index_bxclk_ana_period       =  0;
-  localparam tb_err_index_bxclk_period           =  1;
-  localparam tb_err_index_bxclk_phase            =  2;
-  localparam tb_err_index_fast_configclk_period  =  3;
-  localparam tb_err_index_op_code_r_cfg_static_0 =  4;
-  localparam tb_err_index_op_code_r_cfg_array_0  =  5;
-  localparam tb_err_index_op_code_r_cfg_array_1  =  6;
-  localparam tb_err_index_op_code_r_data_array_0 =  7;
-  localparam tb_err_index_op_code_r_data_array_1 =  8;
-  localparam tb_err_index_test1                  =  9;
-  localparam tb_err_index_test2                  =  10;
-  localparam tb_err_index_test3                  =  11;
-  localparam tb_err_index_test4                  =  12;
-  localparam tb_err_index_op_code_r_cfg_static_1 =  13;
+  localparam tb_err_index_fast_configclk_period  =  0;
+  localparam tb_err_index_op_code_r_cfg_static_0 =  1;
+  localparam tb_err_index_op_code_r_cfg_array_0  =  2;
+  localparam tb_err_index_op_code_r_cfg_array_1  =  3;
+  localparam tb_err_index_op_code_r_data_array_0 =  4;
+  localparam tb_err_index_op_code_r_data_array_1 =  5;
+  localparam tb_err_index_test1                  =  6;
+  localparam tb_err_index_test2                  =  7;
+  localparam tb_err_index_test3                  =  8;
+  localparam tb_err_index_test4                  =  9;
+  localparam tb_err_index_op_code_r_cfg_static_1 =  10;
   //
   // Test SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister. The test is configured using:
   // 1. byte#3=={tb_firmware_id, tb_function_id==OP_CODE_W_EXECUTE}
@@ -169,7 +153,6 @@ module fw_ipx_wrap_tb_ip1 ();
   integer tb_number;
   logic   tb_mismatch;
   integer tb_i_test;
-  logic   tb_fw_pl_clk1_initial;
   logic   tb_fw_axi_clk_initial;
   logic [15:0] tb_err;
   real         tb_time_t1;
@@ -180,12 +163,8 @@ module fw_ipx_wrap_tb_ip1 ();
   logic [23:0] tb_sw_write24_0;
   //
   // Signals related with w_cfg_static_0_reg
-  logic [5:0]  tb_bxclk_period;
-  logic [4:0]  tb_bxclk_delay;
-  logic        tb_bxclk_delay_sign;
   logic [6:0]  tb_fast_configclk_period;
   logic        tb_super_pix_sel;
-  // Signals related with w_cfg_static_1_reg
   // Signals related with w_cfg_array_0/1_reg
   logic [255:0][15:0] tb_w_cfg_array_counter;
   logic [255:0][15:0] tb_w_cfg_array_random;
@@ -196,14 +175,6 @@ module fw_ipx_wrap_tb_ip1 ();
   logic        tb_test_loopback;                           // on clock domain fw_axi_clk
   logic [5:0]  tb_test_trig_out_phase;                     // on clock domain fw_axi_clk
   logic        tb_test_mask_reset_not;                     // on clock domain fw_axi_clk
-
-  // Generate free running fw_pl_clk1;           // FM clock 400MHz       mapped to pl_clk1
-  always begin: gen_fw_pl_clk1
-    fw_pl_clk1 = tb_fw_pl_clk1_initial;          //1'b0;
-    #(fw_pl_clk1_period / 2);
-    fw_pl_clk1 = ~fw_pl_clk1;                    //1'b1;
-    #(fw_pl_clk1_period / 2);
-  end
 
   // Generate free running fw_axi_clk;           // FW clock 100MHz       mapped to S_AXI_ACLK
   always begin: gen_fw_axi_clk
@@ -224,12 +195,6 @@ module fw_ipx_wrap_tb_ip1 ();
     end
   endtask
 
-  //assign scan_out = scan_in;
-  always @(posedge fw_pl_clk1) begin
-    // arbitrary one clock delay
-    scan_out <= scan_in;
-  end
-
   always @(posedge fw_axi_clk) begin
     // arbitraty one clock delay
     config_out <= config_in;
@@ -247,7 +212,7 @@ module fw_ipx_wrap_tb_ip1 ();
     //logic dn_event_toggle;
   endfunction
 
-  function logic [255:0][15:0] conter_cfg_array();
+  function logic [255:0][15:0] counter_cfg_array();
     logic [255:0][15:0] my_cfg_array;
     for(int i=0; i<256; i++) begin
 //      my_cfg_array[i][ 7:0] = i       & 8'hFF;
@@ -274,10 +239,6 @@ module fw_ipx_wrap_tb_ip1 ();
   task w_cfg_static_random(integer index);
     @(negedge fw_axi_clk);             // ensure enter on FE of AXI CLK
     if(index%2==0) tb_function_id = OP_CODE_W_CFG_STATIC_0; else tb_function_id = OP_CODE_W_CFG_STATIC_1;
-    //if(tb_i_test%3==0) tb_bxclk_period = 6'h0A;                    //(400/10=40MHz)
-    //if(tb_i_test%3==1) tb_bxclk_period = 6'h14;                    //(400/20=20MHz)
-    //if(tb_i_test%3==2) tb_bxclk_period = 6'h28;                    //(400/40=10MHz)
-    //tb_bxclk_period                    = 6'h0A;
     if(tb_function_id == OP_CODE_W_CFG_STATIC_0) begin
       tb_fast_configclk_period = $urandom_range(0,100);
       tb_super_pix_sel         = $urandom_range(1, 0)                 & 1'h1;
@@ -372,54 +333,6 @@ module fw_ipx_wrap_tb_ip1 ();
       $realtime(), tb_test_number, tb_test_delay, tb_test_sample, tb_test_loopback, tb_test_trig_out_phase, tb_test_mask_reset_not);
     //fw_op_code_w_execute     = 1'b0;
     //sw_write24_0             = 24'h0;
-  endtask
-
-  task check_bxclk_period_and_delay();
-    begin
-      // $time returns the current simulation time as a 64-bit unsigned integer
-      // $stime returns the lower 32-bits of the current simulation time as an unsigned integer.
-      // $realtime returns the current simulation time as a real number.
-      // 1. CHECK fw_bxclk_ana PERIOD
-      @(posedge bxclk_ana); tb_time_t1 = $realtime();
-      @(posedge bxclk_ana); tb_time_t2 = $realtime();
-      if(tb_time_t2-tb_time_t1 != tb_bxclk_period * fw_pl_clk1_period) begin
-        $display("time=%06.2f FAIL PERIOD fw_bxclk_ana: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f bxclk_period=%02d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_period);
-        tb_err[tb_err_index_bxclk_ana_period]=1'b1;
-      end
-      // 2. CHECK fw_bxclk PERIOD
-      @(posedge bxclk); tb_time_t1 = $realtime();
-      @(posedge bxclk); tb_time_t2 = $realtime();
-      if(tb_time_t2-tb_time_t1 != tb_bxclk_period * fw_pl_clk1_period) begin
-        $display("time=%06.2f FAIL PERIOD fw_bxclk: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f bxclk_period=%02d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_period);
-        tb_err[tb_err_index_bxclk_period]=1'b1;
-      end
-      // 3. CHECK fw_bxclk vs fw_bxclk_ana PHASE DELAY
-      if(tb_bxclk_delay_sign==1'b0) begin
-        @(posedge bxclk_ana); tb_time_t1 = $realtime();
-        @(posedge bxclk    ); tb_time_t2 = $realtime();
-        // bxclk_delay_sign is ZERO. The RE of bxclk is after RE of bxclk_ana by bxclk_delay ticks.
-        // keep bxclk LOW for bxclk_delay; then HIGH for bxclk_period/2; then again LOW for bxclk_period/2-bxclk_delay
-      end
-      if(tb_bxclk_delay_sign==1'b1) begin
-        @(posedge bxclk_ana); tb_time_t1 = $realtime();
-        @(negedge bxclk    ); tb_time_t2 = $realtime();
-        // bxclk_delay_sign is ONE. The FE of bxclk is after RE of bxclk_ana by bxclk_delay ticks
-        // keep bxclk HIGH for bxclk_delay; then LOW for bxclk_period/2; then again HIGH for bxclk_period/2-bxclk_delay
-      end
-      if(tb_bxclk_delay==0) begin
-        // in this case the signals are either in phase (if tb_bxclk_delay_sign==1'b0) or inverted (if tb_bxclk_delay_sign==1'b1)
-        if(tb_time_t2-tb_time_t1 != tb_bxclk_period * fw_pl_clk1_period) begin
-          $display("time=%06.2f FAIL DELAY fw_bxclk: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f tb_bxclk_delay=%02d tb_bxclk_delay_sign=%01d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_delay, tb_bxclk_delay_sign);
-          tb_err[tb_err_index_bxclk_phase]=1'b1;
-        end
-      end else begin
-        if(tb_time_t2-tb_time_t1 != tb_bxclk_delay * fw_pl_clk1_period) begin
-          $display("time=%06.2f FAIL DELAY fw_bxclk: tb_time_t1=%06.2f tb_time_t2=%06.2f tb_time_t2-tb_time_t1=%06.2f tb_bxclk_delay=%02d tb_bxclk_delay_sign=%01d", $realtime(), tb_time_t1, tb_time_t2, tb_time_t2-tb_time_t1, tb_bxclk_delay, tb_bxclk_delay_sign);
-          tb_err[tb_err_index_bxclk_phase]=1'b1;
-        end
-      end
-      @(negedge fw_axi_clk);           // ensure exit on FE of AXI CLK
-    end
   endtask
 
   task check_r_cfg_static(integer index);
@@ -538,7 +451,6 @@ module fw_ipx_wrap_tb_ip1 ();
     tb_err = 16'b0;
     tb_w_cfg_array_counter = {256{16'h0}};
     tb_w_cfg_array_random  = {256{16'hFFFF}};
-    tb_fw_pl_clk1_initial  = $urandom_range(1, 0) & 1'b1;
     tb_fw_axi_clk_initial  = $urandom_range(1, 0) & 1'b1;
     $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
     //---------------------------------------------------------------------------------------------
@@ -556,174 +468,69 @@ module fw_ipx_wrap_tb_ip1 ();
     w_status_clear();
     $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
     //---------------------------------------------------------------------------------------------
-    // Test 3: BXCLK/ANA random period and delay test write/read
-    tb_testcase = "T3. BXCLK/ANA random period and delay test write/read";
+    // Test 3: cfg_array_0/1 write/read counter/random
+    tb_testcase = "T3. cfg_array_0/1 write/read counter/random";
     tb_number   = 3;
-    #(5*fw_axi_clk_period);
-    // Use predefined BXCLK/ANA 40MHz with 5ns delay
-    //tb_bxclk_period          = 6'h0A;                      // on clock domain fw_axi_clk
-    //tb_bxclk_delay           = 5'h2;                       // on clock domain fw_axi_clk
-    //tb_bxclk_delay_sign      = 1'h0;                       // on clock domain fw_axi_clk
-    //tb_super_pix_sel         = 1'h0;                       // on clock domain fw_axi_clk
-    //w_cfg_static_fixed(0);
-    //tb_number   = 502;                                     // BXCLK/ANA is programmed
-    //#(64*fw_axi_clk_period);                               // dummy wait to ensure BXCLK/ANA are started (the fw_pl_clk1_cnt did roll over)
-    for (integer i=0; i<2; i++) begin
-      for (tb_i_test = 0; tb_i_test < 50; tb_i_test++) begin
-        tb_firmware_id = firmware_id_2;
-        // Randomize sw_write24_0 content and issue fw_op_code_w_cfg_static_0 for ONE fw_axi_clk_period
-        w_cfg_static_random(.index(i));
-        // Dummy wait before doing check_bxclk_period_and_delay()
-        #(5*fw_axi_clk_period);
-        if(i==0) check_bxclk_period_and_delay();
-        // Dummy wait before doing check_r_cfg_static()
-        #(5*fw_axi_clk_period);
-        check_r_cfg_static(.index(i));
-        // Dummy wait before disable tb_firmware_id => clocks will become ZERO
-        #(5*fw_axi_clk_period);
-        tb_firmware_id = firmware_id_none;
-        // Dummy wait before next tb_i_test
-        #(5*fw_axi_clk_period);
-      end
-    end
-    $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
-    //---------------------------------------------------------------------------------------------
-    // Test 4: cfg_array_0/1 write/read counter/random
-    tb_testcase = "T4. cfg_array_0/1 write/read counter/random";
-    tb_number   = 4;
-    tb_w_cfg_array_counter = conter_cfg_array();
+    tb_w_cfg_array_counter = counter_cfg_array();
     tb_w_cfg_array_random  = random_cfg_array();
     tb_firmware_id       = firmware_id_2;
     #(5*fw_axi_clk_period);
     w_reset();
+    tb_number = 301;
     // WRITE fw_op_code_w_cfg_array_0
     w_cfg_array_0_counter();
+    tb_number = 302;
     // WRITE fw_op_code_w_cfg_array_1
     w_cfg_array_1_random();
+    tb_number = 303;
     // READ fw_op_code_r_cfg_array_0
     check_r_cfg_array_0_counter();
+    tb_number = 304;
     // READ fw_op_code_r_cfg_array_1
     check_r_cfg_array_1_random();
+    tb_number = 305;
     tb_firmware_id         = firmware_id_none;
     #(5*fw_axi_clk_period);
     $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
     //---------------------------------------------------------------------------------------------
-    // Test 5: Test SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister. TEST_NUMBER==1
-    tb_testcase = "T5. SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister";
-    tb_number   = 5;
-    tb_firmware_id         = firmware_id_2;
+    // Test 4: Test SHIFT-REG-MODULE as a serial-in / serial-out shift-tegister. TEST_NUMBER==1
+    //----------------------------------------------------------------------------------------------------------------------------------------------------
+    tb_testcase = "T4. SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister";
+    tb_number   = 4;
+    tb_firmware_id         = firmware_id_1;
 //    w_reset();
-    tb_number   = 501;
+    tb_number   = 401;
     #(5*fw_axi_clk_period);
-    // Use predefined BXCLK/ANA 40MHz with 5ns delay
-    tb_bxclk_period          = 6'h0A;                      // on clock domain fw_axi_clk
-    tb_bxclk_delay           = 5'h2;                       // on clock domain fw_axi_clk
-    tb_bxclk_delay_sign      = 1'h0;                       // on clock domain fw_axi_clk
-    tb_super_pix_sel         = 1'h0;                       // on clock domain fw_axi_clk
+    tb_fast_configclk_period      = 7'h64;                      // on clock domain fw_axi_clk
+    tb_super_pix_sel              = 1'h0;                       // on clock domain fw_axi_clk
     w_cfg_static_fixed(.index(0));
-    tb_number   = 502;                                     // BXCLK/ANA is programmed
-    #(64*fw_axi_clk_period);                               // dummy wait to ensure BXCLK/ANA are started (the fw_pl_clk1_cnt did roll over)
-    tb_test_delay            = 6'h08;                      // on clock domain fw_axi_clk
-    tb_test_sample           = 6'h04;                      // on clock domain fw_axi_clk
-    tb_test_number           = 4'h1;                       // on clock domain fw_axi_clk
-    tb_test_loopback         = 1'b0;                       // on clock domain fw_axi_clk
-    tb_test_trig_out_phase   = 6'h00;                      // on clock domain fw_axi_clk
-    tb_test_mask_reset_not   = 1'b0;                       // on clock domain fw_axi_clk
+    tb_number   = 402;                                          // CONFIGCLK is programmed
+    #(64*fw_axi_clk_period);                                    // dummy wait to ensure CONFIGCLK are started (the fw_pl_clk1_cnt did roll over)
+    tb_test_delay            = 6'h08;                           // on clock domain fw_axi_clk
+    tb_test_sample           = 6'h04;                           // on clock domain fw_axi_clk
+    tb_test_number           = 4'h1;                            // on clock domain fw_axi_clk
+    tb_test_loopback         = 1'b0;                            // on clock domain fw_axi_clk
+    tb_test_trig_out_phase   = 6'h00;                           // on clock domain fw_axi_clk
+    tb_test_mask_reset_not   = 1'b0;                            // on clock domain fw_axi_clk
     w_execute();
-    tb_number   = 503;
-    #(770*tb_bxclk_period*fw_pl_clk1_period);              // execution: wait for at least 768+1 BXCLK cycles; alternatively check when bit#10 is set in fw_read_status32_reg[10] <= sm_test1_o_status_done;
+    tb_number   = 403;
+    #(5165*tb_fast_configclk_period*fw_pl_clk1_period);              // execution: wait for at least 5164+1 CONFIGCLK cycles; alternatively check when bit#10 is set in fw_read_status32_reg[10] <= sm_test1_o_status_done;
     if(sw_read32_1[12]==1'b1) begin
-      $display("time=%06.2f firmware_id=%01d test1 in loopback=%01d done; starting to check readout data: calling check_r_data_array_0_counter()...", $realtime(), firmware_id_2, tb_test_loopback);
+      $display("time=%06.2f firmware_id=%01d test1 in loopback=%01d done; starting to check readout data: calling check_r_data_array_0_counter()...", $realtime(), firmware_id_1, tb_test_loopback);
     end else begin
-      $display("time=%06.2f firmware_id=%01d test1 in loopback=%01d mode NOT done", $realtime(), firmware_id_2, tb_test_loopback);
+      $display("time=%06.2f firmware_id=%01d test1 in loopback=%01d mode NOT done", $realtime(), firmware_id_1, tb_test_loopback);
       tb_err[tb_err_index_test1] = 1'b1;
     end
     #(10*fw_axi_clk_period);
     tb_number   = 504;
     // READ fw_op_code_r_data_array_0
-    check_r_data_array_0_counter(.read_n_32bit_words(24)); // readout: number of 32-bit words is 24 for tb_test_number==1 and tb_test_loopback==HIGH
-    #(30*fw_axi_clk_period);                               // readout: wait for at least 24 AXI clock cycles
+    check_r_data_array_0_counter(.read_n_32bit_words(128)); // readout: number of 32-bit words is 128 for tb_test_number==1 and tb_test_loopback==HIGH
+    check_r_data_array_1_counter(.read_n_32bit_words(35));  // readout: number of 32-bit words is 35 for tb_test_number==1 and tb_test_loopback==HIGH
+    #(30*fw_axi_clk_period);                                // readout: wait for at least 24 AXI clock cycles
     tb_firmware_id = firmware_id_none;
     #(5*fw_axi_clk_period);
     $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
-    //---------------------------------------------------------------------------------------------
-    // Test 6: Test SCAN-CHAIN-MODULE as a parallel-in / serial-out shift-tegister. TEST_NUMBER==2
-    tb_testcase = "T6. SCAN-CHAIN-MODULE as a parallel-in / serial-out shift-tegister";
-    tb_number   = 6;
-    tb_firmware_id         = firmware_id_2;
-//    w_reset();
-    tb_number   = 601;
-    #(5*fw_axi_clk_period);
-    // Use predefined BXCLK/ANA 40MHz with 5ns delay
-    tb_bxclk_period          = 6'h0A;                      // on clock domain fw_axi_clk
-    tb_bxclk_delay           = 5'h3;                       // on clock domain fw_axi_clk
-    tb_bxclk_delay_sign      = 1'h0;                       // on clock domain fw_axi_clk
-    tb_super_pix_sel         = 1'h1;                       // on clock domain fw_axi_clk
-    w_cfg_static_fixed(.index(0));
-    tb_number   = 602;                                     // BXCLK/ANA is programmed
-    #(64*fw_axi_clk_period);                               // dummy wait to ensure BXCLK/ANA are started (the fw_pl_clk1_cnt did roll over)
-    tb_test_delay            = 6'h08;                      // on clock domain fw_axi_clk
-    tb_test_sample           = 6'h05;                      // on clock domain fw_axi_clk
-    tb_test_number           = 4'h2;                       // on clock domain fw_axi_clk
-    tb_test_loopback         = 1'b1;                       // on clock domain fw_axi_clk
-    tb_test_trig_out_phase   = 6'h04;                      // on clock domain fw_axi_clk
-    tb_test_mask_reset_not   = 1'b0;                       // on clock domain fw_axi_clk
-    w_execute();
-    tb_number   = 603;
-    #(770*tb_bxclk_period*fw_pl_clk1_period);              // execution: wait for at least 768+1 BXCLK cycles; alternatively check when bit#10 is set in fw_read_status32_reg[10] <= sm_test1_o_status_done;
-    if(sw_read32_1[12]==1'b1) begin
-      $display("time=%06.2f firmware_id=%01d test2 in loopback=%01d done; starting to check readout data: calling check_r_data_array_0_counter()...", $realtime(), firmware_id_2, tb_test_loopback);
-    end else begin
-      $display("time=%06.2f firmware_id=%01d test2 in loopback=%01d mode NOT done", $realtime(), firmware_id_2, tb_test_loopback);
-      tb_err[tb_err_index_test2] = 1'b1;
-    end
-    #(10*fw_axi_clk_period);
-    tb_number   = 604;
-    // READ fw_op_code_r_data_array_0
-    check_r_data_array_0_counter(.read_n_32bit_words(24)); // readout: number of 32-bit words is 24 for tb_test_number==1 and tb_test_loopback==HIGH
-    #(30*fw_axi_clk_period);                               // readout: wait for at least 24 AXI clock cycles
-    tb_firmware_id = firmware_id_none;
-    #(5*fw_axi_clk_period);
-    $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
-    //---------------------------------------------------------------------------------------------
-    // Test 7: Test SHIFT-REG-MODULE as a serial-in / serial-out shift-tegister. TEST_NUMBER==1
-    tb_testcase = "T7. SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister";
-    tb_number   = 7;
-    tb_firmware_id         = firmware_id_1;
-//    w_reset();
-    tb_number   = 701;
-    #(5*fw_axi_clk_period);
-    // Use predefined BXCLK/ANA 40MHz with 5ns delay
-    tb_fast_configclk_period = 7'h64;                      // on clock domain fw_axi_clk
-    tb_super_pix_sel         = 1'h0;                       // on clock domain fw_axi_clk
-    w_cfg_static_fixed(.index(1));
-    tb_number   = 702;                                     // BXCLK/ANA is programmed
-    #(64*fw_axi_clk_period);                               // dummy wait to ensure BXCLK/ANA are started (the fw_pl_clk1_cnt did roll over)
-    tb_test_delay            = 6'h08;                      // on clock domain fw_axi_clk
-    tb_test_sample           = 6'h04;                      // on clock domain fw_axi_clk
-    tb_test_number           = 4'h1;                       // on clock domain fw_axi_clk
-    tb_test_loopback         = 1'b0;                       // on clock domain fw_axi_clk
-    tb_test_trig_out_phase   = 6'h00;                      // on clock domain fw_axi_clk
-    tb_test_mask_reset_not   = 1'b0;                       // on clock domain fw_axi_clk
-    w_execute();
-    tb_number   = 703;
-    #(5165*tb_fast_configclk_period*fw_pl_clk1_period);              // execution: wait for at least 5164+1 CONFIGCLK cycles; alternatively check when bit#10 is set in fw_read_status32_reg[12]<= sm_test1_o_status_done;
-    if(sw_read32_1[12]==1'b1) begin
-      $display("time=%06.2f firmware_id=%01d test1 in loopback=%01d done; starting to check readout data: calling check_r_data_array_0_counter()...", $realtime(), firmware_id_2, tb_test_loopback);
-    end else begin
-      $display("time=%06.2f firmware_id=%01d test1 in loopback=%01d mode NOT done", $realtime(), firmware_id_2, tb_test_loopback);
-      tb_err[tb_err_index_test1] = 1'b1;
-    end
-    #(10*fw_axi_clk_period);
-    tb_number   = 704;
-    // READ fw_op_code_r_data_array_0
-    check_r_data_array_0_counter(.read_n_32bit_words(24)); // readout: number of 32-bit words is 24 for tb_test_number==1 and tb_test_loopback==HIGH
-    check_r_data_array_1_counter(.read_n_32bit_words(24)); // readout: number of 32-bit words is 24 for tb_test_number==1 and tb_test_loopback==HIGH
-    #(30*fw_axi_clk_period);                               // readout: wait for at least 24 AXI clock cycles
-    tb_firmware_id = firmware_id_none;
-    #(5*fw_axi_clk_period);
-    $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
-    //----------------------------------------------------------------------------------------------------------------------------------------------------
+   //-----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
     $display("%s", {80{"-"}});
