@@ -23,7 +23,7 @@ module fast_configclk_generator (
     input  logic [6:0]  fast_configclk_period,
     // output ports
     output logic [6:0]  fast_clk_counter,
-    output logic        fast_configclk,
+    output logic        fast_configclk
   );
 
   // Create helper counter clk_counter_ff (used to create signals fast_configclk_ff and fast_configclk_ff)

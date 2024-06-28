@@ -231,7 +231,7 @@ module fw_ip1 (
     .fast_configclk_period   (fast_configclk_period),
     // output ports
     .fast_clk_counter        (fast_configclk_counter),
-    .fast_configclk          (fw_config_clk),
+    .fast_configclk          (fw_config_clk)
   );
 
   // TODO - slow_configclk
@@ -361,7 +361,7 @@ module fw_ip1 (
   //
   always @(posedge fw_axi_clk) begin : sm_testx_i_shift_reg_proc
     if(sm_test1_o_shift_reg_load | sm_test2_o_shift_reg_load | sm_test3_o_shift_reg_load | sm_test4_o_shift_reg_load) begin
-      sm_testx_i_shift_reg           <= {w_cfg_array_1_reg[(sm_testsx_i_shift_reg_shift_cnt-4096):0],w_cfg_array_0_reg};
+      sm_testx_i_shift_reg           <= {w_cfg_array_1_reg[1091:0],w_cfg_array_0_reg};
       sm_testx_i_shift_reg_shift_cnt <= 13'h0;
     end else if(sm_test1_o_shift_reg_shift_right | sm_test2_o_shift_reg_shift_right | sm_test3_o_shift_reg_shift_right | sm_test4_o_shift_reg_shift_right) begin
       sm_testx_i_shift_reg           <= {1'b0, sm_testx_i_shift_reg[sm_testx_i_shift_reg_width-1 : 1]};
