@@ -239,24 +239,27 @@ module fw_ip1 (
   // SHIFT_REG-MODULE as a serial-in / serial-out shift-tegister. The test is configured using:
   // 1. byte#3=={fw_dev_id_enable, fw_op_code_w_execute}
   // 2. byte#2-to-byte#0==sw_write24_0 where each bit defined as follows:
-  localparam w_execute_cfg_test_delay_index_min  =  0;  //
-  localparam w_execute_cfg_test_delay_index_max  =  5;  //
-  localparam w_execute_cfg_test_sample_index_min =  6;  //
-  localparam w_execute_cfg_test_sample_index_max = 11;  //
-  localparam w_execute_cfg_test_number_index_min = 12;  //
-  localparam w_execute_cfg_test_number_index_max = 15;  //
-  localparam w_execute_cfg_test_loopback         = 16;  //
-  localparam w_execute_cfg_spare_index_min       = 17;  //
-  localparam w_execute_cfg_spare_index_max       = 23;  //
+  localparam w_execute_cfg_test_delay_index_min      =  0;  //
+  localparam w_execute_cfg_test_delay_index_max      =  5;  //
+  localparam w_execute_cfg_test_sample_index_min     =  6;  //
+  localparam w_execute_cfg_test_sample_index_max     = 11;  //
+  localparam w_execute_cfg_test_number_index_min     = 12;  //
+  localparam w_execute_cfg_test_number_index_max     = 15;  //
+  localparam w_execute_cfg_test_loopback             = 16;  //
+  localparam w_execute_cfg_spare_index_min           = 17;  //
+  localparam w_execute_cfg_spare_index_max           = 23;  //
+  localparam w_execute_cfg_test_mask_reset_not_index = 24; //
   //
   logic [5:0] test_delay;                                  // on clock domain fw_axi_clk
   logic [5:0] test_sample;                                 // on clock domain fw_axi_clk
   logic [3:0] test_number;                                 // on clock domain fw_axi_clk
   logic       test_loopback;                               // on clock domain fw_axi_clk
+  logic       test_mask_reset_not;                         // on clock domain fw_axi_clk
   assign test_delay    = sw_write24_0[w_execute_cfg_test_delay_index_max  : w_execute_cfg_test_delay_index_min ];
   assign test_sample   = sw_write24_0[w_execute_cfg_test_sample_index_max : w_execute_cfg_test_sample_index_min];
   assign test_number   = sw_write24_0[w_execute_cfg_test_number_index_max : w_execute_cfg_test_number_index_min];
   assign test_loopback = sw_write24_0[w_execute_cfg_test_loopback];
+  assign test_mask_reset_not = sw_write24_0[w_execute_cfg_test_mask_reset_not_index
   //
   logic test1_enable; logic test1_enable_del; logic test1_enable_re;
   logic test2_enable; logic test2_enable_del; logic test2_enable_re;
@@ -322,21 +325,21 @@ module fw_ip1 (
   logic           sm_test2_o_config_clk;         assign sm_test2_o_config_clk        = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_reset_not;          assign sm_test2_o_reset_not         = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_config_in;          assign sm_test2_o_config_in         = 1'b0;       // TODO to be driven by sm_test2
-  logic           sm_test2_o_config_load;        assign sm_test2_o_config_load       = LOAD_CONFIG;  // TODO to be driven by sm_test2
+  logic           sm_test2_o_config_load;        assign sm_test2_o_config_load       = LOAD_CONFIG;// TODO to be driven by sm_test2
   logic           sm_test2_o_vin_test_trig_out;  assign sm_test2_o_vin_test_trig_out = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_scan_in;            assign sm_test2_o_scan_in           = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test2_o_scan_load;          assign sm_test2_o_scan_load         = 1'b0;       // TODO to be driven by sm_test2
   logic           sm_test3_o_config_clk;         assign sm_test3_o_config_clk        = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_reset_not;          assign sm_test3_o_reset_not         = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_config_in;          assign sm_test3_o_config_in         = 1'b0;       // TODO to be driven by sm_test3
-  logic           sm_test3_o_config_load;        assign sm_test3_o_config_load       = LOAD_CONFIG;  // TODO to be driven by sm_test3
+  logic           sm_test3_o_config_load;        assign sm_test3_o_config_load       = LOAD_CONFIG;// TODO to be driven by sm_test3
   logic           sm_test3_o_vin_test_trig_out;  assign sm_test3_o_vin_test_trig_out = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_scan_in;            assign sm_test3_o_scan_in           = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test3_o_scan_load;          assign sm_test3_o_scan_load         = 1'b0;       // TODO to be driven by sm_test3
   logic           sm_test4_o_config_clk;         assign sm_test4_o_config_clk        = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_reset_not;          assign sm_test4_o_reset_not         = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_config_in;          assign sm_test4_o_config_in         = 1'b0;       // TODO to be driven by sm_test4
-  logic           sm_test4_o_config_load;        assign sm_test4_o_config_load       = LOAD_CONFIG;  // TODO to be driven by sm_test4
+  logic           sm_test4_o_config_load;        assign sm_test4_o_config_load       = LOAD_CONFIG;// TODO to be driven by sm_test4
   logic           sm_test4_o_vin_test_trig_out;  assign sm_test4_o_vin_test_trig_out = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_scan_in;            assign sm_test4_o_scan_in           = 1'b0;       // TODO to be driven by sm_test4
   logic           sm_test4_o_scan_load;          assign sm_test4_o_scan_load         = 1'b0;       // TODO to be driven by sm_test4
@@ -347,11 +350,11 @@ module fw_ip1 (
   logic           sm_testx_i_dnn_output_1;
   logic           sm_testx_i_dn_event_toggle;
   // State Machine Control signals from logic/configuration
-  localparam                                     sm_testx_i_shift_reg_width = 5188;
+  localparam logic [12 : 0]                      sm_testx_i_shift_reg_width = 5188;
   logic [sm_testx_i_shift_reg_width-1 : 0]       sm_testx_i_shift_reg;               // 5188-bits shift register; bit#0 drives DUT config_in; used by all tests 1,2,3
   logic [12 : 0]                                 sm_testx_i_shift_reg_shift_cnt;     // counting from 0 to sm_testx_i_shift_reg_width = 5188
-  logic                                          sm_test1_o_shift_reg_load;          // LOAD  control for shift register; independent control by each test 1,2,3
-  logic                                          sm_test1_o_shift_reg_shift_right;   // SHIFT control for shift register; independent control by each test 1,2,3
+  logic                                          sm_test1_o_shift_reg_load;          // LOAD  control for shift register; independent control by each test 1,2,3,4
+  logic                                          sm_test1_o_shift_reg_shift_right;   // SHIFT control for shift register; independent control by each test 1,2,3,4
   logic                                          sm_test2_o_shift_reg_load;          assign sm_test2_o_shift_reg_load        = 1'b0;    // TODO to be driven by sm_test2
   logic                                          sm_test2_o_shift_reg_shift_right;   assign sm_test2_o_shift_reg_shift_right = 1'b0;    // TODO to be driven by sm_test2
   logic                                          sm_test3_o_shift_reg_load;          assign sm_test3_o_shift_reg_load        = 1'b0;    // TODO to be driven by sm_test3
@@ -386,6 +389,7 @@ module fw_ip1 (
     // Control signals:
     .clk_counter                             (fast_configclk_counter),
     .test_delay                              (test_delay),
+    .test_mask_reset_not                     (test_mask_reset_not),
     .test1_enable_re                         (test1_enable_re),
     .sm_testx_i_shift_reg_bit0               (sm_testx_i_shift_reg[0]),
     .sm_testx_i_shift_reg_shift_cnt          (sm_testx_i_shift_reg_shift_cnt),

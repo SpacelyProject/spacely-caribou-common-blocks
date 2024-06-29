@@ -23,6 +23,7 @@ module ip1_test1 (
     input  logic [6:0]  clk_counter,
     input  logic [5:0]  test_delay,
     input  logic        test1_enable_re,
+    input  logic        test_mask_reset_not,
     input  logic        sm_testx_i_shift_reg_bit0,
     input  logic [12:0] sm_testx_i_shift_reg_shift_cnt,
     input  logic [12:0] sm_testx_i_shift_reg_shift_cnt_max,
@@ -90,7 +91,11 @@ module ip1_test1 (
           end
           // output state machine signal assignment
           if(test_delay==clk_counter) begin
-            sm_test1_o_reset_not                 <= 1'b0;
+            if(test_mask_reset_not==1'b1) begin
+              sm_test1_o_reset_not               <= 1'b1;
+            end else begin
+              sm_test1_o_reset_not               <= 1'b0;
+            end
             sm_test1_o_config_load               <= SHIFT_REG;
           end else begin
             sm_test1_o_reset_not                 <= 1'b1;
@@ -113,7 +118,11 @@ module ip1_test1 (
             sm_test1_o_reset_not                 <= 1'b1;
             sm_test1_o_config_in                 <= sm_testx_i_shift_reg_bit0;
           end else begin
-            sm_test1_o_reset_not                 <= 1'b0;
+            if(test_mask_reset_not==1'b1) begin
+              sm_test1_o_reset_not               <= 1'b1;
+            end else begin
+              sm_test1_o_reset_not               <= 1'b0;
+            end
             sm_test1_o_config_in                 <= 1'b0;
           end
           sm_test1_o_config_load                 <= SHIFT_REG;
@@ -173,12 +182,12 @@ module ip1_test1 (
           // next state machine state logic
           sm_test1 <= IDLE_T1;
           // output state machine signal assignment
-          sm_test1_o_reset_not                     <= 1'b1;
-          sm_test1_o_config_in                     <= 1'b0;
-          sm_test1_o_config_load                   <= LOAD_CONFIG;
-          sm_test1_o_shift_reg_load                <= 1'b0;
-          sm_test1_o_shift_reg_shift               <= 1'b0;
-          sm_test1_o_status_done                   <= 1'b1;
+          sm_test1_o_reset_not                   <= 1'b1;
+          sm_test1_o_config_in                   <= 1'b0;
+          sm_test1_o_config_load                 <= LOAD_CONFIG;
+          sm_test1_o_shift_reg_load              <= 1'b0;
+          sm_test1_o_shift_reg_shift             <= 1'b0;
+          sm_test1_o_status_done                 <= 1'b1;
         end
         default : begin
           sm_test1 <= IDLE_T1;
@@ -191,4 +200,3 @@ module ip1_test1 (
 endmodule
 
 `endif
-

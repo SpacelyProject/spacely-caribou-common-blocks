@@ -77,7 +77,8 @@ module fw_ipx_wrap_tb_ip1 ();
   );
 
   // Constants
-  localparam fw_axi_clk_period = 10.0;                     // FW clock 100MHz       mapped to S_AXI_ACLK
+  localparam fw_pl_clk1_period =  2.5;           // FM clock 400MHz       mapped to pl_clk1
+  localparam fw_axi_clk_period = 10.0;           // FW clock 100MHz       mapped to S_AXI_ACLK
   //
   localparam windex_device_id_max  = 31;                   // write index for device_id       (upper)
   localparam windex_device_id_min  = 28;                   // write index for device_id       (lower)
@@ -104,29 +105,30 @@ module fw_ipx_wrap_tb_ip1 ();
   } op_code;
   //
 
-  localparam w_cfg_static_0_fast_configclk_period_index_min = 0;
-  localparam w_cfg_static_0_fast_configclk_period_index_max = 6;
-  localparam w_cfg_static_0_super_pix_sel_index             = 7;
-  localparam w_cfg_static_0_slow_configclk_period_index_min = 8;
-  localparam w_cfg_static_0_slow_configclk_period_index_max = 23;
-  localparam w_cfg_static_1_slow_configclk_period_index_min = 0;
-  localparam w_cfg_static_1_slow_configclk_period_index_max = 10;
-  localparam w_cfg_static_1_spare_index_min                 = 11;
-  localparam w_cfg_static_1_spare_index_max                 = 23;
+  localparam w_cfg_static_0_reg_fast_configclk_period_index_min = 0;
+  localparam w_cfg_static_0_reg_fast_configclk_period_index_max = 6;
+  localparam w_cfg_static_0_reg_super_pix_sel_index             = 7;
+  localparam w_cfg_static_0_reg_slow_configclk_period_index_min = 8;
+  localparam w_cfg_static_0_reg_slow_configclk_period_index_max = 23;
+  localparam w_cfg_static_1_reg_slow_configclk_period_index_min = 0;
+  localparam w_cfg_static_1_reg_slow_configclk_period_index_max = 10;
+  localparam w_cfg_static_1_reg_spare_index_min                 = 11;
+  localparam w_cfg_static_1_reg_spare_index_max                 = 23;
 
 
   //
   localparam tb_err_index_fast_configclk_period  =  0;
   localparam tb_err_index_op_code_r_cfg_static_0 =  1;
-  localparam tb_err_index_op_code_r_cfg_array_0  =  2;
-  localparam tb_err_index_op_code_r_cfg_array_1  =  3;
-  localparam tb_err_index_op_code_r_data_array_0 =  4;
-  localparam tb_err_index_op_code_r_data_array_1 =  5;
-  localparam tb_err_index_test1                  =  6;
-  localparam tb_err_index_test2                  =  7;
-  localparam tb_err_index_test3                  =  8;
-  localparam tb_err_index_test4                  =  9;
-  localparam tb_err_index_op_code_r_cfg_static_1 =  10;
+  localparam tb_err_index_op_code_r_cfg_static_1 =  2;
+  localparam tb_err_index_op_code_r_cfg_array_0  =  3;
+  localparam tb_err_index_op_code_r_cfg_array_1  =  4;
+  localparam tb_err_index_op_code_r_data_array_0 =  5;
+  localparam tb_err_index_op_code_r_data_array_1 =  6;
+  localparam tb_err_index_test1                  =  7;
+  localparam tb_err_index_test2                  =  8;
+  localparam tb_err_index_test3                  =  9;
+  localparam tb_err_index_test4                  =  10;
+
   //
   // Test SCAN-CHAIN-MODULE as a serial-in / serial-out shift-tegister. The test is configured using:
   // 1. byte#3=={tb_firmware_id, tb_function_id==OP_CODE_W_EXECUTE}
@@ -138,9 +140,10 @@ module fw_ipx_wrap_tb_ip1 ();
   localparam w_execute_cfg_test_number_index_min                     = 12;     //
   localparam w_execute_cfg_test_number_index_max                     = 15;     //
   localparam w_execute_cfg_test_loopback                             = 16;     //
-  localparam w_execute_cfg_test_vin_test_trig_out_index_min          = 17;     // this field controls the position of vin_test_trig_out pulse, one bxclk_period wide, within
-  localparam w_execute_cfg_test_vin_test_trig_out_index_max          = 22;     // within time-window defined by state machine sm_test2==SCANLOAD_HIGH_1_T2 + SCANLOAD_HIGH_2_T2
-  localparam w_execute_cfg_test_mask_reset_not_index                 = 23;     //
+  localparam w_execute_cfg_spare_index_max                           = 17;     //
+  localparam w_execute_cfg_spare_index_max                           = 23;     //
+  localparam w_execute_cfg_test_mask_reset_not_index                 = 24;     //
+
   //
   localparam logic [3:0] firmware_id_1           = 4'h1;
   localparam logic [3:0] firmware_id_2           = 4'h2;
@@ -153,6 +156,7 @@ module fw_ipx_wrap_tb_ip1 ();
   integer tb_number;
   logic   tb_mismatch;
   integer tb_i_test;
+  logic   tb_fw_pl_clk1_initial;
   logic   tb_fw_axi_clk_initial;
   logic [15:0] tb_err;
   real         tb_time_t1;
@@ -173,8 +177,15 @@ module fw_ipx_wrap_tb_ip1 ();
   logic [5:0]  tb_test_sample;                             // on clock domain fw_axi_clk
   logic [3:0]  tb_test_number;                             // on clock domain fw_axi_clk
   logic        tb_test_loopback;                           // on clock domain fw_axi_clk
-  logic [5:0]  tb_test_trig_out_phase;                     // on clock domain fw_axi_clk
   logic        tb_test_mask_reset_not;                     // on clock domain fw_axi_clk
+
+  // Generate free running fw_pl_clk1;           // FM clock 400MHz       mapped to pl_clk1
+  always begin: gen_fw_pl_clk1
+    fw_pl_clk1 = tb_fw_pl_clk1_initial;          //1'b0;
+    #(fw_pl_clk1_period / 2);
+    fw_pl_clk1 = ~fw_pl_clk1;                    //1'b1;
+    #(fw_pl_clk1_period / 2);
+  end
 
   // Generate free running fw_axi_clk;           // FW clock 100MHz       mapped to S_AXI_ACLK
   always begin: gen_fw_axi_clk
@@ -196,7 +207,7 @@ module fw_ipx_wrap_tb_ip1 ();
   endtask
 
   always @(posedge fw_axi_clk) begin
-    // arbitraty one clock delay
+    // arbitrary one clock delay
     config_out <= config_in;
   end
 
@@ -240,7 +251,7 @@ module fw_ipx_wrap_tb_ip1 ();
     @(negedge fw_axi_clk);             // ensure enter on FE of AXI CLK
     if(index%2==0) tb_function_id = OP_CODE_W_CFG_STATIC_0; else tb_function_id = OP_CODE_W_CFG_STATIC_1;
     if(tb_function_id == OP_CODE_W_CFG_STATIC_0) begin
-      tb_fast_configclk_period = $urandom_range(0,100);
+      tb_fast_configclk_period = $urandom_range(10,100);          // 10MHz to 1MHz
       tb_super_pix_sel         = $urandom_range(1, 0)                 & 1'h1;
       sw_write32_0             = {tb_firmware_id, tb_function_id, 16'b0, tb_super_pix_sel, tb_fast_configclk_period};
       #(1*fw_axi_clk_period);
@@ -248,7 +259,7 @@ module fw_ipx_wrap_tb_ip1 ();
       tb_function_id           = OP_CODE_NOOP;
       sw_write32_0             = {tb_firmware_id, tb_function_id, 24'h0};
     end else begin // tb_function_id == OP_CODE_W_CFG_STATIC_1
-      // TODO
+      // TODO - Cristian
     end
   endtask
 
@@ -262,7 +273,7 @@ module fw_ipx_wrap_tb_ip1 ();
       tb_function_id           = OP_CODE_NOOP;
       sw_write32_0             = {tb_firmware_id, tb_function_id, 24'h0};
     end else begin // tb_function_id == OP_CODE_W_CFG_STATIC_1
-      // TODO
+      // TODO - Cristian
     end
   endtask
 
@@ -325,12 +336,12 @@ module fw_ipx_wrap_tb_ip1 ();
     tb_sw_write24_0[w_execute_cfg_test_sample_index_max            : w_execute_cfg_test_sample_index_min            ] = tb_test_sample;
     tb_sw_write24_0[w_execute_cfg_test_number_index_max            : w_execute_cfg_test_number_index_min            ] = tb_test_number;
     tb_sw_write24_0[w_execute_cfg_test_loopback                                                                     ] = tb_test_loopback;
-    tb_sw_write24_0[w_execute_cfg_test_vin_test_trig_out_index_max : w_execute_cfg_test_vin_test_trig_out_index_min ] = tb_test_trig_out_phase;
+    tb_sw_write24_0[w_execute_cfg_spare_index_max                  : w_execute_cfg_spare_index_min                  ] = 4'h0;
     tb_sw_write24_0[w_execute_cfg_test_mask_reset_not_index                                                         ] = tb_test_mask_reset_not;
     sw_write32_0             = {tb_firmware_id, tb_function_id, tb_sw_write24_0};
     #(1*fw_axi_clk_period);
-    $display("time=%06.2f tb_test_number=%02d tb_test_delay=%02d tb_test_sample=%02d tb_test_loopback=%02d tb_test_trig_out_phase=%02d tb_test_mask_reset_not=%01d",
-      $realtime(), tb_test_number, tb_test_delay, tb_test_sample, tb_test_loopback, tb_test_trig_out_phase, tb_test_mask_reset_not);
+    $display("time=%06.2f tb_test_number=%02d tb_test_delay=%02d tb_test_sample=%02d tb_test_loopback=%02d tb_test_mask_reset_not=%01d",
+      $realtime(), tb_test_number, tb_test_delay, tb_test_sample, tb_test_loopback, tb_test_mask_reset_not);
     //fw_op_code_w_execute     = 1'b0;
     //sw_write24_0             = 24'h0;
   endtask
@@ -349,7 +360,7 @@ module fw_ipx_wrap_tb_ip1 ();
       tb_function_id           = OP_CODE_NOOP;
       sw_write32_0             = {tb_firmware_id, tb_function_id, 24'h0};
     end else begin  // tb_function_id == OP_CODE_R_CFG_STATIC_1
-      // TODO
+      // TODO - Cristian
     end
   endtask
 
@@ -418,11 +429,11 @@ module fw_ipx_wrap_tb_ip1 ();
     sw_write32_0             = {tb_firmware_id, tb_function_id, 24'h0};
   endtask
 
-  task check_r_data_array_1_counter(
+  task check_r_data_array_1_random(
     integer read_n_32bit_words
     );
     @(negedge fw_axi_clk);             // ensure enter on FE of AXI CLK
-    tb_function_id           = OP_CODE_R_DATA_ARRAY_0;
+    tb_function_id           = OP_CODE_R_DATA_ARRAY_1;
     tb_sw_write24_0          = 24'h0;
     sw_write32_0             = {tb_firmware_id, tb_function_id, tb_sw_write24_0};
     #(5*fw_axi_clk_period);
@@ -431,8 +442,8 @@ module fw_ipx_wrap_tb_ip1 ();
       tb_sw_write24_0[15: 0] = 16'hFFFF;
       sw_write32_0           = {tb_firmware_id, tb_function_id, tb_sw_write24_0};
       @(posedge fw_axi_clk);
-      if(sw_read32_0 != {tb_w_cfg_array_counter[2*i_addr+1], tb_w_cfg_array_counter[2*i_addr]}) begin
-        $display("time=%06.2f FAIL op_code_r_cfg_array_0 i_addr=%03d sw_read32_0=0x%08h expected {0x%04h 0x%04h}", $realtime(), i_addr, sw_read32_0, tb_w_cfg_array_counter[2*i_addr+1], tb_w_cfg_array_counter[2*i_addr]);
+      if(sw_read32_0 != {tb_w_cfg_array_random[2*i_addr+1], tb_w_cfg_array_random[2*i_addr]}) begin
+        $display("time=%06.2f FAIL op_code_r_cfg_array_0 i_addr=%03d sw_read32_0=0x%08h expected {0x%04h 0x%04h}", $realtime(), i_addr, sw_read32_0, tb_w_cfg_array_random[2*i_addr+1], tb_w_cfg_array_random[2*i_addr]);
         tb_err[tb_err_index_op_code_r_data_array_1]=1'b1;
       end
       @(negedge fw_axi_clk);
@@ -440,7 +451,6 @@ module fw_ipx_wrap_tb_ip1 ();
     tb_function_id           = OP_CODE_NOOP;
     sw_write32_0             = {tb_firmware_id, tb_function_id, 24'h0};
   endtask
-
 
   initial begin
     //---------------------------------------------------------------------------------------------
@@ -451,6 +461,7 @@ module fw_ipx_wrap_tb_ip1 ();
     tb_err = 16'b0;
     tb_w_cfg_array_counter = {256{16'h0}};
     tb_w_cfg_array_random  = {256{16'hFFFF}};
+    tb_fw_pl_clk1_initial  = $urandom_range(1, 0) & 1'b1;
     tb_fw_axi_clk_initial  = $urandom_range(1, 0) & 1'b1;
     $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
     //---------------------------------------------------------------------------------------------
@@ -464,7 +475,7 @@ module fw_ipx_wrap_tb_ip1 ();
     // Test 2: w_status_clear
     tb_testcase = "T2. w_status_clear";
     tb_number   = 2;
-    tb_firmware_id = firmware_id_2;
+    tb_firmware_id = firmware_id_1;
     w_status_clear();
     $display("time %06.2f done: tb_testcase=%s\n%s", $realtime, tb_testcase, {80{"-"}});
     //---------------------------------------------------------------------------------------------
@@ -473,7 +484,7 @@ module fw_ipx_wrap_tb_ip1 ();
     tb_number   = 3;
     tb_w_cfg_array_counter = counter_cfg_array();
     tb_w_cfg_array_random  = random_cfg_array();
-    tb_firmware_id       = firmware_id_2;
+    tb_firmware_id       = firmware_id_1;
     #(5*fw_axi_clk_period);
     w_reset();
     tb_number = 301;
@@ -504,17 +515,17 @@ module fw_ipx_wrap_tb_ip1 ();
     tb_fast_configclk_period      = 7'h64;                      // on clock domain fw_axi_clk
     tb_super_pix_sel              = 1'h0;                       // on clock domain fw_axi_clk
     w_cfg_static_fixed(.index(0));
+    // TODO - Cristian call w_cfg_static_fixed with index 1
     tb_number   = 402;                                          // CONFIGCLK is programmed
     #(64*fw_axi_clk_period);                                    // dummy wait to ensure CONFIGCLK are started (the fw_pl_clk1_cnt did roll over)
     tb_test_delay            = 6'h08;                           // on clock domain fw_axi_clk
     tb_test_sample           = 6'h04;                           // on clock domain fw_axi_clk
     tb_test_number           = 4'h1;                            // on clock domain fw_axi_clk
     tb_test_loopback         = 1'b0;                            // on clock domain fw_axi_clk
-    tb_test_trig_out_phase   = 6'h00;                           // on clock domain fw_axi_clk
     tb_test_mask_reset_not   = 1'b0;                            // on clock domain fw_axi_clk
     w_execute();
     tb_number   = 403;
-    #(5165*tb_fast_configclk_period*fw_pl_clk1_period);              // execution: wait for at least 5164+1 CONFIGCLK cycles; alternatively check when bit#10 is set in fw_read_status32_reg[10] <= sm_test1_o_status_done;
+    #(5165*tb_fast_configclk_period*fw_axi_clk_period);         // execution: wait for at least 5164+1 CONFIGCLK cycles; alternatively check when bit#10 is set in fw_read_status32_reg[10] <= sm_test1_o_status_done;
     if(sw_read32_1[12]==1'b1) begin
       $display("time=%06.2f firmware_id=%01d test1 in loopback=%01d done; starting to check readout data: calling check_r_data_array_0_counter()...", $realtime(), firmware_id_1, tb_test_loopback);
     end else begin
@@ -525,7 +536,7 @@ module fw_ipx_wrap_tb_ip1 ();
     tb_number   = 504;
     // READ fw_op_code_r_data_array_0
     check_r_data_array_0_counter(.read_n_32bit_words(128)); // readout: number of 32-bit words is 128 for tb_test_number==1 and tb_test_loopback==HIGH
-    check_r_data_array_1_counter(.read_n_32bit_words(35));  // readout: number of 32-bit words is 35 for tb_test_number==1 and tb_test_loopback==HIGH
+    check_r_data_array_1_random(.read_n_32bit_words(35));   // readout: number of 32-bit words is 35 for tb_test_number==1 and tb_test_loopback==HIGH
     #(30*fw_axi_clk_period);                                // readout: wait for at least 24 AXI clock cycles
     tb_firmware_id = firmware_id_none;
     #(5*fw_axi_clk_period);
@@ -545,4 +556,3 @@ module fw_ipx_wrap_tb_ip1 ();
 endmodule
 
 `endif
-
