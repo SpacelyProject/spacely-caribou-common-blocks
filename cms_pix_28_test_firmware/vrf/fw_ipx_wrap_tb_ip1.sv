@@ -251,7 +251,7 @@ module fw_ipx_wrap_tb_ip1 ();
     @(negedge fw_axi_clk);             // ensure enter on FE of AXI CLK
     if(index%2==0) tb_function_id = OP_CODE_W_CFG_STATIC_0; else tb_function_id = OP_CODE_W_CFG_STATIC_1;
     if(tb_function_id == OP_CODE_W_CFG_STATIC_0) begin
-      tb_fast_configclk_period = $urandom_range(10,100);          // 10MHz to 1MHz
+      tb_fast_configclk_period = $urandom_range(0,100);             // 100MHz to 1MHz
       tb_super_pix_sel         = $urandom_range(1, 0)                 & 1'h1;
       sw_write32_0             = {tb_firmware_id, tb_function_id, 16'b0, tb_super_pix_sel, tb_fast_configclk_period};
       #(1*fw_axi_clk_period);
