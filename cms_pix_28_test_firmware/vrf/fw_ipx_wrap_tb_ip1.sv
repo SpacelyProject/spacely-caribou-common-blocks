@@ -140,7 +140,7 @@ module fw_ipx_wrap_tb_ip1 ();
   localparam w_execute_cfg_test_number_index_min                     = 12;     //
   localparam w_execute_cfg_test_number_index_max                     = 15;     //
   localparam w_execute_cfg_test_loopback                             = 16;     //
-  localparam w_execute_cfg_spare_index_max                           = 17;     //
+  localparam w_execute_cfg_spare_index_min                           = 17;     //
   localparam w_execute_cfg_spare_index_max                           = 23;     //
   localparam w_execute_cfg_test_mask_reset_not_index                 = 24;     //
 
