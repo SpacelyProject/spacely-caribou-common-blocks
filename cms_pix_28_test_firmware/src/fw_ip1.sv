@@ -259,7 +259,7 @@ module fw_ip1 (
   assign test_sample   = sw_write24_0[w_execute_cfg_test_sample_index_max : w_execute_cfg_test_sample_index_min];
   assign test_number   = sw_write24_0[w_execute_cfg_test_number_index_max : w_execute_cfg_test_number_index_min];
   assign test_loopback = sw_write24_0[w_execute_cfg_test_loopback];
-  assign test_mask_reset_not = sw_write24_0[w_execute_cfg_test_mask_reset_not_index
+  assign test_mask_reset_not = sw_write24_0[w_execute_cfg_test_mask_reset_not_index];
   //
   logic test1_enable; logic test1_enable_del; logic test1_enable_re;
   logic test2_enable; logic test2_enable_del; logic test2_enable_re;
