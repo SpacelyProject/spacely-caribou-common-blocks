@@ -1,0 +1,5 @@
+-clean
+-access +rwc
+-timescale 1ns/1ps
+AWG_basic_tb.sv
+../src/AWG.sv
