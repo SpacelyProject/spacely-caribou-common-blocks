@@ -18,7 +18,8 @@ module Arbitrary_Pattern_Generator
    input logic 			run,
    input logic [(NUM_SIG-1):0] 	write_channel,
    output logic [(NUM_SIG-1):0] read_channel,
-   output logic [31:0] 		sample_count,
+   input logic [31:0] 		n_samples, //Number of samples to take in one shot
+   output logic [31:0] 		sample_count, //Number of total samples taken so far.
    
    // Custom strobe triggers
    // -- asserted when write_channel is written to.
@@ -49,12 +50,22 @@ module Arbitrary_Pattern_Generator
    FSM_State state;
    
    
+   logic 	[31:0]			  n_samples_int;
    
    logic 			triggered, next_triggered;
    assign status = {triggered,state};
 
    logic [(NUM_SAMP-1):0] [(NUM_SIG-1):0] write_buffer;
    logic [(NUM_SAMP-1):0] [(NUM_SIG-1):0] read_buffer;
+
+
+   always_comb begin
+      if(n_samples > NUM_SAMP)
+	n_samples_int = NUM_SAMP;
+      else
+	n_samples_int = n_samples;
+   end
+   
    
 
    // TRIGGER CDC LOGIC
@@ -128,7 +139,7 @@ module Arbitrary_Pattern_Generator
       if(~triggered) 
 	state <= IDLE;
       else begin 
-	 if (state == TRANSACTION && (wave_ptr == write_buffer_len-1))
+	 if (state == TRANSACTION && (wave_ptr >= n_samples_int-1))
 	   state <= DONE;
 	 else
 	   state <= TRANSACTION;

@@ -1,0 +1,27 @@
+//Parameters
+PARAMETER NUM_SIG 8
+PARAMETER NUM_SAMP 128
+
+//Ports
+PORT wave_clk 1 0
+PORT axi_clk 1 0
+PORT axi_resetn 1 0
+
+PORT output_signals 8 1
+PORT input_signals 8 0
+
+
+//Registers
+REGISTER run 1 2
+REGISTER write_channel 8 0
+REGISTER read_channel 8 1
+REGISTER sample_count 32 1
+REGISTER n_samples 32 0
+
+//write_channel_wrStrobe and read_channel_rdStrobe must be custom-connected.
+
+//Debug registers
+REGISTER write_buffer_len 32 1
+REGISTER next_read_sample 32 1
+REGISTER wave_ptr 32 1
+REGISTER status 3 1

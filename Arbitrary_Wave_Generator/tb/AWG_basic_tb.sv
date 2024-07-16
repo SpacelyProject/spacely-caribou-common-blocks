@@ -7,6 +7,8 @@ module tb();
    logic run;
    logic write_channel_wrStrobe;
    logic read_channel_rdStrobe;
+   logic [31:0] n_samples;
+   
    
    
    logic [7:0] write_channel;
@@ -46,6 +48,7 @@ module tb();
       write_channel = 0;
       read_channel_rdStrobe = 0;
       write_channel_wrStrobe = 0;
+      n_samples = 6;
       
 
       //AXI reset
