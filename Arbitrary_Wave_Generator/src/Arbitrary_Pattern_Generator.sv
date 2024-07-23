@@ -20,6 +20,7 @@ module Arbitrary_Pattern_Generator
    output logic [(NUM_SIG-1):0] read_channel,
    input logic [31:0] 		n_samples, //Number of samples to take in one shot
    output logic [31:0] 		sample_count, //Number of total samples taken so far.
+   input logic [7:0] 		control,
    
    // Custom strobe triggers
    // -- asserted when write_channel is written to.
@@ -57,6 +58,10 @@ module Arbitrary_Pattern_Generator
 
    logic [(NUM_SAMP-1):0] [(NUM_SIG-1):0] write_buffer;
    logic [(NUM_SAMP-1):0] [(NUM_SIG-1):0] read_buffer;
+   logic 				  loop;
+
+   assign loop = control[0];
+   
 
 
    always_comb begin
@@ -139,7 +144,7 @@ module Arbitrary_Pattern_Generator
       if(~triggered) 
 	state <= IDLE;
       else begin 
-	 if (state == TRANSACTION && (wave_ptr >= n_samples_int-1))
+	 if (state == TRANSACTION && !loop && (wave_ptr >= n_samples_int-1))
 	   state <= DONE;
 	 else
 	   state <= TRANSACTION;
@@ -148,10 +153,18 @@ module Arbitrary_Pattern_Generator
       // ~~~~ Outputs Based on State ~~~~
       if (state == TRANSACTION) begin // TRANSACTION IN PROGRESS
 
+
+	 if(loop && (wave_ptr >= n_samples_int-1))
+	    wave_ptr <= 0;
+	 else
+	   wave_ptr <= wave_ptr + 1;
+	 
+	 
 	 output_signals <= write_buffer[wave_ptr];
 	 read_buffer[wave_ptr] <= input_signals;
-	 wave_ptr <= wave_ptr + 1;
-	 sample_count <= sample_count + 1; 
+	 sample_count <= sample_count + 1;
+
+	 
 	 
       end 
       else begin //NO TRANSACTION (IDLE or DONE)

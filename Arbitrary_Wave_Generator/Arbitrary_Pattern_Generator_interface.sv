@@ -88,7 +88,7 @@ input logic [7:0] input_signals,
    /////////////////////////////////////////////
 
    //Total number of AXI-mapped registers in this firmware block.
-localparam integer FPGA_REGISTER_N = 9;
+localparam integer FPGA_REGISTER_N = 10;
 
 // Addresses of all AXI-mapped registers in this firmware block.
 
@@ -97,10 +97,11 @@ localparam byte unsigned ADDRESS_write_channel = 1;
 localparam byte unsigned ADDRESS_read_channel = 2;
 localparam byte unsigned ADDRESS_sample_count = 3;
 localparam byte unsigned ADDRESS_n_samples = 4;
-localparam byte unsigned ADDRESS_write_buffer_len = 5;
-localparam byte unsigned ADDRESS_next_read_sample = 6;
-localparam byte unsigned ADDRESS_wave_ptr = 7;
-localparam byte unsigned ADDRESS_status = 8;
+localparam byte unsigned ADDRESS_control = 5;
+localparam byte unsigned ADDRESS_write_buffer_len = 6;
+localparam byte unsigned ADDRESS_next_read_sample = 7;
+localparam byte unsigned ADDRESS_wave_ptr = 8;
+localparam byte unsigned ADDRESS_status = 9;
 
 /*localparam byte unsigned FPGA_SPI_WR = 0;
 localparam byte unsigned FPGA_SPI_ADDRESS = 1;
@@ -117,13 +118,14 @@ logic [C_S_AXI_DATA_WIDTH-1:0]        reg_wrdout;
 logic [((C_S_AXI_DATA_WIDTH-1)/8):0]  reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
 logic                                 reg_rdStrobe [FPGA_REGISTER_N-1:0];
 logic [C_S_AXI_DATA_WIDTH-1:0] 	      reg_rddin [FPGA_REGISTER_N-1:0];
+   
 
-   logic 			      write_channel_wrStrobe;
+ logic 			      write_channel_wrStrobe;
    logic 			      read_channel_rdStrobe;
    
    assign write_channel_wrStrobe = reg_wrByteStrobe[ADDRESS_write_channel][0];
    assign read_channel_rdStrobe = reg_rdStrobe[ADDRESS_read_channel];
-
+   
 // Instantiate the AXI Interface
 // NOTE: This block should be included from spacely-caribou-common-blocks/axi4lite_interface
 axi4lite_interface_top #(
@@ -167,6 +169,7 @@ logic [7:0] fpga_reg_write_channel;
 logic [7:0] fpga_reg_read_channel;
 logic [31:0] fpga_reg_sample_count;
 logic [31:0] fpga_reg_n_samples;
+logic [7:0] fpga_reg_control;
 logic [31:0] fpga_reg_write_buffer_len;
 logic [31:0] fpga_reg_next_read_sample;
 logic [31:0] fpga_reg_wave_ptr;
@@ -178,6 +181,7 @@ logic [2:0] fpga_reg_status;
         fpga_reg_run <= '0;
         fpga_reg_write_channel <= '0;
         fpga_reg_n_samples <= '0;
+        fpga_reg_control <= '0;
     end
     else begin
         if (reg_wrByteStrobe[ADDRESS_run] == 4'b1111)
@@ -188,6 +192,8 @@ logic [2:0] fpga_reg_status;
             fpga_reg_write_channel <= reg_wrdout[7:0];
         if (reg_wrByteStrobe[ADDRESS_n_samples] == 4'b1111)
             fpga_reg_n_samples <= reg_wrdout[31:0];
+        if (reg_wrByteStrobe[ADDRESS_control] == 4'b1111)
+            fpga_reg_control <= reg_wrdout[7:0];
     end
 end //always_ff 
 
@@ -197,6 +203,7 @@ assign reg_rddin[ADDRESS_write_channel] = fpga_reg_write_channel;
 assign reg_rddin[ADDRESS_read_channel] = fpga_reg_read_channel;
 assign reg_rddin[ADDRESS_sample_count] = fpga_reg_sample_count;
 assign reg_rddin[ADDRESS_n_samples] = fpga_reg_n_samples;
+assign reg_rddin[ADDRESS_control] = fpga_reg_control;
 assign reg_rddin[ADDRESS_write_buffer_len] = fpga_reg_write_buffer_len;
 assign reg_rddin[ADDRESS_next_read_sample] = fpga_reg_next_read_sample;
 assign reg_rddin[ADDRESS_wave_ptr] = fpga_reg_wave_ptr;
@@ -211,6 +218,7 @@ assign reg_rddin[ADDRESS_status] = fpga_reg_status;
 .read_channel(fpga_reg_read_channel),
 .sample_count(fpga_reg_sample_count),
 .n_samples(fpga_reg_n_samples),
+.control(fpga_reg_control),
 .write_buffer_len(fpga_reg_write_buffer_len),
 .next_read_sample(fpga_reg_next_read_sample),
 .wave_ptr(fpga_reg_wave_ptr),

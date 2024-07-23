@@ -17,6 +17,7 @@ REGISTER write_channel 8 0
 REGISTER read_channel 8 1
 REGISTER sample_count 32 1
 REGISTER n_samples 32 0
+REGISTER control 8 0
 
 //write_channel_wrStrobe and read_channel_rdStrobe must be custom-connected.
 

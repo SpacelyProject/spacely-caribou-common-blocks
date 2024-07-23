@@ -47,6 +47,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 |next_read_sample | 32 | Y | N | (Debug) Index of next sample to be read from the read_buffer |
 |wave_ptr | 32 | Y | N | (Debug) current sample index being sent/received |
 |status | 3 | Y | N | (Debug) Status = {triggered? (1b), sm_status (2b)}. sm_status = IDLE (0), TRANSACTION (1), or DONE (2) |
+|control | 8 | Y | Y | Control register. Bit 0 = Loopback; all other bits reserved. |
 
 
 ### I/O Table 
@@ -79,13 +80,15 @@ sample_count,0xc,0xffffffff,True,False
 
 n_samples,0x10,0xffffffff,True,True
 
-write_buffer_len,0x14,0xffffffff,True,False
+control,0x14,0xff,True,True
 
-next_read_sample,0x18,0xffffffff,True,False
+write_buffer_len,0x18,0xffffffff,True,False
 
-wave_ptr,0x1c,0xffffffff,True,False
+next_read_sample,0x1c,0xffffffff,True,False
 
-status,0x20,0x7,True,False
+wave_ptr,0x20,0xffffffff,True,False
+
+status,0x24,0x7,True,False
 
 
 

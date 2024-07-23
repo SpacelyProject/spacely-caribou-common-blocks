@@ -13,6 +13,8 @@ module tb();
    
    logic [7:0] write_channel;
    logic [7:0] read_channel;
+   logic [7:0] control;
+   
    
 
 
@@ -49,6 +51,7 @@ module tb();
       read_channel_rdStrobe = 0;
       write_channel_wrStrobe = 0;
       n_samples = 6;
+      control = 0;
       
 
       //AXI reset
@@ -110,13 +113,29 @@ module tb();
       read_channel_rdStrobe = 0;
 
       #20;
+
+      // Engage looping mode
+      control = 1;
+      //Pulse Run 
+      run = 1;
+      @(posedge axi_clk); #5;
+      
+      run = 0;
+
+      #30000;
+
+      // Turn off looping mode
+      control = 0;
+
+      #20000;
       
 
       $finish();
 
       // EXPECTED BEHAVIOR:
       // (1) output_signals should display the ramp pattern that we programmed.
-      // (2) The captured data that appears on read_channel should be [42,85,42,85,0,127] 
+      // (2) The captured data that appears on read_channel should be [42,85,42,85,0,127]
+      // (3) When control = 1 is asserted, the pattern generator should loop until control = 0 is asserted.
       
 
    end
