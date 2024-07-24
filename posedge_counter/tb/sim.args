@@ -1,0 +1,5 @@
+-clean
+-access +rwc
+-timescale 1ns/1ps
+posedge_counter_tb.sv
+../src/posedge_counter.sv

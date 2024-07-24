@@ -1,0 +1,13 @@
+parameter NUM_SIG 8
+
+PORT axi_resetn 1 0
+PORT input_signals 8 0
+
+REGISTER count_0 32 1
+REGISTER count_1 32 1
+REGISTER count_2 32 1
+REGISTER count_3 32 1
+REGISTER count_4 32 1
+REGISTER count_5 32 1
+REGISTER count_6 32 1
+REGISTER count_7 32 1

@@ -149,6 +149,10 @@ module lpgbtfpga_with_interface #(
    wire 				uplinkRst_i;
    wire 				mgt_rxpolarity_i;
    
+   
+   wire [1:0] uplinkIcData_o;
+   wire [1:0] uplinkEcData_o;
+   wire [2:0] uplinkPhase_o;
 
 
     //Instantiate the core of the lpgbtfpga module.
@@ -162,12 +166,17 @@ module lpgbtfpga_with_interface #(
         .uplinkrdy_o(uplinkrdy_o),
         .uplinkUserData_o(uplinkUserData_o),
         .uplinkRst_i(uplinkRst_i),
-        .unplinkFEC_o(uplinkFEC_o),
-        .mgt_rxpolarity_i(mgt_rxpolarity_i));
+        .uplinkFEC_o(uplinkFEC_o),
+        .mgt_rxpolarity_i(mgt_rxpolarity_i),
+        .uplinkIcData_o(uplinkIcData_o),
+        .uplinkEcData_o(uplinkEcData_o),
+        .uplinkPhase_o(uplinkPhase_o));
 
 
     //lpgbtfpga control registers
     reg [C_S_AXI_DATA_WIDTH-1:0] 	control;
+   reg [C_S_AXI_DATA_WIDTH-1:0] 	status;
+   
 
     //register read/write logic.
     always @(posedge S_AXI_ACLK) begin
@@ -181,6 +190,14 @@ module lpgbtfpga_with_interface #(
 
     //Allow readback of control
     assign reg_rddin[0] = control;
+   assign reg_rddin[1] = status;
+
+
+   assign status[0] = uplinkrdy_o;
+   assign status[1] = uplinkFEC_o;
+   assign status[3:2] = uplinkEcData_o;
+   assign status[5:4] = uplinkIcData_o;
+   assign status[8:6] = uplinkPhase_o;
 
 
     //Generate control signals from control register.

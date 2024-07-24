@@ -58,12 +58,23 @@ entity lpgbtfpga_zcu102_10g24_top is
       --SFP0_TX_N                                      : out std_logic;
       SFP0_RX_P                                      : in  std_logic;
       SFP0_RX_N                                      : in  std_logic;
+
+
+      -- DEBUG SIGNALS:
+      uplinkEcData_o  : out std_logic_vector(1 downto 0);
+      uplinkIcData_o  : out std_logic_vector(1 downto 0);
+      uplinkPhase_o   : out std_logic_vector(2 downto 0);
+      mgt_txaligned_o : out std_logic;
+      mgt_txphase_o   : out std_logic_vector(6 downto 0);
+      
+
+      -- REGULAR DATA SIGNALS:
       
       clk40_o                                        : out std_logic; --clock for lpgbt frame data 
       uplinkrdy_o                                    : out std_logic; --block sync state
       uplinkUserData_o                               : out std_logic_vector(233 downto 0);
       uplinkRst_i                                    : in  std_logic; --resets the MGT and the rest of the logic
-      unplinkFEC_o                                   : out std_logic; --pulses 1 on frames with bit erros
+      uplinkFEC_o                                   : out std_logic; --pulses 1 on frames with bit erros
       mgt_rxpolarity_i                               : in  std_logic
       -- SFP control:
       ---------------
@@ -294,6 +305,7 @@ architecture behavioral of lpgbtfpga_zcu102_10g24_top is
         signal lpgbtfpga_uplinkUserData_s         : std_logic_vector(229 downto 0);
         signal lpgbtfpga_uplinkEcData_s           : std_logic_vector(1 downto 0);
         signal lpgbtfpga_uplinkIcData_s           : std_logic_vector(1 downto 0);
+        signal lpgbtfpga_uplinkPhase_s            : std_logic_vector(2 downto 0);
         signal lpgbtfpga_uplinkclk_s              : std_logic;
 
         signal lpgbtfpga_mgt_txpolarity_s         : std_logic;
@@ -433,7 +445,7 @@ begin                 --========####   Architecture Body   ####========--
             uplinkReady_o                    => lpgbtfpga_uplinkrdy_s,
 
             -- Fixed-phase uplink CDC operation
-            uplinkPhase_o                    => open, --uplinkPhase_s     ,
+            uplinkPhase_o                    => lpgbtfpga_uplinkPhase_s     ,
             uplinkPhaseCalib_i               => "000", --uplinkPhaseCalib_s,
             uplinkPhaseForce_i               => '0', --uplinkPhaseForce_s,
 
@@ -454,13 +466,18 @@ begin                 --========####   Architecture Body   ####========--
             -- HPTD IP
             mgt_txcaliben_i                  => '0', --lpgbtfpga_mgt_txcaliben_s,
             mgt_txcalib_i                    => "0000000", --lpgbtfpga_mgt_txpicalib_s,                    
-            mgt_txaligned_o                  => open, --lpgbtfpga_mgt_txaligned_s,
+            mgt_txaligned_o                  => open,  --lpgbtfpga_mgt_txaligned_s,
             mgt_txphase_o                    => open --lpgbtfpga_mgt_txpiphase_s
        );
-       
+
+
+    uplinkPhase_o <= lpgbtfpga_uplinkPhase_s;
+    uplinkEcData_o <= lpgbtfpga_uplinkEcData_s;
+    uplinkIcData_o <= lpgbtfpga_uplinkIcData_s;
+    
     uplinkrdy_o <= lpgbtfpga_uplinkrdy_s;
     uplinkUserData_o <= lpgbtfpga_uplinkIcData_s & lpgbtfpga_uplinkEcData_s & lpgbtfpga_uplinkUserData_s;
-    unplinkFEC_o <= upLinkFECCorrectedLatched_s;
+    uplinkFEC_o <= upLinkFECCorrectedLatched_s;
        
     -- Data stimulis
     lpgbtfpga_downlinkEcData_s     <= (others => '1');

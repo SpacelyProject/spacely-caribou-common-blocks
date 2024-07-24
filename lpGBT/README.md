@@ -35,6 +35,13 @@ The input signals and high-speed clock pins are connected to the MGT PHY and ext
 | Register Name       | Reg Width          | R? | W?   | Function |
 | -------------     | -------------------- | ---- | ---- | ------------------------------------ | 
 | control       | {C_S_AXI_DATA_WIDTH}    | Y | Y | Control bits for the lpgbtfpga. control[0] = Uplink Reset. control[1] = MGT Rx Polarity |
+| status       | {C_S_AXI_DATA_WIDTH}    | Y | Y | Status register for the lpgbtfpga. See bit mapping below. |
+
+status[0] = uplinkrdy_o;
+status[1] = uplinkFEC_o;
+status[3:2] = uplinkEcData_o;
+status[5:4] = uplinkIcData_o;
+status[8:6] = uplinkPhase_o;
 
 
 ### I/O Table 
@@ -54,3 +61,5 @@ Note, the AXI bus is always excluded from this table because its presence is ass
 uplinkRst,0x0,0x1,True,True
 
 mgt_rxpolarity,0x0,0x2,True,True
+
+status,0x1,0xffffffff,True,False
