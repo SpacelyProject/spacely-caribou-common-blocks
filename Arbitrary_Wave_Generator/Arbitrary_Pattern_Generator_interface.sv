@@ -1,6 +1,6 @@
 
 module Arbitrary_Pattern_Generator_interface #(
-			    parameter integer NUM_SIG=8,
+			    parameter integer NUM_SIG=14,
 parameter integer NUM_SAMP=128,
 
 	// Width of S_AXI data bus
@@ -12,8 +12,8 @@ parameter integer NUM_SAMP=128,
   input logic  wave_clk,
 input logic  axi_clk,
 input logic  axi_resetn,
-output logic [7:0] output_signals,
-input logic [7:0] input_signals,
+output logic [(NUM_SIG-1):0] output_signals,
+input logic [(NUM_SIG-1):0] input_signals,
 
 
         //////////////////////////////
@@ -165,8 +165,8 @@ axi4lite_interface_top #(
 
 
    logic                  fpga_reg_run;
-logic [7:0] fpga_reg_write_channel;
-logic [7:0] fpga_reg_read_channel;
+logic [(NUM_SIG-1):0] fpga_reg_write_channel;
+logic [(NUM_SIG-1):0] fpga_reg_read_channel;
 logic [31:0] fpga_reg_sample_count;
 logic [31:0] fpga_reg_n_samples;
 logic [7:0] fpga_reg_control;
@@ -189,7 +189,7 @@ logic [2:0] fpga_reg_status;
         else
             fpga_reg_run <= 0;
         if (reg_wrByteStrobe[ADDRESS_write_channel] == 4'b1111)
-            fpga_reg_write_channel <= reg_wrdout[7:0];
+            fpga_reg_write_channel <= reg_wrdout[(NUM_SIG-1):0];
         if (reg_wrByteStrobe[ADDRESS_n_samples] == 4'b1111)
             fpga_reg_n_samples <= reg_wrdout[31:0];
         if (reg_wrByteStrobe[ADDRESS_control] == 4'b1111)

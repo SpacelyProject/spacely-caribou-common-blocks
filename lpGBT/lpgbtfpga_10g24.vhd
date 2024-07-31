@@ -57,6 +57,10 @@ entity lpgbtFpga_10g24 is
         uplinkFECCorrectedLatched_o      : out std_logic;                       --! Uplink FEC corrected error latched (debugging)
 
         uplinkReady_o                    : out std_logic;                       --! Uplink ready status
+
+        uplinkMgtWordDbg                 : out std_logic_vector(31 downto 0);
+
+        mgt_rx_rdy                       : out std_logic;
         
         -- Fixed-phase uplink CDC operation
         uplinkPhase_o                    : out  std_logic_vector(2 downto 0);   --! Phase to check fixed-phase
@@ -493,7 +497,10 @@ begin                 --========####   Architecture Body   ####========--
     uplinkUserData_o <= uplinkData40(229 downto 0);   --! Uplink data (user)
     uplinkEcData_o   <= uplinkData40(231 downto 230); --! Uplink EC field
     uplinkIcData_o   <= uplinkData40(233 downto 232); --! Uplink IC field
-    uplinkReady_o    <= cdc_rx_ready;
+       uplinkReady_o    <= cdc_rx_ready;
+
+       uplinkMgtWordDbg <= uplink_mgtword_s;
+       mgt_rx_rdy <= mgt_rxrdy_s;
 
     --========####   FPGA Transceiver   ####========--
     mgt_inst: xlx_ku_mgt_10g24                         

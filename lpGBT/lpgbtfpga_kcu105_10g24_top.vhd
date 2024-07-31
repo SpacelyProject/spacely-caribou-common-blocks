@@ -66,7 +66,10 @@ entity lpgbtfpga_zcu102_10g24_top is
       uplinkPhase_o   : out std_logic_vector(2 downto 0);
       mgt_txaligned_o : out std_logic;
       mgt_txphase_o   : out std_logic_vector(6 downto 0);
-      
+
+      uplinkMgtWordDbg : out std_logic_vector(31 downto 0);
+
+      mgt_rx_rdy       : out std_logic;
 
       -- REGULAR DATA SIGNALS:
       
@@ -139,6 +142,10 @@ architecture behavioral of lpgbtfpga_zcu102_10g24_top is
             uplinkFECCorrectedLatched_o      : out std_logic;                       --! Uplink FEC corrected error latched (debugging)
     
             uplinkReady_o                    : out std_logic;                       --! Uplink ready status
+
+            uplinkMgtWordDbg                 : out std_logic_vector(31 downto 0);
+
+            mgt_rx_rdy                       : out std_logic;
             
             -- Fixed-phase uplink CDC operation
             uplinkPhase_o                    : out  std_logic_vector(2 downto 0);   --! Phase to check fixed-phase
@@ -443,6 +450,9 @@ begin                 --========####   Architecture Body   ####========--
 			uplinkFECCorrectedLatched_o      => upLinkFECCorrectedLatched_s,
 		
             uplinkReady_o                    => lpgbtfpga_uplinkrdy_s,
+
+            uplinkMgtWordDbg                 => uplinkMgtWordDbg,
+            mgt_rx_rdy                       => mgt_rx_rdy,
 
             -- Fixed-phase uplink CDC operation
             uplinkPhase_o                    => lpgbtfpga_uplinkPhase_s     ,

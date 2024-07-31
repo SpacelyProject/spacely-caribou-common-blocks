@@ -1,5 +1,5 @@
 //Parameters
-PARAMETER NUM_SIG 8
+PARAMETER NUM_SIG 14
 PARAMETER NUM_SAMP 128
 
 //Ports
@@ -12,6 +12,9 @@ PORT input_signals 8 0
 
 
 //Registers
+// NOTE: read_channel and write_channel should actually have their width determined by NUM_SIG
+// as of 7/31/2024, the autogenerator doesn't support parameterized port widths, so just be
+// careful of that if you regenerate this block.
 REGISTER run 1 2
 REGISTER write_channel 8 0
 REGISTER read_channel 8 1

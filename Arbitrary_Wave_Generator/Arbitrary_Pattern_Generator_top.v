@@ -1,6 +1,6 @@
 
 module Arbitrary_Pattern_Generator_top #(
-   parameter integer NUM_SIG=8,
+   parameter integer NUM_SIG=14,
 parameter integer NUM_SAMP=128,
 
 // Width of S_AXI data bus
@@ -13,8 +13,8 @@ parameter integer NUM_SAMP=128,
    input wire  wave_clk,
 input wire  axi_clk,
 input wire  axi_resetn,
-output wire [7:0] output_signals,
-input wire [7:0] input_signals,
+output wire [(NUM_SIG-1):0] output_signals,
+input wire [(NUM_SIG-1):0] input_signals,
    
 
     //////////////////////////////

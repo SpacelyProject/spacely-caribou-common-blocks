@@ -11,16 +11,16 @@ module tb();
    
    
    
-   logic [7:0] write_channel;
-   logic [7:0] read_channel;
+   logic [11:0] write_channel;
+   logic [11:0] read_channel;
    logic [7:0] control;
    
    
 
 
    // I/Os
-   logic [7:0] output_signals;
-   logic [7:0] input_signals;
+   logic [11:0] output_signals;
+   logic [11:0] input_signals;
 
    
    always begin
@@ -35,7 +35,7 @@ module tb();
    end
    
 
-   Arbitrary_Pattern_Generator #(.NUM_SIG(8), .NUM_SAMP(128)) dut (.*);
+   Arbitrary_Pattern_Generator #(.NUM_SIG(12), .NUM_SAMP(128)) dut (.*);
 
 
 

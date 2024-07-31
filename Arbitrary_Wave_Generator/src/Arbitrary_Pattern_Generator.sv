@@ -1,12 +1,12 @@
 //
 //  Arbitrary Digital Pattern Generator
 //
-//  aquinn -- 7/12/2024
+//  aquinn -- 7/31/2024
 //
 
 module Arbitrary_Pattern_Generator 
 #(
-       parameter integer NUM_SIG=8,
+       parameter integer NUM_SIG=14,
        parameter integer NUM_SAMP=128
 ) (
    // Clock for pattern generation
