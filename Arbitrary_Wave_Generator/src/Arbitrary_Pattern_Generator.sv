@@ -52,6 +52,8 @@ module Arbitrary_Pattern_Generator
    
    
    logic 	[31:0]			  n_samples_int;
+   logic 				  write_channel_wrStrobe_delayed;
+   
    
    logic 			triggered, next_triggered;
    assign status = {triggered,state};
@@ -100,7 +102,12 @@ module Arbitrary_Pattern_Generator
       if (~axi_resetn) begin
 	 write_buffer <= 0;
 	 write_buffer_len <= 0;
-	 read_buffer <= 0;
+
+	 //AQ note: don't clear the entire read_buffer here, Vivado freaks out and
+	 //just assigns it to be permanently zero. The user will just have to keep
+	 //track of stale data.
+	 //read_buffer <= 0;
+	 
 	 next_read_sample <= 0;
 	 
       end
@@ -111,9 +118,11 @@ module Arbitrary_Pattern_Generator
 	    write_buffer_len <= 0;
 	    next_read_sample <= 1;
 	    read_channel <= read_buffer[0];
+	    write_channel_wrStrobe_delayed <= 0;
 	 end
 	 else begin
-	    if(write_channel_wrStrobe) begin
+	    write_channel_wrStrobe_delayed <= write_channel_wrStrobe;
+	    if(write_channel_wrStrobe_delayed) begin
 	       //If we don't have room in the buffer, writes fail.
 	       if(write_buffer_len < NUM_SAMP) begin
 		  write_buffer[write_buffer_len] <= write_channel;

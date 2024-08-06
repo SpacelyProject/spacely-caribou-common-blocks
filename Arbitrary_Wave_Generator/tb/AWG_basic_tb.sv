@@ -80,40 +80,12 @@ module tb();
       @(posedge axi_clk); #5;
       write_channel_wrStrobe = 0;
 
-      //Pulse Run 
-      run = 1;
-      @(posedge axi_clk); #5;
       
-      run = 0;
-
-      //Supply some interesting signals to read.
-      @(posedge wave_clk); #5;
-      input_signals = 7'b0101010;
-      @(posedge wave_clk); #5;
-      input_signals = 7'b1010101;
-      @(posedge wave_clk); #5;
-      input_signals = 7'b0101010;
-      @(posedge wave_clk); #5;
-      input_signals = 7'b1010101;
-      @(posedge wave_clk); #5;
-      input_signals = 7'b0000000;
-      @(posedge wave_clk); #5;
-      input_signals = 7'b1111111;
-      @(posedge wave_clk); #5;
-      input_signals = 7'b0;
-
-      //Allow the transaction to complete before trying to read.
-      #2200;
+      // Try reading back 2x times to guarantee it works.
+      readback();
+      readback();
       
-      read_channel_rdStrobe = 1;
-
-      //Wait 15 axi clock cycles, should be enough to read out the data we captured.
-      #150;
       
-      read_channel_rdStrobe = 0;
-
-      #20;
-
       // Engage looping mode
       control = 1;
       //Pulse Run 
@@ -146,5 +118,43 @@ module tb();
    end
 
 
+
+   task readback;
+      
+   //Pulse Run 
+      run = 1;
+      @(posedge axi_clk); #5;
+      
+      run = 0;
+
+      //Supply some interesting signals to read.
+      @(posedge wave_clk); #5;
+      input_signals = 7'b0101010;
+      @(posedge wave_clk); #5;
+      input_signals = 7'b1010101;
+      @(posedge wave_clk); #5;
+      input_signals = 7'b0101010;
+      @(posedge wave_clk); #5;
+      input_signals = 7'b1010101;
+      @(posedge wave_clk); #5;
+      input_signals = 7'b0000000;
+      @(posedge wave_clk); #5;
+      input_signals = 7'b1111111;
+      @(posedge wave_clk); #5;
+      input_signals = 7'b0;
+
+      //Allow the transaction to complete before trying to read.
+      #2200;
+      
+      read_channel_rdStrobe = 1;
+
+      //Wait 15 axi clock cycles, should be enough to read out the data we captured.
+      #150;
+      
+      read_channel_rdStrobe = 0;
+
+      #20;
+   endtask // readback
+   
 
 endmodule // tb
