@@ -7,8 +7,8 @@
 ##==============##
 # 74.25 MHz clock from Si5341B (U69)
 set_property IOSTANDARD LVDS_25 [get_ports USER_CLOCK_P]
-set_property PACKAGE_PIN AK15 [get_ports USER_CLOCK_P]
 set_property IOSTANDARD LVDS_25 [get_ports USER_CLOCK_N]
+set_property PACKAGE_PIN AK15 [get_ports USER_CLOCK_P]
 set_property PACKAGE_PIN AK14 [get_ports USER_CLOCK_N]
 
 ##==========##
@@ -24,8 +24,8 @@ set_property PACKAGE_PIN AK14 [get_ports USER_CLOCK_N]
 
 #CLock from Si570
 # From U56, "Si570 MGT" in the Board User Interface
-set_property PACKAGE_PIN C8 [get_ports SMA_MGT_REFCLK_P]
 set_property PACKAGE_PIN C7 [get_ports SMA_MGT_REFCLK_N]
+set_property PACKAGE_PIN C8 [get_ports SMA_MGT_REFCLK_P]
 
 ## SERIAL LANES:
 ##--------------
@@ -54,3 +54,4 @@ set_property IOSTANDARD LVCMOS18 [get_ports SFP0_TX_DISABLE]
 ##set_property PACKAGE_PIN G27 [get_ports USER_SMA_GPIO_N]
 ##set_property IOSTANDARD LVCMOS18 [get_ports USER_SMA_GPIO_N]
 ##set_property SLEW FAST [get_ports USER_SMA_GPIO_N]
+

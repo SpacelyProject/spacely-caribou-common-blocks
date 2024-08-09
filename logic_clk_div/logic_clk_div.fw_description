@@ -1,0 +1,11 @@
+//Parameters
+PARAMETER COUNTER_BITS 32
+
+//Ports
+PORT master_clk 1 0
+PORT output_clk 1 1
+PORT axi_resetn 1 0
+
+
+//Registers
+REGISTER divider_cycles 32 0

@@ -1,0 +1,5 @@
+-clean
+-access +rwc
+-timescale 1ns/1ps
+logic_clk_div_tb.sv
+../src/logic_clk_div.sv
