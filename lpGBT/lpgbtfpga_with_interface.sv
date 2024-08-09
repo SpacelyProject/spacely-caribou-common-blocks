@@ -14,7 +14,8 @@ module lpgbtfpga_with_interface #(
 
 
   // DEBUG
-  output wire                                 dbg_uplinkMgtWordParity,
+    output wire 			      dbg_uplinkMgtWordParity,
+    output wire [31:0] 			      dbg_uplinkMgtWord, 
 
     //  DATA OUT INTERFACE
 
@@ -183,6 +184,7 @@ module lpgbtfpga_with_interface #(
 
    
    assign dbg_uplinkMgtWordParity = ^uplinkMgtWord;
+   assign dbg_uplinkMgtWord = uplinkMgtWord;
    
 
     //lpgbtfpga control registers

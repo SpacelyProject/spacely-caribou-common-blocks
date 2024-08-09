@@ -1,1 +1,10 @@
 *~
+
+*.dsn
+*.trn
+*.vcd
+
+xrun.history
+xrun.log
+xcelium.d
+.simvision

@@ -13,7 +13,8 @@ module lpgbtfpga_top #(
 
   // DEBUG
 
-    output wire 			      dbg_uplinkMgtWordParity, 
+    output wire 			      dbg_uplinkMgtWordParity,
+    output wire [31:0] 			      dbg_uplinkMgtWord,
 
     //  DATA OUT INTERFACE
 
@@ -103,6 +104,7 @@ module lpgbtfpga_top #(
     .uplinkUserData_o(uplinkUserData_o),
     .uplinkFEC_o(uplinkFEC_o),
 				   .dbg_uplinkMgtWordParity(dbg_uplinkMgtWordParity),
+				   .dbg_uplinkMgtWord(dbg_uplinkMgtWord),
     .S_AXI_ACLK(S_AXI_ACLK),
     .S_AXI_ARESETN(S_AXI_ARESETN),
     .S_AXI_AWADDR(S_AXI_AWADDR),

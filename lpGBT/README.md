@@ -42,6 +42,7 @@ status[1] = uplinkFEC_o;
 status[3:2] = uplinkEcData_o;
 status[5:4] = uplinkIcData_o;
 status[8:6] = uplinkPhase_o;
+status[9] = mgt_rx_rdy;
 
 
 ### I/O Table 
