@@ -12,6 +12,7 @@ module logic_clk_div_top #(
    input wire  master_clk,
 output wire  output_clk,
 input wire  axi_resetn,
+input wire  axi_clk,
    
 
     //////////////////////////////
@@ -90,6 +91,7 @@ logic_clk_div_interface #(
     .master_clk(master_clk),
 .output_clk(output_clk),
 .axi_resetn(axi_resetn),
+.axi_clk(axi_clk),
 
     .S_AXI_ACLK(S_AXI_ACLK),
     .S_AXI_ARESETN(S_AXI_ARESETN),

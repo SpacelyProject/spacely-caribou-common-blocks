@@ -16,6 +16,7 @@ PORT input_signals 8 0
 // as of 7/31/2024, the autogenerator doesn't support parameterized port widths, so just be
 // careful of that if you regenerate this block.
 REGISTER run 1 2
+REGISTER clear 1 2
 REGISTER write_channel 8 0
 REGISTER read_channel 8 1
 REGISTER sample_count 32 1
@@ -29,3 +30,4 @@ REGISTER write_buffer_len 32 1
 REGISTER next_read_sample 32 1
 REGISTER wave_ptr 32 1
 REGISTER status 3 1
+REGISTER dbg_error 32 1

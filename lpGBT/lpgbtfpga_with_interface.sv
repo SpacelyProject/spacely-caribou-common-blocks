@@ -180,7 +180,9 @@ module lpgbtfpga_with_interface #(
         .uplinkEcData_o(uplinkEcData_o),
         .uplinkPhase_o(uplinkPhase_o),
 	.mgt_rx_rdy(mgt_rx_rdy),
-	.uplinkMgtWordDbg(uplinkMgtWord));
+	.uplinkMgtWordDbg(uplinkMgtWord),
+	.mgt_txaligned_o(),  //Tx is unused, don't care about alignment or phase.
+	.mgt_txphase_o());
 
    
    assign dbg_uplinkMgtWordParity = ^uplinkMgtWord;
@@ -207,12 +209,12 @@ module lpgbtfpga_with_interface #(
    assign reg_rddin[1] = status;
 
 
-   assign status[0] = uplinkrdy_o;
-   assign status[1] = uplinkFEC_o;
-   assign status[3:2] = uplinkEcData_o;
-   assign status[5:4] = uplinkIcData_o;
-   assign status[8:6] = uplinkPhase_o;
-   assign status[9] = mgt_rx_rdy;
+   //assign status[0] = uplinkrdy_o;
+   //assign status[1] = uplinkFEC_o;
+   //assign status[3:2] = uplinkEcData_o;
+   //assign status[5:4] = uplinkIcData_o;
+   //assign status[8:6] = uplinkPhase_o;
+   //assign status[9] = mgt_rx_rdy;
    
 
 
@@ -220,7 +222,43 @@ module lpgbtfpga_with_interface #(
     //assign uplinkRst_i = control[0];
     //assign mgt_rxpolarity_i = control[1];
 
+   //CDC Structures for status register
 
+   xpm_cdc_single cdc_uplinkrdy (.dest_out(status[0]),
+				 .dest_clk(S_AXI_ACLK),
+				 .src_in(uplinkrdy_o),
+				 .src_clk(clk40_o));
+   
+   xpm_cdc_single cdc_uplinkFEC (.dest_out(status[1]),
+				 .dest_clk(S_AXI_ACLK),
+				 .src_in(uplinkFEC_o),
+				 .src_clk(clk40_o));
+
+   xpm_cdc_array_single #(.WIDTH(2)) cdc_uplinkEc (.dest_out(status[3:2]),
+				      .dest_clk(S_AXI_ACLK),
+				      .src_in(uplinkEcData_o),
+				      .src_clk(clk40_o));
+   
+   xpm_cdc_array_single #(.WIDTH(2)) cdc_uplinkIc (.dest_out(status[5:4]),
+				      .dest_clk(S_AXI_ACLK),
+				      .src_in(uplinkIcData_o),
+				      .src_clk(clk40_o));
+   
+   xpm_cdc_array_single #(.WIDTH(3)) cdc_uplinkPhase (.dest_out(status[8:6]),
+				      .dest_clk(S_AXI_ACLK),
+				      .src_in(uplinkPhase_o),
+				      .src_clk(clk40_o));
+   
+   
+   xpm_cdc_single cdc_mgt_rx_rdy (.dest_out(status[9]),
+				 .dest_clk(S_AXI_ACLK),
+				 .src_in(mgt_rx_rdy),
+				 .src_clk(clk40_o));
+   
+
+
+   
+   //CDC Structures for control register
     xpm_cdc_single cdc_uplinkRst (.dest_out(uplinkRst_i),
                                   .dest_clk(clk40_o),
                                   .src_clk(S_AXI_ACLK),

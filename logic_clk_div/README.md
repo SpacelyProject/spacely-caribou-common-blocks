@@ -28,6 +28,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 | Register Name       | Register Width            | R?   | W?   | Function                             |
 | -------------       | -------------------- | ---- | ---- | ------------------------------------ |
 |divider_cycles | 32 | Y | Y | Controls the output frequency. output_clk frequency = (master_clk frequency) / (1 + divider_cycles)  |
+|divider_rstn | 1 | Y | Y | Active-low reset for the divider. When the divider is reset, output_clk = master_clk |
 
 
 
@@ -38,6 +39,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 |master_clk| 1b input | master_clk | Input clock |
 |output_clk| 1b output | maser_clk | Output clock |
 |axi_resetn| 1b input | axi_clk | Connect to AXI_ARESETN |
+|axi_clk| 1b input | axi_clk | Connect to AXI_ACLK |
 
 
 
@@ -51,5 +53,5 @@ Note: Assumes an AXI data width of 32b
 
 divider_cycles,0x0,0xffffffff,True,True
 
-
+divider_rstn,0x4,0x1,True,True
 

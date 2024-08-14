@@ -31,15 +31,16 @@ set_property PACKAGE_PIN C8 [get_ports SMA_MGT_REFCLK_P]
 ##--------------
 
 # Use of SFP
-set_property PACKAGE_PIN E4 [get_ports SFP0_TX_P]
-set_property PACKAGE_PIN E3 [get_ports SFP0_TX_N]
-set_property PACKAGE_PIN D2 [get_ports SFP0_RX_P]
-set_property PACKAGE_PIN D1 [get_ports SFP0_RX_N]
+## Note 8/13/2024 -- SFP_TX is unused
+#set_property PACKAGE_PIN E4 [get_ports SFP0_TX_P]
+#set_property PACKAGE_PIN E3 [get_ports SFP0_TX_N]
+#set_property PACKAGE_PIN D2 [get_ports SFP0_RX_P]
+#set_property PACKAGE_PIN D1 [get_ports SFP0_RX_N]
 
 ## SFP CONTROL:
 ##-------------
-set_property PACKAGE_PIN A12 [get_ports SFP0_TX_DISABLE]
-set_property IOSTANDARD LVCMOS18 [get_ports SFP0_TX_DISABLE]
+#set_property PACKAGE_PIN A12 [get_ports SFP0_TX_DISABLE]
+#set_property IOSTANDARD LVCMOS18 [get_ports SFP0_TX_DISABLE]
 
 ##====================##
 ## SIGNALS FORWARDING ##
@@ -54,4 +55,5 @@ set_property IOSTANDARD LVCMOS18 [get_ports SFP0_TX_DISABLE]
 ##set_property PACKAGE_PIN G27 [get_ports USER_SMA_GPIO_N]
 ##set_property IOSTANDARD LVCMOS18 [get_ports USER_SMA_GPIO_N]
 ##set_property SLEW FAST [get_ports USER_SMA_GPIO_N]
+
 

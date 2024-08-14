@@ -21,12 +21,16 @@ module Arbitrary_Pattern_Generator
    input logic [31:0] 		n_samples, //Number of samples to take in one shot
    output logic [31:0] 		sample_count, //Number of total samples taken so far.
    input logic [7:0] 		control,
+   output logic [31:0]          dbg_error,
    
    // Custom strobe triggers
    // -- asserted when write_channel is written to.
    input logic 			write_channel_wrStrobe,
    // -- asserted when read_channel is read from.
    input logic 			read_channel_rdStrobe,
+
+   // Asserted to clear the content of read/write registers.
+   input logic 			clear,
    
    // External I/O
    output logic [(NUM_SIG-1):0] output_signals,
@@ -48,21 +52,29 @@ module Arbitrary_Pattern_Generator
 			    DONE=2
 			    } FSM_State;
 
-   FSM_State state;
+   FSM_State state, state_axi;
    
    
    logic 	[31:0]			  n_samples_int;
-   logic 				  write_channel_wrStrobe_delayed;
+   logic 				  prev_wrStrobe, prev_prev_wrStrobe;
+   logic 				  prev_rdStrobe, prev_prev_rdStrobe;
+
+   logic 				  double_rdStrobe;
+   logic 				  double_wrStrobe;
    
    
-   logic 			triggered, next_triggered;
-   assign status = {triggered,state};
+   
+   logic 			triggered, next_triggered, triggered_wave_clk;
+   assign status = {triggered,state_axi};
 
    logic [(NUM_SAMP-1):0] [(NUM_SIG-1):0] write_buffer;
    logic [(NUM_SAMP-1):0] [(NUM_SIG-1):0] read_buffer;
    logic 				  loop;
 
    assign loop = control[0];
+
+   assign double_rdStrobe = prev_rdStrobe && prev_prev_rdStrobe;
+   assign double_wrStrobe = prev_wrStrobe && prev_prev_wrStrobe;
    
 
 
@@ -90,7 +102,7 @@ module Arbitrary_Pattern_Generator
    always_comb begin
       if (run)
 	next_triggered = 1'b1;
-      else if (state == DONE)
+      else if (state_axi == DONE)
 	next_triggered = 1'b0;
       else
 	next_triggered = triggered;
@@ -102,45 +114,127 @@ module Arbitrary_Pattern_Generator
       if (~axi_resetn) begin
 	 write_buffer <= 0;
 	 write_buffer_len <= 0;
+	 prev_wrStrobe <= 0;
+	 prev_prev_wrStrobe <= 0;
+	 prev_rdStrobe <= 0;
+	 prev_prev_rdStrobe <= 0;
+	 dbg_error <= 0;
+	 read_channel <= 0;
 
-	 //AQ note: don't clear the entire read_buffer here, Vivado freaks out and
-	 //just assigns it to be permanently zero. The user will just have to keep
-	 //track of stale data.
-	 //read_buffer <= 0;
+	 //AQ note: don't clear the entire read_buffer in the axi_clk domain, Vivado freaks out and
+	 //just assigns it to be permanently zero.
 	 
-	 next_read_sample <= 0;
+	 next_read_sample <= 1;
 	 
       end
       else begin
-	 //If we are in the DONE state, we reset write_buffer_len (can write new data)
-	 //and reset next_read_sample (there's new data available to read)
-	 if(state == DONE) begin
+
+	 //Capture / debounce logic for strobes
+	 prev_wrStrobe <= write_channel_wrStrobe;
+	 prev_prev_wrStrobe <= prev_wrStrobe;
+	 prev_rdStrobe <= read_channel_rdStrobe;
+	 prev_prev_rdStrobe <= prev_rdStrobe;
+	 
+
+	 if(clear) begin
+	    write_buffer <= 0;
 	    write_buffer_len <= 0;
-	    next_read_sample <= 1;
-	    read_channel <= read_buffer[0];
-	    write_channel_wrStrobe_delayed <= 0;
-	 end
-	 else begin
-	    write_channel_wrStrobe_delayed <= write_channel_wrStrobe;
-	    if(write_channel_wrStrobe_delayed) begin
-	       //If we don't have room in the buffer, writes fail.
-	       if(write_buffer_len < NUM_SAMP) begin
-		  write_buffer[write_buffer_len] <= write_channel;
-		  write_buffer_len <= write_buffer_len + 1;
-	       end
-	    end
-	    if(read_channel_rdStrobe) begin
-	       read_channel <= read_buffer[next_read_sample];
-	       if(next_read_sample < NUM_SAMP)
-		 next_read_sample <= next_read_sample + 1;
-	    end
-	    else
-	      read_channel <= read_channel;
 	    
-	 end // else: !if(state == DONE)
+	    //read_buffer <= 0;
+	    read_channel <= 0;
+	    next_read_sample <= 1;
+	    dbg_error <= 0;
+	    
+	 end else begin
+	    
+	    dbg_error <= dbg_error | double_wrStrobe | double_rdStrobe << 1;
+	    
+	 
+	    //If we are in the DONE state, we reset write_buffer_len (can write new data)
+	    //and reset next_read_sample (there's new data available to read)
+	    if(state_axi == DONE) begin
+	       write_buffer_len <= 0;
+	       next_read_sample <= 1;
+	       read_channel <= read_buffer[0];
+	       
+	    end
+	    else begin
+	       //One-cycle debounce logic: if prev strobe was also high, we don't do it again.
+	       //For wrStrobe, we also delay everything by 1 cycle to make sure the user's
+	       //newly-entered write data gets processed.
+	       if(prev_wrStrobe && !(prev_prev_wrStrobe)) begin
+		  //If we don't have room in the buffer, writes fail.
+		  if(write_buffer_len < NUM_SAMP) begin
+		     write_buffer[write_buffer_len] <= write_channel;
+		     write_buffer_len <= write_buffer_len + 1;
+		  end
+	       end
+	       if(read_channel_rdStrobe && !(prev_rdStrobe)) begin
+		  read_channel <= read_buffer[next_read_sample];
+		  if(next_read_sample < NUM_SAMP)
+		    next_read_sample <= next_read_sample + 1;
+	       end
+	       else
+		 read_channel <= read_channel;
+	       
+	    end // else: !if(state == DONE)
+	 end // else: !if(clear)
       end // else: !if(~axi_resetn)
    end // always_ff @ (posedge axi_clk, negedge axi_resetn)
    
+
+   // CDC Considerations for AWG
+   //
+   // wave_clk -> axi_clk:
+   // The only signals which feed back from the wave_clk domain
+   // to the AXI domain are:
+   // (1) state -- to tell when we can read the read_buffer
+   // (2) read_buffer -- to return other data.
+   // (3) (For debug only, not expected to be timing-correct) wave_ptr and sample_count
+   //
+   // state should get a CDC to ensure no false activity.
+   // read_buffer is so large that putting a CDC on it would be impractical. Instead, we 
+   // mandate that read_buffer can only be safely read when state = IDLE. Same for wave_ptr
+   // and sample_count. (In this case, it is the same as if wave_clk is not running.)
+   //
+   // axi_clk -> wave_clk:
+   // The only signal which should travel in this direction is triggered. We can definitely CDC it,
+   // the extra latency is small.
+
+`ifndef NO_CDC
+   xpm_cdc_array_single #(
+   .DEST_SYNC_FF(4),   // DECIMAL; range: 2-10
+   .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
+   .SIM_ASSERT_CHK(0), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
+   .SRC_INPUT_REG(1),  // DECIMAL; 0=do not register input, 1=register input
+   .WIDTH(2)           // DECIMAL; range: 1-1024
+)
+xpm_cdc_array_single_inst (
+   .dest_out(state_axi), // WIDTH-bit output: src_in synchronized to the destination clock domain. This
+                        // output is registered.
+
+   .dest_clk(axi_clk), // 1-bit input: Clock signal for the destination clock domain.
+   .src_clk(wave_clk),   // 1-bit input: optional; required when SRC_INPUT_REG = 1
+   .src_in(state)      // WIDTH-bit input: Input single-bit array to be synchronized to destination clock
+                        // domain. It is assumed that each bit of the array is unrelated to the others. This
+                        // is reflected in the constraints applied to this macro. To transfer a binary value
+                        // losslessly across the two clock domains, use the XPM_CDC_GRAY macro instead.
+
+);
+
+   xpm_cdc_single cdc_triggered (.dest_out(triggered_wave_clk),
+                                  .dest_clk(wave_clk),
+                                  .src_clk(axi_clk),
+                                  .src_in(triggered_axi_clk));
+
+
+`else
+
+   assign state_axi = state;
+   assign triggered_wave_clk = triggered;
+   
+
+`endif 
 
 
    //ARBITRARY WAVE TRANSACTION LOGIC
@@ -150,7 +244,7 @@ module Arbitrary_Pattern_Generator
       // If not triggered, status is idle.
       // If we are triggered, status is transaction, unless we're
       // at the very last bit of the transaction in which case status is done.
-      if(~triggered) 
+      if(~triggered_wave_clk) 
 	state <= IDLE;
       else begin 
 	 if (state == TRANSACTION && !loop && (wave_ptr >= n_samples_int-1))

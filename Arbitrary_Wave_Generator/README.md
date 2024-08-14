@@ -13,6 +13,32 @@ Operation:
 5. When status returns to IDLE (0), the transaction has completed and sampled inputs can be read from the read buffer.
 6. The user sequentially reads N times from read_channel to get their samples. 
 
+### Considerations for Timing Closure
+
+This block operates with two asynchronous clock domains: axi_clk and wave_clk.
+
+#### AXI Read Paths
+
+CDC Paths: read_buffer -> read_channel, sample_count -> axi_rdata, wave_ptr -> axi_rdata
+
+By user contract, read_buffer, sample_count, and wave_ptr may only be safely read over AXI when the APG state is idle. In this situation, the values in the wave_clk domain are static, so no CDC is required. Vivado identifies this as a Clock Enable Controlled CDC structure (CDC-15). Ignore CDC warnings which match the following rules:
+
+SOURCE CONTAINS Arbitrary_Pattern_Generator_int/sample_count_reg AND DEST CONTAINS axi_rdata_reg AND CDC_ID CONTAINS CDC-15
+SOURCE CONTAINS Arbitrary_Pattern_Generator_int/read_buffer_reg AND DEST CONTAINS read_channel_reg AND CDC_ID CONTAINS CDC-15
+SOURCE CONTAINS Arbitrary_Pattern_Generator_int/wave_ptr_reg AND DEST CONTAINS axi_rdata_reg AND CDC_ID CONTAINS CDC-15
+
+#### AXI Control Paths
+
+CDC Paths: control -> wave_ptr/state, n_samples -> wave_ptr/state, write_buffer -> output_signals
+
+By user contract, the control, n_samples, and write_buffer registers may only be safely edited when the APG state is idle. They must be held static when the wave_clk domain is in the TRANSACTION state, so no CDC is required. Ignore CDC warnings which match the following rules:
+
+SOURCE CONTAINS Arbitrary_Pattern_Generator_interface_inst/fpga_reg_n_samples_reg DEST CONTAINS state_reg
+SOURCE CONTAINS Arbitrary_Pattern_Generator_interface_inst/fpga_reg_n_samples_reg DEST CONTAINS wave_ptr_reg
+SOURCE CONTAINS Arbitrary_Pattern_Generator_interface_inst/fpga_reg_control_reg DEST CONTAINS state_reg
+SOURCE CONTAINS Arbitrary_Pattern_Generator_interface_inst/fpga_reg_control_reg DEST CONTAINS wave_ptr_reg
+SOURCE CONTAINS /Arbitrary_Pattern_Generator_int/write_buffer_reg DEST CONTAINS output_signals_reg
+
 
 ## Configurable Parameters
 
@@ -39,6 +65,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 | Register Name       | Register Width            | R?   | W?   | Function                             |
 | -------------       | -------------------- | ---- | ---- | ------------------------------------ |
 |run | 1 | N | Y | Write "1" to trigger waveform send/receive transaction |
+|clear| 1 | N | Y | Write "1" to clear stored data in the write buffer |
 |write_channel | NUM_SIG | Y | Y | Write waveform data samples to this register in sequential order |
 |read_channel | NUM_SIG | Y | N | After transaction is complete, read samples sequentially from this register. |
 |sample_count | 32 | Y | N | Running count of the total number of samples acquired by this block since reset (for debug) |
@@ -48,6 +75,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 |wave_ptr | 32 | Y | N | (Debug) current sample index being sent/received |
 |status | 3 | Y | N | (Debug) Status = {triggered? (1b), sm_status (2b)}. sm_status = IDLE (0), TRANSACTION (1), or DONE (2) |
 |control | 8 | Y | Y | Control register. Bit 0 = Loopback; all other bits reserved. |
+|dbg_error | 32 | Y | N | DEBUG register. Reports possible timing glitches. Ordinary users should disregard this register, if needed see source code for details. |
 
 
 ### I/O Table 
@@ -89,6 +117,10 @@ next_read_sample,0x1c,0xffffffff,True,False
 wave_ptr,0x20,0xffffffff,True,False
 
 status,0x24,0x7,True,False
+
+clear,0x28,0x1,False,True
+
+dbg_error,0x2c,0xffffffff,True,False
 
 
 

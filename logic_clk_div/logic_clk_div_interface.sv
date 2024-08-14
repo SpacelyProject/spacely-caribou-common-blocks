@@ -11,6 +11,7 @@ module logic_clk_div_interface #(
   input logic  master_clk,
 output logic  output_clk,
 input logic  axi_resetn,
+input logic  axi_clk,
 
 
         //////////////////////////////
@@ -85,11 +86,12 @@ input logic  axi_resetn,
    /////////////////////////////////////////////
 
    //Total number of AXI-mapped registers in this firmware block.
-localparam integer FPGA_REGISTER_N = 1;
+localparam integer FPGA_REGISTER_N = 2;
 
 // Addresses of all AXI-mapped registers in this firmware block.
 
    localparam byte unsigned ADDRESS_divider_cycles = 0;
+localparam byte unsigned ADDRESS_divider_rstn = 1;
 
 /*localparam byte unsigned FPGA_SPI_WR = 0;
 localparam byte unsigned FPGA_SPI_ADDRESS = 1;
@@ -147,28 +149,35 @@ axi4lite_interface_top #(
 
 
    logic [31:0] fpga_reg_divider_cycles;
+logic                  fpga_reg_divider_rstn;
 
 
    always_ff @(posedge S_AXI_ACLK) begin
     if (~S_AXI_ARESETN) begin
         fpga_reg_divider_cycles <= '0;
+        fpga_reg_divider_rstn <= '0;
     end
     else begin
         if (reg_wrByteStrobe[ADDRESS_divider_cycles] == 4'b1111)
             fpga_reg_divider_cycles <= reg_wrdout[31:0];
+        if (reg_wrByteStrobe[ADDRESS_divider_rstn] == 4'b1111)
+            fpga_reg_divider_rstn <= reg_wrdout[0];
     end
 end //always_ff 
 
 
    assign reg_rddin[ADDRESS_divider_cycles] = fpga_reg_divider_cycles;
+assign reg_rddin[ADDRESS_divider_rstn] = fpga_reg_divider_rstn;
 
 
    logic_clk_div #(
 .COUNTER_BITS(COUNTER_BITS))logic_clk_div_int (
 .divider_cycles(fpga_reg_divider_cycles),
+.divider_rstn(fpga_reg_divider_rstn),
 .master_clk(master_clk),
 .output_clk(output_clk),
-.axi_resetn(axi_resetn));
+.axi_resetn(axi_resetn),
+.axi_clk(axi_clk));
 
   
 endmodule

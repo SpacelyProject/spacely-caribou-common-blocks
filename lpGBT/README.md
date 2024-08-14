@@ -4,6 +4,10 @@
 This block decodes transmissions from lpgbt-based transmitters over SFP+
 ((TBC))
 
+CONFIGURATION OPTIONS:
+* This block operates at 10.24 Gbps (this is hard-coded in the file lpgbtfpga_10g24.vhd)
+* Other configuration is set in lpgbtfpga_kcu105_10g24_top.vhd -- default is FEC5, with no components bypassed.
+
 ### Configurable Parameters
 
 | Parameter     | Default Value	          | Function  |
@@ -24,6 +28,7 @@ Steps to include all source files in your Vivado project:
 The output pins in the I/O table below provide the decoded data from the lpgbt at 40MHz. These should be connected to a second PL block which can process this data.
 
 The input signals and high-speed clock pins are connected to the MGT PHY and external Si5341B oscillator chip. The exact connections are defined in the constraints file lpGBT/constraints/kcu105_physical.xdc
+
 
 ### Block Diagram
 

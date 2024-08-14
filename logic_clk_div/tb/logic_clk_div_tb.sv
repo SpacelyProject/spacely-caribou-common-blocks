@@ -1,9 +1,15 @@
+//Exclude Xilinx CDC modules to enable simple functional-domain simulation.
+`define NO_CDC
+
 module tb();
 
 
 
    logic master_clk;
    logic axi_resetn;
+   logic divider_rstn;
+   logic axi_clk;
+   
    logic output_clk;
    logic [7:0] divider_cycles;
    
@@ -20,14 +26,14 @@ module tb();
 
 
    initial begin
-      axi_resetn = 0;
+      divider_rstn = 0;
       master_clk = 0;
       divider_cycles = 0;
 
-      //(1) CHECK that output_clk is free-running even during axi reset.
+      //(1) CHECK that output_clk is free-running even during reset.
       #100;
 
-      axi_resetn = 1;
+      divider_rstn = 1;
 
       #100;
 
