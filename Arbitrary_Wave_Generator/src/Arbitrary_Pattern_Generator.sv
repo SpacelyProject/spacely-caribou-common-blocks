@@ -1,7 +1,7 @@
 //
 //  Arbitrary Digital Pattern Generator
 //
-//  aquinn -- 7/31/2024
+//  aquinn -- 8/14/2024
 //
 
 module Arbitrary_Pattern_Generator 
@@ -192,7 +192,9 @@ module Arbitrary_Pattern_Generator
    // (2) read_buffer -- to return other data.
    // (3) (For debug only, not expected to be timing-correct) wave_ptr and sample_count
    //
-   // state should get a CDC to ensure no false activity.
+   // state should get a CDC to ensure no false transitions. Because simply doing two parallel
+   // 2b FFs does not guarantee glitch-free transitions, I implemented custom logic (see below).
+   //
    // read_buffer is so large that putting a CDC on it would be impractical. Instead, we 
    // mandate that read_buffer can only be safely read when state = IDLE. Same for wave_ptr
    // and sample_count. (In this case, it is the same as if wave_clk is not running.)
@@ -202,25 +204,12 @@ module Arbitrary_Pattern_Generator
    // the extra latency is small.
 
 `ifndef NO_CDC
-   xpm_cdc_array_single #(
-   .DEST_SYNC_FF(4),   // DECIMAL; range: 2-10
-   .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
-   .SIM_ASSERT_CHK(0), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
-   .SRC_INPUT_REG(1),  // DECIMAL; 0=do not register input, 1=register input
-   .WIDTH(2)           // DECIMAL; range: 1-1024
-)
-xpm_cdc_array_single_inst (
-   .dest_out(state_axi), // WIDTH-bit output: src_in synchronized to the destination clock domain. This
-                        // output is registered.
 
-   .dest_clk(axi_clk), // 1-bit input: Clock signal for the destination clock domain.
-   .src_clk(wave_clk),   // 1-bit input: optional; required when SRC_INPUT_REG = 1
-   .src_in(state)      // WIDTH-bit input: Input single-bit array to be synchronized to destination clock
-                        // domain. It is assumed that each bit of the array is unrelated to the others. This
-                        // is reflected in the constraints applied to this macro. To transfer a binary value
-                        // losslessly across the two clock domains, use the XPM_CDC_GRAY macro instead.
-
-);
+   glitchless_2b_cdc cdc_state (.dest_out(state_axi),
+				.dest_clk(axi_clk),
+				.src_in(state),
+				.src_clk(wave_clk));
+   
 
    xpm_cdc_single cdc_triggered (.dest_out(triggered_wave_clk),
                                   .dest_clk(wave_clk),
@@ -280,3 +269,75 @@ xpm_cdc_array_single_inst (
 
 endmodule // Arbitrary_Pattern_Generator
 
+
+// glitchless_2b_cdc
+// THEORY:
+// The xpm_cdc_array_single guarantees that the 2-b signal under consideration is latched successfully
+// into the dest_clk domain, but it doesn't guarantee that all the bits arrive at the same time.
+// To ensure that, we re-encode the bitstream into a 4-bit one's-hot space and transmit that way.
+//
+// Assume that (a,b) are the bits for the two states we are transitioning between. Thus the transition is
+// (1,0) -> (0,1) or vice versa. We are not guaranteed that the two bits will flip together; we could
+// easily pass through (0,0) or (1,1), but that's okay because in 1's-hot those are invalid states,
+// and the capture flop will just wait for a valid state before changing the output. Meanwhile bit (c)
+// for a third state will never flip at all. So there can be no glitches.
+//
+// NOTE: This assumes that the src_clk is slower than the dest_clk... or at least that the rate of
+// src state transitions is slower than dest_clk. But if this is not the case, it'll be
+// really problematic to cross from src to dest anyhow. 
+module glitchless_2b_cdc(
+			 input logic [1:0]  src_in,
+			 input logic 	    src_clk,
+			 output logic [1:0] dest_out,
+			 input logic 	    dest_clk);
+
+
+   logic [3:0] 				    src_enc, dest_enc;
+   
+   
+   //Source Encoding
+   always_comb begin
+      case (src_in)
+	2'b00: src_enc = 4'b0001;
+	2'b01: src_enc = 4'b0010;
+	2'b10: src_enc = 4'b0100;
+	2'b11: src_enc = 4'b1000;
+	
+      endcase // case (src_in)
+   end
+
+    xpm_cdc_array_single #(
+   .DEST_SYNC_FF(4),   // DECIMAL; range: 2-10
+   .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
+   .SIM_ASSERT_CHK(0), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
+   .SRC_INPUT_REG(1),  // DECIMAL; 0=do not register input, 1=register input
+   .WIDTH(4)           // DECIMAL; range: 1-1024
+)
+xpm_cdc_array_single_inst (
+   .dest_out(dest_enc), // WIDTH-bit output: src_in synchronized to the destination clock domain. This
+                        // output is registered.
+
+   .dest_clk(dest_clk), // 1-bit input: Clock signal for the destination clock domain.
+   .src_clk(src_clk),   // 1-bit input: optional; required when SRC_INPUT_REG = 1
+   .src_in(src_enc)      // WIDTH-bit input: Input single-bit array to be synchronized to destination clock
+                        // domain. It is assumed that each bit of the array is unrelated to the others. This
+                        // is reflected in the constraints applied to this macro. To transfer a binary value
+                        // losslessly across the two clock domains, use the XPM_CDC_GRAY macro instead.
+
+);
+
+   //Dest Decoding
+   always_ff @(posedge dest_clk) begin
+      case (dest_enc)
+	4'b0001: dest_out <= 2'b00;
+	4'b0010: dest_out <= 2'b01;
+	4'b0100: dest_out <= 2'b10;
+	4'b1000: dest_out <= 2'b11;
+	default: dest_out <= dest_out;
+
+      endcase // case (dest_enc)
+   end
+
+
+
+endmodule // glitchless_2b_cdc

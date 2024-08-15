@@ -1,11 +1,20 @@
 # logic_clk_div
 
-### Block Function
+## Block Function
 A logic-defined clock divider which is reprogrammable using AXI at runtime.
 
 output_clk frequency = (master_clk frequency) / (1 + divider_cycles)
 
-### Configurable Parameters
+### Considerations for Timing Closure
+
+Both divider_cycles and divider_rstn cross from the axi_clk to the master_clk domain.
+
+By user contract, divider_cycles may not be safely changed while the divider is running -- i.e. divider_rstn must be asserted. This means it is okay that divider_cycles uses a simple array CDC, and CDC warnings that match the following can be waived:
+
+SOURCE CONTAINS logic_clk_div_int/cdc_divcyc AND DEST CONTAINS logic_clk_div_int/cdc_divcyc AND CDC_ID CONTAINS CDC-6
+
+
+## Configurable Parameters
 
 | Parameter     | Default Value	          | Function  |
 | ------------- | ----------------------- | ------- |
@@ -14,16 +23,16 @@ output_clk frequency = (master_clk frequency) / (1 + divider_cycles)
 |COUNTER_BITS | 32 | Number of bits in the internal counter of the clock divider |
 
 
-### How to Instantiate
+## How to Instantiate
 logic_clk_div_top.v is a verilog wrapper around this block, which allows it to be directly instantiated in a Vivado block diagram, and connected to the main AXI bus. Connect other I/Os as appropriate based on the I/O table below.
 
 Note that this block requires axi4lite_interface_top, which is found in the axi4lite_interface folder of spacely-caribou-common-blocks.
 
 
-### Block Diagram
+## Block Diagram
 (TODO: Create a useful block diagram which includes all the major sub-blocks of this firmware block.)
 
-### AXI Memory Table 
+## AXI Memory Table 
 
 | Register Name       | Register Width            | R?   | W?   | Function                             |
 | -------------       | -------------------- | ---- | ---- | ------------------------------------ |
@@ -32,7 +41,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 
 
-### I/O Table 
+## I/O Table 
 
 | Signal Name       | Bit Width + Direction          | Clock   | I/O Function and Connection Guidance |
 | -------------     | ------------------------------ | ------- | ------------------------------------ |
@@ -45,7 +54,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 Note, the AXI bus is always excluded from this table because its presence is assumed by the memory architecture.
 
-### mem_map.txt
+## mem_map.txt
 
 Note: Assumes an AXI data width of 32b
 

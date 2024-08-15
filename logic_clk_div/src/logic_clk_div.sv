@@ -46,7 +46,7 @@ module logic_clk_div
    //Note that if the input clock is free-running, and divide_factor
    //resets to zero, then the output clock will be free-running.
    always_comb begin
-      if(~divider_rstn)
+      if(~divider_rstn_cdc)
 	output_clk = master_clk;
       else
 	output_clk = divided_clk;
@@ -54,8 +54,8 @@ module logic_clk_div
 
    
    //Divider logic
-   always @(posedge master_clk, negedge divider_rstn) begin
-      if(~divider_rstn) begin
+   always @(posedge master_clk, negedge divider_rstn_cdc) begin
+      if(~divider_rstn_cdc) begin
 	 counter <= 0;
 	 last_transition <= 0;
 	 divided_clk <= 0;

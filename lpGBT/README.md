@@ -1,14 +1,20 @@
 # LPGBTFPGA
 
-### Block Function
+## Block Function
 This block decodes transmissions from lpgbt-based transmitters over SFP+
 ((TBC))
 
-CONFIGURATION OPTIONS:
+### Configuration Options
 * This block operates at 10.24 Gbps (this is hard-coded in the file lpgbtfpga_10g24.vhd)
 * Other configuration is set in lpgbtfpga_kcu105_10g24_top.vhd -- default is FEC5, with no components bypassed.
 
-### Configurable Parameters
+### Considerations for Timing Closure
+
+Both the control and status registers cross clock domains. Multi-bit signals which are displayed in the status register cross clock domains using simple 2FF CDC without handshaking because no downstream circuits depend on them. (There is a small chance of incorrect values appearing in the status register in the few clock cycles after a transition on these signals.) Ignore CDC warnings which match this rule:
+
+SOURCE CONTAINS lpgbtfpga_top_0/inst/inst1/cdc_ AND DEST CONTAINS lpgbtfpga_top_0/inst/inst1/cdc_ AND CDC_ID CONTAINS CDC-6
+
+## Configurable Parameters
 
 | Parameter     | Default Value	          | Function  |
 | ------------- | ----------------------- | ------- |
@@ -30,12 +36,12 @@ The output pins in the I/O table below provide the decoded data from the lpgbt a
 The input signals and high-speed clock pins are connected to the MGT PHY and external Si5341B oscillator chip. The exact connections are defined in the constraints file lpGBT/constraints/kcu105_physical.xdc
 
 
-### Block Diagram
+## Block Diagram
 
 ((To be added))
 
 
-### AXI Memory Table 
+## AXI Memory Table 
 
 | Register Name       | Reg Width          | R? | W?   | Function |
 | -------------     | -------------------- | ---- | ---- | ------------------------------------ | 
@@ -50,7 +56,7 @@ status[8:6] = uplinkPhase_o;
 status[9] = mgt_rx_rdy;
 
 
-### I/O Table 
+## I/O Table 
 
 | Signal Name       | Bit width + direction          | Clock   | I/O Function and connection guidance |
 | -------------     | ------------------------------ | ------- | ------------------------------------ | 
@@ -60,7 +66,7 @@ status[9] = mgt_rx_rdy;
 
 Note, the AXI bus is always excluded from this table because its presence is assumed by the memory architecture.
 
-### mem_map.txt
+## mem_map.txt
 
 *BASE (Base IP Address)
 

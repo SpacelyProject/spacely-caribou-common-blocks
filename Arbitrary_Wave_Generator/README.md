@@ -39,6 +39,12 @@ SOURCE CONTAINS Arbitrary_Pattern_Generator_interface_inst/fpga_reg_control_reg 
 SOURCE CONTAINS Arbitrary_Pattern_Generator_interface_inst/fpga_reg_control_reg DEST CONTAINS wave_ptr_reg
 SOURCE CONTAINS /Arbitrary_Pattern_Generator_int/write_buffer_reg DEST CONTAINS output_signals_reg
 
+#### State and Trigger Paths
+
+Trigger is generated in the AXI domain and crosses to the wave_clk domain to trigger updates in the state of the FSM. The state is then fed back to the AXI domain to determine when it is safe to talk to this block over the AXI and affects storage of the waveforms. Both signals must implement correct CDC. Trigger is a single-bit signal which uses single-bit CDC. State[1:0] is a two-bit signal; to ensure correct simultaneous arrival of these two bits, a custom 2b glitchless CDC is implemented. The Vivado CDC checker is not able to fully verify the correctness of this custom CDC, so we can waive warnings which match the following rules:
+
+SOURCE CONTAINS Arbitrary_Pattern_Generator_int/cdc_state AND DEST CONTAINS Arbitrary_Pattern_Generator_int/cdc_state AND CDC_ID CONTAINS CDC-6
+
 
 ## Configurable Parameters
 
