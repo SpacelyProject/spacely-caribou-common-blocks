@@ -214,7 +214,7 @@ module Arbitrary_Pattern_Generator
    xpm_cdc_single cdc_triggered (.dest_out(triggered_wave_clk),
                                   .dest_clk(wave_clk),
                                   .src_clk(axi_clk),
-                                  .src_in(triggered_axi_clk));
+                                  .src_in(triggered));
 
 
 `else
@@ -310,7 +310,7 @@ module glitchless_2b_cdc(
    .DEST_SYNC_FF(4),   // DECIMAL; range: 2-10
    .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
    .SIM_ASSERT_CHK(0), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
-   .SRC_INPUT_REG(1),  // DECIMAL; 0=do not register input, 1=register input
+   .SRC_INPUT_REG(0),  // DECIMAL; 0=do not register input, 1=register input
    .WIDTH(4)           // DECIMAL; range: 1-1024
 )
 xpm_cdc_array_single_inst (
@@ -318,6 +318,8 @@ xpm_cdc_array_single_inst (
                         // output is registered.
 
    .dest_clk(dest_clk), // 1-bit input: Clock signal for the destination clock domain.
+   
+   //UNUSED but keep here in case we need to make a change.
    .src_clk(src_clk),   // 1-bit input: optional; required when SRC_INPUT_REG = 1
    .src_in(src_enc)      // WIDTH-bit input: Input single-bit array to be synchronized to destination clock
                         // domain. It is assumed that each bit of the array is unrelated to the others. This
