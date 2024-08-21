@@ -15,7 +15,7 @@ module lpgbtfpga_with_interface #(
 
   // DEBUG
     output wire 			      dbg_uplinkMgtWordParity,
-    output wire [31:0] 			      dbg_uplinkMgtWord, 
+    output wire [31:0] 			      dbg_uplinkMgtWord,
 
     //  DATA OUT INTERFACE
 
@@ -94,9 +94,9 @@ module lpgbtfpga_with_interface #(
 
 );
 
-    //NOTE: We don't actually need 2x registers for this block. 
+    //NOTE: We don't actually need 2x registers for this block.
     //But if you try to instantiate a multi-bit array where it only has one bit,
-    //it makes Vivado uncomfortable. 
+    //it makes Vivado uncomfortable.
 
     wire [C_S_AXI_DATA_WIDTH-1:0] reg_wrdout;
 
@@ -151,16 +151,16 @@ module lpgbtfpga_with_interface #(
    //Signals that are supplied from AXI control register.
    wire 				uplinkRst_i;
    wire 				mgt_rxpolarity_i;
-   
-   
+
+
    wire [1:0] uplinkIcData_o;
    wire [1:0] uplinkEcData_o;
    wire [2:0] uplinkPhase_o;
 
    wire [31:0] uplinkMgtWord;
    wire        mgt_rx_rdy;
-   
-   
+
+
 
 
     //Instantiate the core of the lpgbtfpga module.
@@ -179,20 +179,20 @@ module lpgbtfpga_with_interface #(
         .uplinkIcData_o(uplinkIcData_o),
         .uplinkEcData_o(uplinkEcData_o),
         .uplinkPhase_o(uplinkPhase_o),
-	.mgt_rx_rdy(mgt_rx_rdy),
-	.uplinkMgtWordDbg(uplinkMgtWord),
-	.mgt_txaligned_o(),  //Tx is unused, don't care about alignment or phase.
-	.mgt_txphase_o());
+  .mgt_rx_rdy(mgt_rx_rdy),
+  .uplinkMgtWordDbg(uplinkMgtWord),
+  .mgt_txaligned_o(),  //Tx is unused, don't care about alignment or phase.
+  .mgt_txphase_o());
 
-   
+
    assign dbg_uplinkMgtWordParity = ^uplinkMgtWord;
    assign dbg_uplinkMgtWord = uplinkMgtWord;
-   
+
 
     //lpgbtfpga control registers
     reg [C_S_AXI_DATA_WIDTH-1:0] 	control;
    reg [C_S_AXI_DATA_WIDTH-1:0] 	status;
-   
+
 
     //register read/write logic.
     always @(posedge S_AXI_ACLK) begin
@@ -215,7 +215,7 @@ module lpgbtfpga_with_interface #(
    //assign status[5:4] = uplinkIcData_o;
    //assign status[8:6] = uplinkPhase_o;
    //assign status[9] = mgt_rx_rdy;
-   
+
 
 
     //Generate control signals from control register.
@@ -225,44 +225,46 @@ module lpgbtfpga_with_interface #(
    //CDC Structures for status register
 
    xpm_cdc_single cdc_uplinkrdy (.dest_out(status[0]),
-				 .dest_clk(S_AXI_ACLK),
-				 .src_in(uplinkrdy_o),
-				 .src_clk(clk40_o));
-   
+         .dest_clk(S_AXI_ACLK),
+         .src_in(uplinkrdy_o),
+         .src_clk(clk40_o));
+
    xpm_cdc_single cdc_uplinkFEC (.dest_out(status[1]),
-				 .dest_clk(S_AXI_ACLK),
-				 .src_in(uplinkFEC_o),
-				 .src_clk(clk40_o));
+         .dest_clk(S_AXI_ACLK),
+         .src_in(uplinkFEC_o),
+         .src_clk(clk40_o));
 
    xpm_cdc_array_single #(.WIDTH(2)) cdc_uplinkEc (.dest_out(status[3:2]),
-				      .dest_clk(S_AXI_ACLK),
-				      .src_in(uplinkEcData_o),
-				      .src_clk(clk40_o));
-   
+              .dest_clk(S_AXI_ACLK),
+              .src_in(uplinkEcData_o),
+              .src_clk(clk40_o));
+
    xpm_cdc_array_single #(.WIDTH(2)) cdc_uplinkIc (.dest_out(status[5:4]),
-				      .dest_clk(S_AXI_ACLK),
-				      .src_in(uplinkIcData_o),
-				      .src_clk(clk40_o));
-   
+              .dest_clk(S_AXI_ACLK),
+              .src_in(uplinkIcData_o),
+              .src_clk(clk40_o));
+
    xpm_cdc_array_single #(.WIDTH(3)) cdc_uplinkPhase (.dest_out(status[8:6]),
-				      .dest_clk(S_AXI_ACLK),
-				      .src_in(uplinkPhase_o),
-				      .src_clk(clk40_o));
-   
-   
+              .dest_clk(S_AXI_ACLK),
+              .src_in(uplinkPhase_o),
+              .src_clk(clk40_o));
+
+
    xpm_cdc_single cdc_mgt_rx_rdy (.dest_out(status[9]),
-				 .dest_clk(S_AXI_ACLK),
-				 .src_in(mgt_rx_rdy),
-				 .src_clk(clk40_o));
-   
+         .dest_clk(S_AXI_ACLK),
+         .src_in(mgt_rx_rdy),
+         .src_clk(clk40_o));
 
 
-   
+
+
    //CDC Structures for control register
-    xpm_cdc_single cdc_uplinkRst (.dest_out(uplinkRst_i),
-                                  .dest_clk(clk40_o),
-                                  .src_clk(S_AXI_ACLK),
-                                  .src_in(control[0]));
+//    xpm_cdc_single cdc_uplinkRst (.dest_out(uplinkRst_i),
+//                                  .dest_clk(clk40_o),
+//                                  .src_clk(S_AXI_ACLK),
+//                                  .src_in(control[0]));
+
+    assign uplinkRst_i = control[0];
 
     xpm_cdc_single cdc_mgt_rxpolarity (.dest_out(mgt_rxpolarity_i),
                                   .dest_clk(clk40_o),
