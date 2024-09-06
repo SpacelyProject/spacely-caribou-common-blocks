@@ -23,7 +23,7 @@ set_property PACKAGE_PIN AK14 [get_ports USER_CLOCK_N]
 ##          * The MGT reference clock frequency must be 320MHz.
 
 #CLock from Si570
-# From U56, "Si570 MGT" in the Board User Interface
+# From U51 "Si570 MGT" in the Board User Interface
 set_property PACKAGE_PIN C7 [get_ports SMA_MGT_REFCLK_N]
 set_property PACKAGE_PIN C8 [get_ports SMA_MGT_REFCLK_P]
 
@@ -34,8 +34,8 @@ set_property PACKAGE_PIN C8 [get_ports SMA_MGT_REFCLK_P]
 ## Note 8/13/2024 -- SFP_TX is unused
 #set_property PACKAGE_PIN E4 [get_ports SFP0_TX_P]
 #set_property PACKAGE_PIN E3 [get_ports SFP0_TX_N]
-#set_property PACKAGE_PIN D2 [get_ports SFP0_RX_P]
-#set_property PACKAGE_PIN D1 [get_ports SFP0_RX_N]
+set_property PACKAGE_PIN D2 [get_ports SFP0_RX_P]
+set_property PACKAGE_PIN D1 [get_ports SFP0_RX_N]
 
 ## SFP CONTROL:
 ##-------------
