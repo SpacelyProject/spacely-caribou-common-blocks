@@ -71,6 +71,12 @@ entity lpgbtfpga_zcu102_10g24_top is
 
       mgt_rx_rdy       : out std_logic;
 
+      dbg_sta_headerLocked            : out std_logic;
+        dbg_sta_gbRdy                   : out std_logic;
+        dbg_datapath_rst_s              : out std_logic;
+        dbg_rst_pattsearch              : out std_logic;
+        dbg_bitslip_counter             : out std_logic_vector(9 downto 0);
+
       -- REGULAR DATA SIGNALS:
       
       clk40_o                                        : out std_logic; --clock for lpgbt frame data 
@@ -146,6 +152,14 @@ architecture behavioral of lpgbtfpga_zcu102_10g24_top is
             uplinkMgtWordDbg                 : out std_logic_vector(31 downto 0);
 
             mgt_rx_rdy                       : out std_logic;
+
+
+
+            dbg_sta_headerLocked            : out std_logic;
+            dbg_sta_gbRdy                   : out std_logic;
+            dbg_datapath_rst_s              : out std_logic;
+            dbg_rst_pattsearch              : out std_logic;
+            dbg_bitslip_counter             : out std_logic_vector(9 downto 0);
             
             -- Fixed-phase uplink CDC operation
             uplinkPhase_o                    : out  std_logic_vector(2 downto 0);   --! Phase to check fixed-phase
@@ -454,6 +468,13 @@ begin                 --========####   Architecture Body   ####========--
             uplinkMgtWordDbg                 => uplinkMgtWordDbg,
             mgt_rx_rdy                       => mgt_rx_rdy,
 
+            dbg_sta_headerLocked   => dbg_sta_headerLocked,
+            dbg_sta_gbRdy          => dbg_sta_gbRdy,
+            dbg_datapath_rst_s     => dbg_datapath_rst_s,
+            dbg_rst_pattsearch     => dbg_rst_pattsearch,
+            dbg_bitslip_counter    => dbg_bitslip_counter,
+            
+
             -- Fixed-phase uplink CDC operation
             uplinkPhase_o                    => lpgbtfpga_uplinkPhase_s     ,
             uplinkPhaseCalib_i               => "000", --uplinkPhaseCalib_s,
@@ -488,6 +509,9 @@ begin                 --========####   Architecture Body   ####========--
     uplinkrdy_o <= lpgbtfpga_uplinkrdy_s;
     uplinkUserData_o <= lpgbtfpga_uplinkIcData_s & lpgbtfpga_uplinkEcData_s & lpgbtfpga_uplinkUserData_s;
     uplinkFEC_o <= upLinkFECCorrectedLatched_s;
+
+
+    
        
     -- Data stimulis
     lpgbtfpga_downlinkEcData_s     <= (others => '1');

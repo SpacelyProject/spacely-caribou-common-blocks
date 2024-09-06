@@ -160,6 +160,8 @@ module lpgbtfpga_with_interface #(
    wire [31:0] uplinkMgtWord;
    wire        mgt_rx_rdy;
    
+   wire        dbg_sta_headerLocked, dbg_sta_gbRdy, dbg_datapath_rst_s, dbg_rst_pattsearch;
+   wire [9:0]  dbg_bitslip_counter;
    
 
 
@@ -182,7 +184,12 @@ module lpgbtfpga_with_interface #(
 	.mgt_rx_rdy(mgt_rx_rdy),
 	.uplinkMgtWordDbg(uplinkMgtWord),
 	.mgt_txaligned_o(),  //Tx is unused, don't care about alignment or phase.
-	.mgt_txphase_o());
+	.mgt_txphase_o(),
+.dbg_sta_headerLocked(dbg_sta_headerLocked),
+.dbg_sta_gbRdy(dbg_sta_gbRdy),
+.dbg_datapath_rst_s(dbg_datapath_rst_s),
+.dbg_rst_pattsearch(dbg_rst_pattsearch),
+.dbg_bitslip_counter(dbg_bitslip_counter));
 
    
    assign dbg_uplinkMgtWordParity = ^uplinkMgtWord;
@@ -215,6 +222,12 @@ module lpgbtfpga_with_interface #(
    //assign status[5:4] = uplinkIcData_o;
    //assign status[8:6] = uplinkPhase_o;
    //assign status[9] = mgt_rx_rdy;
+
+   assign status[19:10] = dbg_bitslip_counter;
+   assign status[20]    = dbg_rst_pattsearch;
+   assign status[21]    = dbg_datapath_rst_s;
+   assign status[22]    = dbg_sta_gbRdy;
+   assign status[23]    = dbg_sta_headerLocked;
    
 
 
@@ -259,11 +272,16 @@ module lpgbtfpga_with_interface #(
 
    
    //CDC Structures for control register
-    xpm_cdc_single cdc_uplinkRst (.dest_out(uplinkRst_i),
+    /*xpm_cdc_single cdc_uplinkRst (.dest_out(uplinkRst_i),
                                   .dest_clk(clk40_o),
                                   .src_clk(S_AXI_ACLK),
                                   .src_in(control[0]));
+     */
 
+   //Avoid CDC for uplinkRst to avoid Catch-22 situation
+   assign uplinkRst_i = control[0];
+   
+   
     xpm_cdc_single cdc_mgt_rxpolarity (.dest_out(mgt_rxpolarity_i),
                                   .dest_clk(clk40_o),
                                   .src_clk(S_AXI_ACLK),

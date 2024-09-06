@@ -66,7 +66,15 @@ ENTITY lpgbtfpga_uplink IS
         IcCorrected_o                   : out std_logic_vector(1 downto 0);                   --! Flag allowing to know which bit(s) of the IC field were toggled by the FEC
         EcCorrected_o                   : out std_logic_vector(1 downto 0);                   --! Flag allowing to know which bit(s) of the EC field  were toggled by the FEC
         rdy_o                           : out std_logic;                                      --! Ready SIGNAL from the uplink decoder
-        frameAlignerEven_o              : out std_logic                                       --! Number of bit slip is even (required only for advanced applications)
+        frameAlignerEven_o              : out std_logic;                                       --! Number of bit slip is even (required only for advanced applications)
+
+        -- Additional debug signals
+
+        dbg_sta_headerLocked            : out std_logic;
+        dbg_sta_gbRdy                   : out std_logic;
+        dbg_datapath_rst_s              : out std_logic;
+        dbg_rst_pattsearch              : out std_logic;
+        dbg_bitslip_counter             : out std_logic_vector(9 downto 0)
 
    );
 END lpgbtfpga_uplink;
@@ -110,7 +118,10 @@ ARCHITECTURE behavioral OF lpgbtfpga_uplink IS
             sta_bitSlipEven_o                : out std_logic;       --!	Status: number of bit slips is even
     
             -- Data
-            dat_word_i                       : in  std_logic_vector(c_headerPattern'length-1 downto 0)  --! Header bits from the MGT word (compared with c_headerPattern)
+            dat_word_i                       : in  std_logic_vector(c_headerPattern'length-1 downto 0);  --! Header bits from the MGT word (compared with c_headerPattern)
+       
+            dbg_bitslip_counter              : out std_logic_vector(9 downto 0)
+       
        );
     END COMPONENT;
 
@@ -223,6 +234,8 @@ ARCHITECTURE behavioral OF lpgbtfpga_uplink IS
     SIGNAL rst_pattsearch_s                 : std_logic;
     SIGNAL datapath_rst_s                   : std_logic;
 
+    
+
     SIGNAL fec5_data_from_deinterleaver_s   : std_logic_vector(233 downto 0);    --! Data from de-interleaver (FEC5)
     SIGNAL fec5_fec_from_deinterleaver_s    : std_logic_vector(19 downto 0);     --! FEC from de-interleaver (FEC5)
     SIGNAL fec12_data_from_deinterleaver_s  : std_logic_vector(205 downto 0);    --! Data from de-interleaver (FEC12)
@@ -265,6 +278,11 @@ ARCHITECTURE behavioral OF lpgbtfpga_uplink IS
 BEGIN                 --========####   Architecture Body   ####========--
 
     rst_pattsearch_s         <= not(uplinkRst_n_i);
+    
+    dbg_sta_headerLocked <= sta_headerLocked_s;
+    dbg_sta_gbRdy <= sta_gbRdy_s;
+    dbg_datapath_rst_s <= datapath_rst_s;
+    dbg_rst_pattsearch <= rst_pattsearch_s;
 
     -- lpgbtfpga_framealigner is used to align the input frame using the
     -- lpGBT header.
@@ -296,7 +314,9 @@ BEGIN                 --========####   Architecture Body   ####========--
             sta_bitSlipEven_o                => frameAlignerEven_o,
 
             -- Data
-            dat_word_i                       => mgt_word_i(1 downto 0)
+            dat_word_i                       => mgt_word_i(1 downto 0),
+
+            dbg_bitslip_counter              => dbg_bitslip_counter
         );
    
     rst_gearbox_s <= not(sta_headerLocked_s);
