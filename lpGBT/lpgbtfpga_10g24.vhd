@@ -61,6 +61,15 @@ entity lpgbtFpga_10g24 is
         uplinkMgtWordDbg                 : out std_logic_vector(31 downto 0);
 
         mgt_rx_rdy                       : out std_logic;
+
+
+
+        dbg_sta_headerLocked            : out std_logic;
+        dbg_sta_gbRdy                   : out std_logic;
+        dbg_datapath_rst_s              : out std_logic;
+        dbg_rst_pattsearch              : out std_logic;
+        dbg_bitslip_counter             : out std_logic_vector(9 downto 0);
+        
         
         -- Fixed-phase uplink CDC operation
         uplinkPhase_o                    : out  std_logic_vector(2 downto 0);   --! Phase to check fixed-phase
@@ -256,8 +265,15 @@ architecture behavioral of lpgbtFpga_10g24 is
              IcCorrected_o                   : out std_logic_vector(1 downto 0);                   --! Flag allowing to know which bit(s) of the IC field were toggled by the FEC
              EcCorrected_o                   : out std_logic_vector(1 downto 0);                   --! Flag allowing to know which bit(s) of the EC field  were toggled by the FEC
              rdy_o                           : out std_logic;                                      --! Ready signal from the uplink decoder
-             frameAlignerEven_o              : out std_logic                                       --! Number of bit slip is even (required only for advanced applications)
+             frameAlignerEven_o              : out std_logic;                                       --! Number of bit slip is even (required only for advanced applications)
 
+
+             dbg_sta_headerLocked            : out std_logic;
+        dbg_sta_gbRdy                   : out std_logic;
+        dbg_datapath_rst_s              : out std_logic;
+        dbg_rst_pattsearch              : out std_logic;
+        dbg_bitslip_counter             : out std_logic_vector(9 downto 0)
+             
         );
     END COMPONENT;
 
@@ -449,7 +465,14 @@ begin                 --========####   Architecture Body   ####========--
             IcCorrected_o                   => uplinkIcCorrected  ,
             EcCorrected_o                   => uplinkEcCorrected  ,
             rdy_o                           => uplinkReady_s,
-			frameAlignerEven_o              => open
+            frameAlignerEven_o              => open,
+
+            -- Debug
+            dbg_sta_headerLocked   => dbg_sta_headerLocked,
+            dbg_sta_gbRdy          => dbg_sta_gbRdy,
+            dbg_datapath_rst_s     => dbg_datapath_rst_s,
+            dbg_rst_pattsearch     => dbg_rst_pattsearch,
+            dbg_bitslip_counter    => dbg_bitslip_counter
        );
 	
    --! FEC Corrected Flag for debugging
@@ -501,6 +524,8 @@ begin                 --========####   Architecture Body   ####========--
 
        uplinkMgtWordDbg <= uplink_mgtword_s;
        mgt_rx_rdy <= mgt_rxrdy_s;
+
+
 
     --========####   FPGA Transceiver   ####========--
     mgt_inst: xlx_ku_mgt_10g24                         

@@ -45,7 +45,10 @@ ENTITY lpgbtfpga_framealigner IS
         sta_bitSlipEven_o                : out std_logic;       --!	Status: number of bit slips is even
 
         -- Data
-        dat_word_i                       : in  std_logic_vector(c_headerPattern'length-1 downto 0)  --! Header bits from the MGT word (compared with c_headerPattern)
+        dat_word_i                       : in  std_logic_vector(c_headerPattern'length-1 downto 0);  --! Header bits from the MGT word (compared with c_headerPattern)
+
+        -- Bitslip Counter
+        dbg_bitslip_counter              : out std_logic_vector(9 downto 0)
    );
 END lpgbtfpga_framealigner;
 
@@ -79,6 +82,10 @@ ARCHITECTURE behavioral OF lpgbtfpga_framealigner IS
 BEGIN                 --========####   Architecture Body   ####========--
 --=================================================================================================--
 
+  dbg_bitslip_counter <=  std_logic_vector(to_unsigned(bitSlipCounter_s, dbg_bitslip_counter'length));
+  
+
+  
    --==================================== User Logic =====================================--
    rxWordPipeline_proc: PROCESS(rst_pattsearch_i, clk_pcsRx_i)
      BEGIN
