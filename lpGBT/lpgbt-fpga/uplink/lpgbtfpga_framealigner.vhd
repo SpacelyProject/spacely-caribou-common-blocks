@@ -40,15 +40,15 @@ ENTITY lpgbtfpga_framealigner IS
         cmd_bitslipCtrl_o                : out std_logic;       --! Bitslip SIGNAL to shift the parrallel word
 
         -- Status
-        sta_headerLocked_o               : out std_logic;       --! Status: header is locked	
+        sta_headerLocked_o               : out std_logic;       --! Status: header is locked
         sta_headerFlag_o                 : out std_logic;       --! Status: header flag (1 pulse over c_wordRatio)
         sta_bitSlipEven_o                : out std_logic;       --!	Status: number of bit slips is even
 
         -- Data
         dat_word_i                       : in  std_logic_vector(c_headerPattern'length-1 downto 0);  --! Header bits from the MGT word (compared with c_headerPattern)
 
-        -- Bitslip Counter
-        dbg_bitslip_counter              : out std_logic_vector(9 downto 0)
+        -- Debug
+        dbg_bitslip_counter              : out std_logic_vector(9 downto 0)                          -- AQ debug signals (2)
    );
 END lpgbtfpga_framealigner;
 
@@ -83,9 +83,9 @@ BEGIN                 --========####   Architecture Body   ####========--
 --=================================================================================================--
 
   dbg_bitslip_counter <=  std_logic_vector(to_unsigned(bitSlipCounter_s, dbg_bitslip_counter'length));
-  
 
-  
+
+
    --==================================== User Logic =====================================--
    rxWordPipeline_proc: PROCESS(rst_pattsearch_i, clk_pcsRx_i)
      BEGIN
@@ -136,7 +136,7 @@ BEGIN                 --========####   Architecture Body   ####========--
    END PROCESS;
 
    sta_bitSlipEven_o  <= sta_bitSlipEven_s ;
-   
+
    sta_headerLocked_o <= sta_headerLocked_s;
 
    --! Pattern searcher: check the header and ask for bitslip
@@ -157,14 +157,14 @@ BEGIN                 --========####   Architecture Body   ####========--
 
                 IF (dat_word_s(c_headerPattern'length-1 downto 0) /= c_headerPattern) THEN
 
-					if bitSlipCounter_s < c_wordSize then
-						sta_bitSlipEven_s  <= not(sta_bitSlipEven_s);
-						bitSlipCmd_s       <= '1';
-						bitSlipCounter_s   <= bitSlipCounter_s + 1;
-					else
-						shiftPsAddr      <= '1'; -- MGT word jump is done only in PCS mode
-						bitSlipCounter_s <= 0;
-					end if;
+          if bitSlipCounter_s < c_wordSize then
+            sta_bitSlipEven_s  <= not(sta_bitSlipEven_s);
+            bitSlipCmd_s       <= '1';
+            bitSlipCounter_s   <= bitSlipCounter_s + 1;
+          else
+            shiftPsAddr      <= '1'; -- MGT word jump is done only in PCS mode
+            bitSlipCounter_s <= 0;
+          end if;
 
                 END IF;
 
