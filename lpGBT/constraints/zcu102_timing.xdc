@@ -30,8 +30,6 @@ set_false_path -to [get_pins -hierarchical -filter {NAME =~ *cdc_rx_inst/phase_f
 ##==================================##
 ## Timing exceptions for MGT design ##
 ##==================================##
-
-
 # System clock is asynchronous to other clocks in design
 set_clock_groups -asynchronous -group USER_CLOCK
 

@@ -68,13 +68,14 @@ ENTITY lpgbtfpga_uplink IS
         rdy_o                           : out std_logic;                                      --! Ready SIGNAL from the uplink decoder
         frameAlignerEven_o              : out std_logic;                                       --! Number of bit slip is even (required only for advanced applications)
 
-        -- Additional debug signals
-
-        dbg_sta_headerLocked            : out std_logic;
-        dbg_sta_gbRdy                   : out std_logic;
-        dbg_datapath_rst_s              : out std_logic;
-        dbg_rst_pattsearch              : out std_logic;
-        dbg_bitslip_counter             : out std_logic_vector(9 downto 0)
+        -- Debug
+        dbg_bitslip_counter             : out std_logic_vector(9 downto 0);                   -- AQ debug signals (2) NOTE: from lpgbtfpga_framealigner.vhd
+        dbg_sta_headerLocked            : out std_logic;                                      -- AQ debug signals (2) NOTE: status from lpgbtfpga_framealigner.vhd
+        dbg_sta_gbRdy                   : out std_logic;                                      -- AQ debug signals (2) NOTE: status from lpgbtfpga_rxGearbox.vhd
+        dbg_datapath_rst_s              : out std_logic;                                      -- AQ debug signals (2) NOTE: datapath_rst_s   <= not(sta_gbRdy_s);
+        dbg_rst_pattsearch              : out std_logic;                                      -- AQ debug signals (2) NOTE: rst_pattsearch_s <= not(uplinkRst_n_i);
+        dbg_rst_gearbox                 : out std_logic;                                      -- CG debug signals (2) NOTE: rst_gearbox_s    <= not(sta_headerLocked_s);
+        dbg_sta_headerFlag              : out std_logic                                       -- CG debug signals (2) NOTE: status from lpgbtfpga_framealigner.vhd; header flag (1 pulse over c_wordRatio)
 
    );
 END lpgbtfpga_uplink;
@@ -98,30 +99,31 @@ ARCHITECTURE behavioral OF lpgbtfpga_uplink IS
             c_allowedFalseHeader             : integer;             --! Number of false header allowed to avoid unlock on frame error
             c_allowedFalseHeaderOverN        : integer;             --! Number of header checked to know wether the lock is lost or not
             c_requiredTrueHeader             : integer;             --! Number of true header required to go in locked state
-    
+
             c_bitslip_mindly                 : integer := 1;        --! Number of clock cycle required WHEN asserting the bitslip SIGNAL
             c_bitslip_waitdly                : integer := 40        --! Number of clock cycle required before being back in a stable state
         );
         PORT (
             -- Clock(s)
             clk_pcsRx_i                      : in  std_logic;       --! MGT Wordclock
-    
+
             -- Reset(s)
             rst_pattsearch_i                 : in  std_logic;       --! Rst the pattern search state machines
-    
+
             -- Control
             cmd_bitslipCtrl_o                : out std_logic;       --! Bitslip SIGNAL to shift the parrallel word
-    
+
             -- Status
-            sta_headerLocked_o               : out std_logic;       --! Status: header is locked	
+            sta_headerLocked_o               : out std_logic;       --! Status: header is locked
             sta_headerFlag_o                 : out std_logic;       --! Status: header flag (1 pulse over c_wordRatio)
             sta_bitSlipEven_o                : out std_logic;       --!	Status: number of bit slips is even
-    
+
             -- Data
             dat_word_i                       : in  std_logic_vector(c_headerPattern'length-1 downto 0);  --! Header bits from the MGT word (compared with c_headerPattern)
-       
+
+            -- Debug
             dbg_bitslip_counter              : out std_logic_vector(9 downto 0)
-       
+
        );
     END COMPONENT;
 
@@ -218,9 +220,9 @@ ARCHITECTURE behavioral OF lpgbtfpga_uplink IS
             bypass                          : in  std_logic
        );
     END COMPONENT;
-   
 
-    attribute keep : string;    
+
+    attribute keep : string;
 
     SIGNAL sta_headerFlag_s                 : std_logic;
     SIGNAL sta_dataflag_s                   : std_logic;
@@ -234,7 +236,7 @@ ARCHITECTURE behavioral OF lpgbtfpga_uplink IS
     SIGNAL rst_pattsearch_s                 : std_logic;
     SIGNAL datapath_rst_s                   : std_logic;
 
-    
+
 
     SIGNAL fec5_data_from_deinterleaver_s   : std_logic_vector(233 downto 0);    --! Data from de-interleaver (FEC5)
     SIGNAL fec5_fec_from_deinterleaver_s    : std_logic_vector(19 downto 0);     --! FEC from de-interleaver (FEC5)
@@ -271,18 +273,20 @@ ARCHITECTURE behavioral OF lpgbtfpga_uplink IS
 
     SIGNAL frame_pipelined_s                : std_logic_vector(255 downto 0);    --! Store input data in register to ensure stability
     attribute keep of frame_pipelined_s : signal is "true";                      --! Avoid register optimization for multicycle writing
-	
+
     SIGNAL clkEnOut_s                       : std_logic;
     SIGNAL rst_synch_s                      : std_logic;
-     
+
 BEGIN                 --========####   Architecture Body   ####========--
 
     rst_pattsearch_s         <= not(uplinkRst_n_i);
-    
-    dbg_sta_headerLocked <= sta_headerLocked_s;
-    dbg_sta_gbRdy <= sta_gbRdy_s;
-    dbg_datapath_rst_s <= datapath_rst_s;
-    dbg_rst_pattsearch <= rst_pattsearch_s;
+
+    dbg_sta_headerLocked     <= sta_headerLocked_s;                              -- AQ debug signals (2) NOTE: status from lpgbtfpga_framealigner.vhd
+    dbg_sta_gbRdy            <= sta_gbRdy_s;                                     -- AQ debug signals (2) NOTE: status from lpgbtfpga_rxGearbox.vhd
+    dbg_datapath_rst_s       <= datapath_rst_s;                                  -- AQ debug signals (2) NOTE: datapath_rst_s   <= not(sta_gbRdy_s);
+    dbg_rst_pattsearch       <= rst_pattsearch_s;                                -- AQ debug signals (2) NOTE: rst_pattsearch_s <= not(uplinkRst_n_i);
+    dbg_rst_gearbox          <= rst_gearbox_s;                                   -- CG debug signals (2) NOTE: rst_gearbox_s    <= not(sta_headerLocked_s);
+    dbg_sta_headerFlag       <= sta_headerFlag_s;                                -- CG debug signals (2) NOTE: status from lpgbtfpga_framealigner.vhd; header flag (1 pulse over c_wordRatio)
 
     -- lpgbtfpga_framealigner is used to align the input frame using the
     -- lpGBT header.
@@ -316,9 +320,10 @@ BEGIN                 --========####   Architecture Body   ####========--
             -- Data
             dat_word_i                       => mgt_word_i(1 downto 0),
 
-            dbg_bitslip_counter              => dbg_bitslip_counter
+            -- Debug
+            dbg_bitslip_counter              => dbg_bitslip_counter              -- AQ debug signals (2)
         );
-   
+
     rst_gearbox_s <= not(sta_headerLocked_s);
 
     -- lpgbtfpga_rxGearbox is used to pass from mgt word size (e.g.: 32b @ 320MHz)
@@ -408,11 +413,11 @@ BEGIN                 --========####   Architecture Body   ####========--
                 cnter                 := 0;
                 rst_synch_s  <= '1';
             ELSIF rst_synch_s = '1' THEN
-			    if(cnter < 7) then
+          if(cnter < 7) then
                   cnter            := cnter + 1;
-				else
+        else
                     cnter  := 0;
-				end if;
+        end if;
             END IF;
 
             clkEnOut_s       <= '0';

@@ -12,7 +12,7 @@ use ieee.std_logic_1164.all;
 package bus_multiplexer_pkg is
     type conf2b_array is array(natural range <>) of std_logic_vector(1 downto 0);
 end package;
-    
+
 --! Xilinx devices library:
 library unisim;
 use unisim.vcomponents.all;
@@ -27,33 +27,33 @@ use work.lpgbtfpga_package.all;
 --#######################################   Entity   ##############################################--
 --=================================================================================================--
 entity lpgbtfpga_zcu102_10g24_top is
-    port (  
-      
+    port (
+
       --===============--
       -- Clocks scheme --
-      --===============--       
+      --===============--
       -- MGT(GTX) reference clock:
       ----------------------------
-      
+
       -- Comment: * The MGT reference clock MUST be provided by an external clock generator.
       --
       --          * The MGT reference clock frequency must be 320MHz.
       SMA_MGT_REFCLK_P                               : in  std_logic;
-      SMA_MGT_REFCLK_N                               : in  std_logic; 
-                  
+      SMA_MGT_REFCLK_N                               : in  std_logic;
+
       -- Fabric clock:
-      ----------------     
+      ----------------
 
       USER_CLOCK_P                                   : in  std_logic;
-      USER_CLOCK_N                                   : in  std_logic;      
-      
+      USER_CLOCK_N                                   : in  std_logic;
+
       --==========--
       -- MGT(GTX) --
-      --==========--                   
-      
+      --==========--
+
       -- Serial lanes:
       ----------------
-      
+
       --SFP0_TX_P                                      : out std_logic;
       --SFP0_TX_N                                      : out std_logic;
       SFP0_RX_P                                      : in  std_logic;
@@ -67,48 +67,49 @@ entity lpgbtfpga_zcu102_10g24_top is
       mgt_txaligned_o : out std_logic;
       mgt_txphase_o   : out std_logic_vector(6 downto 0);
 
-      uplinkMgtWordDbg : out std_logic_vector(31 downto 0);
+      uplinkMgtWordDbg                 : out std_logic_vector(31 downto 0);   -- AQ debug signals (1)
+      mgt_rx_rdy                       : out std_logic;                       -- AQ debug signals (1)
+      dbg_bitslip_counter              : out std_logic_vector(9 downto 0);    -- AQ debug signals (2)
+      dbg_sta_headerLocked             : out std_logic;                       -- AQ debug signals (2)
+      dbg_sta_gbRdy                    : out std_logic;                       -- AQ debug signals (2)
+      dbg_datapath_rst_s               : out std_logic;                       -- AQ debug signals (2)
+      dbg_rst_pattsearch               : out std_logic;                       -- AQ debug signals (2)
+      dbg_rst_gearbox                  : out std_logic;                       -- CG debug signals (2)
+      dbg_sta_headerFlag               : out std_logic;                       -- CG debug signals (2)
+      dbg_uplinkReady                  : out std_logic;                       -- CG debug signals (2)
 
-      mgt_rx_rdy       : out std_logic;
-
-      dbg_sta_headerLocked            : out std_logic;
-        dbg_sta_gbRdy                   : out std_logic;
-        dbg_datapath_rst_s              : out std_logic;
-        dbg_rst_pattsearch              : out std_logic;
-        dbg_bitslip_counter             : out std_logic_vector(9 downto 0);
 
       -- REGULAR DATA SIGNALS:
-      
-      clk40_o                                        : out std_logic; --clock for lpgbt frame data 
+      clk40_o                                        : out std_logic; --clock for lpgbt frame data
       uplinkrdy_o                                    : out std_logic; --block sync state
       uplinkUserData_o                               : out std_logic_vector(233 downto 0);
       uplinkRst_i                                    : in  std_logic; --resets the MGT and the rest of the logic
-      uplinkFEC_o                                   : out std_logic; --pulses 1 on frames with bit erros
+      uplinkFEC_o                                    : out std_logic; --pulses 1 on frames with bit erros
       mgt_rxpolarity_i                               : in  std_logic
       -- SFP control:
       ---------------
-      
-      --SFP0_TX_DISABLE                                : out std_logic    
-    
+
+      --SFP0_TX_DISABLE                                : out std_logic
+
       --====================--
       -- Signals forwarding --
       --====================--
-      
+
       -- SMA output:
       --------------
-      --USER_SMA_GPIO_P                                : out std_logic;    
-      --USER_SMA_GPIO_N                                : out std_logic  
-   ); 
+      --USER_SMA_GPIO_P                                : out std_logic;
+      --USER_SMA_GPIO_N                                : out std_logic
+   );
 end lpgbtfpga_zcu102_10g24_top;
 
 --=================================================================================================--
---####################################   Architecture   ###########################################-- 
+--####################################   Architecture   ###########################################--
 --=================================================================================================--
 
 architecture behavioral of lpgbtfpga_zcu102_10g24_top is
 
     -- Components declaration
-    component lpgbtFpga_10g24 is 
+    component lpgbtFpga_10g24 is
        GENERIC (
             FEC                             : integer range 0 to 2                   --! FEC selection can be: FEC5 or FEC12
        );
@@ -116,78 +117,78 @@ architecture behavioral of lpgbtfpga_zcu102_10g24_top is
             -- Clocks
             downlinkClk_i                    : in  std_logic;                       --! 40MHz user clock
             uplinkClk_i                      : in  std_logic;                       --! 40MHz user clock
-    
+
             downlinkRst_i                    : in  std_logic;                       --! Reset the downlink path
             uplinkRst_i                      : in  std_logic;                       --! Reset the uplink path
-            
+
             -- Down link
             downlinkUserData_i               : in  std_logic_vector(31 downto 0);   --! Downlink data (user)
             downlinkEcData_i                 : in  std_logic_vector(1 downto 0);    --! Downlink EC field
             downlinkIcData_i                 : in  std_logic_vector(1 downto 0);    --! Downlink IC field
-                    
+
             downLinkBypassInterleaver_i      : in  std_logic;                       --! Bypass downlink interleaver (test purpose only)
             downLinkBypassFECEncoder_i       : in  std_logic;                       --! Bypass downlink FEC (test purpose only)
             downLinkBypassScrambler_i        : in  std_logic;                       --! Bypass downlink scrambler (test purpose only)
             downlinkReady_o                  : out std_logic;                       --! Downlink ready status
-    
+
             -- Fixed-phase downlink CDC operation
             downlinkPhase_o                  : out  std_logic_vector(9 downto 0);   --! Phase to check fixed-phase
             downlinkPhaseCalib_i             : in   std_logic_vector(9 downto 0);   --! Phase measured in first reset
             downlinkPhaseForce_i             : in   std_logic                   ;   --! Force phase after first reset to ensure fixed-phase operation
-    
+
             -- Up link
             uplinkUserData_o                 : out std_logic_vector(229 downto 0);  --! Uplink data (user)
             uplinkEcData_o                   : out std_logic_vector(1 downto 0);    --! Uplink EC field
             uplinkIcData_o                   : out std_logic_vector(1 downto 0);    --! Uplink IC field
-                    
+
             uplinkBypassInterleaver_i        : in  std_logic;                       --! Bypass uplink interleaver (test purpose only)
             uplinkBypassFECEncoder_i         : in  std_logic;                       --! Bypass uplink FEC (test purpose only)
             uplinkBypassScrambler_i          : in  std_logic;                       --! Bypass uplink scrambler (test purpose only)
-    
+
             uplinkFECCorrectedClear_i        : in  std_logic;                       --! Uplink FEC corrected error clear (debugging)
             uplinkFECCorrectedLatched_o      : out std_logic;                       --! Uplink FEC corrected error latched (debugging)
-    
+
             uplinkReady_o                    : out std_logic;                       --! Uplink ready status
 
-            uplinkMgtWordDbg                 : out std_logic_vector(31 downto 0);
+            -- Debug
+            uplinkMgtWordDbg                 : out std_logic_vector(31 downto 0);   -- AQ debug signals (1)
+            mgt_rx_rdy                       : out std_logic;                       -- AQ debug signals (1)
+            dbg_bitslip_counter              : out std_logic_vector(9 downto 0);    -- AQ debug signals (2)
+            dbg_sta_headerLocked             : out std_logic;                       -- AQ debug signals (2)
+            dbg_sta_gbRdy                    : out std_logic;                       -- AQ debug signals (2)
+            dbg_datapath_rst_s               : out std_logic;                       -- AQ debug signals (2)
+            dbg_rst_pattsearch               : out std_logic;                       -- AQ debug signals (2)
+            dbg_rst_gearbox                  : out std_logic;                       -- CG debug signals (2)
+            dbg_sta_headerFlag               : out std_logic;                       -- CG debug signals (2)
+            dbg_uplinkReady                  : out std_logic;                       -- CG debug signals (2)
 
-            mgt_rx_rdy                       : out std_logic;
-
-
-
-            dbg_sta_headerLocked            : out std_logic;
-            dbg_sta_gbRdy                   : out std_logic;
-            dbg_datapath_rst_s              : out std_logic;
-            dbg_rst_pattsearch              : out std_logic;
-            dbg_bitslip_counter             : out std_logic_vector(9 downto 0);
-            
             -- Fixed-phase uplink CDC operation
             uplinkPhase_o                    : out  std_logic_vector(2 downto 0);   --! Phase to check fixed-phase
             uplinkPhaseCalib_i               : in   std_logic_vector(2 downto 0);   --! Phase measured in first reset
             uplinkPhaseForce_i               : in   std_logic;                      --! Force the phase to be the calibrated one
-    
+
             -- MGT
             clk_mgtrefclk_i                  : in  std_logic;                       --! Transceiver serial clock
             clk_mgtfreedrpclk_i              : in  std_logic;                       --! 125MHz Free-running clock
-            
+
             clk_mgtTxClk_o                   : out std_logic;
             clk_mgtRxClk_o                   : out std_logic;
-                        
+
             mgt_rxn_i                        : in  std_logic;
             mgt_rxp_i                        : in  std_logic;
             mgt_txn_o                        : out std_logic;
             mgt_txp_o                        : out std_logic;
-                   
-            mgt_txpolarity_i                 : in  std_logic;	   
-            mgt_rxpolarity_i                 : in  std_logic;	   
-    	   
+
+            mgt_txpolarity_i                 : in  std_logic;
+            mgt_rxpolarity_i                 : in  std_logic;
+
             mgt_txcaliben_i                  : in  std_logic;
-            mgt_txcalib_i                    : in  std_logic_vector(6 downto 0);                      
+            mgt_txcalib_i                    : in  std_logic_vector(6 downto 0);
             mgt_txaligned_o                  : out std_logic;
-            mgt_txphase_o                    : out std_logic_vector(6 downto 0)      
-       ); 
+            mgt_txphase_o                    : out std_logic_vector(6 downto 0)
+       );
     end component lpgbtFpga_10g24;
-        
+
 --    COMPONENT vio_0
 --      PORT (
 --        clk : IN STD_LOGIC;
@@ -200,7 +201,7 @@ architecture behavioral of lpgbtfpga_zcu102_10g24_top is
 --        probe_in6 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
 --        probe_in7 : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
 --        probe_in8 : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
-		
+
 --        probe_out0 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
 --        probe_out1 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
 --        probe_out2 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
@@ -255,74 +256,74 @@ architecture behavioral of lpgbtfpga_zcu102_10g24_top is
 --        probe_out51 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0)
 --      );
 --    END COMPONENT;
-          
+
 --    COMPONENT lpgbtfpga_patterngen is
 --      port(
 --          clk320DnLink_i            : in  std_logic;
 --          clkEnDnLink_i             : in  std_logic;
-    
+
 --          generator_rst_i           : in  std_logic;
-    
+
 --          config_group0_i           : in  std_logic_vector(1 downto 0);
 --          config_group1_i           : in  std_logic_vector(1 downto 0);
 --          config_group2_i           : in  std_logic_vector(1 downto 0);
 --          config_group3_i           : in  std_logic_vector(1 downto 0);
-    
+
 --          fixed_pattern_i           : in  std_logic_vector(31 downto 0);
-    
+
 --          downlink_o                : out std_logic_vector(31 downto 0);
-    
+
 --          eport_gen_rdy_o           : out std_logic_vector(15 downto 0)
 --      );
 --    END COMPONENT;
-        
+
 --    COMPONENT lpgbtfpga_patternchecker
 --        port (
 --            reset_checker_i  : in  std_logic;
 --            ser320_clk_i     : in  std_logic;
 --            ser320_clkEn_i   : in  std_logic;
-    
+
 --            data_rate_i      : in  std_logic;
-    
+
 --            elink_config_i   : in  conf2b_array(27 downto 0);
-    
+
 --            error_detected_o : out std_logic_vector(27 downto 0);
-    
+
 --            userDataUpLink_i : in  std_logic_vector(229 downto 0)
 --        );
 --    END COMPONENT;
-    
+
     -- Signals:
-            
+
         -- Clocks:
         signal mgtRefClk_from_smaMgtRefClkbuf_s   : std_logic;
 
         signal mgt_freedrpclk_s                   : std_logic;
-        
+
         signal lpgbtfpga_mgttxclk_s               : std_logic;
         signal lpgbtfpga_mgtrxclk_s               : std_logic;
-        
-        
-        -- User CDC for lpGBT-FPGA		
-        signal lpgbtfpga_clk40                    : std_logic;		
+
+
+        -- User CDC for lpGBT-FPGA
+        signal lpgbtfpga_clk40                    : std_logic;
         signal uplinkPhase_s                      : std_logic_vector(2 downto 0);
         signal uplinkPhaseCalib_s                 : std_logic_vector(2 downto 0);
-        signal uplinkPhaseForce_s                 : std_logic;                   
-                                                                                 
+        signal uplinkPhaseForce_s                 : std_logic;
+
         signal downlinkPhase_s                    : std_logic_vector(9 downto 0);
         signal downlinkPhaseCalib_s               : std_logic_vector(9 downto 0);
         signal downlinkPhaseForce_s               : std_logic                   ;
-		
-        -- LpGBT-FPGA                             
+
+        -- LpGBT-FPGA
         signal lpgbtfpga_downlinkrst_s            : std_logic := '1';
         signal lpgbtfpga_downlinkrdy_s            : std_logic;
         signal lpgbtfpga_uplinkrst_s              : std_logic;
         signal lpgbtfpga_uplinkrdy_s              : std_logic;
-        
+
         signal lpgbtfpga_downlinkUserData_s       : std_logic_vector(31 downto 0) := (others => '0');
         signal lpgbtfpga_downlinkEcData_s         : std_logic_vector(1 downto 0);
         signal lpgbtfpga_downlinkIcData_s         : std_logic_vector(1 downto 0);
-        
+
         signal lpgbtfpga_uplinkUserData_s         : std_logic_vector(229 downto 0);
         signal lpgbtfpga_uplinkEcData_s           : std_logic_vector(1 downto 0);
         signal lpgbtfpga_uplinkIcData_s           : std_logic_vector(1 downto 0);
@@ -335,18 +336,18 @@ architecture behavioral of lpgbtfpga_zcu102_10g24_top is
         signal lpgbtfpga_mgt_txpiphase_s          : std_logic_vector(6 downto 0);
         signal lpgbtfpga_mgt_txpicalib_s          : std_logic_vector(6 downto 0);
         signal lpgbtfpga_mgt_txcaliben_s          : std_logic;
-                                
+
         signal downLinkBypassInterleaver_s        : std_logic := '0';
         signal downLinkBypassFECEncoder_s         : std_logic := '0';
         signal downLinkBypassScrambler_s          : std_logic := '0';
-        
+
         signal upLinkScramblerBypass_s            : std_logic := '0';
         signal upLinkFecBypass_s                  : std_logic := '0';
         signal upLinkInterleaverBypass_s          : std_logic := '0';
-        
+
         signal upLinkFECCorrectedClear_s          : std_logic := '0';
         signal upLinkFECCorrectedLatched_s        : std_logic       ;
-		
+
         -- Config
         signal uplinkSelectDataRate_s             : std_logic := '0';
 
@@ -354,17 +355,17 @@ architecture behavioral of lpgbtfpga_zcu102_10g24_top is
         signal downconfig_g0_s                    : std_logic_vector(1 downto 0);
         signal downconfig_g1_s                    : std_logic_vector(1 downto 0);
         signal downconfig_g2_s                    : std_logic_vector(1 downto 0);
-        signal downconfig_g3_s                    : std_logic_vector(1 downto 0);        
+        signal downconfig_g3_s                    : std_logic_vector(1 downto 0);
         signal downlink_gen_rdy_s                 : std_logic_vector(15 downto 0);
-    
+
         signal upelink_config_s                   : conf2b_array(27 downto 0);
         signal uperror_detected_s                 : std_logic_vector(27 downto 0);
         signal reset_upchecker_s                  : std_logic;
 
-begin                 --========####   Architecture Body   ####========-- 
+begin                 --========####   Architecture Body   ####========--
 
-    -- Reset controll   
-     
+    -- Reset controll
+
     --SFP0_TX_DISABLE           <= '1'; --Enable SFP
 --    SFP0_TX_CTRL : OBUF
 --    generic map (
@@ -372,16 +373,16 @@ begin                 --========####   Architecture Body   ####========--
 --       IOSTANDARD => "DEFAULT",
 --       SLEW => "SLOW")
 --    port map (
---       O => SFP0_TX_DISABLE,     
+--       O => SFP0_TX_DISABLE,
 --       I => '1'      --Enable SFP TX
 --    );
-    
+
     -- Clocks
-    
+
     -- MGT(GTX) reference clock:
-    ----------------------------   
+    ----------------------------
     -- Comment: * The MGT reference clock MUST be provided by an external clock generator.
-    --          * The MGT reference clock frequency must be 320MHz for the latency-optimized GBT Bank. 
+    --          * The MGT reference clock frequency must be 320MHz for the latency-optimized GBT Bank.
     smaMgtRefClkIbufdsGtxe2: ibufds_gte4
       generic map(
         REFCLK_EN_TX_PATH           => '0',
@@ -395,18 +396,18 @@ begin                 --========####   Architecture Body   ####========--
         I                                           => SMA_MGT_REFCLK_P,
         IB                                          => SMA_MGT_REFCLK_N
       );
-      
-        
+
+
     userClockIbufgds: ibufgds
       generic map (
-         IBUF_LOW_PWR                                => FALSE,      
+         IBUF_LOW_PWR                                => FALSE,
          IOSTANDARD                                  => "LVDS_25")
-      port map (     
-         O                                           => mgt_freedrpclk_s,   
-         I                                           => USER_CLOCK_P,  
-         IB                                          => USER_CLOCK_N 
+      port map (
+         O                                           => mgt_freedrpclk_s,
+         I                                           => USER_CLOCK_P,
+         IB                                          => USER_CLOCK_N
       );
-            
+
   -- In this example design, the 40MHz clock used for the user logic is derived from a division of the Tx user clock of the MGT
   -- It should be noted, that in realistic cases, this clock typically comes from an external PLL (sync. to the MGT Tx reference clock)
   lpgbtfpga_clk40_inst : bufgce_div
@@ -418,12 +419,12 @@ begin                 --========####   Architecture Body   ####========--
       o   => lpgbtfpga_clk40,
       ce  => '1',
       clr => '0'
-    );	
-    
+    );
+
    clk40_o <= lpgbtfpga_clk40;
 
     -- LpGBT FPGA
-    lpgbtFpga_top_inst: lpgbtFpga_10g24 
+    lpgbtFpga_top_inst: lpgbtFpga_10g24
        generic map (
             FEC                             => FEC5
        )
@@ -443,7 +444,6 @@ begin                 --========####   Architecture Body   ####========--
             downLinkBypassInterleaver_i      => '0', --downLinkBypassInterleaver_s,
             downLinkBypassFECEncoder_i       => '0', --downLinkBypassFECEncoder_s,
             downLinkBypassScrambler_i        => '0', --downLinkBypassScrambler_s,
-
             downlinkReady_o                  => open, --lpgbtfpga_downlinkrdy_s,
 
             -- Fixed-phase downlink CDC operation
@@ -459,21 +459,24 @@ begin                 --========####   Architecture Body   ####========--
             uplinkBypassInterleaver_i        => '0',--upLinkInterleaverBypass_s,
             uplinkBypassFECEncoder_i         => '0', --upLinkFecBypass_s,
             uplinkBypassScrambler_i          => '0', --upLinkScramblerBypass_s,
-            
+
             uplinkFECCorrectedClear_i        => '0', --upLinkFECCorrectedClear_s,
-			uplinkFECCorrectedLatched_o      => upLinkFECCorrectedLatched_s,
-		
+            uplinkFECCorrectedLatched_o      => upLinkFECCorrectedLatched_s,
+
             uplinkReady_o                    => lpgbtfpga_uplinkrdy_s,
 
-            uplinkMgtWordDbg                 => uplinkMgtWordDbg,
-            mgt_rx_rdy                       => mgt_rx_rdy,
+            -- Debug
+            uplinkMgtWordDbg                 => uplinkMgtWordDbg,              -- AQ debug signals (1)
+            mgt_rx_rdy                       => mgt_rx_rdy,                    -- AQ debug signals (1)
+            dbg_bitslip_counter              => dbg_bitslip_counter,           -- AQ debug signals (2)
+            dbg_sta_headerLocked             => dbg_sta_headerLocked,          -- AQ debug signals (2)
+            dbg_sta_gbRdy                    => dbg_sta_gbRdy,                 -- AQ debug signals (2)
+            dbg_datapath_rst_s               => dbg_datapath_rst_s,            -- AQ debug signals (2)
+            dbg_rst_pattsearch               => dbg_rst_pattsearch,            -- AQ debug signals (2)
+            dbg_rst_gearbox                  => dbg_rst_gearbox,               -- CG debug signals (2)
+            dbg_sta_headerFlag               => dbg_sta_headerFlag,            -- CG debug signals (2)
+            dbg_uplinkReady                  => dbg_uplinkReady,               -- CG debug signals (2)
 
-            dbg_sta_headerLocked   => dbg_sta_headerLocked,
-            dbg_sta_gbRdy          => dbg_sta_gbRdy,
-            dbg_datapath_rst_s     => dbg_datapath_rst_s,
-            dbg_rst_pattsearch     => dbg_rst_pattsearch,
-            dbg_bitslip_counter    => dbg_bitslip_counter,
-            
 
             -- Fixed-phase uplink CDC operation
             uplinkPhase_o                    => lpgbtfpga_uplinkPhase_s     ,
@@ -483,20 +486,20 @@ begin                 --========####   Architecture Body   ####========--
             -- MGT
             clk_mgtrefclk_i                  => mgtRefClk_from_smaMgtRefClkbuf_s,
             clk_mgtfreedrpclk_i              => mgt_freedrpclk_s, --Sasha: needs to be 80 MHz or slower. 125 MHz atm
-            
+
             clk_mgtTxClk_o                   => lpgbtfpga_mgttxclk_s,
             clk_mgtRxClk_o                   => lpgbtfpga_mgtrxclk_s,
-            
+
             mgt_rxn_i                        => SFP0_RX_N,
             mgt_rxp_i                        => SFP0_RX_P,
             mgt_txn_o                        => open, --SFP0_TX_N,
             mgt_txp_o                        => open, --SFP0_TX_P,
-            
+
             mgt_txpolarity_i                 => '0', --lpgbtfpga_mgt_txpolarity_s,
             mgt_rxpolarity_i                 => mgt_rxpolarity_i, --lpgbtfpga_mgt_rxpolarity_s,
             -- HPTD IP
             mgt_txcaliben_i                  => '0', --lpgbtfpga_mgt_txcaliben_s,
-            mgt_txcalib_i                    => "0000000", --lpgbtfpga_mgt_txpicalib_s,                    
+            mgt_txcalib_i                    => "0000000", --lpgbtfpga_mgt_txpicalib_s,
             mgt_txaligned_o                  => open,  --lpgbtfpga_mgt_txaligned_s,
             mgt_txphase_o                    => open --lpgbtfpga_mgt_txpiphase_s
        );
@@ -505,18 +508,18 @@ begin                 --========####   Architecture Body   ####========--
     uplinkPhase_o <= lpgbtfpga_uplinkPhase_s;
     uplinkEcData_o <= lpgbtfpga_uplinkEcData_s;
     uplinkIcData_o <= lpgbtfpga_uplinkIcData_s;
-    
+
     uplinkrdy_o <= lpgbtfpga_uplinkrdy_s;
     uplinkUserData_o <= lpgbtfpga_uplinkIcData_s & lpgbtfpga_uplinkEcData_s & lpgbtfpga_uplinkUserData_s;
     uplinkFEC_o <= upLinkFECCorrectedLatched_s;
 
 
-    
-       
+
+
     -- Data stimulis
     lpgbtfpga_downlinkEcData_s     <= (others => '1');
     lpgbtfpga_downlinkIcData_s     <= (others => '1');
-	
+
 --    -- Data pattern generator / checker (PRBS7)
 --    lpgbtfpga_patterngen_inst: lpgbtfpga_patterngen
 --        port map(
@@ -548,16 +551,16 @@ begin                 --========####   Architecture Body   ####========--
 --            reset_checker_i  => reset_upchecker_s,
 --            ser320_clk_i     => lpgbtfpga_clk40,
 --            ser320_clkEn_i   => '1',
-    
+
 --            data_rate_i      => uplinkSelectDataRate_s,
-    
+
 --            elink_config_i   => upelink_config_s,
-    
+
 --            error_detected_o => uperror_detected_s,
-    
+
 --            userDataUpLink_i => lpgbtfpga_uplinkUserData_s
 --        );
-        
+
 --    vio_debug_inst : vio_0
 --      PORT MAP (
 --        clk => mgt_freedrpclk_s,
@@ -567,10 +570,10 @@ begin                 --========####   Architecture Body   ####========--
 --        probe_in3     => uperror_detected_s,
 --        probe_in4(0)  => lpgbtfpga_mgt_txaligned_s,
 --        probe_in5     => lpgbtfpga_mgt_txpiphase_s,
---        probe_in6(0)  => upLinkFECCorrectedLatched_s,  
+--        probe_in6(0)  => upLinkFECCorrectedLatched_s,
 --        probe_in7     => downlinkPhase_s,
 --        probe_in8     => uplinkPhase_s,
-		
+
 --        probe_out0(0) => lpgbtfpga_downlinkrst_s,
 --        probe_out1(0) => lpgbtfpga_uplinkrst_s,
 --        probe_out2(0) => downLinkBypassInterleaver_s,
@@ -624,10 +627,10 @@ begin                 --========####   Architecture Body   ####========--
 --        probe_out50(0)=> downlinkPhaseForce_s,
 --        probe_out51(0)=> uplinkPhaseForce_s
 --      );
-      
+
       --USER_SMA_GPIO_P <= lpgbtfpga_clk40;
       --USER_SMA_GPIO_N <= lpgbtfpga_mgtrxclk_s;
-    
+
 end behavioral;
 --=================================================================================================--
 --#################################################################################################--
