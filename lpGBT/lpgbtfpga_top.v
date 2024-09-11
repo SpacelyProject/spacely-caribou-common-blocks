@@ -13,6 +13,7 @@ module lpgbtfpga_top #(
     // DEBUG
     output wire             dbg_uplinkMgtWordParity,
     output wire [31:0]      dbg_uplinkMgtWord,
+    output wire             dbg_320mhz_lpgbtfpga_mgtrxclk,
 
     //  DATA OUT INTERFACE
     output wire             clk40_o,
@@ -98,6 +99,7 @@ module lpgbtfpga_top #(
     // DEBUG
     .dbg_uplinkMgtWordParity(dbg_uplinkMgtWordParity),
     .dbg_uplinkMgtWord(dbg_uplinkMgtWord),
+    .dbg_320mhz_lpgbtfpga_mgtrxclk(dbg_320mhz_lpgbtfpga_mgtrxclk),
 
     //  DATA OUT INTERFACE
     .clk40_o(clk40_o),
