@@ -14,6 +14,7 @@ module lpgbtfpga_with_interface #(
     // DEBUG
     output wire             dbg_uplinkMgtWordParity,
     output wire [31:0]      dbg_uplinkMgtWord,
+    output wire             dbg_320mhz_lpgbtfpga_mgtrxclk,
 
     //  DATA OUT INTERFACE
     output wire             clk40_o,
@@ -187,6 +188,7 @@ module lpgbtfpga_with_interface #(
     .dbg_rst_gearbox(dbg_rst_gearbox),
     .dbg_sta_headerFlag(dbg_sta_headerFlag),
     .dbg_uplinkReady(dbg_uplinkReady),
+    .dbg_320mhz_lpgbtfpga_mgtrxclk(dbg_320mhz_lpgbtfpga_mgtrxclk),   // CG debug ILA clock signals (3)
 
     // REGULAR DATA SIGNALS:
     .clk40_o(clk40_o),

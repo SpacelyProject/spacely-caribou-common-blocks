@@ -77,6 +77,7 @@ entity lpgbtfpga_zcu102_10g24_top is
       dbg_rst_gearbox                  : out std_logic;                       -- CG debug signals (2)
       dbg_sta_headerFlag               : out std_logic;                       -- CG debug signals (2)
       dbg_uplinkReady                  : out std_logic;                       -- CG debug signals (2)
+      dbg_320mhz_lpgbtfpga_mgtrxclk    : out std_logic;                       -- CG debug ILA clock signals (3)
 
 
       -- REGULAR DATA SIGNALS:
@@ -630,6 +631,8 @@ begin                 --========####   Architecture Body   ####========--
 
       --USER_SMA_GPIO_P <= lpgbtfpga_clk40;
       --USER_SMA_GPIO_N <= lpgbtfpga_mgtrxclk_s;
+
+  dbg_320mhz_lpgbtfpga_mgtrxclk <= lpgbtfpga_mgtrxclk_s;
 
 end behavioral;
 --=================================================================================================--
