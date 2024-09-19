@@ -50,18 +50,18 @@
 # UltraScale FPGAs Transceivers Wizard IP core-level XDC file
 # ----------------------------------------------------------------------------------------------------------------------
 
-# Commands for enabled transceiver GTHE4_CHANNEL_X0Y4
+# Commands for enabled transceiver GTHE4_CHANNEL_X1Y12
 # ----------------------------------------------------------------------------------------------------------------------
 
 # Channel primitive location constraint
-set_property LOC GTHE4_CHANNEL_X0Y4 [get_cells -hierarchical -filter {NAME =~ *gen_channel_container[1].*gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST}]
+set_property LOC GTHE4_CHANNEL_X1Y12 [get_cells -hierarchical -filter {NAME =~ *gen_channel_container[27].*gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST}]
 
 # Channel primitive serial data pin location constraints
 # (Provided as comments for your reference. The channel primitive location constraint is sufficient.)
-#set_property package_pin T34 [get_ports gthrxn_in[0]]
-#set_property package_pin T33 [get_ports gthrxp_in[0]]
-#set_property package_pin T30 [get_ports gthtxn_out[0]]
-#set_property package_pin T29 [get_ports gthtxp_out[0]]
+#set_property package_pin D1 [get_ports gthrxn_in[0]]
+#set_property package_pin D2 [get_ports gthrxp_in[0]]
+#set_property package_pin E3 [get_ports gthtxn_out[0]]
+#set_property package_pin E4 [get_ports gthtxp_out[0]]
 ##set_false_path -through [get_pins -filter {REF_PIN_NAME=~*Q} -of_objects [get_cells -hierarchical -filter {NAME =~ *gen_pwrgood_delay_inst[0].delay_powergood_inst/gen_powergood_delay.pwr_on_fsm*}]] -quiet
 set_case_analysis 1     [get_pins -filter {REF_PIN_NAME=~*Q} -of_objects [get_cells -hierarchical -filter {NAME =~ *gen_pwrgood_delay_inst[0].delay_powergood_inst/gen_powergood_delay.pwr_on_fsm*}]] -quiet
 

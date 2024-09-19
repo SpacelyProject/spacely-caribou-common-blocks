@@ -1,10 +1,10 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
--- Date        : Wed Sep 18 15:13:54 2024
--- Host        : metal.fnal.gov running 64-bit unknown
+-- Date        : Thu Sep 19 10:14:48 2024
+-- Host        : fasic-beast2.fnal.gov running 64-bit Scientific Linux release 7.9 (Nitrogen)
 -- Command     : write_vhdl -force -mode funcsim
---               /asic/projects/S/SParkDream/aquinn/peary-firmware-sprocket3/submodules/spacely-caribou-common-blocks/dr_gth/src/gtwizard_ultrascale_0/gtwizard_ultrascale_0_sim_netlist.vhdl
+--               /asic/projects/S/SParkDream/gingu/peary-firmware-sprocket3/submodules/spacely-caribou-common-blocks/dr_gth/src/gtwizard_ultrascale_0/gtwizard_ultrascale_0_sim_netlist.vhdl
 -- Design      : gtwizard_ultrascale_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -304,7 +304,7 @@ entity gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_bit_synchronizer_10 is
     i_in_out_reg_0 : out STD_LOGIC;
     i_in_out_reg_1 : out STD_LOGIC;
     i_in_out_reg_2 : out STD_LOGIC;
-    qpll0lock_out : in STD_LOGIC_VECTOR ( 0 to 0 );
+    qpll1lock_out : in STD_LOGIC_VECTOR ( 0 to 0 );
     gtwiz_reset_clk_freerun_in : in STD_LOGIC_VECTOR ( 0 to 0 );
     gtwiz_reset_rx_done_int_reg : in STD_LOGIC;
     \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.rxresetdone_sync\ : in STD_LOGIC;
@@ -389,7 +389,7 @@ i_in_meta_reg: unisim.vcomponents.FDRE
         port map (
       C => gtwiz_reset_clk_freerun_in(0),
       CE => '1',
-      D => qpll0lock_out(0),
+      D => qpll1lock_out(0),
       Q => i_in_meta,
       R => '0'
     );
@@ -3118,7 +3118,7 @@ begin
       RXPHDLYPD => '0',
       RXPHDLYRESET => '0',
       RXPHOVRDEN => '0',
-      RXPLLCLKSEL(1 downto 0) => B"11",
+      RXPLLCLKSEL(1 downto 0) => B"10",
       RXPMARESET => '0',
       RXPMARESETDONE => rxpmaresetdone_out(0),
       RXPOLARITY => '0',
@@ -3154,7 +3154,7 @@ begin
       RXSYNCIN => '0',
       RXSYNCMODE => '1',
       RXSYNCOUT => \gthe4_channel_gen.gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST_n_61\,
-      RXSYSCLKSEL(1 downto 0) => B"10",
+      RXSYSCLKSEL(1 downto 0) => B"11",
       RXTERMINATION => '0',
       RXUSERRDY => \gen_gtwizard_gthe4.rxuserrdy_int\,
       RXUSRCLK => rxusrclk_in(0),
@@ -3263,11 +3263,14 @@ entity gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gthe4_common is
     qpll0lock_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     qpll0outclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     qpll0outrefclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
+    qpll1lock_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     qpll1outclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     qpll1outrefclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     rst_in0 : out STD_LOGIC;
     gtrefclk00_in : in STD_LOGIC_VECTOR ( 0 to 0 );
-    \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_0\ : in STD_LOGIC
+    gtrefclk01_in : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_0\ : in STD_LOGIC;
+    \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_1\ : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gthe4_common : entity is "gtwizard_ultrascale_v1_7_13_gthe4_common";
@@ -3352,7 +3355,6 @@ architecture STRUCTURE of gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gthe
   signal \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_67\ : STD_LOGIC;
   signal \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_68\ : STD_LOGIC;
   signal \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_69\ : STD_LOGIC;
-  signal \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_7\ : STD_LOGIC;
   signal \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_70\ : STD_LOGIC;
   signal \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_71\ : STD_LOGIC;
   signal \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_72\ : STD_LOGIC;
@@ -3437,19 +3439,19 @@ begin
       QPLL1_CFG0 => X"331C",
       QPLL1_CFG1 => X"D038",
       QPLL1_CFG1_G3 => X"D038",
-      QPLL1_CFG2 => X"0FC3",
-      QPLL1_CFG2_G3 => X"0FC3",
+      QPLL1_CFG2 => X"0FC1",
+      QPLL1_CFG2_G3 => X"0FC1",
       QPLL1_CFG3 => X"0120",
       QPLL1_CFG4 => X"0003",
       QPLL1_CP => B"0011111111",
       QPLL1_CP_G3 => B"0001111111",
-      QPLL1_FBDIV => 66,
+      QPLL1_FBDIV => 32,
       QPLL1_FBDIV_G3 => 80,
       QPLL1_INIT_CFG0 => X"02B2",
       QPLL1_INIT_CFG1 => X"00",
       QPLL1_LOCK_CFG => X"25E8",
       QPLL1_LOCK_CFG_G3 => X"25E8",
-      QPLL1_LPF => B"1000011111",
+      QPLL1_LPF => B"1100111111",
       QPLL1_LPF_G3 => B"0111010100",
       QPLL1_PCI_EN => '0',
       QPLL1_RATE_SW_USE_DRP => '1',
@@ -3508,7 +3510,7 @@ begin
       GTNORTHREFCLK10 => '0',
       GTNORTHREFCLK11 => '0',
       GTREFCLK00 => gtrefclk00_in(0),
-      GTREFCLK01 => '0',
+      GTREFCLK01 => gtrefclk01_in(0),
       GTREFCLK10 => '0',
       GTREFCLK11 => '0',
       GTSOUTHREFCLK00 => '0',
@@ -3552,15 +3554,15 @@ begin
       QPLL1CLKRSVD1 => '0',
       QPLL1FBCLKLOST => \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_6\,
       QPLL1FBDIV(7 downto 0) => B"00000000",
-      QPLL1LOCK => \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_7\,
+      QPLL1LOCK => qpll1lock_out(0),
       QPLL1LOCKDETCLK => '0',
-      QPLL1LOCKEN => '0',
+      QPLL1LOCKEN => '1',
       QPLL1OUTCLK => qpll1outclk_out(0),
       QPLL1OUTREFCLK => qpll1outrefclk_out(0),
-      QPLL1PD => '1',
+      QPLL1PD => '0',
       QPLL1REFCLKLOST => \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_10\,
       QPLL1REFCLKSEL(2 downto 0) => B"001",
-      QPLL1RESET => '1',
+      QPLL1RESET => \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_1\,
       QPLLDMONITOR0(7) => \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_88\,
       QPLLDMONITOR0(6) => \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_89\,
       QPLLDMONITOR0(5) => \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_n_90\,
@@ -4407,7 +4409,7 @@ entity gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_reset_synchronizer_13 i
     \FSM_sequential_sm_reset_rx_reg[1]_1\ : out STD_LOGIC;
     gtwiz_reset_clk_freerun_in : in STD_LOGIC_VECTOR ( 0 to 0 );
     Q : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_rx_int\ : in STD_LOGIC;
+    pllreset_rx_out_reg : in STD_LOGIC;
     rxprogdivreset_out_reg : in STD_LOGIC;
     \gen_gtwizard_gthe4.rxprogdivreset_int\ : in STD_LOGIC;
     gtrxreset_out_reg : in STD_LOGIC;
@@ -4467,7 +4469,7 @@ pllreset_rx_out_i_1: unisim.vcomponents.LUT5
       I1 => Q(2),
       I2 => Q(0),
       I3 => \^gtwiz_reset_rx_any_sync\,
-      I4 => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_rx_int\,
+      I4 => pllreset_rx_out_reg,
       O => \FSM_sequential_sm_reset_rx_reg[1]\
     );
 rst_in_meta_reg: unisim.vcomponents.FDPE
@@ -4765,7 +4767,7 @@ entity gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_reset_synchronizer_16 i
     rst_in_out_reg_0 : out STD_LOGIC;
     gtwiz_reset_clk_freerun_in : in STD_LOGIC_VECTOR ( 0 to 0 );
     Q : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_tx_int\ : in STD_LOGIC;
+    pllreset_tx_out_reg : in STD_LOGIC;
     gttxreset_out_reg : in STD_LOGIC;
     \gen_gtwizard_gthe4.gttxreset_int\ : in STD_LOGIC;
     gtwiz_reset_tx_datapath_in : in STD_LOGIC_VECTOR ( 0 to 0 );
@@ -4822,7 +4824,7 @@ pllreset_tx_out_i_1: unisim.vcomponents.LUT5
       I1 => Q(2),
       I2 => Q(0),
       I3 => \^gtwiz_reset_tx_any_sync\,
-      I4 => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_tx_int\,
+      I4 => pllreset_tx_out_reg,
       O => \FSM_sequential_sm_reset_tx_reg[1]\
     );
 rst_in_meta_i_1: unisim.vcomponents.LUT3
@@ -5287,11 +5289,14 @@ entity gtwizard_ultrascale_0_gthe4_common_wrapper is
     qpll0lock_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     qpll0outclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     qpll0outrefclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
+    qpll1lock_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     qpll1outclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     qpll1outrefclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     rst_in0 : out STD_LOGIC;
     gtrefclk00_in : in STD_LOGIC_VECTOR ( 0 to 0 );
-    \gthe4_common_gen.GTHE4_COMMON_PRIM_INST\ : in STD_LOGIC
+    gtrefclk01_in : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \gthe4_common_gen.GTHE4_COMMON_PRIM_INST\ : in STD_LOGIC;
+    \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_0\ : in STD_LOGIC
   );
 end gtwizard_ultrascale_0_gthe4_common_wrapper;
 
@@ -5300,10 +5305,13 @@ begin
 common_inst: entity work.gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gthe4_common
      port map (
       \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_0\ => \gthe4_common_gen.GTHE4_COMMON_PRIM_INST\,
+      \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_1\ => \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_0\,
       gtrefclk00_in(0) => gtrefclk00_in(0),
+      gtrefclk01_in(0) => gtrefclk01_in(0),
       qpll0lock_out(0) => qpll0lock_out(0),
       qpll0outclk_out(0) => qpll0outclk_out(0),
       qpll0outrefclk_out(0) => qpll0outrefclk_out(0),
+      qpll1lock_out(0) => qpll1lock_out(0),
       qpll1outclk_out(0) => qpll1outclk_out(0),
       qpll1outrefclk_out(0) => qpll1outrefclk_out(0),
       rst_in0 => rst_in0
@@ -5468,17 +5476,19 @@ entity gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gtwiz_reset is
     \gen_gtwizard_gthe4.txprogdivreset_int\ : out STD_LOGIC;
     gtwiz_reset_tx_done_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     gtwiz_reset_rx_cdr_stable_out : out STD_LOGIC_VECTOR ( 0 to 0 );
+    pllreset_tx_out_reg_0 : out STD_LOGIC;
     \gen_gtwizard_gthe4.gttxreset_int\ : out STD_LOGIC;
     \gen_gtwizard_gthe4.txuserrdy_int\ : out STD_LOGIC;
+    pllreset_rx_out_reg_0 : out STD_LOGIC;
     \gen_gtwizard_gthe4.rxprogdivreset_int\ : out STD_LOGIC;
     \gen_gtwizard_gthe4.rxuserrdy_int\ : out STD_LOGIC;
     \gen_gtwizard_gthe4.gtrxreset_ch_int\ : out STD_LOGIC;
-    pllreset_tx_out_reg_0 : out STD_LOGIC;
     rst_in_out_reg : out STD_LOGIC;
     gtpowergood_out : in STD_LOGIC_VECTOR ( 0 to 0 );
     gtwiz_userclk_tx_active_in : in STD_LOGIC_VECTOR ( 0 to 0 );
     qpll0lock_out : in STD_LOGIC_VECTOR ( 0 to 0 );
     gtwiz_userclk_rx_active_in : in STD_LOGIC_VECTOR ( 0 to 0 );
+    qpll1lock_out : in STD_LOGIC_VECTOR ( 0 to 0 );
     rxcdrlock_out : in STD_LOGIC_VECTOR ( 0 to 0 );
     gtwiz_reset_clk_freerun_in : in STD_LOGIC_VECTOR ( 0 to 0 );
     rxusrclk2_in : in STD_LOGIC_VECTOR ( 0 to 0 );
@@ -5521,8 +5531,6 @@ architecture STRUCTURE of gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gtwi
   signal bit_synchronizer_rxcdrlock_inst_n_1 : STD_LOGIC;
   signal bit_synchronizer_rxcdrlock_inst_n_2 : STD_LOGIC;
   signal bit_synchronizer_rxcdrlock_inst_n_3 : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_rx_int\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_tx_int\ : STD_LOGIC;
   signal \gen_gtwizard_gthe4.gtrxreset_int\ : STD_LOGIC;
   signal \^gen_gtwizard_gthe4.gttxreset_int\ : STD_LOGIC;
   signal \^gen_gtwizard_gthe4.rxprogdivreset_int\ : STD_LOGIC;
@@ -5551,6 +5559,8 @@ architecture STRUCTURE of gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gtwi
   signal \p_0_in__1\ : STD_LOGIC_VECTOR ( 9 downto 0 );
   signal plllock_rx_sync : STD_LOGIC;
   signal plllock_tx_sync : STD_LOGIC;
+  signal \^pllreset_rx_out_reg_0\ : STD_LOGIC;
+  signal \^pllreset_tx_out_reg_0\ : STD_LOGIC;
   signal reset_synchronizer_gtwiz_reset_rx_any_inst_n_1 : STD_LOGIC;
   signal reset_synchronizer_gtwiz_reset_rx_any_inst_n_2 : STD_LOGIC;
   signal reset_synchronizer_gtwiz_reset_rx_any_inst_n_3 : STD_LOGIC;
@@ -5681,8 +5691,8 @@ architecture STRUCTURE of gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gtwi
   signal \NLW_sm_reset_rx_cdr_to_ctr_reg[24]_i_1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 7 downto 1 );
   signal \NLW_sm_reset_rx_cdr_to_ctr_reg[24]_i_1_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 7 downto 2 );
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \FSM_sequential_sm_reset_all[1]_i_1\ : label is "soft_lutpair17";
-  attribute SOFT_HLUTNM of \FSM_sequential_sm_reset_all[2]_i_2\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of \FSM_sequential_sm_reset_all[1]_i_1\ : label is "soft_lutpair22";
+  attribute SOFT_HLUTNM of \FSM_sequential_sm_reset_all[2]_i_2\ : label is "soft_lutpair22";
   attribute SOFT_HLUTNM of \FSM_sequential_sm_reset_all[2]_i_3\ : label is "soft_lutpair12";
   attribute SOFT_HLUTNM of \FSM_sequential_sm_reset_all[2]_i_4\ : label is "soft_lutpair12";
   attribute FSM_ENCODED_STATES : string;
@@ -5702,15 +5712,15 @@ architecture STRUCTURE of gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gtwi
   attribute FSM_ENCODED_STATES of \FSM_sequential_sm_reset_tx_reg[2]\ : label is "ST_RESET_TX_BRANCH:000,ST_RESET_TX_WAIT_LOCK:011,ST_RESET_TX_WAIT_USERRDY:100,ST_RESET_TX_WAIT_RESETDONE:101,ST_RESET_TX_IDLE:110,ST_RESET_TX_DATAPATH:010,ST_RESET_TX_PLL:001";
   attribute SOFT_HLUTNM of gtwiz_reset_rx_datapath_int_i_1 : label is "soft_lutpair11";
   attribute SOFT_HLUTNM of gtwiz_reset_tx_pll_and_datapath_int_i_1 : label is "soft_lutpair11";
-  attribute SOFT_HLUTNM of \sm_reset_all_timer_ctr[1]_i_1\ : label is "soft_lutpair20";
-  attribute SOFT_HLUTNM of \sm_reset_all_timer_ctr[2]_i_1\ : label is "soft_lutpair20";
+  attribute SOFT_HLUTNM of \sm_reset_all_timer_ctr[1]_i_1\ : label is "soft_lutpair19";
+  attribute SOFT_HLUTNM of \sm_reset_all_timer_ctr[2]_i_1\ : label is "soft_lutpair19";
   attribute ADDER_THRESHOLD : integer;
   attribute ADDER_THRESHOLD of \sm_reset_rx_cdr_to_ctr_reg[0]_i_2\ : label is 16;
   attribute ADDER_THRESHOLD of \sm_reset_rx_cdr_to_ctr_reg[16]_i_1\ : label is 16;
   attribute ADDER_THRESHOLD of \sm_reset_rx_cdr_to_ctr_reg[24]_i_1\ : label is 16;
   attribute ADDER_THRESHOLD of \sm_reset_rx_cdr_to_ctr_reg[8]_i_1\ : label is 16;
-  attribute SOFT_HLUTNM of \sm_reset_rx_pll_timer_ctr[0]_i_1\ : label is "soft_lutpair22";
-  attribute SOFT_HLUTNM of \sm_reset_rx_pll_timer_ctr[1]_i_1\ : label is "soft_lutpair22";
+  attribute SOFT_HLUTNM of \sm_reset_rx_pll_timer_ctr[0]_i_1\ : label is "soft_lutpair21";
+  attribute SOFT_HLUTNM of \sm_reset_rx_pll_timer_ctr[1]_i_1\ : label is "soft_lutpair21";
   attribute SOFT_HLUTNM of \sm_reset_rx_pll_timer_ctr[2]_i_1\ : label is "soft_lutpair16";
   attribute SOFT_HLUTNM of \sm_reset_rx_pll_timer_ctr[3]_i_1\ : label is "soft_lutpair7";
   attribute SOFT_HLUTNM of \sm_reset_rx_pll_timer_ctr[4]_i_1\ : label is "soft_lutpair7";
@@ -5719,12 +5729,12 @@ architecture STRUCTURE of gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gtwi
   attribute SOFT_HLUTNM of \sm_reset_rx_pll_timer_ctr[8]_i_1\ : label is "soft_lutpair4";
   attribute SOFT_HLUTNM of \sm_reset_rx_pll_timer_ctr[9]_i_2\ : label is "soft_lutpair4";
   attribute SOFT_HLUTNM of sm_reset_rx_pll_timer_sat_i_2 : label is "soft_lutpair16";
-  attribute SOFT_HLUTNM of \sm_reset_rx_timer_ctr[1]_i_1\ : label is "soft_lutpair19";
-  attribute SOFT_HLUTNM of \sm_reset_rx_timer_ctr[2]_i_1\ : label is "soft_lutpair19";
+  attribute SOFT_HLUTNM of \sm_reset_rx_timer_ctr[1]_i_1\ : label is "soft_lutpair18";
+  attribute SOFT_HLUTNM of \sm_reset_rx_timer_ctr[2]_i_1\ : label is "soft_lutpair18";
   attribute SOFT_HLUTNM of sm_reset_rx_timer_sat_i_1 : label is "soft_lutpair9";
   attribute SOFT_HLUTNM of sm_reset_tx_pll_timer_clr_i_1 : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of \sm_reset_tx_pll_timer_ctr[0]_i_1\ : label is "soft_lutpair21";
-  attribute SOFT_HLUTNM of \sm_reset_tx_pll_timer_ctr[1]_i_1\ : label is "soft_lutpair21";
+  attribute SOFT_HLUTNM of \sm_reset_tx_pll_timer_ctr[0]_i_1\ : label is "soft_lutpair20";
+  attribute SOFT_HLUTNM of \sm_reset_tx_pll_timer_ctr[1]_i_1\ : label is "soft_lutpair20";
   attribute SOFT_HLUTNM of \sm_reset_tx_pll_timer_ctr[2]_i_1\ : label is "soft_lutpair15";
   attribute SOFT_HLUTNM of \sm_reset_tx_pll_timer_ctr[3]_i_1\ : label is "soft_lutpair6";
   attribute SOFT_HLUTNM of \sm_reset_tx_pll_timer_ctr[4]_i_1\ : label is "soft_lutpair6";
@@ -5733,17 +5743,19 @@ architecture STRUCTURE of gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gtwi
   attribute SOFT_HLUTNM of \sm_reset_tx_pll_timer_ctr[8]_i_1\ : label is "soft_lutpair3";
   attribute SOFT_HLUTNM of \sm_reset_tx_pll_timer_ctr[9]_i_2\ : label is "soft_lutpair3";
   attribute SOFT_HLUTNM of sm_reset_tx_pll_timer_sat_i_2 : label is "soft_lutpair15";
-  attribute SOFT_HLUTNM of \sm_reset_tx_timer_ctr[1]_i_1\ : label is "soft_lutpair18";
-  attribute SOFT_HLUTNM of \sm_reset_tx_timer_ctr[2]_i_1\ : label is "soft_lutpair18";
+  attribute SOFT_HLUTNM of \sm_reset_tx_timer_ctr[1]_i_1\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of \sm_reset_tx_timer_ctr[2]_i_1\ : label is "soft_lutpair17";
   attribute SOFT_HLUTNM of sm_reset_tx_timer_sat_i_1 : label is "soft_lutpair8";
 begin
   \gen_gtwizard_gthe4.gttxreset_int\ <= \^gen_gtwizard_gthe4.gttxreset_int\;
   \gen_gtwizard_gthe4.rxprogdivreset_int\ <= \^gen_gtwizard_gthe4.rxprogdivreset_int\;
   \gen_gtwizard_gthe4.rxuserrdy_int\ <= \^gen_gtwizard_gthe4.rxuserrdy_int\;
   \gen_gtwizard_gthe4.txuserrdy_int\ <= \^gen_gtwizard_gthe4.txuserrdy_int\;
+  pllreset_rx_out_reg_0 <= \^pllreset_rx_out_reg_0\;
+  pllreset_tx_out_reg_0 <= \^pllreset_tx_out_reg_0\;
 \FSM_sequential_sm_reset_all[0]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"00FFF70000FFFFFF"
+      INIT => X"00FFF7000000FFFF"
     )
         port map (
       I0 => gtwiz_reset_rx_done_int_reg_n_0,
@@ -5754,24 +5766,22 @@ begin
       I5 => sm_reset_all(0),
       O => \sm_reset_all__0\(0)
     );
-\FSM_sequential_sm_reset_all[1]_i_1\: unisim.vcomponents.LUT3
+\FSM_sequential_sm_reset_all[1]_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"34"
+      INIT => X"2"
+    )
+        port map (
+      I0 => sm_reset_all(0),
+      I1 => sm_reset_all(1),
+      O => \sm_reset_all__0\(1)
+    );
+\FSM_sequential_sm_reset_all[2]_i_2\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"6"
     )
         port map (
       I0 => sm_reset_all(2),
       I1 => sm_reset_all(1),
-      I2 => sm_reset_all(0),
-      O => \sm_reset_all__0\(1)
-    );
-\FSM_sequential_sm_reset_all[2]_i_2\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"4A"
-    )
-        port map (
-      I0 => sm_reset_all(2),
-      I1 => sm_reset_all(0),
-      I2 => sm_reset_all(1),
       O => \sm_reset_all__0\(2)
     );
 \FSM_sequential_sm_reset_all[2]_i_3\: unisim.vcomponents.LUT3
@@ -6062,7 +6072,7 @@ bit_synchronizer_plllock_rx_inst: entity work.gtwizard_ultrascale_0_gtwizard_ult
       i_in_out_reg_1 => bit_synchronizer_plllock_rx_inst_n_2,
       i_in_out_reg_2 => bit_synchronizer_plllock_rx_inst_n_3,
       plllock_rx_sync => plllock_rx_sync,
-      qpll0lock_out(0) => qpll0lock_out(0),
+      qpll1lock_out(0) => qpll1lock_out(0),
       sm_reset_rx_timer_sat => sm_reset_rx_timer_sat
     );
 bit_synchronizer_plllock_tx_inst: entity work.gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_bit_synchronizer_11
@@ -6105,15 +6115,6 @@ bit_synchronizer_rxcdrlock_inst: entity work.gtwizard_ultrascale_0_gtwizard_ultr
       I1 => gtpowergood_out(0),
       I2 => \gen_gtwizard_gthe4.gtpowergood_int\,
       O => \gen_gtwizard_gthe4.gtrxreset_ch_int\
-    );
-\gthe4_common_gen.GTHE4_COMMON_PRIM_INST_i_1\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"E"
-    )
-        port map (
-      I0 => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_tx_int\,
-      I1 => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_rx_int\,
-      O => pllreset_tx_out_reg_0
     );
 gtrxreset_out_reg: unisim.vcomponents.FDRE
     generic map(
@@ -6227,13 +6228,13 @@ gtwiz_reset_tx_pll_and_datapath_int_reg: unisim.vcomponents.FDRE
     );
 pllreset_rx_out_reg: unisim.vcomponents.FDRE
     generic map(
-      INIT => '0'
+      INIT => '1'
     )
         port map (
       C => gtwiz_reset_clk_freerun_in(0),
       CE => '1',
       D => reset_synchronizer_gtwiz_reset_rx_any_inst_n_1,
-      Q => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_rx_int\,
+      Q => \^pllreset_rx_out_reg_0\,
       R => '0'
     );
 pllreset_tx_out_reg: unisim.vcomponents.FDRE
@@ -6244,7 +6245,7 @@ pllreset_tx_out_reg: unisim.vcomponents.FDRE
       C => gtwiz_reset_clk_freerun_in(0),
       CE => '1',
       D => reset_synchronizer_gtwiz_reset_tx_any_inst_n_1,
-      Q => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_tx_int\,
+      Q => \^pllreset_tx_out_reg_0\,
       R => '0'
     );
 reset_synchronizer_gtwiz_reset_all_inst: entity work.gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_reset_synchronizer
@@ -6259,7 +6260,6 @@ reset_synchronizer_gtwiz_reset_rx_any_inst: entity work.gtwizard_ultrascale_0_gt
       \FSM_sequential_sm_reset_rx_reg[1]_0\ => reset_synchronizer_gtwiz_reset_rx_any_inst_n_2,
       \FSM_sequential_sm_reset_rx_reg[1]_1\ => reset_synchronizer_gtwiz_reset_rx_any_inst_n_3,
       Q(2 downto 0) => sm_reset_rx(2 downto 0),
-      \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_rx_int\ => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_rx_int\,
       \gen_gtwizard_gthe4.gtrxreset_int\ => \gen_gtwizard_gthe4.gtrxreset_int\,
       \gen_gtwizard_gthe4.rxprogdivreset_int\ => \^gen_gtwizard_gthe4.rxprogdivreset_int\,
       gtrxreset_out_reg => bit_synchronizer_plllock_rx_inst_n_2,
@@ -6267,6 +6267,7 @@ reset_synchronizer_gtwiz_reset_rx_any_inst: entity work.gtwizard_ultrascale_0_gt
       gtwiz_reset_rx_any_sync => gtwiz_reset_rx_any_sync,
       gtwiz_reset_rx_datapath_in(0) => gtwiz_reset_rx_datapath_in(0),
       gtwiz_reset_rx_pll_and_datapath_in(0) => gtwiz_reset_rx_pll_and_datapath_in(0),
+      pllreset_rx_out_reg => \^pllreset_rx_out_reg_0\,
       rst_in_sync3_reg_0 => gtwiz_reset_rx_datapath_int_reg_n_0,
       rst_in_sync3_reg_1 => gtwiz_reset_rx_pll_and_datapath_int_reg_n_0,
       rxprogdivreset_out_reg => bit_synchronizer_rxcdrlock_inst_n_3
@@ -6289,13 +6290,13 @@ reset_synchronizer_gtwiz_reset_tx_any_inst: entity work.gtwizard_ultrascale_0_gt
      port map (
       \FSM_sequential_sm_reset_tx_reg[1]\ => reset_synchronizer_gtwiz_reset_tx_any_inst_n_1,
       Q(2 downto 0) => sm_reset_tx(2 downto 0),
-      \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_tx_int\ => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_pllreset_tx_int\,
       \gen_gtwizard_gthe4.gttxreset_int\ => \^gen_gtwizard_gthe4.gttxreset_int\,
       gttxreset_out_reg => bit_synchronizer_plllock_tx_inst_n_3,
       gtwiz_reset_clk_freerun_in(0) => gtwiz_reset_clk_freerun_in(0),
       gtwiz_reset_tx_any_sync => gtwiz_reset_tx_any_sync,
       gtwiz_reset_tx_datapath_in(0) => gtwiz_reset_tx_datapath_in(0),
       gtwiz_reset_tx_pll_and_datapath_in(0) => gtwiz_reset_tx_pll_and_datapath_in(0),
+      pllreset_tx_out_reg => \^pllreset_tx_out_reg_0\,
       rst_in_out_reg_0 => reset_synchronizer_gtwiz_reset_tx_any_inst_n_2,
       rst_in_out_reg_1 => gtwiz_reset_tx_pll_and_datapath_int_reg_n_0
     );
@@ -6495,11 +6496,11 @@ sm_reset_rx_cdr_to_clr_reg: unisim.vcomponents.FDSE
     );
 \sm_reset_rx_cdr_to_ctr[0]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFFFFFFFFFFFFFD"
+      INIT => X"FFFFFFFFFFFFFFFE"
     )
         port map (
-      I0 => sm_reset_rx_cdr_to_ctr_reg(1),
-      I1 => sm_reset_rx_cdr_to_ctr_reg(0),
+      I0 => sm_reset_rx_cdr_to_ctr_reg(0),
+      I1 => sm_reset_rx_cdr_to_ctr_reg(1),
       I2 => \sm_reset_rx_cdr_to_ctr[0]_i_3_n_0\,
       I3 => \sm_reset_rx_cdr_to_ctr[0]_i_4_n_0\,
       I4 => \sm_reset_rx_cdr_to_ctr[0]_i_5_n_0\,
@@ -6508,7 +6509,7 @@ sm_reset_rx_cdr_to_clr_reg: unisim.vcomponents.FDSE
     );
 \sm_reset_rx_cdr_to_ctr[0]_i_3\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFFFFFFFFFFFFFD"
+      INIT => X"FF7FFFFFFFFFFFFF"
     )
         port map (
       I0 => sm_reset_rx_cdr_to_ctr_reg(18),
@@ -6534,28 +6535,28 @@ sm_reset_rx_cdr_to_clr_reg: unisim.vcomponents.FDSE
     );
 \sm_reset_rx_cdr_to_ctr[0]_i_5\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFDFFFFFFFFFFFFF"
+      INIT => X"FFFFFFFFFFFFFFEF"
     )
         port map (
       I0 => sm_reset_rx_cdr_to_ctr_reg(12),
       I1 => sm_reset_rx_cdr_to_ctr_reg(13),
-      I2 => sm_reset_rx_cdr_to_ctr_reg(10),
-      I3 => sm_reset_rx_cdr_to_ctr_reg(11),
+      I2 => sm_reset_rx_cdr_to_ctr_reg(11),
+      I3 => sm_reset_rx_cdr_to_ctr_reg(10),
       I4 => sm_reset_rx_cdr_to_ctr_reg(9),
       I5 => sm_reset_rx_cdr_to_ctr_reg(8),
       O => \sm_reset_rx_cdr_to_ctr[0]_i_5_n_0\
     );
 \sm_reset_rx_cdr_to_ctr[0]_i_6\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"7FFFFFFFFFFFFFFF"
+      INIT => X"FFFFFFDFFFFFFFFF"
     )
         port map (
-      I0 => sm_reset_rx_cdr_to_ctr_reg(6),
-      I1 => sm_reset_rx_cdr_to_ctr_reg(7),
+      I0 => sm_reset_rx_cdr_to_ctr_reg(7),
+      I1 => sm_reset_rx_cdr_to_ctr_reg(6),
       I2 => sm_reset_rx_cdr_to_ctr_reg(4),
       I3 => sm_reset_rx_cdr_to_ctr_reg(5),
-      I4 => sm_reset_rx_cdr_to_ctr_reg(3),
-      I5 => sm_reset_rx_cdr_to_ctr_reg(2),
+      I4 => sm_reset_rx_cdr_to_ctr_reg(2),
+      I5 => sm_reset_rx_cdr_to_ctr_reg(3),
       O => \sm_reset_rx_cdr_to_ctr[0]_i_6_n_0\
     );
 \sm_reset_rx_cdr_to_ctr[0]_i_7\: unisim.vcomponents.LUT1
@@ -6947,28 +6948,28 @@ sm_reset_rx_cdr_to_sat_i_1: unisim.vcomponents.LUT3
     );
 sm_reset_rx_cdr_to_sat_i_2: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000000080000000"
+      INIT => X"0000000000008000"
     )
         port map (
       I0 => sm_reset_rx_cdr_to_sat_i_3_n_0,
       I1 => sm_reset_rx_cdr_to_sat_i_4_n_0,
       I2 => sm_reset_rx_cdr_to_sat_i_5_n_0,
       I3 => sm_reset_rx_cdr_to_sat_i_6_n_0,
-      I4 => sm_reset_rx_cdr_to_ctr_reg(1),
-      I5 => sm_reset_rx_cdr_to_ctr_reg(0),
+      I4 => sm_reset_rx_cdr_to_ctr_reg(0),
+      I5 => sm_reset_rx_cdr_to_ctr_reg(1),
       O => sm_reset_rx_cdr_to_sat_i_2_n_0
     );
 sm_reset_rx_cdr_to_sat_i_3: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"8000000000000000"
+      INIT => X"0000002000000000"
     )
         port map (
       I0 => sm_reset_rx_cdr_to_ctr_reg(4),
       I1 => sm_reset_rx_cdr_to_ctr_reg(5),
-      I2 => sm_reset_rx_cdr_to_ctr_reg(2),
-      I3 => sm_reset_rx_cdr_to_ctr_reg(3),
-      I4 => sm_reset_rx_cdr_to_ctr_reg(7),
-      I5 => sm_reset_rx_cdr_to_ctr_reg(6),
+      I2 => sm_reset_rx_cdr_to_ctr_reg(3),
+      I3 => sm_reset_rx_cdr_to_ctr_reg(2),
+      I4 => sm_reset_rx_cdr_to_ctr_reg(6),
+      I5 => sm_reset_rx_cdr_to_ctr_reg(7),
       O => sm_reset_rx_cdr_to_sat_i_3_n_0
     );
 sm_reset_rx_cdr_to_sat_i_4: unisim.vcomponents.LUT6
@@ -6986,7 +6987,7 @@ sm_reset_rx_cdr_to_sat_i_4: unisim.vcomponents.LUT6
     );
 sm_reset_rx_cdr_to_sat_i_5: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000000100000000"
+      INIT => X"2000000000000000"
     )
         port map (
       I0 => sm_reset_rx_cdr_to_ctr_reg(16),
@@ -6999,11 +7000,11 @@ sm_reset_rx_cdr_to_sat_i_5: unisim.vcomponents.LUT6
     );
 sm_reset_rx_cdr_to_sat_i_6: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0000200000000000"
+      INIT => X"0000000000000002"
     )
         port map (
-      I0 => sm_reset_rx_cdr_to_ctr_reg(10),
-      I1 => sm_reset_rx_cdr_to_ctr_reg(11),
+      I0 => sm_reset_rx_cdr_to_ctr_reg(11),
+      I1 => sm_reset_rx_cdr_to_ctr_reg(10),
       I2 => sm_reset_rx_cdr_to_ctr_reg(8),
       I3 => sm_reset_rx_cdr_to_ctr_reg(9),
       I4 => sm_reset_rx_cdr_to_ctr_reg(13),
@@ -7893,6 +7894,8 @@ entity gtwizard_ultrascale_0_gtwizard_gthe4 is
   port (
     qpll0outclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     qpll0outrefclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
+    qpll1outclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
+    qpll1outrefclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     drprdy_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     gthtxn_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     gthtxp_out : out STD_LOGIC_VECTOR ( 0 to 0 );
@@ -7910,6 +7913,7 @@ entity gtwizard_ultrascale_0_gtwizard_gthe4 is
     gtwiz_reset_tx_done_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     gtwiz_reset_rx_cdr_stable_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     gtrefclk00_in : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gtrefclk01_in : in STD_LOGIC_VECTOR ( 0 to 0 );
     dmonitorclk_in : in STD_LOGIC_VECTOR ( 0 to 0 );
     drpclk_in : in STD_LOGIC_VECTOR ( 0 to 0 );
     drpen_in : in STD_LOGIC_VECTOR ( 0 to 0 );
@@ -7938,18 +7942,18 @@ entity gtwizard_ultrascale_0_gtwizard_gthe4 is
 end gtwizard_ultrascale_0_gtwizard_gthe4;
 
 architecture STRUCTURE of gtwizard_ultrascale_0_gtwizard_gthe4 is
-  signal \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_10\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_13\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_4\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_6\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_7\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_78\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_9\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_common.gen_common_container[1].gen_enabled_common.gthe4_common_wrapper_inst_n_0\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_common.gen_common_container[1].gen_enabled_common.gthe4_common_wrapper_inst_n_3\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_common.gen_common_container[1].gen_enabled_common.gthe4_common_wrapper_inst_n_4\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_10\ : STD_LOGIC;
-  signal \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_9\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_10\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_13\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_4\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_6\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_7\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_78\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_9\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_common.gen_common_container[27].gen_enabled_common.gthe4_common_wrapper_inst_n_0\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_common.gen_common_container[27].gen_enabled_common.gthe4_common_wrapper_inst_n_3\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_11\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_4\ : STD_LOGIC;
+  signal \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_7\ : STD_LOGIC;
   signal \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.rxresetdone_sync\ : STD_LOGIC;
   signal \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.txresetdone_sync\ : STD_LOGIC;
   signal \gen_gtwizard_gthe4.gtpowergood_int\ : STD_LOGIC;
@@ -7964,12 +7968,16 @@ architecture STRUCTURE of gtwizard_ultrascale_0_gtwizard_gthe4 is
   signal \^gtpowergood_out\ : STD_LOGIC_VECTOR ( 0 to 0 );
   signal \^qpll0outclk_out\ : STD_LOGIC_VECTOR ( 0 to 0 );
   signal \^qpll0outrefclk_out\ : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal \^qpll1outclk_out\ : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal \^qpll1outrefclk_out\ : STD_LOGIC_VECTOR ( 0 to 0 );
   signal rst_in0 : STD_LOGIC;
 begin
   gtpowergood_out(0) <= \^gtpowergood_out\(0);
   qpll0outclk_out(0) <= \^qpll0outclk_out\(0);
   qpll0outrefclk_out(0) <= \^qpll0outrefclk_out\(0);
-\gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst\: entity work.gtwizard_ultrascale_0_gthe4_channel_wrapper
+  qpll1outclk_out(0) <= \^qpll1outclk_out\(0);
+  qpll1outrefclk_out(0) <= \^qpll1outrefclk_out\(0);
+\gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst\: entity work.gtwizard_ultrascale_0_gthe4_channel_wrapper
      port map (
       RXRATE(0) => \gen_gtwizard_gthe4.rxratemode_ch_int\,
       dmonitorclk_in(0) => dmonitorclk_in(0),
@@ -7989,7 +7997,7 @@ begin
       \gen_gtwizard_gthe4.rxuserrdy_int\ => \gen_gtwizard_gthe4.rxuserrdy_int\,
       \gen_gtwizard_gthe4.txprogdivreset_int\ => \gen_gtwizard_gthe4.txprogdivreset_int\,
       \gen_gtwizard_gthe4.txuserrdy_int\ => \gen_gtwizard_gthe4.txuserrdy_int\,
-      \gthe4_channel_gen.gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST\ => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_78\,
+      \gthe4_channel_gen.gen_gthe4_channel_inst[0].GTHE4_CHANNEL_PRIM_INST\ => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_78\,
       gthrxn_in(0) => gthrxn_in(0),
       gthrxp_in(0) => gthrxp_in(0),
       gthtxn_out(0) => gthtxn_out(0),
@@ -7999,52 +8007,55 @@ begin
       pcsrsvdin_in(15 downto 0) => pcsrsvdin_in(15 downto 0),
       qpll0outclk_out(0) => \^qpll0outclk_out\(0),
       qpll0outrefclk_out(0) => \^qpll0outrefclk_out\(0),
-      qpll1outclk_out(0) => \gen_gtwizard_gthe4.gen_common.gen_common_container[1].gen_enabled_common.gthe4_common_wrapper_inst_n_3\,
-      qpll1outrefclk_out(0) => \gen_gtwizard_gthe4.gen_common.gen_common_container[1].gen_enabled_common.gthe4_common_wrapper_inst_n_4\,
-      rxcdrlock_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_4\,
+      qpll1outclk_out(0) => \^qpll1outclk_out\(0),
+      qpll1outrefclk_out(0) => \^qpll1outrefclk_out\(0),
+      rxcdrlock_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_4\,
       rxoutclk_out(0) => rxoutclk_out(0),
-      rxoutclkpcs_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_6\,
-      rxphaligndone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_7\,
+      rxoutclkpcs_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_6\,
+      rxphaligndone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_7\,
       rxpmaresetdone_out(0) => rxpmaresetdone_out(0),
-      rxresetdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_9\,
-      rxsyncdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_10\,
+      rxresetdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_9\,
+      rxsyncdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_10\,
       rxusrclk2_in(0) => rxusrclk2_in(0),
       rxusrclk_in(0) => rxusrclk_in(0),
       txoutclk_out(0) => txoutclk_out(0),
       txpmaresetdone_out(0) => txpmaresetdone_out(0),
-      txresetdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_13\,
+      txresetdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_13\,
       txusrclk2_in(0) => txusrclk2_in(0),
       txusrclk_in(0) => txusrclk_in(0)
     );
-\gen_gtwizard_gthe4.gen_common.gen_common_container[1].gen_enabled_common.gthe4_common_wrapper_inst\: entity work.gtwizard_ultrascale_0_gthe4_common_wrapper
+\gen_gtwizard_gthe4.gen_common.gen_common_container[27].gen_enabled_common.gthe4_common_wrapper_inst\: entity work.gtwizard_ultrascale_0_gthe4_common_wrapper
      port map (
-      \gthe4_common_gen.GTHE4_COMMON_PRIM_INST\ => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_9\,
+      \gthe4_common_gen.GTHE4_COMMON_PRIM_INST\ => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_4\,
+      \gthe4_common_gen.GTHE4_COMMON_PRIM_INST_0\ => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_7\,
       gtrefclk00_in(0) => gtrefclk00_in(0),
-      qpll0lock_out(0) => \gen_gtwizard_gthe4.gen_common.gen_common_container[1].gen_enabled_common.gthe4_common_wrapper_inst_n_0\,
+      gtrefclk01_in(0) => gtrefclk01_in(0),
+      qpll0lock_out(0) => \gen_gtwizard_gthe4.gen_common.gen_common_container[27].gen_enabled_common.gthe4_common_wrapper_inst_n_0\,
       qpll0outclk_out(0) => \^qpll0outclk_out\(0),
       qpll0outrefclk_out(0) => \^qpll0outrefclk_out\(0),
-      qpll1outclk_out(0) => \gen_gtwizard_gthe4.gen_common.gen_common_container[1].gen_enabled_common.gthe4_common_wrapper_inst_n_3\,
-      qpll1outrefclk_out(0) => \gen_gtwizard_gthe4.gen_common.gen_common_container[1].gen_enabled_common.gthe4_common_wrapper_inst_n_4\,
+      qpll1lock_out(0) => \gen_gtwizard_gthe4.gen_common.gen_common_container[27].gen_enabled_common.gthe4_common_wrapper_inst_n_3\,
+      qpll1outclk_out(0) => \^qpll1outclk_out\(0),
+      qpll1outrefclk_out(0) => \^qpll1outrefclk_out\(0),
       rst_in0 => rst_in0
     );
 \gen_gtwizard_gthe4.gen_pwrgood_delay_inst[0].delay_powergood_inst\: entity work.gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gthe4_delay_powergood
      port map (
       RXRATE(0) => \gen_gtwizard_gthe4.rxratemode_ch_int\,
-      \gen_powergood_delay.intclk_rrst_n_r_reg[4]_0\ => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_78\,
+      \gen_powergood_delay.intclk_rrst_n_r_reg[4]_0\ => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_78\,
       \out\ => \^gtpowergood_out\(0),
-      rxoutclkpcs_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_6\
+      rxoutclkpcs_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_6\
     );
 \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gen_ch_xrd[0].bit_synchronizer_rxresetdone_inst\: entity work.gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_bit_synchronizer
      port map (
       \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.rxresetdone_sync\ => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.rxresetdone_sync\,
       gtwiz_reset_clk_freerun_in(0) => gtwiz_reset_clk_freerun_in(0),
-      rxresetdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_9\
+      rxresetdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_9\
     );
 \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gen_ch_xrd[0].bit_synchronizer_txresetdone_inst\: entity work.gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_bit_synchronizer_0
      port map (
       \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.txresetdone_sync\ => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.txresetdone_sync\,
       gtwiz_reset_clk_freerun_in(0) => gtwiz_reset_clk_freerun_in(0),
-      txresetdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_13\
+      txresetdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_13\
     );
 \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst\: entity work.gtwizard_ultrascale_0_gtwizard_ultrascale_v1_7_13_gtwiz_reset
      port map (
@@ -8069,11 +8080,13 @@ begin
       gtwiz_reset_tx_pll_and_datapath_in(0) => gtwiz_reset_tx_pll_and_datapath_in(0),
       gtwiz_userclk_rx_active_in(0) => gtwiz_userclk_rx_active_in(0),
       gtwiz_userclk_tx_active_in(0) => gtwiz_userclk_tx_active_in(0),
-      pllreset_tx_out_reg_0 => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_9\,
-      qpll0lock_out(0) => \gen_gtwizard_gthe4.gen_common.gen_common_container[1].gen_enabled_common.gthe4_common_wrapper_inst_n_0\,
+      pllreset_rx_out_reg_0 => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_7\,
+      pllreset_tx_out_reg_0 => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_4\,
+      qpll0lock_out(0) => \gen_gtwizard_gthe4.gen_common.gen_common_container[27].gen_enabled_common.gthe4_common_wrapper_inst_n_0\,
+      qpll1lock_out(0) => \gen_gtwizard_gthe4.gen_common.gen_common_container[27].gen_enabled_common.gthe4_common_wrapper_inst_n_3\,
       rst_in0 => rst_in0,
-      rst_in_out_reg => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_10\,
-      rxcdrlock_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_4\,
+      rst_in_out_reg => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_11\,
+      rxcdrlock_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_4\,
       rxusrclk2_in(0) => rxusrclk2_in(0),
       txusrclk2_in(0) => txusrclk2_in(0)
     );
@@ -8084,9 +8097,9 @@ begin
       gtwiz_buffbypass_rx_error_out(0) => gtwiz_buffbypass_rx_error_out(0),
       gtwiz_buffbypass_rx_reset_in(0) => gtwiz_buffbypass_rx_reset_in(0),
       gtwiz_buffbypass_rx_start_user_in(0) => gtwiz_buffbypass_rx_start_user_in(0),
-      rst_in_sync2_reg => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_10\,
-      rxphaligndone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_7\,
-      rxsyncdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[1].gen_enabled_channel.gthe4_channel_wrapper_inst_n_10\,
+      rst_in_sync2_reg => \gen_gtwizard_gthe4.gen_reset_controller_internal.gen_single_instance.gtwiz_reset_inst_n_11\,
+      rxphaligndone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_7\,
+      rxsyncdone_out(0) => \gen_gtwizard_gthe4.gen_channel_container[27].gen_enabled_channel.gthe4_channel_wrapper_inst_n_10\,
       rxusrclk2_in(0) => rxusrclk2_in(0)
     );
 end STRUCTURE;
@@ -8632,7 +8645,7 @@ entity gtwizard_ultrascale_0_gtwizard_top is
     txsyncout_out : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
   attribute C_CHANNEL_ENABLE : string;
-  attribute C_CHANNEL_ENABLE of gtwizard_ultrascale_0_gtwizard_top : entity is "192'b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000";
+  attribute C_CHANNEL_ENABLE of gtwizard_ultrascale_0_gtwizard_top : entity is "192'b000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
   attribute C_COMMON_SCALING_FACTOR : integer;
   attribute C_COMMON_SCALING_FACTOR of gtwizard_ultrascale_0_gtwizard_top : entity is 1;
   attribute C_CPLL_VCO_FREQUENCY : string;
@@ -8642,7 +8655,7 @@ entity gtwizard_ultrascale_0_gtwizard_top is
   attribute C_FORCE_COMMONS : integer;
   attribute C_FORCE_COMMONS of gtwizard_ultrascale_0_gtwizard_top : entity is 0;
   attribute C_FREERUN_FREQUENCY : string;
-  attribute C_FREERUN_FREQUENCY of gtwizard_ultrascale_0_gtwizard_top : entity is "74.250000";
+  attribute C_FREERUN_FREQUENCY of gtwizard_ultrascale_0_gtwizard_top : entity is "250.000000";
   attribute C_GT_REV : integer;
   attribute C_GT_REV of gtwizard_ultrascale_0_gtwizard_top : entity is 57;
   attribute C_GT_TYPE : integer;
@@ -8722,7 +8735,7 @@ entity gtwizard_ultrascale_0_gtwizard_top is
   attribute C_RX_LINE_RATE : string;
   attribute C_RX_LINE_RATE of gtwizard_ultrascale_0_gtwizard_top : entity is "10.240000";
   attribute C_RX_MASTER_CHANNEL_IDX : integer;
-  attribute C_RX_MASTER_CHANNEL_IDX of gtwizard_ultrascale_0_gtwizard_top : entity is 4;
+  attribute C_RX_MASTER_CHANNEL_IDX of gtwizard_ultrascale_0_gtwizard_top : entity is 108;
   attribute C_RX_OUTCLK_BUFG_GT_DIV : integer;
   attribute C_RX_OUTCLK_BUFG_GT_DIV of gtwizard_ultrascale_0_gtwizard_top : entity is 1;
   attribute C_RX_OUTCLK_FREQUENCY : string;
@@ -8730,7 +8743,7 @@ entity gtwizard_ultrascale_0_gtwizard_top is
   attribute C_RX_OUTCLK_SOURCE : integer;
   attribute C_RX_OUTCLK_SOURCE of gtwizard_ultrascale_0_gtwizard_top : entity is 1;
   attribute C_RX_PLL_TYPE : integer;
-  attribute C_RX_PLL_TYPE of gtwizard_ultrascale_0_gtwizard_top : entity is 0;
+  attribute C_RX_PLL_TYPE of gtwizard_ultrascale_0_gtwizard_top : entity is 1;
   attribute C_RX_RECCLK_OUTPUT : string;
   attribute C_RX_RECCLK_OUTPUT of gtwizard_ultrascale_0_gtwizard_top : entity is "192'b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
   attribute C_RX_REFCLK_FREQUENCY : string;
@@ -8786,7 +8799,7 @@ entity gtwizard_ultrascale_0_gtwizard_top is
   attribute C_TX_LINE_RATE : string;
   attribute C_TX_LINE_RATE of gtwizard_ultrascale_0_gtwizard_top : entity is "10.240000";
   attribute C_TX_MASTER_CHANNEL_IDX : integer;
-  attribute C_TX_MASTER_CHANNEL_IDX of gtwizard_ultrascale_0_gtwizard_top : entity is 4;
+  attribute C_TX_MASTER_CHANNEL_IDX of gtwizard_ultrascale_0_gtwizard_top : entity is 108;
   attribute C_TX_OUTCLK_BUFG_GT_DIV : integer;
   attribute C_TX_OUTCLK_BUFG_GT_DIV of gtwizard_ultrascale_0_gtwizard_top : entity is 1;
   attribute C_TX_OUTCLK_FREQUENCY : string;
@@ -8939,8 +8952,6 @@ begin
   qpll0refclklost_out(0) <= \<const0>\;
   qpll1fbclklost_out(0) <= \<const0>\;
   qpll1lock_out(0) <= \<const0>\;
-  qpll1outclk_out(0) <= \<const0>\;
-  qpll1outrefclk_out(0) <= \<const0>\;
   qpll1refclklost_out(0) <= \<const0>\;
   qplldmonitor0_out(7) <= \<const0>\;
   qplldmonitor0_out(6) <= \<const0>\;
@@ -9317,6 +9328,7 @@ GND: unisim.vcomponents.GND
       gthtxp_out(0) => gthtxp_out(0),
       gtpowergood_out(0) => gtpowergood_out(0),
       gtrefclk00_in(0) => gtrefclk00_in(0),
+      gtrefclk01_in(0) => gtrefclk01_in(0),
       gtwiz_buffbypass_rx_done_out(0) => gtwiz_buffbypass_rx_done_out(0),
       gtwiz_buffbypass_rx_error_out(0) => gtwiz_buffbypass_rx_error_out(0),
       gtwiz_buffbypass_rx_reset_in(0) => gtwiz_buffbypass_rx_reset_in(0),
@@ -9337,6 +9349,8 @@ GND: unisim.vcomponents.GND
       pcsrsvdin_in(15 downto 0) => pcsrsvdin_in(15 downto 0),
       qpll0outclk_out(0) => qpll0outclk_out(0),
       qpll0outrefclk_out(0) => qpll0outrefclk_out(0),
+      qpll1outclk_out(0) => qpll1outclk_out(0),
+      qpll1outrefclk_out(0) => qpll1outrefclk_out(0),
       rxoutclk_out(0) => rxoutclk_out(0),
       rxpmaresetdone_out(0) => rxpmaresetdone_out(0),
       rxusrclk2_in(0) => rxusrclk2_in(0),
@@ -9371,8 +9385,11 @@ entity gtwizard_ultrascale_0 is
     gtwiz_userdata_tx_in : in STD_LOGIC_VECTOR ( 31 downto 0 );
     gtwiz_userdata_rx_out : out STD_LOGIC_VECTOR ( 31 downto 0 );
     gtrefclk00_in : in STD_LOGIC_VECTOR ( 0 to 0 );
+    gtrefclk01_in : in STD_LOGIC_VECTOR ( 0 to 0 );
     qpll0outclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     qpll0outrefclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
+    qpll1outclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
+    qpll1outrefclk_out : out STD_LOGIC_VECTOR ( 0 to 0 );
     dmonitorclk_in : in STD_LOGIC_VECTOR ( 0 to 0 );
     drpaddr_in : in STD_LOGIC_VECTOR ( 9 downto 0 );
     drpclk_in : in STD_LOGIC_VECTOR ( 0 to 0 );
@@ -9454,8 +9471,6 @@ architecture STRUCTURE of gtwizard_ultrascale_0 is
   signal NLW_inst_qpll0refclklost_out_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_inst_qpll1fbclklost_out_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_inst_qpll1lock_out_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal NLW_inst_qpll1outclk_out_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal NLW_inst_qpll1outrefclk_out_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_inst_qpll1refclklost_out_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_inst_qplldmonitor0_out_UNCONNECTED : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal NLW_inst_qplldmonitor1_out_UNCONNECTED : STD_LOGIC_VECTOR ( 7 downto 0 );
@@ -9550,7 +9565,7 @@ architecture STRUCTURE of gtwizard_ultrascale_0 is
   signal NLW_inst_ubrsvdout_out_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_inst_ubtxuart_out_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   attribute C_CHANNEL_ENABLE : string;
-  attribute C_CHANNEL_ENABLE of inst : label is "192'b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000";
+  attribute C_CHANNEL_ENABLE of inst : label is "192'b000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
   attribute C_COMMON_SCALING_FACTOR : integer;
   attribute C_COMMON_SCALING_FACTOR of inst : label is 1;
   attribute C_CPLL_VCO_FREQUENCY : string;
@@ -9560,7 +9575,7 @@ architecture STRUCTURE of gtwizard_ultrascale_0 is
   attribute C_FORCE_COMMONS : integer;
   attribute C_FORCE_COMMONS of inst : label is 0;
   attribute C_FREERUN_FREQUENCY : string;
-  attribute C_FREERUN_FREQUENCY of inst : label is "74.250000";
+  attribute C_FREERUN_FREQUENCY of inst : label is "250.000000";
   attribute C_GT_REV : integer;
   attribute C_GT_REV of inst : label is 57;
   attribute C_GT_TYPE : integer;
@@ -9640,7 +9655,7 @@ architecture STRUCTURE of gtwizard_ultrascale_0 is
   attribute C_RX_LINE_RATE : string;
   attribute C_RX_LINE_RATE of inst : label is "10.240000";
   attribute C_RX_MASTER_CHANNEL_IDX : integer;
-  attribute C_RX_MASTER_CHANNEL_IDX of inst : label is 4;
+  attribute C_RX_MASTER_CHANNEL_IDX of inst : label is 108;
   attribute C_RX_OUTCLK_BUFG_GT_DIV : integer;
   attribute C_RX_OUTCLK_BUFG_GT_DIV of inst : label is 1;
   attribute C_RX_OUTCLK_FREQUENCY : string;
@@ -9648,7 +9663,7 @@ architecture STRUCTURE of gtwizard_ultrascale_0 is
   attribute C_RX_OUTCLK_SOURCE : integer;
   attribute C_RX_OUTCLK_SOURCE of inst : label is 1;
   attribute C_RX_PLL_TYPE : integer;
-  attribute C_RX_PLL_TYPE of inst : label is 0;
+  attribute C_RX_PLL_TYPE of inst : label is 1;
   attribute C_RX_RECCLK_OUTPUT : string;
   attribute C_RX_RECCLK_OUTPUT of inst : label is "192'b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
   attribute C_RX_REFCLK_FREQUENCY : string;
@@ -9704,7 +9719,7 @@ architecture STRUCTURE of gtwizard_ultrascale_0 is
   attribute C_TX_LINE_RATE : string;
   attribute C_TX_LINE_RATE of inst : label is "10.240000";
   attribute C_TX_MASTER_CHANNEL_IDX : integer;
-  attribute C_TX_MASTER_CHANNEL_IDX of inst : label is 4;
+  attribute C_TX_MASTER_CHANNEL_IDX of inst : label is 108;
   attribute C_TX_OUTCLK_BUFG_GT_DIV : integer;
   attribute C_TX_OUTCLK_BUFG_GT_DIV of inst : label is 1;
   attribute C_TX_OUTCLK_FREQUENCY : string;
@@ -9808,7 +9823,7 @@ inst: entity work.gtwizard_ultrascale_0_gtwizard_top
       gtnorthrefclk1_in(0) => '0',
       gtpowergood_out(0) => gtpowergood_out(0),
       gtrefclk00_in(0) => gtrefclk00_in(0),
-      gtrefclk01_in(0) => '0',
+      gtrefclk01_in(0) => gtrefclk01_in(0),
       gtrefclk0_in(0) => '0',
       gtrefclk10_in(0) => '0',
       gtrefclk11_in(0) => '0',
@@ -9930,14 +9945,14 @@ inst: entity work.gtwizard_ultrascale_0_gtwizard_top
       qpll1freqlock_in(0) => '0',
       qpll1lock_out(0) => NLW_inst_qpll1lock_out_UNCONNECTED(0),
       qpll1lockdetclk_in(0) => '0',
-      qpll1locken_in(0) => '0',
-      qpll1outclk_out(0) => NLW_inst_qpll1outclk_out_UNCONNECTED(0),
-      qpll1outrefclk_out(0) => NLW_inst_qpll1outrefclk_out_UNCONNECTED(0),
-      qpll1pd_in(0) => '1',
+      qpll1locken_in(0) => '1',
+      qpll1outclk_out(0) => qpll1outclk_out(0),
+      qpll1outrefclk_out(0) => qpll1outrefclk_out(0),
+      qpll1pd_in(0) => '0',
       qpll1refclk_in(0) => '0',
       qpll1refclklost_out(0) => NLW_inst_qpll1refclklost_out_UNCONNECTED(0),
       qpll1refclksel_in(2 downto 0) => B"001",
-      qpll1reset_in(0) => '1',
+      qpll1reset_in(0) => '0',
       qplldmonitor0_out(7 downto 0) => NLW_inst_qplldmonitor0_out_UNCONNECTED(7 downto 0),
       qplldmonitor1_out(7 downto 0) => NLW_inst_qplldmonitor1_out_UNCONNECTED(7 downto 0),
       qpllrsvd1_in(7 downto 0) => B"00000000",
@@ -10091,7 +10106,7 @@ inst: entity work.gtwizard_ultrascale_0_gtwizard_top
       rxphdlypd_in(0) => '0',
       rxphdlyreset_in(0) => '0',
       rxphovrden_in(0) => '0',
-      rxpllclksel_in(1 downto 0) => B"11",
+      rxpllclksel_in(1 downto 0) => B"10",
       rxpmareset_in(0) => '0',
       rxpmaresetdone_out(0) => rxpmaresetdone_out(0),
       rxpolarity_in(0) => '0',
@@ -10127,7 +10142,7 @@ inst: entity work.gtwizard_ultrascale_0_gtwizard_top
       rxsyncin_in(0) => '0',
       rxsyncmode_in(0) => '0',
       rxsyncout_out(0) => NLW_inst_rxsyncout_out_UNCONNECTED(0),
-      rxsysclksel_in(1 downto 0) => B"10",
+      rxsysclksel_in(1 downto 0) => B"11",
       rxtermination_in(0) => '0',
       rxuserrdy_in(0) => '1',
       rxusrclk2_in(0) => rxusrclk2_in(0),

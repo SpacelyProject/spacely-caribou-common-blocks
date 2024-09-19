@@ -73,8 +73,11 @@ gtwizard_ultrascale_0 your_instance_name (
   .gtwiz_userdata_tx_in(gtwiz_userdata_tx_in),                              // input wire [31 : 0] gtwiz_userdata_tx_in
   .gtwiz_userdata_rx_out(gtwiz_userdata_rx_out),                            // output wire [31 : 0] gtwiz_userdata_rx_out
   .gtrefclk00_in(gtrefclk00_in),                                            // input wire [0 : 0] gtrefclk00_in
+  .gtrefclk01_in(gtrefclk01_in),                                            // input wire [0 : 0] gtrefclk01_in
   .qpll0outclk_out(qpll0outclk_out),                                        // output wire [0 : 0] qpll0outclk_out
   .qpll0outrefclk_out(qpll0outrefclk_out),                                  // output wire [0 : 0] qpll0outrefclk_out
+  .qpll1outclk_out(qpll1outclk_out),                                        // output wire [0 : 0] qpll1outclk_out
+  .qpll1outrefclk_out(qpll1outrefclk_out),                                  // output wire [0 : 0] qpll1outrefclk_out
   .dmonitorclk_in(dmonitorclk_in),                                          // input wire [0 : 0] dmonitorclk_in
   .drpaddr_in(drpaddr_in),                                                  // input wire [9 : 0] drpaddr_in
   .drpclk_in(drpclk_in),                                                    // input wire [0 : 0] drpclk_in

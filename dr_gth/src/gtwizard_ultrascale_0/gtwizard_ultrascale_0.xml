@@ -14,7 +14,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:160203b8</spirit:value>
+            <spirit:value>9:7c4758b9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -29,11 +29,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Sep 18 20:12:08 UTC 2024</spirit:value>
+            <spirit:value>Thu Sep 19 15:12:56 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:901f16c1</spirit:value>
+            <spirit:value>9:4649f4b5</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -49,11 +49,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Sep 18 20:12:22 UTC 2024</spirit:value>
+            <spirit:value>Thu Sep 19 15:13:03 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:901f16c1</spirit:value>
+            <spirit:value>9:4649f4b5</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -64,7 +64,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:901f16c1</spirit:value>
+            <spirit:value>9:4649f4b5</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -80,11 +80,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Sep 18 20:12:22 UTC 2024</spirit:value>
+            <spirit:value>Thu Sep 19 15:13:03 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:901f16c1</spirit:value>
+            <spirit:value>9:4649f4b5</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -100,11 +100,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Sep 18 20:12:24 UTC 2024</spirit:value>
+            <spirit:value>Thu Sep 19 15:13:06 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:ce26a4bc</spirit:value>
+            <spirit:value>9:2a49de83</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -120,11 +120,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Sep 18 20:12:24 UTC 2024</spirit:value>
+            <spirit:value>Thu Sep 19 15:13:06 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:ce26a4bc</spirit:value>
+            <spirit:value>9:2a49de83</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -139,11 +139,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Sep 18 20:12:24 UTC 2024</spirit:value>
+            <spirit:value>Thu Sep 19 15:13:06 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:901f16c1</spirit:value>
+            <spirit:value>9:4649f4b5</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -157,11 +157,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Wed Sep 18 20:13:54 UTC 2024</spirit:value>
+            <spirit:value>Thu Sep 19 15:14:49 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:901f16c1</spirit:value>
+            <spirit:value>9:4649f4b5</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1937,7 +1937,8 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PORT_ENABLEMENT.gtrefclk01_in">false</xilinx:isEnabled>
+              <xilinx:presence>required</xilinx:presence>
+              <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PORT_ENABLEMENT.gtrefclk01_in">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -2553,7 +2554,7 @@
             </spirit:wireTypeDef>
           </spirit:wireTypeDefs>
           <spirit:driver>
-            <spirit:defaultValue spirit:format="bitString" spirit:bitStringLength="1">0x0</spirit:defaultValue>
+            <spirit:defaultValue spirit:format="bitString" spirit:bitStringLength="1">0x1</spirit:defaultValue>
           </spirit:driver>
         </spirit:wire>
         <spirit:vendorExtensions>
@@ -2580,7 +2581,7 @@
             </spirit:wireTypeDef>
           </spirit:wireTypeDefs>
           <spirit:driver>
-            <spirit:defaultValue spirit:format="bitString" spirit:bitStringLength="1">0x1</spirit:defaultValue>
+            <spirit:defaultValue spirit:format="bitString" spirit:bitStringLength="1">0x0</spirit:defaultValue>
           </spirit:driver>
         </spirit:wire>
         <spirit:vendorExtensions>
@@ -2634,12 +2635,13 @@
             </spirit:wireTypeDef>
           </spirit:wireTypeDefs>
           <spirit:driver>
-            <spirit:defaultValue spirit:format="bitString" spirit:bitStringLength="1">0x1</spirit:defaultValue>
+            <spirit:defaultValue spirit:format="bitString" spirit:bitStringLength="1">0x0</spirit:defaultValue>
           </spirit:driver>
         </spirit:wire>
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
+              <xilinx:presence>illegal</xilinx:presence>
               <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PORT_ENABLEMENT.qpll1reset_in">false</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
@@ -3873,7 +3875,8 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PORT_ENABLEMENT.qpll1outclk_out">false</xilinx:isEnabled>
+              <xilinx:presence>required</xilinx:presence>
+              <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PORT_ENABLEMENT.qpll1outclk_out">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -3900,7 +3903,8 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PORT_ENABLEMENT.qpll1outrefclk_out">false</xilinx:isEnabled>
+              <xilinx:presence>required</xilinx:presence>
+              <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PORT_ENABLEMENT.qpll1outrefclk_out">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -9185,7 +9189,7 @@
             </spirit:wireTypeDef>
           </spirit:wireTypeDefs>
           <spirit:driver>
-            <spirit:defaultValue spirit:format="bitString" spirit:bitStringLength="2">0x3</spirit:defaultValue>
+            <spirit:defaultValue spirit:format="bitString" spirit:bitStringLength="2">0x2</spirit:defaultValue>
           </spirit:driver>
         </spirit:wire>
         <spirit:vendorExtensions>
@@ -9594,7 +9598,7 @@
             </spirit:wireTypeDef>
           </spirit:wireTypeDefs>
           <spirit:driver>
-            <spirit:defaultValue spirit:format="bitString" spirit:bitStringLength="2">0x2</spirit:defaultValue>
+            <spirit:defaultValue spirit:format="bitString" spirit:bitStringLength="2">0x3</spirit:defaultValue>
           </spirit:driver>
         </spirit:wire>
         <spirit:vendorExtensions>
@@ -14735,7 +14739,7 @@
     <spirit:modelParameters>
       <spirit:modelParameter xsi:type="spirit:nameValueTypeType" spirit:dataType="std_logic_vector">
         <spirit:name>C_CHANNEL_ENABLE</spirit:name>
-        <spirit:value spirit:format="bitString" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CHANNEL_ENABLE" spirit:bitStringLength="192">&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000&quot;</spirit:value>
+        <spirit:value spirit:format="bitString" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CHANNEL_ENABLE" spirit:bitStringLength="192">&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_PCIE_ENABLE</spirit:name>
@@ -14759,7 +14763,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="signed">
         <spirit:name>C_FREERUN_FREQUENCY</spirit:name>
-        <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_FREERUN_FREQUENCY">74.25</spirit:value>
+        <spirit:value spirit:format="float" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_FREERUN_FREQUENCY">250</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_GT_TYPE</spirit:name>
@@ -14923,7 +14927,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_RX_MASTER_CHANNEL_IDX</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_RX_MASTER_CHANNEL_IDX">4</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_RX_MASTER_CHANNEL_IDX">108</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_RX_OUTCLK_BUFG_GT_DIV</spirit:name>
@@ -14939,7 +14943,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_RX_PLL_TYPE</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_RX_PLL_TYPE">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_RX_PLL_TYPE">1</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="std_logic_vector">
         <spirit:name>C_RX_RECCLK_OUTPUT</spirit:name>
@@ -15047,7 +15051,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_TX_MASTER_CHANNEL_IDX</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_TX_MASTER_CHANNEL_IDX">4</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_TX_MASTER_CHANNEL_IDX">108</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_TX_OUTCLK_BUFG_GT_DIV</spirit:name>
@@ -15105,8 +15109,8 @@
   </spirit:model>
   <spirit:choices>
     <spirit:choice>
-      <spirit:name>choice_list_08663d30</spirit:name>
-      <spirit:enumeration>X0Y4</spirit:enumeration>
+      <spirit:name>choice_list_0e530836</spirit:name>
+      <spirit:enumeration>X1Y12</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_list_24871ac1</spirit:name>
@@ -16297,13 +16301,13 @@
       <spirit:name>CHANNEL_ENABLE</spirit:name>
       <spirit:displayName>Enable channel</spirit:displayName>
       <spirit:description>Indicate whether this transceiver channel is instantiated and enabled for use</spirit:description>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.CHANNEL_ENABLE" spirit:order="8">X0Y4</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.CHANNEL_ENABLE" spirit:order="8">X1Y12</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>TX_MASTER_CHANNEL</spirit:name>
       <spirit:displayName>Master TX channel</spirit:displayName>
       <spirit:description>Designate an enabled transceiver as the master TX channel for various purposes such as user clock generation and buffer bypass (if selected)</spirit:description>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.TX_MASTER_CHANNEL" spirit:choiceRef="choice_list_08663d30" spirit:order="9">X0Y4</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.TX_MASTER_CHANNEL" spirit:choiceRef="choice_list_0e530836" spirit:order="9">X1Y12</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -16316,7 +16320,7 @@
       <spirit:name>RX_MASTER_CHANNEL</spirit:name>
       <spirit:displayName>Master RX channel</spirit:displayName>
       <spirit:description>Designate an enabled transceiver as the master RX channel for various purposes such as user clock generation and buffer bypass (if selected)</spirit:description>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.RX_MASTER_CHANNEL" spirit:choiceRef="choice_list_08663d30" spirit:order="10">X0Y4</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.RX_MASTER_CHANNEL" spirit:choiceRef="choice_list_0e530836" spirit:order="10">X1Y12</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -16517,7 +16521,7 @@
       <spirit:name>RX_PLL_TYPE</spirit:name>
       <spirit:displayName>PLL type</spirit:displayName>
       <spirit:description>Select the receiver PLL type</spirit:description>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.RX_PLL_TYPE" spirit:choiceRef="choice_list_3179277f" spirit:order="35">QPLL0</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.RX_PLL_TYPE" spirit:choiceRef="choice_list_3179277f" spirit:order="35">QPLL1</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>RX_REFCLK_FREQUENCY</spirit:name>
@@ -17838,13 +17842,13 @@
       <spirit:name>RX_REFCLK_SOURCE</spirit:name>
       <spirit:displayName>Receiver reference clock source</spirit:displayName>
       <spirit:description>Select a reference clock input to drive the PLL chosen for receiver operation</spirit:description>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.RX_REFCLK_SOURCE" spirit:order="151">X0Y4 clk1+2</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.RX_REFCLK_SOURCE" spirit:order="151"/>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>TX_REFCLK_SOURCE</spirit:name>
       <spirit:displayName>Transmitter reference clock source</spirit:displayName>
       <spirit:description>Select a reference clock input to drive the PLL chosen for transmitter operation</spirit:description>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.TX_REFCLK_SOURCE" spirit:order="152">X0Y4 clk1+2</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.TX_REFCLK_SOURCE" spirit:order="152"/>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>RX_RECCLK_OUTPUT</spirit:name>
@@ -17938,7 +17942,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>INTERNAL_PORT_ENABLEMENT_UPDATED</spirit:name>
-      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_PORT_ENABLEMENT_UPDATED" spirit:order="165">9</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_PORT_ENABLEMENT_UPDATED" spirit:order="165">12</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -17949,7 +17953,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>INTERNAL_CHANNEL_SITES_UPDATED</spirit:name>
-      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_CHANNEL_SITES_UPDATED" spirit:order="166">3</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_CHANNEL_SITES_UPDATED" spirit:order="166">4</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -17996,6 +18000,13 @@
       <spirit:displayName>Enable secondary QPLL</spirit:displayName>
       <spirit:description>Enable and configure the QPLL which is not used in this core configuration</spirit:description>
       <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.SECONDARY_QPLL_ENABLE" spirit:order="170">false</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.SECONDARY_QPLL_ENABLE">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>SECONDARY_QPLL_LINE_RATE</spirit:name>
@@ -18085,7 +18096,7 @@
       <spirit:name>FREERUN_FREQUENCY</spirit:name>
       <spirit:displayName>Free-running and DRP clock frequency (MHz)</spirit:displayName>
       <spirit:description>Enter the frequency of the free-running clock used to bring up the core. For configurations which use the CPLL, this clock must also be used for the transceiver channel DRP interface</spirit:description>
-      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.FREERUN_FREQUENCY" spirit:order="178" spirit:minimum="3.125" spirit:maximum="250">74.25</spirit:value>
+      <spirit:value spirit:format="float" spirit:resolve="user" spirit:id="PARAM_VALUE.FREERUN_FREQUENCY" spirit:order="178" spirit:minimum="3.125" spirit:maximum="250">250</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>INCLUDE_CPLL_CAL</spirit:name>
@@ -18812,7 +18823,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>INTERNAL_PORT_ENABLED_GTREFCLK01_IN</spirit:name>
-      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_PORT_ENABLED_GTREFCLK01_IN" spirit:minimum="-1" spirit:maximum="2" spirit:rangeType="long">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_PORT_ENABLED_GTREFCLK01_IN" spirit:minimum="-1" spirit:maximum="2" spirit:rangeType="long">1</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -19098,7 +19109,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>INTERNAL_PORT_ENABLED_QPLL1RESET_IN</spirit:name>
-      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_PORT_ENABLED_QPLL1RESET_IN" spirit:minimum="-1" spirit:maximum="2" spirit:rangeType="long">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_PORT_ENABLED_QPLL1RESET_IN" spirit:minimum="-1" spirit:maximum="2" spirit:rangeType="long">-1</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -19593,7 +19604,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>INTERNAL_PORT_ENABLED_QPLL1OUTCLK_OUT</spirit:name>
-      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_PORT_ENABLED_QPLL1OUTCLK_OUT" spirit:minimum="-1" spirit:maximum="2" spirit:rangeType="long">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_PORT_ENABLED_QPLL1OUTCLK_OUT" spirit:minimum="-1" spirit:maximum="2" spirit:rangeType="long">1</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -19604,7 +19615,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>INTERNAL_PORT_ENABLED_QPLL1OUTREFCLK_OUT</spirit:name>
-      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_PORT_ENABLED_QPLL1OUTREFCLK_OUT" spirit:minimum="-1" spirit:maximum="2" spirit:rangeType="long">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="PARAM_VALUE.INTERNAL_PORT_ENABLED_QPLL1OUTREFCLK_OUT" spirit:minimum="-1" spirit:maximum="2" spirit:rangeType="long">1</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -24001,15 +24012,19 @@
       <xilinx:displayName>UltraScale FPGAs Transceivers Wizard</xilinx:displayName>
       <xilinx:coreRevision>13</xilinx:coreRevision>
       <xilinx:configElementInfos>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.CHANNEL_ENABLE" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.ENABLE_OPTIONAL_PORTS" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.FREERUN_FREQUENCY" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_BUFFER_MODE" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_JTOL_FC" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_LINE_RATE" xilinx:valueSource="user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_MASTER_CHANNEL" xilinx:valueSource="user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_PLL_TYPE" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_REFCLK_FREQUENCY" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.RX_REFCLK_SOURCE" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TXPROGDIV_FREQ_VAL" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TX_LINE_RATE" xilinx:valueSource="user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TX_MASTER_CHANNEL" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TX_REFCLK_FREQUENCY" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.TX_REFCLK_SOURCE" xilinx:valueSource="user"/>
       </xilinx:configElementInfos>

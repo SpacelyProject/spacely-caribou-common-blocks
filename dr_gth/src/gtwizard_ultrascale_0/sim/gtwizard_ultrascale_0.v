@@ -72,8 +72,11 @@ module gtwizard_ultrascale_0 (
   gtwiz_userdata_tx_in,
   gtwiz_userdata_rx_out,
   gtrefclk00_in,
+  gtrefclk01_in,
   qpll0outclk_out,
   qpll0outrefclk_out,
+  qpll1outclk_out,
+  qpll1outrefclk_out,
   dmonitorclk_in,
   drpaddr_in,
   drpclk_in,
@@ -117,8 +120,11 @@ output wire [0 : 0] gtwiz_reset_rx_done_out;
 input wire [31 : 0] gtwiz_userdata_tx_in;
 output wire [31 : 0] gtwiz_userdata_rx_out;
 input wire [0 : 0] gtrefclk00_in;
+input wire [0 : 0] gtrefclk01_in;
 output wire [0 : 0] qpll0outclk_out;
 output wire [0 : 0] qpll0outrefclk_out;
+output wire [0 : 0] qpll1outclk_out;
+output wire [0 : 0] qpll1outrefclk_out;
 input wire [0 : 0] dmonitorclk_in;
 input wire [9 : 0] drpaddr_in;
 input wire [0 : 0] drpclk_in;
@@ -144,13 +150,13 @@ output wire [0 : 0] txoutclk_out;
 output wire [0 : 0] txpmaresetdone_out;
 
   gtwizard_ultrascale_0_gtwizard_top #(
-    .C_CHANNEL_ENABLE(192'B000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000),
+    .C_CHANNEL_ENABLE(192'B000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000),
     .C_PCIE_ENABLE(0),
     .C_PCIE_CORECLK_FREQ(250),
     .C_COMMON_SCALING_FACTOR(1),
     .C_CPLL_VCO_FREQUENCY(2578.125),
     .C_FORCE_COMMONS(0),
-    .C_FREERUN_FREQUENCY(74.25),
+    .C_FREERUN_FREQUENCY(250),
     .C_GT_TYPE(2),
     .C_GT_REV(57),
     .C_INCLUDE_CPLL_CAL(2),
@@ -191,11 +197,11 @@ output wire [0 : 0] txpmaresetdone_out;
     .C_RX_ENABLE(1),
     .C_RX_INT_DATA_WIDTH(32),
     .C_RX_LINE_RATE(10.24),
-    .C_RX_MASTER_CHANNEL_IDX(4),
+    .C_RX_MASTER_CHANNEL_IDX(108),
     .C_RX_OUTCLK_BUFG_GT_DIV(1),
     .C_RX_OUTCLK_FREQUENCY(320.0000000),
     .C_RX_OUTCLK_SOURCE(1),
-    .C_RX_PLL_TYPE(0),
+    .C_RX_PLL_TYPE(1),
     .C_RX_RECCLK_OUTPUT(192'H000000000000000000000000000000000000000000000000),
     .C_RX_REFCLK_FREQUENCY(320),
     .C_RX_SLIDE_MODE(0),
@@ -222,7 +228,7 @@ output wire [0 : 0] txpmaresetdone_out;
     .C_TX_ENABLE(1),
     .C_TX_INT_DATA_WIDTH(32),
     .C_TX_LINE_RATE(10.24),
-    .C_TX_MASTER_CHANNEL_IDX(4),
+    .C_TX_MASTER_CHANNEL_IDX(108),
     .C_TX_OUTCLK_BUFG_GT_DIV(1),
     .C_TX_OUTCLK_FREQUENCY(320.0000000),
     .C_TX_OUTCLK_SOURCE(1),
@@ -300,7 +306,7 @@ output wire [0 : 0] txpmaresetdone_out;
     .gtnorthrefclk10_in(1'H0),
     .gtnorthrefclk11_in(1'H0),
     .gtrefclk00_in(gtrefclk00_in),
-    .gtrefclk01_in(1'H0),
+    .gtrefclk01_in(gtrefclk01_in),
     .gtrefclk10_in(1'H0),
     .gtrefclk11_in(1'H0),
     .gtsouthrefclk00_in(1'H0),
@@ -323,10 +329,10 @@ output wire [0 : 0] txpmaresetdone_out;
     .qpll1clkrsvd1_in(1'H0),
     .qpll1fbdiv_in(8'H00),
     .qpll1lockdetclk_in(1'H0),
-    .qpll1locken_in(1'H0),
-    .qpll1pd_in(1'H1),
+    .qpll1locken_in(1'H1),
+    .qpll1pd_in(1'H0),
     .qpll1refclksel_in(3'H1),
-    .qpll1reset_in(1'H1),
+    .qpll1reset_in(1'H0),
     .qpllrsvd1_in(8'H00),
     .qpllrsvd2_in(5'H00),
     .qpllrsvd3_in(5'H00),
@@ -371,8 +377,8 @@ output wire [0 : 0] txpmaresetdone_out;
     .qpll0refclklost_out(),
     .qpll1fbclklost_out(),
     .qpll1lock_out(),
-    .qpll1outclk_out(),
-    .qpll1outrefclk_out(),
+    .qpll1outclk_out(qpll1outclk_out),
+    .qpll1outrefclk_out(qpll1outrefclk_out),
     .qpll1refclklost_out(),
     .qplldmonitor0_out(),
     .qplldmonitor1_out(),
@@ -566,7 +572,7 @@ output wire [0 : 0] txpmaresetdone_out;
     .rxphdlypd_in(1'H0),
     .rxphdlyreset_in(1'H0),
     .rxphovrden_in(1'H0),
-    .rxpllclksel_in(2'H3),
+    .rxpllclksel_in(2'H2),
     .rxpmareset_in(1'H0),
     .rxpolarity_in(1'H0),
     .rxprbscntreset_in(1'H0),
@@ -581,7 +587,7 @@ output wire [0 : 0] txpmaresetdone_out;
     .rxsyncallin_in(1'H0),
     .rxsyncin_in(1'H0),
     .rxsyncmode_in(1'H0),
-    .rxsysclksel_in(2'H2),
+    .rxsysclksel_in(2'H3),
     .rxtermination_in(1'H0),
     .rxuserrdy_in(1'H1),
     .rxusrclk_in(rxusrclk_in),

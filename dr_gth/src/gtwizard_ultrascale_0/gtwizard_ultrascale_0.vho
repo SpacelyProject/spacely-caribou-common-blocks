@@ -70,8 +70,11 @@ COMPONENT gtwizard_ultrascale_0
     gtwiz_userdata_tx_in : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     gtwiz_userdata_rx_out : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     gtrefclk00_in : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    gtrefclk01_in : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     qpll0outclk_out : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     qpll0outrefclk_out : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    qpll1outclk_out : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    qpll1outrefclk_out : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     dmonitorclk_in : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     drpaddr_in : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
     drpclk_in : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
@@ -123,8 +126,11 @@ your_instance_name : gtwizard_ultrascale_0
     gtwiz_userdata_tx_in => gtwiz_userdata_tx_in,
     gtwiz_userdata_rx_out => gtwiz_userdata_rx_out,
     gtrefclk00_in => gtrefclk00_in,
+    gtrefclk01_in => gtrefclk01_in,
     qpll0outclk_out => qpll0outclk_out,
     qpll0outrefclk_out => qpll0outrefclk_out,
+    qpll1outclk_out => qpll1outclk_out,
+    qpll1outrefclk_out => qpll1outrefclk_out,
     dmonitorclk_in => dmonitorclk_in,
     drpaddr_in => drpaddr_in,
     drpclk_in => drpclk_in,
