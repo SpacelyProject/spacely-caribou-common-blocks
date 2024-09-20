@@ -18,7 +18,7 @@ module lpgbtfpga_with_interface #(
 
     //  DATA OUT INTERFACE
     output wire             clk40_o,
-    output wire             uplinkrdy_o,
+    output logic            uplinkrdy_o,
     output wire [233:0]     uplinkUserData_o,
     output wire             uplinkFEC_o,
 
@@ -156,7 +156,9 @@ module lpgbtfpga_with_interface #(
   wire        dbg_sta_headerFlag;
   wire        dbg_uplinkReady;
 
-
+  logic            uplinkrdy_s;
+  logic [233:0]    uplinkUserData_s;
+  logic            uplinkFEC_s;
   //Instantiate the core of the lpgbtfpga module.
   lpgbtfpga_zcu102_10g24_top lpgbtfpga_zcu102_10g24_top_inst (
 
@@ -192,15 +194,12 @@ module lpgbtfpga_with_interface #(
 
     // REGULAR DATA SIGNALS:
     .clk40_o(clk40_o),
-    .uplinkrdy_o(uplinkrdy_o),
-    .uplinkUserData_o(uplinkUserData_o),
+    .uplinkrdy_o(uplinkrdy_s),
+    .uplinkUserData_o(uplinkUserData_s),
     .uplinkRst_i(uplinkRst_i),
-    .uplinkFEC_o(uplinkFEC_o),
+    .uplinkFEC_o(uplinkFEC_s),
     .mgt_rxpolarity_i(mgt_rxpolarity_i)
   );
-
-  assign dbg_uplinkMgtWordParity = ^uplinkMgtWord;
-  assign dbg_uplinkMgtWord       = uplinkMgtWord;
 
 
   //lpgbtfpga control registers
@@ -242,90 +241,177 @@ module lpgbtfpga_with_interface #(
   //assign uplinkRst_i      = control[0];
   //assign mgt_rxpolarity_i = control[1];
 
+  // Add pipeline registers for all debug signals
+  logic [9:0]  dbg_bitslip_counter_320_p1;
+  logic        dbg_sta_headerLocked_320_p1;
+  logic        dbg_sta_gbRdy_320_p1;
+  logic        dbg_datapath_rst_s_320_p1;
+  logic        dbg_rst_pattsearch_320_p1;
+  logic        dbg_rst_gearbox_320_p1;
+  logic        dbg_sta_headerFlag_320_p1;
+  logic        dbg_uplinkReady_320_p1;
+  logic [9:0]  dbg_bitslip_counter_320_p2;
+  logic        dbg_sta_headerLocked_320_p2;
+  logic        dbg_sta_gbRdy_320_p2;
+  logic        dbg_datapath_rst_s_320_p2;
+  logic        dbg_rst_pattsearch_320_p2;
+  logic        dbg_rst_gearbox_320_p2;
+  logic        dbg_sta_headerFlag_320_p2;
+  logic        dbg_uplinkReady_320_p2;
+  always_ff @(posedge dbg_320mhz_lpgbtfpga_mgtrxclk) begin
+    dbg_bitslip_counter_320_p1  <= dbg_bitslip_counter;
+    dbg_sta_headerLocked_320_p1 <= dbg_sta_headerLocked;
+    dbg_sta_gbRdy_320_p1        <= dbg_sta_gbRdy;
+    dbg_datapath_rst_s_320_p1   <= dbg_datapath_rst_s;
+    dbg_rst_pattsearch_320_p1   <= dbg_rst_pattsearch;
+    dbg_rst_gearbox_320_p1      <= dbg_rst_gearbox;
+    dbg_sta_headerFlag_320_p1   <= dbg_sta_headerFlag;
+    dbg_uplinkReady_320_p1      <= dbg_uplinkReady;
+    //
+    dbg_bitslip_counter_320_p2  <= dbg_bitslip_counter_320_p1;
+    dbg_sta_headerLocked_320_p2 <= dbg_sta_headerLocked_320_p1;
+    dbg_sta_gbRdy_320_p2        <= dbg_sta_gbRdy_320_p1;
+    dbg_datapath_rst_s_320_p2   <= dbg_datapath_rst_s_320_p1;
+    dbg_rst_pattsearch_320_p2   <= dbg_rst_pattsearch_320_p1;
+    dbg_rst_gearbox_320_p2      <= dbg_rst_gearbox_320_p1;
+    dbg_sta_headerFlag_320_p2   <= dbg_sta_headerFlag_320_p1;
+    dbg_uplinkReady_320_p2      <= dbg_uplinkReady_320_p1;
+  end
+  //
+  //
+  logic         uplinkrdy_p1;
+  logic         uplinkFEC_p1;
+  logic [233:0] uplinkUserData_p1;
+  logic   [1:0] uplinkEcData_p1;
+  logic   [1:0] uplinkIcData_p1;
+  logic   [2:0] uplinkPhase_p1;
+  //
+  logic         uplinkrdy_p2;
+  logic         uplinkFEC_p2;
+  logic [233:0] uplinkUserData_p2;
+  logic   [1:0] uplinkEcData_p2;
+  logic   [1:0] uplinkIcData_p2;
+  logic   [2:0] uplinkPhase_p2;
+  always_ff @(posedge clk40_o) begin
+    uplinkrdy_p1      <= uplinkrdy_s;
+    uplinkFEC_p1      <= uplinkFEC_s;
+    uplinkUserData_p1 <= uplinkUserData_s;
+    uplinkEcData_p1   <= uplinkEcData_o;
+    uplinkIcData_p1   <= uplinkIcData_o;
+    uplinkPhase_p1    <= uplinkPhase_o;
+    //
+    uplinkrdy_p2      <= uplinkrdy_p1;
+    uplinkFEC_p2      <= uplinkFEC_p1;
+    uplinkUserData_p2 <= uplinkUserData_p1;
+    uplinkEcData_p2   <= uplinkEcData_p1;
+    uplinkIcData_p2   <= uplinkIcData_p1;
+    uplinkPhase_p2    <= uplinkPhase_p1;
+  end
+  assign uplinkrdy_o      = uplinkrdy_p2;
+  assign uplinkFEC_o      = uplinkFEC_p2;
+  assign uplinkUserData_o = uplinkUserData_p2;
+  //
+  //
+  logic [31:0] uplinkMgtWord_p1;
+  logic        mgt_rx_rdy_p1;
+  //
+  logic [31:0] uplinkMgtWord_p2;
+  logic        mgt_rx_rdy_p2;
+  always_ff @(posedge dbg_320mhz_lpgbtfpga_mgtrxclk) begin
+    uplinkMgtWord_p1 <= uplinkMgtWord;
+    mgt_rx_rdy_p1    <= mgt_rx_rdy;
+    //
+    uplinkMgtWord_p2 <= uplinkMgtWord_p1;
+    mgt_rx_rdy_p2    <= mgt_rx_rdy_p1;
+  end
+  assign dbg_uplinkMgtWordParity = ^uplinkMgtWord_p2;
+  assign dbg_uplinkMgtWord       = uplinkMgtWord_p2;
+
+
   //CDC Structures for status register
   xpm_cdc_single cdc_uplinkrdy (
     .dest_out(status[0]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(uplinkrdy_o),
+    .src_in(uplinkrdy_p2),
     .src_clk(clk40_o));
 
   xpm_cdc_single cdc_uplinkFEC (
     .dest_out(status[1]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(uplinkFEC_o),
+    .src_in(uplinkFEC_p2),
     .src_clk(clk40_o));
 
   xpm_cdc_array_single #(.WIDTH(2)) cdc_uplinkEc (
     .dest_out(status[3:2]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(uplinkEcData_o),
+    .src_in(uplinkEcData_p2),
     .src_clk(clk40_o));
 
   xpm_cdc_array_single #(.WIDTH(2)) cdc_uplinkIc (
     .dest_out(status[5:4]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(uplinkIcData_o),
+    .src_in(uplinkIcData_p2),
     .src_clk(clk40_o));
 
   xpm_cdc_array_single #(.WIDTH(3)) cdc_uplinkPhase (
     .dest_out(status[8:6]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(uplinkPhase_o),
+    .src_in(uplinkPhase_p2),
     .src_clk(clk40_o));
 
   xpm_cdc_single cdc_mgt_rx_rdy (
     .dest_out(status[9]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(mgt_rx_rdy),
-    .src_clk(clk40_o));
+    .src_in(mgt_rx_rdy_p2),
+    .src_clk(dbg_320mhz_lpgbtfpga_mgtrxclk));
 
   xpm_cdc_array_single #(.WIDTH(20)) cdc_dbg_bitslip_counter (
     .dest_out(status[19:10]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(dbg_bitslip_counter),
-    .src_clk(clk40_o));
+    .src_in(dbg_bitslip_counter_320_p2),
+    .src_clk(dbg_320mhz_lpgbtfpga_mgtrxclk));
 
   xpm_cdc_single cdc_dbg_sta_headerLocked (
     .dest_out(status[20]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(dbg_sta_headerLocked),
-    .src_clk(clk40_o));
+    .src_in(dbg_sta_headerLocked_320_p2),
+    .src_clk(dbg_320mhz_lpgbtfpga_mgtrxclk));
 
   xpm_cdc_single cdc_dbg_sta_gbRdy (
     .dest_out(status[21]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(dbg_sta_gbRdy),
-    .src_clk(clk40_o));
+    .src_in(dbg_sta_gbRdy_320_p2),
+    .src_clk(dbg_320mhz_lpgbtfpga_mgtrxclk));
 
   xpm_cdc_single cdc_dbg_datapath_rst_s (
     .dest_out(status[22]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(dbg_datapath_rst_s),
-    .src_clk(clk40_o));
+    .src_in(dbg_datapath_rst_s_320_p2),
+    .src_clk(dbg_320mhz_lpgbtfpga_mgtrxclk));
 
   xpm_cdc_single cdc_dbg_rst_pattsearch (
     .dest_out(status[23]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(dbg_rst_pattsearch),
-    .src_clk(clk40_o));
+    .src_in(dbg_rst_pattsearch_320_p2),
+    .src_clk(dbg_320mhz_lpgbtfpga_mgtrxclk));
 
   xpm_cdc_single cdc_dbg_rst_gearbox (
     .dest_out(status[24]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(dbg_rst_gearbox),
-    .src_clk(clk40_o));
+    .src_in(dbg_rst_gearbox_320_p2),
+    .src_clk(dbg_320mhz_lpgbtfpga_mgtrxclk));
 
   xpm_cdc_single cdc_dbg_sta_headerFlagh (
     .dest_out(status[25]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(dbg_sta_headerFlag),
-    .src_clk(clk40_o));
+    .src_in(dbg_sta_headerFlag_320_p2),
+    .src_clk(dbg_320mhz_lpgbtfpga_mgtrxclk));
 
   xpm_cdc_single cdc_dbg_uplinkReady (
     .dest_out(status[26]),
     .dest_clk(S_AXI_ACLK),
-    .src_in(dbg_uplinkReady),
-    .src_clk(clk40_o));
+    .src_in(dbg_uplinkReady_320_p2),
+    .src_clk(dbg_320mhz_lpgbtfpga_mgtrxclk));
 
 
   //CDC Structures for control register
