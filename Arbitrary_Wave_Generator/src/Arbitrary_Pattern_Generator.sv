@@ -18,6 +18,7 @@ module Arbitrary_Pattern_Generator
    input logic 			run,
    input logic [(NUM_SIG-1):0] 	write_channel,
    output logic [(NUM_SIG-1):0] read_channel,
+   input logic  [(NUM_SIG-1):0] write_defaults,
    input logic [31:0] 		n_samples, //Number of samples to take in one shot
    output logic [31:0] 		sample_count, //Number of total samples taken so far.
    input logic [7:0] 		control,
@@ -260,7 +261,7 @@ module Arbitrary_Pattern_Generator
 	 
       end 
       else begin //NO TRANSACTION (IDLE or DONE)
-	 output_signals <= 0;
+	 output_signals <= write_defaults;
 	 wave_ptr <= 0;
 	 sample_count <= sample_count;
 

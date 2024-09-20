@@ -88,7 +88,7 @@ input logic [(NUM_SIG-1):0] input_signals,
    /////////////////////////////////////////////
 
    //Total number of AXI-mapped registers in this firmware block.
-localparam integer FPGA_REGISTER_N = 12;
+localparam integer FPGA_REGISTER_N = 13;
 
 // Addresses of all AXI-mapped registers in this firmware block.
 
@@ -104,6 +104,7 @@ localparam byte unsigned ADDRESS_wave_ptr = 8;
 localparam byte unsigned ADDRESS_status = 9;
    localparam byte unsigned ADDRESS_clear = 10;
    localparam byte unsigned ADDRESS_dbg_error = 11;
+   localparam byte unsigned ADDRESS_write_defaults = 12;
    
 
 /*localparam byte unsigned FPGA_SPI_WR = 0;
@@ -179,6 +180,7 @@ logic [31:0] fpga_reg_wave_ptr;
 logic [2:0] fpga_reg_status;
    logic  fpga_reg_clear;
    logic [31:0] fpga_reg_dbg_error;
+   logic [(NUM_SIG-1):0] fpga_reg_write_defaults;
    
 
 
@@ -201,6 +203,8 @@ logic [2:0] fpga_reg_status;
             fpga_reg_clear <= 0;
         if (reg_wrByteStrobe[ADDRESS_write_channel] == 4'b1111)
             fpga_reg_write_channel <= reg_wrdout[(NUM_SIG-1):0];
+		if (reg_wrByteStrobe[ADDRESS_write_defaults] == 4'b1111)
+            fpga_reg_write_defaults <= reg_wrdout[(NUM_SIG-1):0];
         if (reg_wrByteStrobe[ADDRESS_n_samples] == 4'b1111)
             fpga_reg_n_samples <= reg_wrdout[31:0];
         if (reg_wrByteStrobe[ADDRESS_control] == 4'b1111)
@@ -221,7 +225,7 @@ assign reg_rddin[ADDRESS_wave_ptr] = fpga_reg_wave_ptr;
 assign reg_rddin[ADDRESS_status] = fpga_reg_status;
 assign reg_rddin[ADDRESS_clear] = fpga_reg_clear;
 assign reg_rddin[ADDRESS_dbg_error] = fpga_reg_dbg_error;
-   
+assign reg_rddin[ADDRESS_write_defaults] = fpga_reg_write_defaults;
 
 
    Arbitrary_Pattern_Generator #(
@@ -245,7 +249,8 @@ assign reg_rddin[ADDRESS_dbg_error] = fpga_reg_dbg_error;
 .write_channel_wrStrobe(write_channel_wrStrobe),
 .read_channel_rdStrobe(read_channel_rdStrobe),
 .clear(fpga_reg_clear),
-.dbg_error(fpga_reg_dbg_error));
+.dbg_error(fpga_reg_dbg_error),
+.write_defaults(fpga_reg_write_defaults));
 
   
 endmodule
