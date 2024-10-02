@@ -4,17 +4,22 @@ module store_dataframe_verilog # (
     parameter C_S_AXI_ADDR_WIDTH = 11,  // AXI Address Bus Width
     parameter FPGA_REGISTER_N    = 11
 
-)(
-    
+  )(
+
     // SIGNALS FROM LPGBT
     input wire [233:0]                          uplinkUserData_i,
     input wire                                  uplinkrdy_i,
     input wire                                  clk40_i,
     input wire                                  uplinkFEC_i,
 
+    // DEBUG signals
+    output logic [C_S_AXI_DATA_WIDTH-1:0]        dbg_err_counter_100,
+    output logic [C_S_AXI_DATA_WIDTH-1:0]        dbg_err_counter_40,
+    output logic                                 dbg_err_counter_rst_40,
+
     //////////////////////////////
-	//    AXI BUS SIGNALS       //
-	//////////////////////////////
+    //    AXI BUS SIGNALS       //
+    //////////////////////////////
 
     // Global Signals
     input wire                                  S_AXI_ACLK,
@@ -48,43 +53,48 @@ module store_dataframe_verilog # (
     output wire [1 : 0]                         S_AXI_RRESP,    // Read Response
     output wire                                 S_AXI_RVALID,   // Read Data Valid
     input wire                                  S_AXI_RREADY    // Read Data Channel Ready
-    
-    );
 
-    store_dataframe # (
+  );
 
-        .C_S_AXI_DATA_WIDTH (C_S_AXI_DATA_WIDTH),   // AXI Data Bus Width
-        .C_S_AXI_ADDR_WIDTH (C_S_AXI_ADDR_WIDTH),   // AXI Address Bus Width
-        .FPGA_REGISTER_N    (FPGA_REGISTER_N)       // 
+  store_dataframe # (
 
-    ) STDF0 (
-    
-        .uplinkUserData_i   (uplinkUserData_i),
-        .uplinkrdy_i        (uplinkrdy_i),
-        .clk40_i            (clk40_i),
-        .uplinkFEC_i        (uplinkFEC_i),
-        .S_AXI_ACLK         (S_AXI_ACLK),
-        .S_AXI_ARESETN      (S_AXI_ARESETN),
-        .S_AXI_AWADDR       (S_AXI_AWADDR),   
-        .S_AXI_AWPROT       (S_AXI_AWPROT),   
-        .S_AXI_AWVALID      (S_AXI_AWVALID),
-        .S_AXI_AWREADY      (S_AXI_AWREADY),
-        .S_AXI_WDATA        (S_AXI_WDATA),    
-        .S_AXI_WSTRB        (S_AXI_WSTRB),    
-        .S_AXI_WVALID       (S_AXI_WVALID),
-        .S_AXI_WREADY       (S_AXI_WREADY),
-        .S_AXI_BRESP        (S_AXI_BRESP),    
-        .S_AXI_BVALID       (S_AXI_BVALID),
-        .S_AXI_BREADY       (S_AXI_BREADY),
-        .S_AXI_ARADDR       (S_AXI_ARADDR),   
-        .S_AXI_ARPROT       (S_AXI_ARPROT),   
-        .S_AXI_ARVALID      (S_AXI_ARVALID), 
-        .S_AXI_ARREADY      (S_AXI_ARREADY),
-        .S_AXI_RDATA        (S_AXI_RDATA),    
-        .S_AXI_RRESP        (S_AXI_RRESP),    
-        .S_AXI_RVALID       (S_AXI_RVALID),
-        .S_AXI_RREADY       (S_AXI_RREADY)
-    
-    );
+    .C_S_AXI_DATA_WIDTH (C_S_AXI_DATA_WIDTH),   // AXI Data Bus Width
+    .C_S_AXI_ADDR_WIDTH (C_S_AXI_ADDR_WIDTH),   // AXI Address Bus Width
+    .FPGA_REGISTER_N    (FPGA_REGISTER_N)       //
+
+  ) STDF0 (
+    // SIGNALS FROM LPGBT
+    .uplinkUserData_i   (uplinkUserData_i),
+    .uplinkrdy_i        (uplinkrdy_i),
+    .clk40_i            (clk40_i),
+    .uplinkFEC_i        (uplinkFEC_i),
+    // DEBUG signals
+    .dbg_err_counter_100     (dbg_err_counter_100),
+    .dbg_err_counter_40      (dbg_err_counter_40),
+    .dbg_err_counter_rst_40  (dbg_err_counter_rst_40),
+    // AXI BUS SIGNALS
+    .S_AXI_ACLK         (S_AXI_ACLK),
+    .S_AXI_ARESETN      (S_AXI_ARESETN),
+    .S_AXI_AWADDR       (S_AXI_AWADDR),
+    .S_AXI_AWPROT       (S_AXI_AWPROT),
+    .S_AXI_AWVALID      (S_AXI_AWVALID),
+    .S_AXI_AWREADY      (S_AXI_AWREADY),
+    .S_AXI_WDATA        (S_AXI_WDATA),
+    .S_AXI_WSTRB        (S_AXI_WSTRB),
+    .S_AXI_WVALID       (S_AXI_WVALID),
+    .S_AXI_WREADY       (S_AXI_WREADY),
+    .S_AXI_BRESP        (S_AXI_BRESP),
+    .S_AXI_BVALID       (S_AXI_BVALID),
+    .S_AXI_BREADY       (S_AXI_BREADY),
+    .S_AXI_ARADDR       (S_AXI_ARADDR),
+    .S_AXI_ARPROT       (S_AXI_ARPROT),
+    .S_AXI_ARVALID      (S_AXI_ARVALID),
+    .S_AXI_ARREADY      (S_AXI_ARREADY),
+    .S_AXI_RDATA        (S_AXI_RDATA),
+    .S_AXI_RRESP        (S_AXI_RRESP),
+    .S_AXI_RVALID       (S_AXI_RVALID),
+    .S_AXI_RREADY       (S_AXI_RREADY)
+
+  );
 
 endmodule

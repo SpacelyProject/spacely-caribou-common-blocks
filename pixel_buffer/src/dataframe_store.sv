@@ -11,6 +11,10 @@ module store_dataframe # (
     input logic                                  uplinkrdy_i,
     input logic                                  clk40_i,
     input logic                                  uplinkFEC_i,
+    // DEBUG signals
+    output logic [C_S_AXI_DATA_WIDTH-1:0]        dbg_err_counter_100,
+    output logic [C_S_AXI_DATA_WIDTH-1:0]        dbg_err_counter_40,
+    output logic                                 dbg_err_counter_rst_40,
 
     //////////////////////////////
     //    AXI BUS SIGNALS       //
@@ -71,9 +75,9 @@ module store_dataframe # (
   assign fifo_wr_en = uplinkrdy_i & lpgbt_rd_en[2];
 
   // FEC Error Counter Signals
-  logic [C_S_AXI_DATA_WIDTH-1:0]              err_counter;
+  logic [C_S_AXI_DATA_WIDTH-1:0]              err_counter_100;
   logic [C_S_AXI_DATA_WIDTH-1:0]              err_counter_40;
-  logic [C_S_AXI_DATA_WIDTH-1:0]              err_counter_rst_40;
+  logic                                       err_counter_rst_40;
   //assign err_rd_en = ~err_empty;
   //logic                                       err_rd_en;
   //logic                                       err_wr_en;
@@ -95,7 +99,7 @@ module store_dataframe # (
     .src_clk(S_AXI_ACLK));
 
   xpm_cdc_array_single #(.WIDTH(C_S_AXI_DATA_WIDTH)) cdc_dbg_bitslip_counter (
-    .dest_out(err_counter),
+    .dest_out(err_counter_100),
     .dest_clk(S_AXI_ACLK),
     .src_in(err_counter_40),
     .src_clk(clk40_i));
@@ -130,7 +134,11 @@ module store_dataframe # (
   assign reg_rddin[7] = dout[191:160];
   assign reg_rddin[8] = dout[223:192];
   assign reg_rddin[9] = {{22{1'b0}}, dout[233:224]};
-  assign reg_rddin[10] = err_counter;
+  assign reg_rddin[10] = err_counter_100;
+  //
+  assign dbg_err_counter_100     = err_counter_100;
+  assign dbg_err_counter_40      = err_counter_40;
+  assign dbg_err_counter_rst_40  = err_counter_rst_40;
 
   always @ (posedge S_AXI_ACLK) begin
 
