@@ -1,7 +1,7 @@
 //
 //  Arbitrary Digital Pattern Generator
 //
-//  aquinn -- 8/14/2024
+//  aquinn -- 10/2/2024
 //
 
 module Arbitrary_Pattern_Generator 
@@ -18,11 +18,12 @@ module Arbitrary_Pattern_Generator
    input logic 			run,
    input logic [(NUM_SIG-1):0] 	write_channel,
    output logic [(NUM_SIG-1):0] read_channel,
-   input logic  [(NUM_SIG-1):0] write_defaults,
+   input logic [(NUM_SIG-1):0] 	write_defaults,
+   output logic [(NUM_SIG-1):0] async_read_channel,
    input logic [31:0] 		n_samples, //Number of samples to take in one shot
    output logic [31:0] 		sample_count, //Number of total samples taken so far.
    input logic [7:0] 		control,
-   output logic [31:0]          dbg_error,
+   output logic [31:0] 		dbg_error,
    
    // Custom strobe triggers
    // -- asserted when write_channel is written to.
@@ -67,6 +68,9 @@ module Arbitrary_Pattern_Generator
    
    logic 			triggered, next_triggered, triggered_wave_clk;
    assign status = {triggered,state_axi};
+
+   assign async_read_channel = input_signals;
+   
 
    logic [(NUM_SAMP-1):0] [(NUM_SIG-1):0] write_buffer;
    logic [(NUM_SAMP-1):0] [(NUM_SIG-1):0] read_buffer;
@@ -191,14 +195,16 @@ module Arbitrary_Pattern_Generator
    // to the AXI domain are:
    // (1) state -- to tell when we can read the read_buffer
    // (2) read_buffer -- to return other data.
-   // (3) (For debug only, not expected to be timing-correct) wave_ptr and sample_count
+   // (3) async_read_channel -- To return input_signals directly / without buffering.
+   // (4) (For debug only, not expected to be timing-correct) wave_ptr and sample_count
    //
    // state should get a CDC to ensure no false transitions. Because simply doing two parallel
    // 2b FFs does not guarantee glitch-free transitions, I implemented custom logic (see below).
    //
    // read_buffer is so large that putting a CDC on it would be impractical. Instead, we 
    // mandate that read_buffer can only be safely read when state = IDLE. Same for wave_ptr
-   // and sample_count. (In this case, it is the same as if wave_clk is not running.)
+   // and sample_count, and async_read_channel. 
+   // (In this case, it is the same as if wave_clk is not running.)
    //
    // axi_clk -> wave_clk:
    // The only signal which should travel in this direction is triggered. We can definitely CDC it,
@@ -307,6 +313,9 @@ module glitchless_2b_cdc(
       endcase // case (src_in)
    end
 
+
+`ifndef NO_CDC
+   
     xpm_cdc_array_single #(
    .DEST_SYNC_FF(4),   // DECIMAL; range: 2-10
    .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
@@ -328,6 +337,14 @@ xpm_cdc_array_single_inst (
                         // losslessly across the two clock domains, use the XPM_CDC_GRAY macro instead.
 
 );
+
+`else // !`ifndef NO_CDC
+
+   assign dest_enc = src_enc;
+   
+
+`endif // !`ifndef NO_CDC
+   
 
    //Dest Decoding
    always_ff @(posedge dest_clk) begin

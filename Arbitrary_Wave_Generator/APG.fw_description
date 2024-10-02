@@ -7,23 +7,22 @@ PORT wave_clk 1 0
 PORT axi_clk 1 0
 PORT axi_resetn 1 0
 
-PORT output_signals 8 1
-PORT input_signals 8 0
+PORT output_signals NUM_SIG 1
+PORT input_signals NUM_SIG 0
 
 
 //Registers
-// NOTE: read_channel and write_channel should actually have their width determined by NUM_SIG
-// as of 7/31/2024, the autogenerator doesn't support parameterized port widths, so just be
-// careful of that if you regenerate this block.
 REGISTER run 1 2
 REGISTER clear 1 2
-REGISTER write_channel 8 0
-REGISTER read_channel 8 1
+REGISTER write_channel NUM_SIG 0
+REGISTER read_channel NUM_SIG 1
+REGISTER write_defaults NUM_SIG 0
+REGISTER async_read_channel NUM_SIG 1
 REGISTER sample_count 32 1
 REGISTER n_samples 32 0
 REGISTER control 8 0
 
-//write_channel_wrStrobe and read_channel_rdStrobe must be custom-connected.
+//CAUTION: write_channel_wrStrobe and read_channel_rdStrobe must be custom-connected.
 
 //Debug registers
 REGISTER write_buffer_len 32 1

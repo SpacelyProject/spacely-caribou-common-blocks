@@ -52,7 +52,7 @@ SOURCE CONTAINS Arbitrary_Pattern_Generator_int/cdc_state AND DEST CONTAINS Arbi
 |--------------|---------------|----------|
 | C_S_AXI_DATA_WIDTH        | 32    | Width in bits of the AXI bus, also width in bits of each data register. Should be in the range 8~32 b for correct operation. |
 | C_S_AXI_ADDR_WIDTH        | 11    | Width in bits of the AXI memory addresses. Should be the same across the design. | 
-| `NUM_SIG`    | 8           | Defines the number of independent digital signals for output, and for input. This parameter determines the width of the output data bus. Maximum of 32 signals based on current implementation.|
+| `NUM_SIG`    | 14           | Defines the number of independent digital signals for output, and for input. This parameter determines the width of the output data bus. Maximum of 32 signals based on current implementation.|
 | `NUM_SAMP`   | 128           | Specifies the **maximum** number of samples per signal, thereby setting the upper limit for the buffer's capacity. The actual number of samples taken depends on the register n_samples |
 
 ## How to Instantiate
@@ -75,6 +75,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 |write_channel | NUM_SIG | Y | Y | Write waveform data samples to this register in sequential order |
 |write_defaults| NUM_SIG | Y | Y | The data sample written to this register represents the state of all outputs when a transaction is not in progress. |
 |read_channel | NUM_SIG | Y | N | After transaction is complete, read samples sequentially from this register. |
+|async_read_channel | NUM_SIG | Y | N | Allow input signals to be read directly and asynchronously from AXI. |
 |sample_count | 32 | Y | N | Running count of the total number of samples acquired by this block since reset (for debug) |
 |n_samples | 32 | Y | Y | Write the number of samples to send/receive to this register  |
 |write_buffer_len | 32 | Y | N | (Debug) Number of samples stored currently in the write_buffer |
@@ -83,6 +84,8 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 |status | 3 | Y | N | (Debug) Status = {triggered? (1b), sm_status (2b)}. sm_status = IDLE (0), TRANSACTION (1), or DONE (2) |
 |control | 8 | Y | Y | Control register. Bit 0 = Loop (repeat pattern until deasserted); all other bits reserved. |
 |dbg_error | 32 | Y | N | DEBUG register. Reports possible timing glitches. Ordinary users should disregard this register, if needed see source code for details. |
+|param_NUM_SIG | 32 | Y | N | Yields the actual value of parameter NUM_SIG |
+|param_NUM_SAMP | 32 | Y | N | Yields the actual value of parameter NUM_SAMP |
 
 
 ### I/O Table 
@@ -107,29 +110,36 @@ Note: Assumes an AXI data width of 32b
 
 run,0x0,0x1,False,True
 
-write_channel,0x4,0xffffffff,True,True
+clear,0x4,0x1,False,True
 
-read_channel,0x8,0xffffffff,True,False
+write_channel,0x8,0xffffffff,True,True
 
-sample_count,0xc,0xffffffff,True,False
+read_channel,0xc,0xffffffff,True,False
 
-n_samples,0x10,0xffffffff,True,True
+write_defaults,0x10,0xffffffff,True,True
 
-control,0x14,0xff,True,True
+async_read_channel,0x14,0xffffffff,True,False
 
-write_buffer_len,0x18,0xffffffff,True,False
+sample_count,0x18,0xffffffff,True,False
 
-next_read_sample,0x1c,0xffffffff,True,False
+n_samples,0x1c,0xffffffff,True,True
 
-wave_ptr,0x20,0xffffffff,True,False
+control,0x20,0xff,True,True
 
-status,0x24,0x7,True,False
+write_buffer_len,0x24,0xffffffff,True,False
 
-clear,0x28,0x1,False,True
+next_read_sample,0x28,0xffffffff,True,False
 
-dbg_error,0x2c,0xffffffff,True,False
+wave_ptr,0x2c,0xffffffff,True,False
 
-write_defaults,0x30,0xffffffff,True,False
+status,0x30,0x7,True,False
+
+dbg_error,0x34,0xffffffff,True,False
+
+param_NUM_SIG,0x38,0xffffffff,True,False
+
+param_NUM_SAMP,0x3c,0xffffffff,True,False
+
 
 
 

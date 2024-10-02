@@ -87,24 +87,28 @@ input logic [(NUM_SIG-1):0] input_signals,
    // AXI-Mapped Registers Address Definition //
    /////////////////////////////////////////////
 
-   //Total number of AXI-mapped registers in this firmware block.
-localparam integer FPGA_REGISTER_N = 13;
+    //Total number of AXI-mapped registers in this firmware block.
+localparam integer FPGA_REGISTER_N = 16;
 
 // Addresses of all AXI-mapped registers in this firmware block.
 
    localparam byte unsigned ADDRESS_run = 0;
-localparam byte unsigned ADDRESS_write_channel = 1;
-localparam byte unsigned ADDRESS_read_channel = 2;
-localparam byte unsigned ADDRESS_sample_count = 3;
-localparam byte unsigned ADDRESS_n_samples = 4;
-localparam byte unsigned ADDRESS_control = 5;
-localparam byte unsigned ADDRESS_write_buffer_len = 6;
-localparam byte unsigned ADDRESS_next_read_sample = 7;
-localparam byte unsigned ADDRESS_wave_ptr = 8;
-localparam byte unsigned ADDRESS_status = 9;
-   localparam byte unsigned ADDRESS_clear = 10;
-   localparam byte unsigned ADDRESS_dbg_error = 11;
-   localparam byte unsigned ADDRESS_write_defaults = 12;
+localparam byte unsigned ADDRESS_clear = 1;
+localparam byte unsigned ADDRESS_write_channel = 2;
+localparam byte unsigned ADDRESS_read_channel = 3;
+localparam byte unsigned ADDRESS_write_defaults = 4;
+localparam byte unsigned ADDRESS_async_read_channel = 5;
+localparam byte unsigned ADDRESS_sample_count = 6;
+localparam byte unsigned ADDRESS_n_samples = 7;
+localparam byte unsigned ADDRESS_control = 8;
+localparam byte unsigned ADDRESS_write_buffer_len = 9;
+localparam byte unsigned ADDRESS_next_read_sample = 10;
+localparam byte unsigned ADDRESS_wave_ptr = 11;
+localparam byte unsigned ADDRESS_status = 12;
+localparam byte unsigned ADDRESS_dbg_error = 13;
+localparam byte unsigned ADDRESS_param_NUM_SIG = 14;
+localparam byte unsigned ADDRESS_param_NUM_SAMP = 15;
+
    
 
 /*localparam byte unsigned FPGA_SPI_WR = 0;
@@ -168,9 +172,12 @@ axi4lite_interface_top #(
 );
 
 
-   logic                  fpga_reg_run;
-logic [(NUM_SIG-1):0] fpga_reg_write_channel;
-logic [(NUM_SIG-1):0] fpga_reg_read_channel;
+ logic                  fpga_reg_run;
+logic                  fpga_reg_clear;
+logic [NUM_SIG-1:0] fpga_reg_write_channel;
+logic [NUM_SIG-1:0] fpga_reg_read_channel;
+logic [NUM_SIG-1:0] fpga_reg_write_defaults;
+logic [NUM_SIG-1:0] fpga_reg_async_read_channel;
 logic [31:0] fpga_reg_sample_count;
 logic [31:0] fpga_reg_n_samples;
 logic [7:0] fpga_reg_control;
@@ -178,17 +185,17 @@ logic [31:0] fpga_reg_write_buffer_len;
 logic [31:0] fpga_reg_next_read_sample;
 logic [31:0] fpga_reg_wave_ptr;
 logic [2:0] fpga_reg_status;
-   logic  fpga_reg_clear;
-   logic [31:0] fpga_reg_dbg_error;
-   logic [(NUM_SIG-1):0] fpga_reg_write_defaults;
-   
+logic [31:0] fpga_reg_dbg_error;
+logic [31:0] fpga_reg_param_NUM_SIG;
+logic [31:0] fpga_reg_param_NUM_SAMP;
 
 
-   always_ff @(posedge S_AXI_ACLK) begin
+ always_ff @(posedge S_AXI_ACLK) begin
     if (~S_AXI_ARESETN) begin
         fpga_reg_run <= '0;
-       fpga_reg_clear <= '0;
+        fpga_reg_clear <= '0;
         fpga_reg_write_channel <= '0;
+        fpga_reg_write_defaults <= '0;
         fpga_reg_n_samples <= '0;
         fpga_reg_control <= '0;
     end
@@ -197,14 +204,14 @@ logic [2:0] fpga_reg_status;
             fpga_reg_run <= 1;
         else
             fpga_reg_run <= 0;
-       if (reg_wrByteStrobe[ADDRESS_clear] == 4'b1111)
+        if (reg_wrByteStrobe[ADDRESS_clear] == 4'b1111)
             fpga_reg_clear <= 1;
         else
             fpga_reg_clear <= 0;
         if (reg_wrByteStrobe[ADDRESS_write_channel] == 4'b1111)
-            fpga_reg_write_channel <= reg_wrdout[(NUM_SIG-1):0];
-		if (reg_wrByteStrobe[ADDRESS_write_defaults] == 4'b1111)
-            fpga_reg_write_defaults <= reg_wrdout[(NUM_SIG-1):0];
+            fpga_reg_write_channel <= reg_wrdout[NUM_SIG-1:0];
+        if (reg_wrByteStrobe[ADDRESS_write_defaults] == 4'b1111)
+            fpga_reg_write_defaults <= reg_wrdout[NUM_SIG-1:0];
         if (reg_wrByteStrobe[ADDRESS_n_samples] == 4'b1111)
             fpga_reg_n_samples <= reg_wrdout[31:0];
         if (reg_wrByteStrobe[ADDRESS_control] == 4'b1111)
@@ -213,9 +220,12 @@ logic [2:0] fpga_reg_status;
 end //always_ff 
 
 
-   assign reg_rddin[ADDRESS_run] = fpga_reg_run;
+     assign reg_rddin[ADDRESS_run] = fpga_reg_run;
+assign reg_rddin[ADDRESS_clear] = fpga_reg_clear;
 assign reg_rddin[ADDRESS_write_channel] = fpga_reg_write_channel;
 assign reg_rddin[ADDRESS_read_channel] = fpga_reg_read_channel;
+assign reg_rddin[ADDRESS_write_defaults] = fpga_reg_write_defaults;
+assign reg_rddin[ADDRESS_async_read_channel] = fpga_reg_async_read_channel;
 assign reg_rddin[ADDRESS_sample_count] = fpga_reg_sample_count;
 assign reg_rddin[ADDRESS_n_samples] = fpga_reg_n_samples;
 assign reg_rddin[ADDRESS_control] = fpga_reg_control;
@@ -223,17 +233,22 @@ assign reg_rddin[ADDRESS_write_buffer_len] = fpga_reg_write_buffer_len;
 assign reg_rddin[ADDRESS_next_read_sample] = fpga_reg_next_read_sample;
 assign reg_rddin[ADDRESS_wave_ptr] = fpga_reg_wave_ptr;
 assign reg_rddin[ADDRESS_status] = fpga_reg_status;
-assign reg_rddin[ADDRESS_clear] = fpga_reg_clear;
 assign reg_rddin[ADDRESS_dbg_error] = fpga_reg_dbg_error;
-assign reg_rddin[ADDRESS_write_defaults] = fpga_reg_write_defaults;
+assign reg_rddin[ADDRESS_param_NUM_SIG] = fpga_reg_param_NUM_SIG;
+assign reg_rddin[ADDRESS_param_NUM_SAMP] = fpga_reg_param_NUM_SAMP;
+
+
 
 
    Arbitrary_Pattern_Generator #(
 .NUM_SIG(NUM_SIG),
 .NUM_SAMP(NUM_SAMP))Arbitrary_Pattern_Generator_int (
 .run(fpga_reg_run),
+.clear(fpga_reg_clear),
 .write_channel(fpga_reg_write_channel),
 .read_channel(fpga_reg_read_channel),
+.write_defaults(fpga_reg_write_defaults),
+.async_read_channel(fpga_reg_async_read_channel),
 .sample_count(fpga_reg_sample_count),
 .n_samples(fpga_reg_n_samples),
 .control(fpga_reg_control),
@@ -241,16 +256,18 @@ assign reg_rddin[ADDRESS_write_defaults] = fpga_reg_write_defaults;
 .next_read_sample(fpga_reg_next_read_sample),
 .wave_ptr(fpga_reg_wave_ptr),
 .status(fpga_reg_status),
+.dbg_error(fpga_reg_dbg_error),
 .wave_clk(wave_clk),
 .axi_clk(axi_clk),
 .axi_resetn(axi_resetn),
 .output_signals(output_signals),
 .input_signals(input_signals),
 .write_channel_wrStrobe(write_channel_wrStrobe),
-.read_channel_rdStrobe(read_channel_rdStrobe),
-.clear(fpga_reg_clear),
-.dbg_error(fpga_reg_dbg_error),
-.write_defaults(fpga_reg_write_defaults));
+.read_channel_rdStrobe(read_channel_rdStrobe));
+
+   assign fpga_reg_param_NUM_SIG = NUM_SIG;
+   assign fpga_reg_param_NUM_SAMP = NUM_SAMP;
+
 
   
 endmodule
