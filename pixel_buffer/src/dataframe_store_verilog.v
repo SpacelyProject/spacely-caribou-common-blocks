@@ -13,9 +13,9 @@ module store_dataframe_verilog # (
     input wire                                  uplinkFEC_i,
 
     // DEBUG signals
-    output logic [C_S_AXI_DATA_WIDTH-1:0]        dbg_err_counter_100,
-    output logic [C_S_AXI_DATA_WIDTH-1:0]        dbg_err_counter_40,
-    output logic                                 dbg_err_counter_rst_40,
+    output wire [C_S_AXI_DATA_WIDTH-1:0]        dbg_err_counter_100,
+    output wire [C_S_AXI_DATA_WIDTH-1:0]        dbg_err_counter_40,
+    output wire                                 dbg_err_counter_rst_40,
 
     //////////////////////////////
     //    AXI BUS SIGNALS       //
