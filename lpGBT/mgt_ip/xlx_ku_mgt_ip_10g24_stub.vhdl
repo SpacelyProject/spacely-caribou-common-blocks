@@ -1,10 +1,10 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
--- Date        : Thu Mar  7 11:33:30 2024
--- Host        : hpcfpga02.hep.anl.gov running 64-bit AlmaLinux 9.3 (Shamrock Pampas Cat)
+-- Date        : Thu Oct  3 09:55:27 2024
+-- Host        : metal.fnal.gov running 64-bit unknown
 -- Command     : write_vhdl -force -mode synth_stub
---               /users/aparamonov/work/peary_fw_sprocket3/peary-firmware-sprocket3/ip_repo/10g24/xlx_ku_mgt_ip_10g24_stub.vhdl
+--               /asic/projects/S/SParkDream/gingu/peary-firmware-sprocket3/submodules/spacely-caribou-common-blocks/lpGBT/mgt_ip/xlx_ku_mgt_ip_10g24_stub.vhdl
 -- Design      : xlx_ku_mgt_ip_10g24
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xczu9eg-ffvb1156-2-e
