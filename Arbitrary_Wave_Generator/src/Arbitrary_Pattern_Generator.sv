@@ -57,7 +57,7 @@ module Arbitrary_Pattern_Generator
    FSM_State state, state_axi;
    
    
-   logic 	[31:0]			  n_samples_int;
+   logic 	[31:0]			  max_wave_ptr;
    logic 				  prev_wrStrobe, prev_prev_wrStrobe;
    logic 				  prev_rdStrobe, prev_prev_rdStrobe;
 
@@ -84,10 +84,21 @@ module Arbitrary_Pattern_Generator
 
 
    always_comb begin
-      if(n_samples > NUM_SAMP)
-	n_samples_int = NUM_SAMP;
-      else
-	n_samples_int = n_samples;
+	  //max_wave_ptr is determined by the SMALLER of NUM_SAMP or n_samples.
+      if(n_samples > NUM_SAMP) begin
+		//Handle underflow condition. If n_samp = 0, then we don't want
+		//to set max_wave_ptr = n_samp-1 = big number. 
+		if (NUM_SAMP > 0) 
+			max_wave_ptr = NUM_SAMP - 1;
+	    else 
+			max_wave_ptr = 0;
+		end
+      else begin
+		if (n_samples > 0)
+			max_wave_ptr = n_samples;
+		else 
+			max_wave_ptr = 0;
+		end
    end
    
    
@@ -241,19 +252,25 @@ module Arbitrary_Pattern_Generator
       // If we are triggered, status is transaction, unless we're
       // at the very last bit of the transaction in which case status is done.
       if(~triggered_wave_clk) 
-	state <= IDLE;
+	      state <= IDLE;
       else begin 
-	 if (state == TRANSACTION && !loop && (wave_ptr >= n_samples_int-1))
-	   state <= DONE;
-	 else
-	   state <= TRANSACTION;
+	      if (state == TRANSACTION && !loop && (wave_ptr >= max_wave_ptr))
+	          state <= DONE;
+	      else begin
+			  // If we are in the DONE state, but still triggered, wait for triggered
+			  // to go to 0 to avoid immediate re-triggering.
+	          if (state == DONE)
+		          state <= DONE;
+		      else 
+	              state <= TRANSACTION;
+	      end
       end
 
       // ~~~~ Outputs Based on State ~~~~
       if (state == TRANSACTION) begin // TRANSACTION IN PROGRESS
 
 
-	 if(loop && (wave_ptr >= n_samples_int-1))
+	 if(loop && (wave_ptr >= max_wave_ptr))
 	    wave_ptr <= 0;
 	 else
 	   wave_ptr <= wave_ptr + 1;
