@@ -1,7 +1,7 @@
 //
 //  Arbitrary Digital Pattern Generator
 //
-//  aquinn -- 8/14/2024
+//  aquinn -- 10/2/2024
 //
 
 module Arbitrary_Pattern_Generator 
@@ -18,10 +18,12 @@ module Arbitrary_Pattern_Generator
    input logic 			run,
    input logic [(NUM_SIG-1):0] 	write_channel,
    output logic [(NUM_SIG-1):0] read_channel,
+   input logic [(NUM_SIG-1):0] 	write_defaults,
+   output logic [(NUM_SIG-1):0] async_read_channel,
    input logic [31:0] 		n_samples, //Number of samples to take in one shot
    output logic [31:0] 		sample_count, //Number of total samples taken so far.
    input logic [7:0] 		control,
-   output logic [31:0]          dbg_error,
+   output logic [31:0] 		dbg_error,
    
    // Custom strobe triggers
    // -- asserted when write_channel is written to.
@@ -55,7 +57,7 @@ module Arbitrary_Pattern_Generator
    FSM_State state, state_axi;
    
    
-   logic 	[31:0]			  n_samples_int;
+   logic 	[31:0]			  max_wave_ptr;
    logic 				  prev_wrStrobe, prev_prev_wrStrobe;
    logic 				  prev_rdStrobe, prev_prev_rdStrobe;
 
@@ -66,6 +68,9 @@ module Arbitrary_Pattern_Generator
    
    logic 			triggered, next_triggered, triggered_wave_clk;
    assign status = {triggered,state_axi};
+
+   assign async_read_channel = input_signals;
+   
 
    logic [(NUM_SAMP-1):0] [(NUM_SIG-1):0] write_buffer;
    logic [(NUM_SAMP-1):0] [(NUM_SIG-1):0] read_buffer;
@@ -79,10 +84,21 @@ module Arbitrary_Pattern_Generator
 
 
    always_comb begin
-      if(n_samples > NUM_SAMP)
-	n_samples_int = NUM_SAMP;
-      else
-	n_samples_int = n_samples;
+	  //max_wave_ptr is determined by the SMALLER of NUM_SAMP or n_samples.
+      if(n_samples > NUM_SAMP) begin
+		//Handle underflow condition. If n_samp = 0, then we don't want
+		//to set max_wave_ptr = n_samp-1 = big number. 
+		if (NUM_SAMP > 0) 
+			max_wave_ptr = NUM_SAMP - 1;
+	    else 
+			max_wave_ptr = 0;
+		end
+      else begin
+		if (n_samples > 0)
+			max_wave_ptr = n_samples;
+		else 
+			max_wave_ptr = 0;
+		end
    end
    
    
@@ -190,14 +206,16 @@ module Arbitrary_Pattern_Generator
    // to the AXI domain are:
    // (1) state -- to tell when we can read the read_buffer
    // (2) read_buffer -- to return other data.
-   // (3) (For debug only, not expected to be timing-correct) wave_ptr and sample_count
+   // (3) async_read_channel -- To return input_signals directly / without buffering.
+   // (4) (For debug only, not expected to be timing-correct) wave_ptr and sample_count
    //
    // state should get a CDC to ensure no false transitions. Because simply doing two parallel
    // 2b FFs does not guarantee glitch-free transitions, I implemented custom logic (see below).
    //
    // read_buffer is so large that putting a CDC on it would be impractical. Instead, we 
    // mandate that read_buffer can only be safely read when state = IDLE. Same for wave_ptr
-   // and sample_count. (In this case, it is the same as if wave_clk is not running.)
+   // and sample_count, and async_read_channel. 
+   // (In this case, it is the same as if wave_clk is not running.)
    //
    // axi_clk -> wave_clk:
    // The only signal which should travel in this direction is triggered. We can definitely CDC it,
@@ -234,19 +252,25 @@ module Arbitrary_Pattern_Generator
       // If we are triggered, status is transaction, unless we're
       // at the very last bit of the transaction in which case status is done.
       if(~triggered_wave_clk) 
-	state <= IDLE;
+	      state <= IDLE;
       else begin 
-	 if (state == TRANSACTION && !loop && (wave_ptr >= n_samples_int-1))
-	   state <= DONE;
-	 else
-	   state <= TRANSACTION;
+	      if (state == TRANSACTION && !loop && (wave_ptr >= max_wave_ptr))
+	          state <= DONE;
+	      else begin
+			  // If we are in the DONE state, but still triggered, wait for triggered
+			  // to go to 0 to avoid immediate re-triggering.
+	          if (state == DONE)
+		          state <= DONE;
+		      else 
+	              state <= TRANSACTION;
+	      end
       end
 
       // ~~~~ Outputs Based on State ~~~~
       if (state == TRANSACTION) begin // TRANSACTION IN PROGRESS
 
 
-	 if(loop && (wave_ptr >= n_samples_int-1))
+	 if(loop && (wave_ptr >= max_wave_ptr))
 	    wave_ptr <= 0;
 	 else
 	   wave_ptr <= wave_ptr + 1;
@@ -260,7 +284,7 @@ module Arbitrary_Pattern_Generator
 	 
       end 
       else begin //NO TRANSACTION (IDLE or DONE)
-	 output_signals <= 0;
+	 output_signals <= write_defaults;
 	 wave_ptr <= 0;
 	 sample_count <= sample_count;
 
@@ -306,6 +330,9 @@ module glitchless_2b_cdc(
       endcase // case (src_in)
    end
 
+
+`ifndef NO_CDC
+   
     xpm_cdc_array_single #(
    .DEST_SYNC_FF(4),   // DECIMAL; range: 2-10
    .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
@@ -327,6 +354,14 @@ xpm_cdc_array_single_inst (
                         // losslessly across the two clock domains, use the XPM_CDC_GRAY macro instead.
 
 );
+
+`else // !`ifndef NO_CDC
+
+   assign dest_enc = src_enc;
+   
+
+`endif // !`ifndef NO_CDC
+   
 
    //Dest Decoding
    always_ff @(posedge dest_clk) begin

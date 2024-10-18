@@ -1,3 +1,5 @@
+//Remove Xilinx CDC IP for basic testing.
+`define NO_CDC 1
 module tb();
 
    // AXI Interface
@@ -16,6 +18,9 @@ module tb();
    
    logic [11:0] write_channel;
    logic [11:0] read_channel;
+   logic [11:0] async_read_channel;
+   logic [11:0] write_defaults;
+   
    logic [7:0] control;
    
    
@@ -51,6 +56,7 @@ module tb();
       input_signals = 0;
       run = 0;
       write_channel = 0;
+      write_defaults = 12'b111100000000;
       read_channel_rdStrobe = 0;
       write_channel_wrStrobe = 0;
       n_samples = 6;
@@ -132,6 +138,7 @@ module tb();
       // (3) When control = 1 is asserted, the pattern generator should loop until control = 0 is asserted.
       // (4) Should see dbg_error = 0b10 after the double rdStrobe
       // (5) Should see read_buffer and write_buffer being cleared toward the end.
+      // (6) The top 4 bits of output_signals should be asserted only when we are not running the APG.
       
 
    end

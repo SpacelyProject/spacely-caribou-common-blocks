@@ -58,26 +58,26 @@ Note: Assumes an AXI data width of 32b (standard for SP3/SP3A)
 
 *BASE (IP Base Address)
 
-lpgbt_rd_en,0x4,0x1,True,True
+lpgbt_rd_en,0x0,0x1,True,True
 
-empty,0x8,0x1,True,False
+empty,0x4,0x1,True,False
 
-full,0x8,0x2,True,False
+full,0x4,0x2,True,False
 
-data_frame[0],0xc, 0xffffffff, True, False
+data_frame[0],0x8, 0xffffffff, True, False
 
-data_frame[1],0x10, 0xffffffff, True, False
+data_frame[1],0xc, 0xffffffff, True, False
 
-data_frame[2],0x14, 0xffffffff, True, False
+data_frame[2],0x10, 0xffffffff, True, False
 
-data_frame[3],0x18, 0xffffffff, True, False
+data_frame[3],0x14, 0xffffffff, True, False
 
-data_frame[4],0x1c, 0xffffffff, True, False
+data_frame[4],0x18, 0xffffffff, True, False
 
-data_frame[5],0x20, 0xffffffff, True, False
+data_frame[5],0x1c, 0xffffffff, True, False
 
-data_frame[6],0x24, 0xffffffff, True, False
+data_frame[6],0x20, 0xffffffff, True, False
 
-data_frame[7],0x28, 0x3ff, True, False
+data_frame[7],0x24, 0x3ff, True, False
 
-err_counter, 0x2c, 0xffffffff, True, True
+err_counter, 0x28, 0xffffffff, True, True
