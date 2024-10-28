@@ -1,0 +1,6 @@
+-clean
+-access +rwc
+-timescale 1ns/1ps
+sync_counter_tb.sv
+../src/xpm_cdc_single.sv
+../src/sync_counter.sv

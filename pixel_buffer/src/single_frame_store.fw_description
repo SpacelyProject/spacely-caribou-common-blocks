@@ -1,0 +1,12 @@
+
+PARAMETER FRAME_WIDTH 256
+
+PORT frame_in FRAME_WIDTH 0
+PORT frame_clk 1 0
+
+PORT axi_clk 1 0
+PORT axi_resetn 1 0
+
+REGISTER trigger 1 2
+REGISTER status 32 1
+REGISTER frame_read 32 1
