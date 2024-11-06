@@ -1,0 +1,5 @@
+-clean
+-access +rwc
+-timescale 1ns/1ps
+test_data_source_tb.sv
+../src/test_data_source.sv

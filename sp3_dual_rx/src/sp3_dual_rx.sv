@@ -49,7 +49,7 @@ module sp3_dual_rx(
 
 		   // -- Config Settings & Inputs --
 		   input logic 		mgt_rxpolarity_i,
-		   input logic 		uplinkRst_i,
+		   input logic 		uplinkRst_i
 );
 
    // -- MGT Signals --
@@ -57,7 +57,16 @@ module sp3_dual_rx(
    logic 			mgt_rxrdy;
 
    // -- Misc signals --
-   
+   logic [31:0] mgt_usrword; //Raw (interleaved) usrword from the MGT.
+   logic [31:0] mgtword_a, mgtword_b; //Word for A & B channels after de-interleave.
+   logic bitslip_a, bitslip_b; //Bitslip control signals from A & B back to SP3_Demux.
+   logic [233:0] uplinkData160_a, uplinkData160_b; //Output data frame, synchronized to 160M clock.
+   logic [233:0] uplinkData20_a_o, uplinkData20_b_o; //Output data frame, synchronized to 20M clock.
+   //These signals describe whether a FEC error occurred (and was corrected)
+   //in UserData, Ec, or Ic.
+   logic [229:0] uplinkDataCorrected_a, uplinkDataCorrected_b;
+   logic [1:0]   uplinkIcCorrected_a, uplinkIcCorrected_b;
+   logic [1:0]   uplinkEcCorrected_a, uplinkEcCorrected_b;
 
    // RESET SCHEME FOR THE UPLINK:
    // uplinkRst_i           => Resets MGT Rx (and SP3 Demux)
@@ -70,6 +79,7 @@ module sp3_dual_rx(
 
    logic 			MGT_RXCLK; //320 MHz clock from MGT.
    logic                        UPLINK_CLK;//160 MHz clock (MGT_RXCLK/2) 			
+   logic MGT_FREEDRPCLK, MGT_REFCLK; //Reference clocks for the MGT
 
    //Input buffers for MGT_FREEDRPCLK and MGT_REFCLK
 
@@ -78,7 +88,7 @@ module sp3_dual_rx(
 				   .I(USER_CLOCK_P),
 				   .IB(USER_CLOCK_N));
 
-   IBUFGDS_GTE4 #(.REFCLK_EN_TX_PATH(1'b0),
+   IBUFDS_GTE4 #(.REFCLK_EN_TX_PATH(1'b0),
 		  .REFCLK_HROW_CK_SEL(0),
 		  .REFCLK_ICNTL_RX(0)
 		  ) mgt_refclk_ibufgds(.O(MGT_REFCLK),
@@ -90,7 +100,7 @@ module sp3_dual_rx(
 				       			
    
    // Generate clk20 from 160MHz Uplink ref clock.
-   BUFGCE_DIV #(.BUFGCE_DIVIDE(8)) clk20_div (.I(UPLINK_CLK)
+   BUFGCE_DIV #(.BUFGCE_DIVIDE(8)) clk20_div (.I(UPLINK_CLK),
 					      .O(clk20_o),
 					      .CE(1'b1),
 					      .CLR(1'b0));
@@ -115,8 +125,8 @@ module sp3_dual_rx(
 		     .MGT_TXCALIB_i(0),
 		     .MGT_TXREADY_o(), //tx unused
 		     .MGT_RXREADY_o(mgt_rxrdy),
-		     .MGT_TX_ALGINED_o(mgt_txaligned),
-		     .MGT_RX_PIPHASE_o(mgt_txphase),
+		     .MGT_TX_ALIGNED_o(),//tx unused
+		     .MGT_TX_PIPHASE_o(),
 		     .MGT_USRWORD_i(32'b0), //tx unused
 		     .MGT_USRWORD_o(mgt_usrword),
 		     .RXn_i(SFP0_RX_N),
@@ -203,11 +213,11 @@ module sp3_dual_rx(
    // -- FEC Error Logic --
    // If the EC, IC, or user data is corrected by FEC, then assert the FEC flag.
    always @(posedge MGT_RXCLK) begin
-      if(uplinkDataCorrected_a || uplinkIcCorrected_a || uplinkEcCorrected_a)
+      if(uplinkDataCorrected_a>0 || uplinkIcCorrected_a>0 || uplinkEcCorrected_a>0)
 	uplinkFEC_a_o <= 1'b1;
       else
 	uplinkFEC_a_o <= 1'b0;
-      if(uplinkDataCorrected_b || uplinkIcCorrected_b || uplinkEcCorrected_b)
+      if(uplinkDataCorrected_b>0 || uplinkIcCorrected_b>0 || uplinkEcCorrected_b>0)
 	uplinkFEC_b_o <= 1'b1;
       else
        uplinkFEC_b_o <= 1'b0;
