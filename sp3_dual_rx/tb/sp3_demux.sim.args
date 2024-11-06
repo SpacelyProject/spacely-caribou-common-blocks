@@ -1,0 +1,7 @@
+-clean
+-access +rwc
+-timescale 1ns/1ps
+sp3_demux_tb.sv
+/asic/projects/S/SParkDream/aquinn/XilinxUnisimLibrary/verilog/src/glbl.v
+/asic/projects/S/SParkDream/aquinn/XilinxUnisimLibrary/verilog/src/unisims/BUFGCE_DIV.v
+../src/sp3_demux.sv
