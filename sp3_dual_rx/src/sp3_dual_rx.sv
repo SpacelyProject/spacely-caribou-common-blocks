@@ -83,7 +83,7 @@ module sp3_dual_rx(
 
    //Input buffers for MGT_FREEDRPCLK and MGT_REFCLK
 
-   IBUFGDS #(.IBUF_LOW_PWR(1'b0), .IOSTANDARD("LVDS_25")
+   IBUFGDS #(.IBUF_LOW_PWR(0), .IOSTANDARD("LVDS_25")
 	     ) freedrpclk_ibufgds (.O(MGT_FREEDRPCLK),
 				   .I(USER_CLOCK_P),
 				   .IB(USER_CLOCK_N));
@@ -157,7 +157,7 @@ module sp3_dual_rx(
    
    lpgbtfpga_uplink #(.DATARATE(2), //1 = 5G12, 2 = 10G24
 		      .FEC(1), //1 = FEC5, 2 = FEC12
-		      .c_multicycleDelay(3),
+		      .c_multicyleDelay(3), //Typo inherited from lpGBT-FPGA :P
 		      .c_clockRatio(8),
 		      .c_mgtWordWidth(32),
 		      .c_allowedFalseHeader(5),
@@ -184,7 +184,7 @@ module sp3_dual_rx(
 
    lpgbtfpga_uplink #(.DATARATE(2), //1 = 5G12, 2 = 10G24
 		      .FEC(1), //1 = FEC5, 2 = FEC12
-		      .c_multicycleDelay(3),
+		      .c_multicyleDelay(3), //Typo inherited from lpGBT-FPGA :P
 		      .c_clockRatio(8),
 		      .c_mgtWordWidth(32),
 		      .c_allowedFalseHeader(5),

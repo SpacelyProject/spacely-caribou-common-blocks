@@ -207,8 +207,8 @@ assign reg_rddin[ADDRESS_uplinkRst_i] = fpga_reg_uplinkRst_i;
 .uplinkrdy_a_o(uplinkrdy_a_o),
 .uplinkFEC_a_o(uplinkFEC_a_o),
 .uplinkUserData_a(uplinkUserData_a),
-.uplinkrdy_a_o(uplinkrdy_b_o),
-.uplinkFEC_a_o(uplinkFEC_b_o),
+.uplinkrdy_b_o(uplinkrdy_b_o),
+.uplinkFEC_b_o(uplinkFEC_b_o),
 .uplinkUserData_b(uplinkUserData_b));
 
    
