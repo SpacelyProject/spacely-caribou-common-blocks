@@ -95,7 +95,7 @@ module Arbitrary_Pattern_Generator
 		end
       else begin
 		if (n_samples > 0)
-			max_wave_ptr = n_samples;
+			max_wave_ptr = n_samples - 1;
 		else 
 			max_wave_ptr = 0;
 		end
