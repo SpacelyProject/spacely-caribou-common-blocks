@@ -110,12 +110,33 @@ module sp3_dual_rx(
    // Multi-Gigabit Transceiver IP (MGT) //
    ////////////////////////////////////////
 
+
+   dr_gth_sub uGTH (.RX_P(SFP0_RX_P),
+		    .RX_N(SFP0_RX_N),
+		    .REFCLK_i(MGT_REFCLK),
+		    .FREEDRPCLK_i(MGT_FREEDRPCLK),
+		    .DIVCLK_o(),
+		    .RX_RESET_i(uplinkRst_i),
+		    .USER_DATA_o(mgt_usrword),
+		    .RX_WORDCLK_o(MGT_RXCLK),
+		    .RX_READY_o(mgt_rxrdy),
+		    //DRP Debug Interface
+		    .axi_clk(), //Todo: Will need to connect AXI Clk if we want to use DRP.
+		    .dmonitor_data(),
+		    .drp_addr(0),
+		    .drp_di(0),
+		    .drp_do(),
+		    .drp_rst(0),
+		    .drp_we(0),
+		    .drp_trigger(0));
    
-   xlx_ku_mgt_10g24 (.MGT_REFCLK_i(MGT_REFCLK),
+   /*
+   xlx_ku_mgt_10g24 uMGT (.MGT_REFCLK_i(MGT_REFCLK),
 		     .MGT_FREEDRPCLK_i(MGT_FREEDRPCLK),
 		     .MGT_RXUSRCLK_o(MGT_RXCLK),
 		     .MGT_TXUSRCLK_o(), //tx unused
-		     .MGT_TXRESET_i(1'b0), //tx unused
+		     .MGT_TXRESET_i(uplinkRst_i), //tx unused, but we need to reset it to
+		                                  // successfully reset the Rx.
 		     .MGT_RXRESET_i(uplinkRst_i),
 		     .MGT_TXPolarity_i(1'b0), //tx unused
 		     .MGT_RXPolarity_i(mgt_rxpolarity_i),
@@ -132,7 +153,7 @@ module sp3_dual_rx(
 		     .RXn_i(SFP0_RX_N),
 		     .RXp_i(SFP0_RX_P),
 		     .TXn_o(),//tx unused
-		     .TXp_o());//tx unused
+		     .TXp_o());//tx unused*/
 
    //////////////
    //SP3 DEMUX //
@@ -176,10 +197,10 @@ module sp3_dual_rx(
 			      .bypassFECEncoder_i(0),
 			      .bypassScrambler_i(0),
 			      .mgt_bitslipCtrl_o(bitslip_a),
-			      .dataCorrected_o(uplinkdataCorrected_a),
+			      .dataCorrected_o(uplinkDataCorrected_a),
 			      .IcCorrected_o(uplinkIcCorrected_a),
 			      .EcCorrected_o(uplinkEcCorrected_a),
-			      .rdy_o(lpgbtfpga_uplinkReady_a),
+			      .rdy_o(lpgbtfpga_uplinkRdy_a),
 			      .frameAlignerEven_o());//unused
 
    lpgbtfpga_uplink #(.DATARATE(2), //1 = 5G12, 2 = 10G24
@@ -203,10 +224,10 @@ module sp3_dual_rx(
 			      .bypassFECEncoder_i(0),
 			      .bypassScrambler_i(0),
 			      .mgt_bitslipCtrl_o(bitslip_b),
-			      .dataCorrected_o(uplinkdataCorrected_b),
+			      .dataCorrected_o(uplinkDataCorrected_b),
 			      .IcCorrected_o(uplinkIcCorrected_b),
 			      .EcCorrected_o(uplinkEcCorrected_b),
-			      .rdy_o(lpgbtfpga_uplinkReady_b),
+			      .rdy_o(lpgbtfpga_uplinkRdy_b),
 			      .frameAlignerEven_o());//unused
 
    
@@ -234,6 +255,8 @@ module sp3_dual_rx(
 
    //This block exists to ensure that the user data, which is coming from the 320 MHz domain,
    //is actually aligned to the 40 MHz output clock. 
+   
+   logic [2:0] uplinkPhase_a_o, uplinkPhase_b_o;
    
    cdc_rx #(.g_CLOCK_A_RATIO(8), //Frequency ratio between slow and fast frequencies
 	    .g_PHASE_SIZE(3) //log2(g_CLOCK_A_RATIO)
