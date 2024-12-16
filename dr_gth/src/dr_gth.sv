@@ -150,8 +150,8 @@ module dr_gth(
     .gtwiz_reset_rx_done_out(rx_reset_done),
 
     /* Receiver High-Speed Interface */
-    .gthrxn_in(RX_P),
-    .gthrxp_in(RX_N),
+    .gthrxn_in(RX_N),
+    .gthrxp_in(RX_P),
 
     .gtrefclk00_in(REFCLK_i),
     .gtwiz_reset_clk_freerun_in(FREEDRPCLK_i), //Ext free-running clock

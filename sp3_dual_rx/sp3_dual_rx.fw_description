@@ -30,3 +30,10 @@ REGISTER uplinkIcData_b 2 1
 
 REGISTER mgt_rxpolarity_i 1 0
 REGISTER uplinkRst_i 1 0
+
+REGISTER interleaverBypass 1 0
+REGISTER fecBypass 1 0
+REGISTER scramblerBypass 1 0
+
+REGISTER pulse_bitslip_a 1 2
+REGISTER pulse_bitslip_b 1 2

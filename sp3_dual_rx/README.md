@@ -30,7 +30,9 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 |uplinkIcData_b | 2 | Y | N | IC-field data from uplink channel B. |
 |mgt_rxpolarity_i | 1 | Y | Y | Set the polarity of the MGT receiver. |
 |uplinkRst_i | 1 | Y | Y | Reset for the MGT (and thereby the entire uplink). |
-
+|interleaverBypass | 1 | Y | Y | Set to bypass the (de)interleaver when the interleaver is bypassed on the ASIC. |
+|fecBypass | 1 | Y | Y | Set to bypass the FEC (de)coder when the FEC encoder is bypassed on the ASIC.|
+|scramblerBypass | 1 | Y | Y | Set to bypass the (de)scrambler when the scrambler is bypassed on the ASIC. |
 
 
 ### I/O Table 
@@ -72,6 +74,16 @@ uplinkIcData_b,0xc,0x3,True,False
 mgt_rxpolarity_i,0x10,0x1,True,True
 
 uplinkRst_i,0x14,0x1,True,True
+
+interleaverBypass,0x18,0x1,True,True
+
+fecBypass,0x1c,0x1,True,True
+
+scramblerBypass,0x20,0x1,True,True
+
+pulse_bitslip_a,0x24,0x1,False,True
+
+pulse_bitslip_b,0x28,0x1,False,True
 
 
 

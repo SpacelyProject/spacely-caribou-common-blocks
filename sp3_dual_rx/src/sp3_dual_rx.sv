@@ -49,7 +49,12 @@ module sp3_dual_rx(
 
 		   // -- Config Settings & Inputs --
 		   input logic 		mgt_rxpolarity_i,
-		   input logic 		uplinkRst_i
+		   input logic 		uplinkRst_i,
+		   input logic 		fecBypass,
+		   input logic 		interleaverBypass,
+		   input logic 		scramblerBypass,
+		   input logic 		pulse_bitslip_a,
+		   input logic 		pulse_bitslip_b
 );
 
    // -- MGT Signals --
@@ -167,8 +172,8 @@ module sp3_dual_rx(
 		    .mgtclk_div2(UPLINK_CLK),
 		    .word_a(mgtword_a),
 		    .word_b(mgtword_b),
-		    .bitslip_a(bitslip_a),
-		    .bitslip_b(bitslip_b)
+		    .bitslip_a(bitslip_a || pulse_bitslip_a),
+		    .bitslip_b(bitslip_b || pulse_bitslip_b)
 		    );
    
 
@@ -193,9 +198,9 @@ module sp3_dual_rx(
 			      .userData_o(uplinkData160_a[229:0]),
 			      .EcData_o(uplinkData160_a[231:230]),
 			      .IcData_o(uplinkData160_a[233:232]),
-			      .bypassInterleaver_i(0), //Don't bypass
-			      .bypassFECEncoder_i(0),
-			      .bypassScrambler_i(0),
+			      .bypassInterleaver_i(interleaverBypass), 
+			      .bypassFECEncoder_i(fecBypass),
+			      .bypassScrambler_i(scramblerBypass),
 			      .mgt_bitslipCtrl_o(bitslip_a),
 			      .dataCorrected_o(uplinkDataCorrected_a),
 			      .IcCorrected_o(uplinkIcCorrected_a),
@@ -220,9 +225,9 @@ module sp3_dual_rx(
 			      .userData_o(uplinkData160_b[229:0]),
 			      .EcData_o(uplinkData160_b[231:230]),
 			      .IcData_o(uplinkData160_b[233:232]),
-			      .bypassInterleaver_i(0), //Don't bypass
-			      .bypassFECEncoder_i(0),
-			      .bypassScrambler_i(0),
+			      .bypassInterleaver_i(interleaverBypass),
+			      .bypassFECEncoder_i(fecBypass),
+			      .bypassScrambler_i(scramblerBypass),
 			      .mgt_bitslipCtrl_o(bitslip_b),
 			      .dataCorrected_o(uplinkDataCorrected_b),
 			      .IcCorrected_o(uplinkIcCorrected_b),

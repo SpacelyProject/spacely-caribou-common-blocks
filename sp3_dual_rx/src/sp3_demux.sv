@@ -34,29 +34,48 @@ module sp3_demux(
 		 
 );
 
-   //NOTE:
-   // mgtword_1 and _2 are the two consecutive words that appear
+   // --- DEMULTIPLEXING CONCEPT ---
+   // MGTWORD
+   // mgtword_0 and _1 are the two consecutive words that appear
    // from the MGT. Each of them is interleaved from bits that
    // should go to receiver A and receiver B
-   // mgtword_1 = {a0,  b0,  a1,  b1, ...  a15, b15}
-   // mgtword_2 = {a16, b16, a17, b17, ... a31, b31}
+   // mgtword_0 = {a0,  b0,  a1,  b1, ...  a15, b15}
+   // mgtword_1 = {a16, b16, a17, b17, ... a31, b31}
+   // Because data arrives LSB-first, mgtword_0 is newer than mgtword_1.
+   // When we get another mgtword, we send _0 --> _1 and put the new
+   // word as _0.
+   //
+   // WORD_A/WORD_B
    // Meanwhile, word_a and word_b are the de-interleaved words
    // which should be sent to the two receivers:
    // word_a = {a0, a1, a2, a3, ... a31}
    // word_b = {b0, b1, b2, b3, ... b31}
-   // In order to implement the bitslip logic, we actually
-   // hold 2x words in memory for both a and b. a0/b0 is
-   // the word we immediately got from the logic. a1/b1 is the
-   // previous word.
-   // word_a_int and word_b_int merely merge these vectors.
+   // A simple combinational operation can generate these from
+   // mgtword_0 and mgtword_1.
+   // Note that 1/2 of word_a and 1/2 of word_b are delivered each
+   // mgtclk cycle, so a full new word_a and word_b are only available
+   // every mgtclk_div2.
+   //
+   // BITSLIP LOGIC
+   // In order to implement the bitslip logic, we actually hold the most
+   // recent TWO word_a's and word_b's in memory, and we define
+   // a capture window which is offset from those words as what is put
+   // out everty mgtclk_div2.
+   //
+   //  <-->[0 wd_ao 31]
+   //  [0 wd_a1 31][0 wd_a2 31]
+   //
+   // next cycle:
+   //  <-->[0 wd_ao 31]
+   //  [0 wd_a0 31][0 wd_a1 31][0 wd_a2 31]
    
    logic 			     phase;
 
-   logic [31:0] 		     mgtword_1, mgtword_2;
+   logic [31:0] 		     mgtword_0, mgtword_1;
 
-   logic [63:0] 		     word_a_int, word_b_int;
-   logic [31:0] 		     word_a0_int, word_b0_int;
-   logic [31:0] 		     word_a1_int, word_b1_int;
+   logic [63:0] 		     word_a_merged, word_b_merged;
+   logic [31:0] 		     word_a_int, word_b_int;
+   logic [31:0] 		     word_a0, word_b0, word_a1, word_b1;
    
    
    
@@ -79,17 +98,22 @@ module sp3_demux(
    //Demultiplexing//
    //////////////////
 
+   // MULTIPLEXING CONCEPT: 
+
    //Alternate between sending mgtword to mgtword_a or mgtword_b.
    always @(posedge mgtclk) begin
       if(reset) begin
+	 mgtword_0 <= 0;
 	 mgtword_1 <= 0;
-	 mgtword_2 <= 0;
-	 word_a1_int <= 0;
-	 word_b1_int <= 0;
-	 phase <= 0;
+	 //word_a1_int <= 0;
+	 //word_b1_int <= 0;
+	 //phase <= 0;
       end
       else begin
-	 if(phase == 0) begin
+	 mgtword_0 <= mgtword_1; // LSB=Old
+	 mgtword_1 <= mgtword;   // MSB=New
+	 
+	 /*if(phase == 0) begin
 	    mgtword_1 <= mgtword;
 	    phase <= 1;
 	    word_a1_int <= word_a0_int;
@@ -98,7 +122,7 @@ module sp3_demux(
 	 else begin
 	    mgtword_2 <= mgtword;
 	    phase <= 0;
-	 end
+	 end*/
       end
    end 
 
@@ -107,16 +131,32 @@ module sp3_demux(
    generate
       for (i=0; i<16;i=i+1) begin
 	 //word1 gets the even bits
-	 assign word_a0_int[i] = mgtword_1[2*i];
-	 assign word_a0_int[16+i] = mgtword_2[2*i];
+	 assign word_a_int[i] = mgtword_0[2*i];
+	 assign word_a_int[16+i] = mgtword_1[2*i];
 
 	 //word2 gets the odd bits
-	 assign word_b0_int[i] = mgtword_1[2*i+1];
-	 assign word_b0_int[16+i] = mgtword_2[2*i+1];
+	 assign word_b_int[i] = mgtword_0[2*i+1];
+	 assign word_b_int[16+i] = mgtword_1[2*i+1];
       end
    endgenerate
 
 
+   always @(posedge mgtclk_div2) begin
+      if (reset) begin
+	 word_a0 <= 0;
+	 word_a1 <= 0;
+	 word_b0 <= 0;
+	 word_b1 <= 0;
+      end
+      else begin
+	 word_a0 <= word_a1;   //LSB=First/Old
+	 word_a1 <= word_a_int;//MSB=Last/new
+	 word_b0 <= word_b1;
+	 word_b1 <= word_b_int;
+      end // else: !if(reset)
+   end // always @ (posedge mgtclk_div2)
+   
+   
    /////////////////
    //Bitslip logic//
    /////////////////
@@ -127,7 +167,9 @@ module sp3_demux(
    // lead back to the same frame alignment.
    // We cannot "twist" the data by looping from front to back. 
 
+   //bitslip_X_counter is a delay counter to prevent from double-counting bitslip.
    logic [5:0] bitslip_a_counter, bitslip_b_counter;
+   //bitslip_X_val is the amount that we actually slip by (0~32)
    logic [5:0] bitslip_a_val, bitslip_b_val;
 
    //Functional Description:
@@ -140,6 +182,9 @@ module sp3_demux(
 	 bitslip_a_val <= 0;
       end
       else begin
+	 //when bitslip_X is asserted, we start the counter. On the
+	 //very next cycle, bitslip_a_val will be incremented.
+	 //Until bitslip_X_counter gets to zero, everything else is ignored.
 	 if(bitslip_a && bitslip_a_counter == 0)
 	   bitslip_a_counter <= 5'b10000;
 	 else begin
@@ -174,13 +219,14 @@ module sp3_demux(
       end // else: !if(reset)
    end // always_ff @ (posedge mgtclk, reset)
 	 
-
-   assign word_a_int = {word_a1_int, word_a0_int};
-   assign word_b_int = {word_b1_int, word_b0_int};
+   //word_0 is first, and LSB is first. So it's appropriate
+   //to put word_0's MSB next to word_1's LSB. :)
+   assign word_a_merged = {word_a1, word_a0};
+   assign word_b_merged = {word_b1, word_b0};
    
    
-   assign word_a = word_a_int[(63-bitslip_a_val) -: 32];
-   assign word_b = word_b_int[(63-bitslip_b_val) -: 32];
+   assign word_a = word_a_merged[(bitslip_a_val) +: 32];
+   assign word_b = word_b_merged[(bitslip_b_val) +: 32];
 	    
 	    
 
