@@ -21,7 +21,7 @@ PORT uplinkrdy_b_o 1 1
 PORT uplinkFEC_b_o 1 1
 PORT uplinkUserData_b 234 1
 
-
+PORT axi_clk 1 0
 
 REGISTER uplinkEcData_a 2 1
 REGISTER uplinkIcData_a 2 1
@@ -37,3 +37,5 @@ REGISTER scramblerBypass 1 0
 
 REGISTER pulse_bitslip_a 1 2
 REGISTER pulse_bitslip_b 1 2
+
+REGISTER status 8 1

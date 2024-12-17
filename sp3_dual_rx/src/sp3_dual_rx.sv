@@ -54,7 +54,10 @@ module sp3_dual_rx(
 		   input logic 		interleaverBypass,
 		   input logic 		scramblerBypass,
 		   input logic 		pulse_bitslip_a,
-		   input logic 		pulse_bitslip_b
+		   input logic 		pulse_bitslip_b,
+
+		   input logic  axi_clk,
+		   output logic [7:0] status
 );
 
    // -- MGT Signals --
@@ -67,6 +70,11 @@ module sp3_dual_rx(
    logic bitslip_a, bitslip_b; //Bitslip control signals from A & B back to SP3_Demux.
    logic [233:0] uplinkData160_a, uplinkData160_b; //Output data frame, synchronized to 160M clock.
    logic [233:0] uplinkData20_a_o, uplinkData20_b_o; //Output data frame, synchronized to 20M clock.
+
+   logic uplinkStrobe160_a, uplinkStrobe160_b;
+   logic lpgbtfpga_uplinkRdy_a, lpgbtfpga_uplinkRdy_b; //Ready signals from each uplink channel.
+   logic cdc_rx_a_ready, cdc_rx_b_ready; //Ready signals from CDC Rx -> uplink
+
    //These signals describe whether a FEC error occurred (and was corrected)
    //in UserData, Ec, or Ic.
    logic [229:0] uplinkDataCorrected_a, uplinkDataCorrected_b;
@@ -311,5 +319,21 @@ module sp3_dual_rx(
    assign uplinkrdy_a_o = cdc_rx_a_ready;
    assign uplinkrdy_b_o = cdc_rx_b_ready;
    
+
+   // STATUS OUTPUTS
+
+   logic [7:0] status_clk20;
+
+   assign status_clk20[0] = lpgbtfpga_uplinkRdy_a;
+   assign status_clk20[1] = lpgbtfpga_uplinkRdy_b;
+   assign status_clk20[2] = mgt_rxrdy;
+   assign status_clk20[7:3] = 5'b0;
+
+
+   xpm_cdc_array_single #(.WIDTH(8)) cdc_uplinkIc (
+    .dest_out(status),
+    .dest_clk(axi_clk),
+    .src_in(status_clk20),
+    .src_clk(clk20_o));
 
 endmodule // sp3_dual_rx

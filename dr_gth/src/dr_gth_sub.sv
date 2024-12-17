@@ -116,6 +116,7 @@ module dr_gth_sub(
   ///////////////////////////
 
   //Outclk is looped back to serve as wordclock.
+  logic rx_outclk;
 
   BUFG_GT rx_wordclk_buf(.I(rx_outclk),
     .O(rx_wordclk),

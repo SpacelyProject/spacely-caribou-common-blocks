@@ -33,6 +33,14 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 |interleaverBypass | 1 | Y | Y | Set to bypass the (de)interleaver when the interleaver is bypassed on the ASIC. |
 |fecBypass | 1 | Y | Y | Set to bypass the FEC (de)coder when the FEC encoder is bypassed on the ASIC.|
 |scramblerBypass | 1 | Y | Y | Set to bypass the (de)scrambler when the scrambler is bypassed on the ASIC. |
+|pulse_bitslip_a | 1 | N | Y | Write to this register to pulse the bitslip control for channel A. |
+|pulse_bitslip_b | 1 | N | Y | Write to this register to pulse the bitslip control for channel B. |
+|status | 8 | Y | N | Status of the sp3_dual_rx receiver. See bit mapping below. |
+
+status[0] = Channel A Ready
+status[1] = Channel B Ready
+status[2] = MGT Ready
+status[3:7] = Reserved
 
 
 ### I/O Table 
@@ -85,5 +93,5 @@ pulse_bitslip_a,0x24,0x1,False,True
 
 pulse_bitslip_b,0x28,0x1,False,True
 
-
+status,0x2c,0xff,True,False
 

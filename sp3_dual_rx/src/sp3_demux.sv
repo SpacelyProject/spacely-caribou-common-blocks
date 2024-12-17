@@ -68,8 +68,6 @@ module sp3_demux(
    // next cycle:
    //  <-->[0 wd_ao 31]
    //  [0 wd_a0 31][0 wd_a1 31][0 wd_a2 31]
-   
-   logic 			     phase;
 
    logic [31:0] 		     mgtword_0, mgtword_1;
 
@@ -169,8 +167,9 @@ module sp3_demux(
 
    //bitslip_X_counter is a delay counter to prevent from double-counting bitslip.
    logic [5:0] bitslip_a_counter, bitslip_b_counter;
-   //bitslip_X_val is the amount that we actually slip by (0~32)
-   logic [5:0] bitslip_a_val, bitslip_b_val;
+   //bitslip_X_val is the amount that we actually slip by (0~31)
+   //bitslip_X_val is intentionally sized at 5 bits so it will encode 0~31 before wrapping.
+   logic [4:0] bitslip_a_val, bitslip_b_val;
 
    //Functional Description:
    //When bitslip_X is asserted, the bitslip_X_counter gets set to

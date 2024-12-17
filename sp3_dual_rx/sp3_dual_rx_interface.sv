@@ -13,6 +13,7 @@ input logic  SMA_MGT_REFCLK_P,
 input logic  SMA_MGT_REFCLK_N,
 input logic  USER_CLOCK_P,
 input logic  USER_CLOCK_N,
+input logic axi_clk,
 output logic  clk20_o,
 output logic  uplinkrdy_a_o,
 output logic  uplinkFEC_a_o,
@@ -94,7 +95,7 @@ output logic [233:0] uplinkUserData_b,
    /////////////////////////////////////////////
 
    //Total number of AXI-mapped registers in this firmware block.
-localparam integer FPGA_REGISTER_N = 11;
+localparam integer FPGA_REGISTER_N = 12;
 
 // Addresses of all AXI-mapped registers in this firmware block.
 
@@ -109,6 +110,7 @@ localparam byte unsigned ADDRESS_fecBypass = 7;
 localparam byte unsigned ADDRESS_scramblerBypass = 8;
 localparam byte unsigned ADDRESS_pulse_bitslip_a = 9;
 localparam byte unsigned ADDRESS_pulse_bitslip_b = 10;
+localparam byte unsigned ADDRESS_status = 11;
 
 /*localparam byte unsigned FPGA_SPI_WR = 0;
 localparam byte unsigned FPGA_SPI_ADDRESS = 1;
@@ -176,6 +178,7 @@ logic                  fpga_reg_fecBypass;
 logic                  fpga_reg_scramblerBypass;
 logic                  fpga_reg_pulse_bitslip_a;
 logic                  fpga_reg_pulse_bitslip_b;
+logic [7:0] fpga_reg_status;
 
 
    always_ff @(posedge S_AXI_ACLK) begin
@@ -222,6 +225,7 @@ assign reg_rddin[ADDRESS_fecBypass] = fpga_reg_fecBypass;
 assign reg_rddin[ADDRESS_scramblerBypass] = fpga_reg_scramblerBypass;
 assign reg_rddin[ADDRESS_pulse_bitslip_a] = fpga_reg_pulse_bitslip_a;
 assign reg_rddin[ADDRESS_pulse_bitslip_b] = fpga_reg_pulse_bitslip_b;
+assign reg_rddin[ADDRESS_status] = fpga_reg_status;
 
 
    sp3_dual_rx sp3_dual_rx_int (
@@ -236,6 +240,7 @@ assign reg_rddin[ADDRESS_pulse_bitslip_b] = fpga_reg_pulse_bitslip_b;
 .scramblerBypass(fpga_reg_scramblerBypass),
 .pulse_bitslip_a(fpga_reg_pulse_bitslip_a),
 .pulse_bitslip_b(fpga_reg_pulse_bitslip_b),
+.status(fpga_reg_status),
 .SFP0_RX_P(SFP0_RX_P),
 .SFP0_RX_N(SFP0_RX_N),
 .SMA_MGT_REFCLK_P(SMA_MGT_REFCLK_P),
@@ -248,7 +253,8 @@ assign reg_rddin[ADDRESS_pulse_bitslip_b] = fpga_reg_pulse_bitslip_b;
 .uplinkUserData_a(uplinkUserData_a),
 .uplinkrdy_b_o(uplinkrdy_b_o),
 .uplinkFEC_b_o(uplinkFEC_b_o),
-.uplinkUserData_b(uplinkUserData_b));
+.uplinkUserData_b(uplinkUserData_b),
+.axi_clk(axi_clk));
 
    
 
