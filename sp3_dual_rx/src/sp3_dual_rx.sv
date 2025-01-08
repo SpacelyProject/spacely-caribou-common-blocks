@@ -81,6 +81,24 @@ module sp3_dual_rx(
    logic [1:0]   uplinkIcCorrected_a, uplinkIcCorrected_b;
    logic [1:0]   uplinkEcCorrected_a, uplinkEcCorrected_b;
 
+
+   // -- Control Signals with CDC --
+   logic 	 fecBypass_i, interleaverBypass_i, scramblerBypass_i;
+
+   xpm_cdc_single cdc_fecBypass(.dest_out(fecBypass_i),
+				.dest_clk(clk20_o),
+				.src_in(fecBypass),
+				.src_clk(axi_clk));
+   xpm_cdc_single cdc_interleaverBypass(.dest_out(interleaverBypass_i),
+				.dest_clk(clk20_o),
+				.src_in(interleaverBypass),
+				.src_clk(axi_clk));
+   xpm_cdc_single cdc_scramblerBypass(.dest_out(scramblerBypass_i),
+				.dest_clk(clk20_o),
+				.src_in(scramblerBypass),
+				.src_clk(axi_clk));
+   
+   
    // RESET SCHEME FOR THE UPLINK:
    // uplinkRst_i           => Resets MGT Rx (and SP3 Demux)
    // MGT Rx ready          => Resets uplink datapath
@@ -206,9 +224,9 @@ module sp3_dual_rx(
 			      .userData_o(uplinkData160_a[229:0]),
 			      .EcData_o(uplinkData160_a[231:230]),
 			      .IcData_o(uplinkData160_a[233:232]),
-			      .bypassInterleaver_i(interleaverBypass), 
-			      .bypassFECEncoder_i(fecBypass),
-			      .bypassScrambler_i(scramblerBypass),
+			      .bypassInterleaver_i(interleaverBypass_i), 
+			      .bypassFECEncoder_i(fecBypass_i),
+			      .bypassScrambler_i(scramblerBypass_i),
 			      .mgt_bitslipCtrl_o(bitslip_a),
 			      .dataCorrected_o(uplinkDataCorrected_a),
 			      .IcCorrected_o(uplinkIcCorrected_a),
@@ -233,9 +251,9 @@ module sp3_dual_rx(
 			      .userData_o(uplinkData160_b[229:0]),
 			      .EcData_o(uplinkData160_b[231:230]),
 			      .IcData_o(uplinkData160_b[233:232]),
-			      .bypassInterleaver_i(interleaverBypass),
-			      .bypassFECEncoder_i(fecBypass),
-			      .bypassScrambler_i(scramblerBypass),
+			      .bypassInterleaver_i(interleaverBypass_i),
+			      .bypassFECEncoder_i(fecBypass_i),
+			      .bypassScrambler_i(scramblerBypass_i),
 			      .mgt_bitslipCtrl_o(bitslip_b),
 			      .dataCorrected_o(uplinkDataCorrected_b),
 			      .IcCorrected_o(uplinkIcCorrected_b),

@@ -16,6 +16,11 @@ sp3_dual_rx_top.v is a verilog wrapper around this block, which allows it to be 
 
 Note that this block requires axi4lite_interface_top, which is found in the axi4lite_interface folder of spacely-caribou-common-blocks.
 
+**NOTE:** This block also requires the inclusion of the following files from the lpGBT common block:
+- /lpGBT/lpgbt-fpga/lpgbtfpga_uplink.vhd
+- /lpGBT/lpgbt-fpga/lpgbtfpga_package.vhd
+- /lpGBT/lpgbt-fpga/uplink/*
+
 
 ### Block Diagram
 (TODO: Create a useful block diagram which includes all the major sub-blocks of this firmware block.)
