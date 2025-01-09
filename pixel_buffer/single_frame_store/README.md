@@ -1,9 +1,19 @@
 # single_frame_store
 
-### Block Function
-This is a straightforward block that is used to capture a single frame of data from a wide bus and store it for diagnostic readout over AXI. 
+## Block Function
+This is a straightforward block that is used to capture a single frame of data from a wide bus and store it for diagnostic readout over AXI.
 
-### Configurable Parameters
+### Considerations for Timing Closure
+
+This block operates with two asynchronous clock domains: axi_clk and frame_clk.
+
+#### AXI Read Paths
+
+By user contract, the stored frame can only be read when trigger is not asserted, which guarantees that its value is static relative to axi_clk. Ignore CDC warnings which match the following rules:
+
+SOURCE CONTAINS single_frame_store_int/stored_frame_reg  AND DEST CONTAINS  axi_rdata_reg AND CDC_ID CONTAINS CDC-15
+
+## Configurable Parameters
 
 | Parameter     | Default Value	          | Function  |
 | ------------- | ----------------------- | ------- |
@@ -12,16 +22,16 @@ This is a straightforward block that is used to capture a single frame of data f
 |FRAME_WIDTH | 256 | Width of the data bus which will be captured. |
 
 
-### How to Instantiate
+## How to Instantiate
 single_frame_store_top.v is a verilog wrapper around this block, which allows it to be directly instantiated in a Vivado block diagram, and connected to the main AXI bus. Connect other I/Os as appropriate based on the I/O table below.
 
 Note that this block requires axi4lite_interface_top, which is found in the axi4lite_interface folder of spacely-caribou-common-blocks.
 
 
-### Block Diagram
+## Block Diagram
 (TODO: Create a useful block diagram which includes all the major sub-blocks of this firmware block.)
 
-### AXI Memory Table 
+## AXI Memory Table 
 
 | Register Name       | Register Width            | R?   | W?   | Function                             |
 | -------------       | -------------------- | ---- | ---- | ------------------------------------ |
@@ -32,7 +42,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 
 
-### I/O Table 
+## I/O Table 
 
 | Signal Name       | Bit Width + Direction          | Clock   | I/O Function and Connection Guidance |
 | -------------     | ------------------------------ | ------- | ------------------------------------ |
@@ -45,7 +55,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 Note, the AXI bus is always excluded from this table because its presence is assumed by the memory architecture.
 
-### mem_map.txt
+## mem_map.txt
 
 Note: Assumes an AXI data width of 32b
 

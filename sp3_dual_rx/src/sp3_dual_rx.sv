@@ -57,7 +57,7 @@ module sp3_dual_rx(
 		   input logic 		pulse_bitslip_b,
 
 		   input logic  axi_clk,
-		   output logic [7:0] status
+		   output logic [15:0] status
 );
 
    // -- MGT Signals --
@@ -98,6 +98,14 @@ module sp3_dual_rx(
 				.src_in(scramblerBypass),
 				.src_clk(axi_clk));
    
+   //CDC the reset signal directly into the high-speed domain since it needs to reset high-speed parts of the MGT.
+
+   logic 			MGT_RXCLK; //320 MHz clock from MGT.
+   
+   xpm_cdc_single cdc_reset(.dest_out(uplinkRst_320),
+   .dest_clk(MGT_RXCLK),
+   .src_in(uplinkRst_i),
+   .src_clk(axi_clk));
    
    // RESET SCHEME FOR THE UPLINK:
    // uplinkRst_i           => Resets MGT Rx (and SP3 Demux)
@@ -108,7 +116,7 @@ module sp3_dual_rx(
    //Clock Buffers and Dividers // 
    ///////////////////////////////
 
-   logic 			MGT_RXCLK; //320 MHz clock from MGT.
+   
    logic                        UPLINK_CLK;//160 MHz clock (MGT_RXCLK/2) 			
    logic MGT_FREEDRPCLK, MGT_REFCLK; //Reference clocks for the MGT
 
@@ -134,7 +142,7 @@ module sp3_dual_rx(
    BUFGCE_DIV #(.BUFGCE_DIVIDE(8)) clk20_div (.I(UPLINK_CLK),
 					      .O(clk20_o),
 					      .CE(1'b1),
-					      .CLR(1'b0));
+					      .CLR(uplinkRst_320));
 
 
    ////////////////////////////////////////
@@ -147,7 +155,7 @@ module sp3_dual_rx(
 		    .REFCLK_i(MGT_REFCLK),
 		    .FREEDRPCLK_i(MGT_FREEDRPCLK),
 		    .DIVCLK_o(),
-		    .RX_RESET_i(uplinkRst_i),
+		    .RX_RESET_i(uplinkRst_320),
 		    .USER_DATA_o(mgt_usrword),
 		    .RX_WORDCLK_o(MGT_RXCLK),
 		    .RX_READY_o(mgt_rxrdy),
@@ -190,16 +198,43 @@ module sp3_dual_rx(
    //SP3 DEMUX //
    //////////////
 
-   //SP3 Demux block splits mgt_usrword into mgtword_a and mgtword_b by de-interleaving.
+   //Use Xilinx CDC to cross pulse_bitslip signal from AXI to UPLINK_CLK domain.
 
+   //First we extend the bitslip signal, so the pulse width is a minimum of 2
+   //AXI_CLK. This should guarantee that it is captured in the UPLINK_CLK
+   //domain.
+   logic pulse_bitslip_a_prev,pulse_bitslip_b_prev; //previous value of pulse_bitslip_X
+   logic pulse_bitslip_a_ext, pulse_bitslip_b_ext;  //extended pulse of pulse_bitslip_X
+
+   always_ff @(posedge axi_clk) begin
+      pulse_bitslip_a_prev <= pulse_bitslip_a;
+      pulse_bitslip_b_prev <= pulse_bitslip_b;
+      pulse_bitslip_a_ext <= pulse_bitslip_a || pulse_bitslip_a_prev;
+      pulse_bitslip_b_ext <= pulse_bitslip_b || pulse_bitslip_b_prev;
+   end
+
+   //Now we cross to UPLINK_CLK.
+   logic pulse_bitslip_a_160, pulse_bitslip_b_160;
+   
+   xpm_cdc_single cdc_bitslip_a(.src_in(pulse_bitslip_a_ext),
+				.src_clk(axi_clk),
+				.dest_out(pulse_bitslip_a_160),
+				.dest_clk(UPLINK_CLK));
+
+   xpm_cdc_single cdc_bitslip_b(.src_in(pulse_bitslip_b_ext),
+				.src_clk(axi_clk),
+				.dest_out(pulse_bitslip_b_160),
+				.dest_clk(UPLINK_CLK));
+
+   //SP3 Demux block splits mgt_usrword into mgtword_a and mgtword_b by de-interleaving.
    sp3_demux demux (.mgtclk(MGT_RXCLK),
 		    .mgtword(mgt_usrword),
-		    .reset(uplinkRst_i),
+		    .reset(uplinkRst_320),
 		    .mgtclk_div2(UPLINK_CLK),
 		    .word_a(mgtword_a),
 		    .word_b(mgtword_b),
-		    .bitslip_a(bitslip_a || pulse_bitslip_a),
-		    .bitslip_b(bitslip_b || pulse_bitslip_b)
+		    .bitslip_a(bitslip_a || pulse_bitslip_a_160),
+		    .bitslip_b(bitslip_b || pulse_bitslip_b_160)
 		    );
    
 
@@ -264,7 +299,7 @@ module sp3_dual_rx(
    
    // -- FEC Error Logic --
    // If the EC, IC, or user data is corrected by FEC, then assert the FEC flag.
-   always @(posedge MGT_RXCLK) begin
+   always @(posedge UPLINK_CLK) begin
       if(uplinkDataCorrected_a>0 || uplinkIcCorrected_a>0 || uplinkEcCorrected_a>0)
 	uplinkFEC_a_o <= 1'b1;
       else
@@ -340,18 +375,25 @@ module sp3_dual_rx(
 
    // STATUS OUTPUTS
 
-   logic [7:0] status_clk20;
+   logic [15:0] status_clk20;
 
    assign status_clk20[0] = lpgbtfpga_uplinkRdy_a;
    assign status_clk20[1] = lpgbtfpga_uplinkRdy_b;
    assign status_clk20[2] = mgt_rxrdy;
-   assign status_clk20[7:3] = 5'b0;
+   assign status_clk20[3] = 0;
+   assign status_clk20[5:4] = uplinkIcData_a;
+   assign status_clk20[7:6] = uplinkEcData_a;
+   assign status_clk20[9:8] = uplinkIcData_b;
+   assign status_clk20[11:10]=uplinkEcData_b;
+   assign status_clk20[15:12] = 4'b0;
 
 
-   xpm_cdc_array_single #(.WIDTH(8)) cdc_uplinkIc (
+   xpm_cdc_array_single #(.WIDTH(16)) cdc_status (
     .dest_out(status),
     .dest_clk(axi_clk),
     .src_in(status_clk20),
     .src_clk(clk20_o));
+    
+    
 
 endmodule // sp3_dual_rx

@@ -13,7 +13,6 @@ input logic  SMA_MGT_REFCLK_P,
 input logic  SMA_MGT_REFCLK_N,
 input logic  USER_CLOCK_P,
 input logic  USER_CLOCK_N,
-input logic axi_clk,
 output logic  clk20_o,
 output logic  uplinkrdy_a_o,
 output logic  uplinkFEC_a_o,
@@ -21,6 +20,7 @@ output logic [233:0] uplinkUserData_a,
 output logic  uplinkrdy_b_o,
 output logic  uplinkFEC_b_o,
 output logic [233:0] uplinkUserData_b,
+input logic  axi_clk,
 
 
         //////////////////////////////
@@ -95,22 +95,18 @@ output logic [233:0] uplinkUserData_b,
    /////////////////////////////////////////////
 
    //Total number of AXI-mapped registers in this firmware block.
-localparam integer FPGA_REGISTER_N = 12;
+localparam integer FPGA_REGISTER_N = 8;
 
 // Addresses of all AXI-mapped registers in this firmware block.
 
-   localparam byte unsigned ADDRESS_uplinkEcData_a = 0;
-localparam byte unsigned ADDRESS_uplinkIcData_a = 1;
-localparam byte unsigned ADDRESS_uplinkEcData_b = 2;
-localparam byte unsigned ADDRESS_uplinkIcData_b = 3;
-localparam byte unsigned ADDRESS_mgt_rxpolarity_i = 4;
-localparam byte unsigned ADDRESS_uplinkRst_i = 5;
-localparam byte unsigned ADDRESS_interleaverBypass = 6;
-localparam byte unsigned ADDRESS_fecBypass = 7;
-localparam byte unsigned ADDRESS_scramblerBypass = 8;
-localparam byte unsigned ADDRESS_pulse_bitslip_a = 9;
-localparam byte unsigned ADDRESS_pulse_bitslip_b = 10;
-localparam byte unsigned ADDRESS_status = 11;
+   localparam byte unsigned ADDRESS_mgt_rxpolarity_i = 0;
+localparam byte unsigned ADDRESS_uplinkRst_i = 1;
+localparam byte unsigned ADDRESS_interleaverBypass = 2;
+localparam byte unsigned ADDRESS_fecBypass = 3;
+localparam byte unsigned ADDRESS_scramblerBypass = 4;
+localparam byte unsigned ADDRESS_pulse_bitslip_a = 5;
+localparam byte unsigned ADDRESS_pulse_bitslip_b = 6;
+localparam byte unsigned ADDRESS_status = 7;
 
 /*localparam byte unsigned FPGA_SPI_WR = 0;
 localparam byte unsigned FPGA_SPI_ADDRESS = 1;
@@ -167,18 +163,14 @@ axi4lite_interface_top #(
 );
 
 
-   logic [1:0] fpga_reg_uplinkEcData_a;
-logic [1:0] fpga_reg_uplinkIcData_a;
-logic [1:0] fpga_reg_uplinkEcData_b;
-logic [1:0] fpga_reg_uplinkIcData_b;
-logic                  fpga_reg_mgt_rxpolarity_i;
+   logic                  fpga_reg_mgt_rxpolarity_i;
 logic                  fpga_reg_uplinkRst_i;
 logic                  fpga_reg_interleaverBypass;
 logic                  fpga_reg_fecBypass;
 logic                  fpga_reg_scramblerBypass;
 logic                  fpga_reg_pulse_bitslip_a;
 logic                  fpga_reg_pulse_bitslip_b;
-logic [7:0] fpga_reg_status;
+logic [15:0] fpga_reg_status;
 
 
    always_ff @(posedge S_AXI_ACLK) begin
@@ -214,11 +206,7 @@ logic [7:0] fpga_reg_status;
 end //always_ff 
 
 
-   assign reg_rddin[ADDRESS_uplinkEcData_a] = fpga_reg_uplinkEcData_a;
-assign reg_rddin[ADDRESS_uplinkIcData_a] = fpga_reg_uplinkIcData_a;
-assign reg_rddin[ADDRESS_uplinkEcData_b] = fpga_reg_uplinkEcData_b;
-assign reg_rddin[ADDRESS_uplinkIcData_b] = fpga_reg_uplinkIcData_b;
-assign reg_rddin[ADDRESS_mgt_rxpolarity_i] = fpga_reg_mgt_rxpolarity_i;
+   assign reg_rddin[ADDRESS_mgt_rxpolarity_i] = fpga_reg_mgt_rxpolarity_i;
 assign reg_rddin[ADDRESS_uplinkRst_i] = fpga_reg_uplinkRst_i;
 assign reg_rddin[ADDRESS_interleaverBypass] = fpga_reg_interleaverBypass;
 assign reg_rddin[ADDRESS_fecBypass] = fpga_reg_fecBypass;
@@ -229,10 +217,6 @@ assign reg_rddin[ADDRESS_status] = fpga_reg_status;
 
 
    sp3_dual_rx sp3_dual_rx_int (
-.uplinkEcData_a(fpga_reg_uplinkEcData_a),
-.uplinkIcData_a(fpga_reg_uplinkIcData_a),
-.uplinkEcData_b(fpga_reg_uplinkEcData_b),
-.uplinkIcData_b(fpga_reg_uplinkIcData_b),
 .mgt_rxpolarity_i(fpga_reg_mgt_rxpolarity_i),
 .uplinkRst_i(fpga_reg_uplinkRst_i),
 .interleaverBypass(fpga_reg_interleaverBypass),

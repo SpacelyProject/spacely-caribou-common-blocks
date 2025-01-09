@@ -1,10 +1,22 @@
 # sync_counter
 
-### Block Function
+## Block Function
 The function of this block is to count the duty cycle of two synchronous signals in the same clock domain. The block contains two counters which are driven from tclk. Counter_a increments when enable_a is asserted, and Counter_b increments when enable_b is asserted.
 To capture the value of these counters, write a "1" to the register called "snapshot." A snapshot of these two counters will be stored in AXI registers for readout, and held until a "0" is written to "snapshot."
 
-### Configurable Parameters
+### Considerations for Timing Closure
+
+This block operates with two asynchronous clock domains: axi_clk and tclk.
+
+#### AXI Read Paths
+
+By user contract, the results of sync_counter can only be read out when the counter is frozen by asserting "snapshot". The counter_X_result registers use multi-bit CDC structures to cross from tclk to axi_clk, which don't ensure all bits arrive at the same time, but that's not a problem because all bits should be able to settle once snapshot is asserted. Ignore CDC warnings which match:
+
+SOURCE CONTAINS sync_counter_int/cdc_counter_a_result sync_counter_int/cdc_counter_a_result AND CDC_ID CONTAINS CDC-6
+SOURCE CONTAINS sync_counter_int/cdc_counter_b_result sync_counter_int/cdc_counter_b_result AND CDC_ID CONTAINS CDC-6
+
+
+## Configurable Parameters
 
 | Parameter     | Default Value	          | Function  |
 | ------------- | ----------------------- | ------- |
@@ -16,16 +28,16 @@ To capture the value of these counters, write a "1" to the register called "snap
 |OFFSET_B_BITS | 0 | The LSB of Counter_b will have a value of 2^(OFFSET_B_BITS) counts |
 
 
-### How to Instantiate
+## How to Instantiate
 sync_counter_top.v is a verilog wrapper around this block, which allows it to be directly instantiated in a Vivado block diagram, and connected to the main AXI bus. Connect other I/Os as appropriate based on the I/O table below.
 
 Note that this block requires axi4lite_interface_top, which is found in the axi4lite_interface folder of spacely-caribou-common-blocks.
 
 
-### Block Diagram
+## Block Diagram
 (TODO: Create a useful block diagram which includes all the major sub-blocks of this firmware block.)
 
-### AXI Memory Table 
+## AXI Memory Table 
 
 | Register Name       | Register Width            | R?   | W?   | Function                             |
 | -------------       | -------------------- | ---- | ---- | ------------------------------------ |
@@ -40,7 +52,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 
 
-### I/O Table 
+## I/O Table 
 
 | Signal Name       | Bit Width + Direction          | Clock   | I/O Function and Connection Guidance |
 | -------------     | ------------------------------ | ------- | ------------------------------------ |
@@ -53,7 +65,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 Note, the AXI bus is always excluded from this table because its presence is assumed by the memory architecture.
 
-### mem_map.txt
+## mem_map.txt
 
 Note: Assumes an AXI data width of 32b
 

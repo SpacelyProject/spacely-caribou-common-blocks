@@ -29,10 +29,6 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 | Register Name       | Register Width            | R?   | W?   | Function                             |
 | -------------       | -------------------- | ---- | ---- | ------------------------------------ |
-|uplinkEcData_a | 2 | Y | N | EC-field data from uplink channel A. |
-|uplinkIcData_a | 2 | Y | N | IC-field data from uplink channel A. |
-|uplinkEcData_b | 2 | Y | N | EC-field data from uplink channel B. |
-|uplinkIcData_b | 2 | Y | N | IC-field data from uplink channel B. |
 |mgt_rxpolarity_i | 1 | Y | Y | Set the polarity of the MGT receiver. |
 |uplinkRst_i | 1 | Y | Y | Reset for the MGT (and thereby the entire uplink). |
 |interleaverBypass | 1 | Y | Y | Set to bypass the (de)interleaver when the interleaver is bypassed on the ASIC. |
@@ -40,7 +36,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 |scramblerBypass | 1 | Y | Y | Set to bypass the (de)scrambler when the scrambler is bypassed on the ASIC. |
 |pulse_bitslip_a | 1 | N | Y | Write to this register to pulse the bitslip control for channel A. |
 |pulse_bitslip_b | 1 | N | Y | Write to this register to pulse the bitslip control for channel B. |
-|status | 8 | Y | N | Status of the sp3_dual_rx receiver. See bit mapping below. |
+|status | 16 | Y | N | Status of the sp3_dual_rx receiver. See bit mapping below. |
 
 status[0] = Channel A Ready
 status[1] = Channel B Ready
@@ -76,27 +72,18 @@ Note: Assumes an AXI data width of 32b
 
 *BASE (IP Base Address)
 
-uplinkEcData_a,0x0,0x3,True,False
+mgt_rxpolarity_i,0x0,0x1,True,True
 
-uplinkIcData_a,0x4,0x3,True,False
+uplinkRst_i,0x4,0x1,True,True
 
-uplinkEcData_b,0x8,0x3,True,False
+interleaverBypass,0x8,0x1,True,True
 
-uplinkIcData_b,0xc,0x3,True,False
+fecBypass,0xc,0x1,True,True
 
-mgt_rxpolarity_i,0x10,0x1,True,True
+scramblerBypass,0x10,0x1,True,True
 
-uplinkRst_i,0x14,0x1,True,True
+pulse_bitslip_a,0x14,0x1,False,True
 
-interleaverBypass,0x18,0x1,True,True
+pulse_bitslip_b,0x18,0x1,False,True
 
-fecBypass,0x1c,0x1,True,True
-
-scramblerBypass,0x20,0x1,True,True
-
-pulse_bitslip_a,0x24,0x1,False,True
-
-pulse_bitslip_b,0x28,0x1,False,True
-
-status,0x2c,0xff,True,False
-
+status,0x1c,0xffff,True,False

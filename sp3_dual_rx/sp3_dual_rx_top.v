@@ -14,7 +14,6 @@ input wire  SMA_MGT_REFCLK_P,
 input wire  SMA_MGT_REFCLK_N,
 input wire  USER_CLOCK_P,
 input wire  USER_CLOCK_N,
-input wire axi_clk,
 output wire  clk20_o,
 output wire  uplinkrdy_a_o,
 output wire  uplinkFEC_a_o,
@@ -22,6 +21,7 @@ output wire [233:0] uplinkUserData_a,
 output wire  uplinkrdy_b_o,
 output wire  uplinkFEC_b_o,
 output wire [233:0] uplinkUserData_b,
+input wire  axi_clk,
    
 
     //////////////////////////////

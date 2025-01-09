@@ -175,7 +175,7 @@ module sp3_demux(
    //When bitslip_X is asserted, the bitslip_X_counter gets set to
    //5'b10000 = 16,
    
-   always_ff @(posedge mgtclk, posedge reset) begin
+   always_ff @(posedge mgtclk_div2, posedge reset) begin
       if (reset) begin
 	 bitslip_a_counter <= 0;
 	 bitslip_a_val <= 0;
@@ -198,7 +198,7 @@ module sp3_demux(
       end // else: !if(reset)
    end // always_ff @ (posedge mgtclk, reset)
    
-   always_ff @(posedge mgtclk, posedge reset) begin
+   always_ff @(posedge mgtclk_div2, posedge reset) begin
       if (reset) begin
 	 bitslip_b_counter <= 0;
 	 bitslip_b_val <= 0;
