@@ -100,12 +100,12 @@ module sp3_dual_rx(
    
    //CDC the reset signal directly into the high-speed domain since it needs to reset high-speed parts of the MGT.
 
-   logic 			MGT_RXCLK; //320 MHz clock from MGT.
+  
    
-   xpm_cdc_single cdc_reset(.dest_out(uplinkRst_320),
-   .dest_clk(MGT_RXCLK),
-   .src_in(uplinkRst_i),
-   .src_clk(axi_clk));
+   //xpm_cdc_single cdc_reset(.dest_out(uplinkRst_320),
+   //.dest_clk(MGT_REFCLK),
+   //.src_in(uplinkRst_i),
+   //.src_clk(axi_clk));
    
    // RESET SCHEME FOR THE UPLINK:
    // uplinkRst_i           => Resets MGT Rx (and SP3 Demux)
@@ -115,8 +115,8 @@ module sp3_dual_rx(
    ///////////////////////////////
    //Clock Buffers and Dividers // 
    ///////////////////////////////
-
-   
+    
+   logic 			MGT_RXCLK; //320 MHz clock from MGT.
    logic                        UPLINK_CLK;//160 MHz clock (MGT_RXCLK/2) 			
    logic MGT_FREEDRPCLK, MGT_REFCLK; //Reference clocks for the MGT
 
@@ -142,7 +142,7 @@ module sp3_dual_rx(
    BUFGCE_DIV #(.BUFGCE_DIVIDE(8)) clk20_div (.I(UPLINK_CLK),
 					      .O(clk20_o),
 					      .CE(1'b1),
-					      .CLR(uplinkRst_320));
+					      .CLR(!mgt_rxrdy));
 
 
    ////////////////////////////////////////
@@ -155,7 +155,7 @@ module sp3_dual_rx(
 		    .REFCLK_i(MGT_REFCLK),
 		    .FREEDRPCLK_i(MGT_FREEDRPCLK),
 		    .DIVCLK_o(),
-		    .RX_RESET_i(uplinkRst_320),
+		    .RX_RESET_i(uplinkRst_i),
 		    .USER_DATA_o(mgt_usrword),
 		    .RX_WORDCLK_o(MGT_RXCLK),
 		    .RX_READY_o(mgt_rxrdy),
@@ -229,7 +229,7 @@ module sp3_dual_rx(
    //SP3 Demux block splits mgt_usrword into mgtword_a and mgtword_b by de-interleaving.
    sp3_demux demux (.mgtclk(MGT_RXCLK),
 		    .mgtword(mgt_usrword),
-		    .reset(uplinkRst_320),
+		    .reset(!mgt_rxrdy),
 		    .mgtclk_div2(UPLINK_CLK),
 		    .word_a(mgtword_a),
 		    .word_b(mgtword_b),
