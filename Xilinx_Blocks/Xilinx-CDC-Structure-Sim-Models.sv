@@ -15,7 +15,7 @@ module xpm_cdc_single (input logic src_in,
 endmodule // xpm_cdc_single
 
 
-module #(WIDTH=1) xpm_cdc_array_single(input logic src_clk,
+module  xpm_cdc_array_single #(WIDTH=1) (input logic src_clk,
 				       input logic 		  dest_clk,
 				       input logic [(WIDTH-1):0]  src_in,
 				       output logic [(WIDTH-1):0] dest_out);
