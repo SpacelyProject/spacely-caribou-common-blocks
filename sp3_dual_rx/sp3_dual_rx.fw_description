@@ -1,0 +1,35 @@
+
+
+
+PORT SFP0_RX_P 1 0
+PORT SFP0_RX_N 1 0
+
+PORT SMA_MGT_REFCLK_P 1 0
+PORT SMA_MGT_REFCLK_N 1 0
+
+PORT USER_CLOCK_P 1 0
+PORT USER_CLOCK_N 1 0
+
+PORT clk20_o 1 1
+
+PORT uplinkrdy_a_o 1 1
+PORT uplinkFEC_a_o 1 1
+PORT uplinkUserData_a 234 1
+
+PORT uplinkrdy_b_o 1 1
+PORT uplinkFEC_b_o 1 1
+PORT uplinkUserData_b 234 1
+
+PORT axi_clk 1 0
+
+REGISTER mgt_rxpolarity_i 1 0
+REGISTER uplinkRst_i 1 0
+
+REGISTER interleaverBypass 1 0
+REGISTER fecBypass 1 0
+REGISTER scramblerBypass 1 0
+
+REGISTER pulse_bitslip_a 1 2
+REGISTER pulse_bitslip_b 1 2
+
+REGISTER status 16 1

@@ -1,0 +1,10 @@
+
+PARAMETER DATA_WIDTH 32
+
+REGISTER control 32 0
+REGISTER data    DATA_WIDTH 1
+
+//data_rdStrobe must be connected manually.
+
+PORT axi_clk 1 0
+PORT axi_resetn 1 0

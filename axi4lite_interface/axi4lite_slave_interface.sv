@@ -1,4 +1,3 @@
-`timescale 1 ns / 1 ps
 
   module axi4lite_slave_interface # (
     // Width of S_AXI data bus

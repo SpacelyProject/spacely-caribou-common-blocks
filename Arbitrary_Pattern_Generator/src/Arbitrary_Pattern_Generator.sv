@@ -95,7 +95,7 @@ module Arbitrary_Pattern_Generator
 		end
       else begin
 		if (n_samples > 0)
-			max_wave_ptr = n_samples;
+			max_wave_ptr = n_samples - 1;
 		else 
 			max_wave_ptr = 0;
 		end
@@ -337,7 +337,13 @@ module glitchless_2b_cdc(
    .DEST_SYNC_FF(4),   // DECIMAL; range: 2-10
    .INIT_SYNC_FF(0),   // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
    .SIM_ASSERT_CHK(0), // DECIMAL; 0=disable simulation messages, 1=enable simulation messages
-   .SRC_INPUT_REG(0),  // DECIMAL; 0=do not register input, 1=register input
+   .SRC_INPUT_REG(1),  // DECIMAL; 0=do not register input, 1=register input
+		       // AQ 1/9/2025 -- I changed SRC_INPUT_REG from 0 to 1. Not sure why it was previously set
+		       //    to 0. Maybe it saves a little latency, but if the result of the source encoding
+		       //    is not registered in the src_clk domain, that means we can't guarantee the input
+		       //    is properly one's-hot encoded (other, ARBITRARY bits may be asserted based on how
+		       //    Vivado decideds to implement the always_comb block), which breaks a fundamental
+		       //    assumption of the glitchless CDC. 
    .WIDTH(4)           // DECIMAL; range: 1-1024
 )
 xpm_cdc_array_single_inst (

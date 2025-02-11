@@ -1,63 +1,71 @@
 //
-//  Dynamically Reconfigurable GTH Module (dr_gth)
+//  Dynamically Reconfigurable GTH Module Submodule (dr_gth_sub)
 //        Adam Quinn -- 9/18/2024
 //
+// The submodule version of dr_gth is designed so it doesn't include the
+// top-level differential buffers for REFCLK, FREEDRPCLK, etcetera, so
+// you can instantiate it inside your design after these signals have
+// already been buffered.
 
-module dr_gth(
+module dr_gth_sub(
     /* High-Speed Input Data */
-    input logic     RX_P,
-    input logic     RX_N,
+    input logic 	RX_P,
+    input logic 	RX_N,
 
     /* Clocks */
-    input logic     axi_clk,
-    input logic     REFCLK_p,
-    input logic     REFCLK_n, //Global refclk for the GTH common & channel
-    input logic     FREEDRPCLK_p,
-    input logic     FREEDRPCLK_n,
+    input logic 	axi_clk,
+    input logic 	REFCLK_i,
+    //input logic     REFCLK_n, //Global refclk for the GTH common & channel
+    input logic 	FREEDRPCLK_i,
+    //input logic     FREEDRPCLK_n,
 
-    output logic    DIVCLK_o,
+    output logic 	DIVCLK_o,
 
     /* Reset */
-    input logic     RX_RESET_i,
+    input logic 	RX_RESET_i,
 
     /* Output User Data */
     output logic [31:0] USER_DATA_o,
-    output logic        RX_WORDCLK_o,
+    output logic 	RX_WORDCLK_o,
+    output logic 	RX_READY_o,
+		  
 
     /* Debug */
     output logic [15:0] dmonitor_data,
 
 
-    input  logic [8:0]  drp_addr,
-    input  logic [15:0] drp_di,
+    input logic [8:0] 	drp_addr,
+    input logic [15:0] 	drp_di,
     output logic [15:0] drp_do,
-    input  logic        drp_rst,
-    input  logic        drp_we,
-    input  logic        drp_trigger
+    input logic 	drp_rst,
+    input logic 	drp_we,
+    input logic 	drp_trigger
 
   );
 
 
-  logic        rx_reset_done, rx_reset_sig;
-
-  logic        drp_trigger_drpclk, drp_en;
-  logic  [3:0]     drp_en_counter;
-
+   logic 		rx_reset_done;
+   
+   logic       drp_trigger_drpclk, drp_en;
+   logic [3:0] drp_en_counter;
+   
+   assign RX_READY_o = rx_reset_done;
+   
 
   ///////////////////////////////////
   // Input Reference Clock Buffers //
   ///////////////////////////////////
-  logic REFCLK_i, FREEDRPCLK_i;
+  //logic REFCLK_i, FREEDRPCLK_i;
 
 
-  IBUFDS_GTE4 mgtRefClkBuf(.O(REFCLK_i),
+  /*IBUFDS_GTE4 mgtRefClkBuf(.O(REFCLK_i),
     .I(REFCLK_p),
     .IB(REFCLK_n),
     .CEB(0));
 
   IBUFGDS #(.IBUF_LOW_PWR(0), .IOSTANDARD("LVDS_25")) freeDrpClkBuf (.O(FREEDRPCLK_i),
     .I(FREEDRPCLK_p),
-    .IB(FREEDRPCLK_n));
+    .IB(FREEDRPCLK_n));*/
 
   BUFGCE_DIV #(.BUFGCE_DIVIDE(8)) uBufgceDiv (.I(REFCLK_i),
     .O(DIVCLK_o),
@@ -79,7 +87,7 @@ module dr_gth(
   logic        userclk_tx_active_int, userclk_rx_active_int;
   logic        buffbypass_rx_reset_in;
 
-
+  logic rxpmaresetdone, txpmaresetdone;
 
   assign userclk_tx_reset_int = !txpmaresetdone;
   assign userclk_rx_reset_int = !rxpmaresetdone;
@@ -108,6 +116,7 @@ module dr_gth(
   ///////////////////////////
 
   //Outclk is looped back to serve as wordclock.
+  logic rx_outclk;
 
   BUFG_GT rx_wordclk_buf(.I(rx_outclk),
     .O(rx_wordclk),
@@ -139,8 +148,10 @@ module dr_gth(
 
     .gtwiz_reset_all_in(0),
 
-    .gtwiz_reset_rx_pll_and_datapath_in(0),
-    .gtwiz_reset_rx_datapath_in(rx_reset_sig),
+    //Since RX_RESET_i is the only reset we will be giving, 
+    //we reset both the PLL and the datapath.
+    .gtwiz_reset_rx_pll_and_datapath_in(RX_RESET_i),
+    .gtwiz_reset_rx_datapath_in(0),
     .gtwiz_reset_rx_cdr_stable_out(),
 
     .qpll0outclk_out(),
@@ -154,11 +165,12 @@ module dr_gth(
     .gthrxp_in(RX_P),
 
     .gtrefclk00_in(REFCLK_i),
+    .gtrefclk01_in(REFCLK_i), //?
     .gtwiz_reset_clk_freerun_in(FREEDRPCLK_i), //Ext free-running clock
 
 
     /* Receiver Low-Speed Interface */
-    .gtwiz_userdata_rx_out(USER_DATA), //32b output word
+    .gtwiz_userdata_rx_out(USER_DATA_o), //32b output word
 
     .rxoutclk_out(rx_outclk),
     .rxusrclk_in(rx_wordclk),

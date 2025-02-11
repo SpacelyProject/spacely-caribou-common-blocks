@@ -1,0 +1,6 @@
+-clean
+-access +rwc
+-timescale 1ns/1ps
+single_frame_store_tb.sv
+../../src/xpm_cdc_single.sv
+../src/single_frame_store.sv

@@ -1,4 +1,3 @@
-`timescale 1ns / 1ps
 
 module mem_regs #(
         parameter int unsigned REGISTER_N=16,
