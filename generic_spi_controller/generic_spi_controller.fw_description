@@ -1,0 +1,30 @@
+//Parameters
+PARAMETER MEM_DEPTH 64
+
+
+//Ports
+PORT axi_clk 1 0
+PORT axi_resetn 1 0
+
+PORT spi_clk 1 0
+PORT poci 1 0
+PORT pico 1 1
+PORT cs_b 1 1
+
+
+
+//Registers
+REGISTER mem_write 32 0
+REGISTER mem_write_ptr 32 1
+REGISTER mem_write_ptr_reset 1 2
+REGISTER mem_read 32 1
+REGISTER mem_read_ptr 32 1
+REGISTER mem_read_ptr_reset 1 2
+
+REGISTER transaction_count 32 1
+
+REGISTER spi_len 32 0
+
+REGISTER spi_strb 1 2
+
+REGISTER status 3 1

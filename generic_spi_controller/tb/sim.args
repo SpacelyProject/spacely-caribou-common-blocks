@@ -1,0 +1,6 @@
+-clean
+-access +rwc
+-timescale 1ns/1ps
+generic_spi_tb.sv
+../src/generic_spi_controller.sv
+../../../lpgbt_functional_sim/sprocket3-digital/src/generic_spi_peripheral.sv
