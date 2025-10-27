@@ -64,6 +64,8 @@ module generic_spi_controller
    //SPI controller memory
    logic [(MEM_DEPTH-1):0][31:0] write_memory;
    logic [(MEM_DEPTH-1):0][31:0] read_memory;
+
+   logic 			 prev_mem_write_strb;
    
   
    
@@ -73,19 +75,25 @@ module generic_spi_controller
       if (~axi_resetn) begin
 	 mem_write_ptr <= 0;
 	 mem_read_ptr <= 0;
+	 prev_mem_write_strb <= 0;
 	 
       end
       else begin
 	 if (mem_write_ptr_reset) mem_write_ptr <= 0;
 	 if (mem_read_ptr_reset) mem_read_ptr <= 0;
 
-	 if (mem_write_strb) begin
+	 //For wstrb only, delay by one clock cycle to ensure the user's newly-entered
+	 //data is captured.
+	 if (prev_mem_write_strb) begin
 	    write_memory[mem_write_ptr] <= mem_write;
 	    mem_write_ptr <= mem_write_ptr + 1;
 	 end
 	 if (mem_read_strb) begin
 	    mem_read_ptr <= mem_read_ptr + 1;
 	 end
+
+	 prev_mem_write_strb <= mem_write_strb;
+	 
 	 
       end // else: !if(~axi_resetn)
    end // always_ff @ (posedge axi_clk, negedge axi_resetn)

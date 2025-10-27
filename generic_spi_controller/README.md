@@ -1,7 +1,14 @@
 # generic_spi_controller
 
-### Block Function
-(TODO: Please write a paragraph describing the intended function of this firmware block. Make sure you describe all the major sub-blocks with enough detail that someone could read the firmware and easily understand your intent.)
+## Block Function
+This block allows simple reads and writes to the Fermilab generic_spi_peripheral ASIC IP.
+
+Operation (Read):
+
+Operation (Write):
+
+### Considerations for Timing Closure
+TBA
 
 ### Configurable Parameters
 
@@ -9,7 +16,7 @@
 | ------------- | ----------------------- | ------- |
 | C_S_AXI_DATA_WIDTH        | 32    | Width in bits of the AXI bus, also width in bits of each data register. Should be in the range 8~32 b for correct operation. |
 | C_S_AXI_ADDR_WIDTH        | 11    | Width in bits of the AXI memory addresses. Should be the same across the design. | 
-|MEM_DEPTH | 64 | (TODO: What is the function of this parameter?) |
+|MEM_DEPTH | 64 | The number of 32-bit words in the memory of the controller. The longest SPI write/read you can perform with this IP in one shot is MEM_DEPTH*32 |
 
 
 ### How to Instantiate
@@ -17,24 +24,20 @@ generic_spi_controller_top.v is a verilog wrapper around this block, which allow
 
 Note that this block requires axi4lite_interface_top, which is found in the axi4lite_interface folder of spacely-caribou-common-blocks.
 
-
-### Block Diagram
-(TODO: Create a useful block diagram which includes all the major sub-blocks of this firmware block.)
-
 ### AXI Memory Table 
 
 | Register Name       | Register Width            | R?   | W?   | Function                             |
 | -------------       | -------------------- | ---- | ---- | ------------------------------------ |
-|mem_write | 32 | Y | Y | (TODO: What is the function of this register?) |
-|mem_write_ptr | 32 | Y | N | (TODO: What is the function of this register?) |
-|mem_write_ptr_reset | 1 | N | Y | (TODO: What is the function of this register?) |
-|mem_read | 32 | Y | N | (TODO: What is the function of this register?) |
-|mem_read_ptr | 32 | Y | N | (TODO: What is the function of this register?) |
-|mem_read_ptr_reset | 1 | N | Y | (TODO: What is the function of this register?) |
-|transaction_count | 32 | Y | N | (TODO: What is the function of this register?) |
-|spi_len | 32 | Y | Y | (TODO: What is the function of this register?) |
-|spi_strb | 1 | N | Y | (TODO: What is the function of this register?) |
-|status | 3 | Y | N | (TODO: What is the function of this register?) |
+|mem_write | 32 | Y | Y | Use this register to write your SPI command to the controller's  memory in chunks of 32 bits. |
+|mem_write_ptr | 32 | Y | N | This read-only register tells you which byte of memory is going to be written next time you write a word to mem_write. |
+|mem_write_ptr_reset | 1 | N | Y | Write "1" to this register to reset mem_write_ptr to zero. |
+|mem_read | 32 | Y | N | Use this register to read data from SPI in chunks of 32 bits. |
+|mem_read_ptr | 32 | Y | N | This read-only register tells you which byte of memory is going to be read on the next read of mem_read. |
+|mem_read_ptr_reset | 1 | N | Y | Write "1" to this register to reset mem_read_ptr to zero. |
+|transaction_count | 32 | Y | N | The total number of SPI transactions that have been run since startup. |
+|spi_len | 32 | Y | Y | The length of the desired SPI transaction in bits. |
+|spi_strb | 1 | N | Y | Write "1" to this register to launch a SPI transaction. |
+|status | 3 | Y | N | (Debug) Status = {triggered? (1b), sm_status (2b)}. sm_status = IDLE (0), TRANSACTION (1), or DONE (2) |
 |param_MEM_DEPTH | 32 | Y | N | Yields the actual value of parameter MEM_DEPTH |
 
 
@@ -43,12 +46,12 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 | Signal Name       | Bit Width + Direction          | Clock   | I/O Function and Connection Guidance |
 | -------------     | ------------------------------ | ------- | ------------------------------------ |
-|axi_clk| 1b input | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|axi_resetn| 1b input | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|spi_clk| 1b input | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|poci| 1b input | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|pico| 1b output | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
-|cs_b| 1b output | (TODO: What clock domain is this I/O in?) | (TODO: What is the function of this I/O and what should it be connected to?)|
+|axi_clk| 1b input | axi_clk | Connect to AXI bus clock |
+|axi_resetn| 1b input | axi_clk | Connect to AXI bus reset (negative assertion)|
+|spi_clk| 1b input | spi_clk | SPI clock output from this block |
+|poci| 1b input | spi_clk | Peripheral Out, Controller In |
+|pico| 1b output | spi_clk | Peripheral In, Controller Out |
+|cs_b| 1b output | spi_clk | Chip Select (negative assertion) |
 
 
 
