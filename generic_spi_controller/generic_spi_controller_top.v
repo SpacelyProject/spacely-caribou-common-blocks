@@ -11,10 +11,11 @@ module generic_spi_controller_top #(
     // I/O ports specific to this module
    input wire  axi_clk,
 input wire  axi_resetn,
-input wire  spi_clk,
 input wire  poci,
 output wire  pico,
 output wire  cs_b,
+input wire  master_spi_clk,
+output wire  spi_clk_gated,
    
 
     //////////////////////////////
@@ -92,10 +93,11 @@ generic_spi_controller_interface #(
 ) generic_spi_controller_interface_inst (
     .axi_clk(axi_clk),
 .axi_resetn(axi_resetn),
-.spi_clk(spi_clk),
 .poci(poci),
 .pico(pico),
 .cs_b(cs_b),
+.master_spi_clk(master_spi_clk),
+.spi_clk_gated(spi_clk_gated),
 
     .S_AXI_ACLK(S_AXI_ACLK),
     .S_AXI_ARESETN(S_AXI_ARESETN),

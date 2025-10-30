@@ -10,10 +10,11 @@ module generic_spi_controller_interface #(
 
   input logic  axi_clk,
 input logic  axi_resetn,
-input logic  spi_clk,
 input logic  poci,
 output logic  pico,
 output logic  cs_b,
+input logic  master_spi_clk,
+output logic  spi_clk_gated,
 
 
         //////////////////////////////
@@ -88,7 +89,7 @@ output logic  cs_b,
    /////////////////////////////////////////////
 
    //Total number of AXI-mapped registers in this firmware block.
-localparam integer FPGA_REGISTER_N = 11;
+localparam integer FPGA_REGISTER_N = 16;
 
 // Addresses of all AXI-mapped registers in this firmware block.
 
@@ -99,10 +100,15 @@ localparam byte unsigned ADDRESS_mem_read = 3;
 localparam byte unsigned ADDRESS_mem_read_ptr = 4;
 localparam byte unsigned ADDRESS_mem_read_ptr_reset = 5;
 localparam byte unsigned ADDRESS_transaction_count = 6;
-localparam byte unsigned ADDRESS_spi_len = 7;
-localparam byte unsigned ADDRESS_spi_strb = 8;
+localparam byte unsigned ADDRESS_transaction_len = 7;
+localparam byte unsigned ADDRESS_run = 8;
 localparam byte unsigned ADDRESS_status = 9;
-localparam byte unsigned ADDRESS_param_MEM_DEPTH = 10;
+localparam byte unsigned ADDRESS_loop_pattern = 10;
+localparam byte unsigned ADDRESS_loop_pattern_len = 11;
+localparam byte unsigned ADDRESS_loop_iters = 12;
+localparam byte unsigned ADDRESS_loop_mode = 13;
+localparam byte unsigned ADDRESS_loop_counter = 14;
+localparam byte unsigned ADDRESS_param_MEM_DEPTH = 15;
 
 /*localparam byte unsigned FPGA_SPI_WR = 0;
 localparam byte unsigned FPGA_SPI_ADDRESS = 1;
@@ -119,13 +125,11 @@ logic [C_S_AXI_DATA_WIDTH-1:0]        reg_wrdout;
 logic [((C_S_AXI_DATA_WIDTH-1)/8):0]  reg_wrByteStrobe [FPGA_REGISTER_N-1:0];
 logic                                 reg_rdStrobe [FPGA_REGISTER_N-1:0];
 logic [C_S_AXI_DATA_WIDTH-1:0] 	      reg_rddin [FPGA_REGISTER_N-1:0];
-   
 
    logic 			      mem_write_strb = reg_wrByteStrobe[ADDRESS_mem_write][0];
    logic 			      mem_read_strb = reg_rdStrobe[ADDRESS_mem_read];
-   
 
-   
+
 // Instantiate the AXI Interface
 // NOTE: This block should be included from spacely-caribou-common-blocks/axi4lite_interface
 axi4lite_interface_top #(
@@ -171,9 +175,14 @@ logic [31:0] fpga_reg_mem_read;
 logic [31:0] fpga_reg_mem_read_ptr;
 logic                  fpga_reg_mem_read_ptr_reset;
 logic [31:0] fpga_reg_transaction_count;
-logic [31:0] fpga_reg_spi_len;
-logic                  fpga_reg_spi_strb;
+logic [31:0] fpga_reg_transaction_len;
+logic                  fpga_reg_run;
 logic [2:0] fpga_reg_status;
+logic [31:0] fpga_reg_loop_pattern;
+logic [7:0] fpga_reg_loop_pattern_len;
+logic [31:0] fpga_reg_loop_iters;
+logic [2:0] fpga_reg_loop_mode;
+logic [31:0] fpga_reg_loop_counter;
 logic [31:0] fpga_reg_param_MEM_DEPTH;
 
 
@@ -182,8 +191,12 @@ logic [31:0] fpga_reg_param_MEM_DEPTH;
         fpga_reg_mem_write <= '0;
         fpga_reg_mem_write_ptr_reset <= '0;
         fpga_reg_mem_read_ptr_reset <= '0;
-        fpga_reg_spi_len <= '0;
-        fpga_reg_spi_strb <= '0;
+        fpga_reg_transaction_len <= '0;
+        fpga_reg_run <= '0;
+        fpga_reg_loop_pattern <= '0;
+        fpga_reg_loop_pattern_len <= '0;
+        fpga_reg_loop_iters <= '0;
+        fpga_reg_loop_mode <= '0;
     end
     else begin
         if (reg_wrByteStrobe[ADDRESS_mem_write] == 4'b1111)
@@ -196,12 +209,20 @@ logic [31:0] fpga_reg_param_MEM_DEPTH;
             fpga_reg_mem_read_ptr_reset <= 1;
         else
             fpga_reg_mem_read_ptr_reset <= 0;
-        if (reg_wrByteStrobe[ADDRESS_spi_len] == 4'b1111)
-            fpga_reg_spi_len <= reg_wrdout[31:0];
-        if (reg_wrByteStrobe[ADDRESS_spi_strb] == 4'b1111)
-            fpga_reg_spi_strb <= 1;
+        if (reg_wrByteStrobe[ADDRESS_transaction_len] == 4'b1111)
+            fpga_reg_transaction_len <= reg_wrdout[31:0];
+        if (reg_wrByteStrobe[ADDRESS_run] == 4'b1111)
+            fpga_reg_run <= 1;
         else
-            fpga_reg_spi_strb <= 0;
+            fpga_reg_run <= 0;
+        if (reg_wrByteStrobe[ADDRESS_loop_pattern] == 4'b1111)
+            fpga_reg_loop_pattern <= reg_wrdout[31:0];
+        if (reg_wrByteStrobe[ADDRESS_loop_pattern_len] == 4'b1111)
+            fpga_reg_loop_pattern_len <= reg_wrdout[7:0];
+        if (reg_wrByteStrobe[ADDRESS_loop_iters] == 4'b1111)
+            fpga_reg_loop_iters <= reg_wrdout[31:0];
+        if (reg_wrByteStrobe[ADDRESS_loop_mode] == 4'b1111)
+            fpga_reg_loop_mode <= reg_wrdout[2:0];
     end
 end //always_ff 
 
@@ -213,9 +234,14 @@ assign reg_rddin[ADDRESS_mem_read] = fpga_reg_mem_read;
 assign reg_rddin[ADDRESS_mem_read_ptr] = fpga_reg_mem_read_ptr;
 assign reg_rddin[ADDRESS_mem_read_ptr_reset] = fpga_reg_mem_read_ptr_reset;
 assign reg_rddin[ADDRESS_transaction_count] = fpga_reg_transaction_count;
-assign reg_rddin[ADDRESS_spi_len] = fpga_reg_spi_len;
-assign reg_rddin[ADDRESS_spi_strb] = fpga_reg_spi_strb;
+assign reg_rddin[ADDRESS_transaction_len] = fpga_reg_transaction_len;
+assign reg_rddin[ADDRESS_run] = fpga_reg_run;
 assign reg_rddin[ADDRESS_status] = fpga_reg_status;
+assign reg_rddin[ADDRESS_loop_pattern] = fpga_reg_loop_pattern;
+assign reg_rddin[ADDRESS_loop_pattern_len] = fpga_reg_loop_pattern_len;
+assign reg_rddin[ADDRESS_loop_iters] = fpga_reg_loop_iters;
+assign reg_rddin[ADDRESS_loop_mode] = fpga_reg_loop_mode;
+assign reg_rddin[ADDRESS_loop_counter] = fpga_reg_loop_counter;
 assign reg_rddin[ADDRESS_param_MEM_DEPTH] = fpga_reg_param_MEM_DEPTH;
 
 
@@ -224,21 +250,27 @@ assign reg_rddin[ADDRESS_param_MEM_DEPTH] = fpga_reg_param_MEM_DEPTH;
 .mem_write(fpga_reg_mem_write),
 .mem_write_ptr(fpga_reg_mem_write_ptr),
 .mem_write_ptr_reset(fpga_reg_mem_write_ptr_reset),
-.mem_write_strb(mem_write_strb),
 .mem_read(fpga_reg_mem_read),
 .mem_read_ptr(fpga_reg_mem_read_ptr),
 .mem_read_ptr_reset(fpga_reg_mem_read_ptr_reset),
-.mem_read_strb(mem_read_strb),
 .transaction_count(fpga_reg_transaction_count),
-.spi_len(fpga_reg_spi_len),
-.spi_strb(fpga_reg_spi_strb),
+.transaction_len(fpga_reg_transaction_len),
+.run(fpga_reg_run),
 .status(fpga_reg_status),
+.loop_pattern(fpga_reg_loop_pattern),
+.loop_pattern_len(fpga_reg_loop_pattern_len),
+.loop_iters(fpga_reg_loop_iters),
+.loop_mode(fpga_reg_loop_mode),
+.loop_counter(fpga_reg_loop_counter),
 .axi_clk(axi_clk),
 .axi_resetn(axi_resetn),
-.spi_clk(spi_clk),
 .poci(poci),
 .pico(pico),
-.cs_b(cs_b));
+.cs_b(cs_b),
+						  .mem_write_strb(mem_write_strb),
+.mem_read_strb(mem_read_strb),
+.master_spi_clk(master_spi_clk),
+.spi_clk_gated(spi_clk_gated));
 
    assign fpga_reg_param_MEM_DEPTH = MEM_DEPTH;
 

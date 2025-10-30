@@ -2,18 +2,20 @@
 PARAMETER MEM_DEPTH 64
 
 
-//Ports
+//Ports -- AXI
 PORT axi_clk 1 0
 PORT axi_resetn 1 0
 
-PORT spi_clk 1 0
+//Ports -- SPI
 PORT poci 1 0
 PORT pico 1 1
 PORT cs_b 1 1
+PORT master_spi_clk 1 0
+PORT spi_clk_gated 1 1
 
 
 
-//Registers
+//Registers -- Memory Interface
 REGISTER mem_write 32 0
 REGISTER mem_write_ptr 32 1
 REGISTER mem_write_ptr_reset 1 2
@@ -23,8 +25,14 @@ REGISTER mem_read_ptr_reset 1 2
 
 REGISTER transaction_count 32 1
 
-REGISTER spi_len 32 0
-
-REGISTER spi_strb 1 2
+REGISTER transaction_len 32 0
+REGISTER run 1 2
 
 REGISTER status 3 1
+
+//Registers -- Loop Control
+REGISTER loop_pattern 32 0
+REGISTER loop_pattern_len 8 0
+REGISTER loop_iters 32 0
+REGISTER loop_mode 3 0
+REGISTER loop_counter 32 1

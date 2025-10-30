@@ -1,6 +1,6 @@
 # generic_spi_controller
 
-## Block Function
+### Block Function
 This block allows simple reads and writes to the Fermilab generic_spi_peripheral ASIC IP.
 
 Operation (Read):
@@ -24,7 +24,11 @@ generic_spi_controller_top.v is a verilog wrapper around this block, which allow
 
 Note that this block requires axi4lite_interface_top, which is found in the axi4lite_interface folder of spacely-caribou-common-blocks.
 
+
 ### AXI Memory Table 
+
+
+
 
 | Register Name       | Register Width            | R?   | W?   | Function                             |
 | -------------       | -------------------- | ---- | ---- | ------------------------------------ |
@@ -35,23 +39,33 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 |mem_read_ptr | 32 | Y | N | This read-only register tells you which byte of memory is going to be read on the next read of mem_read. |
 |mem_read_ptr_reset | 1 | N | Y | Write "1" to this register to reset mem_read_ptr to zero. |
 |transaction_count | 32 | Y | N | The total number of SPI transactions that have been run since startup. |
-|spi_len | 32 | Y | Y | The length of the desired SPI transaction in bits. |
-|spi_strb | 1 | N | Y | Write "1" to this register to launch a SPI transaction. |
-|status | 3 | Y | N | (Debug) Status = {triggered? (1b), sm_status (2b)}. sm_status = IDLE (0), TRANSACTION (1), or DONE (2) |
+|transaction_len | 32 | Y | Y | The length of the desired SPI transaction in bits. |
+|run | 1 | N | Y | Write "1" to this register to launch a SPI transaction. |
+|status | 3 | Y | N | (Debug) Status = {triggered? (1b), sm_status (2b)}. sm_status = READY (0), TRANSACTION (1), LOOP (2), or DONE (3) |
+|loop_pattern | 32 | Y | Y | Store a pattern up to 32 bits to be repeated in Loop Mode. |
+|loop_pattern_len | 8 | Y | Y | The length of the pattern to loop over (must be <= 32) |
+|loop_iters | 32 | Y | Y | How many times to loop over the pattern |
+|loop_mode | 3 | Y | Y |0 = no loop, 1 = loop for loop_iters iterations, 2 = infinite loop |
+|loop_counter | 32 | Y | N | Count of how many loops have been executed since start of transaction. |
 |param_MEM_DEPTH | 32 | Y | N | Yields the actual value of parameter MEM_DEPTH |
 
 
 
 ### I/O Table 
 
+
+
+
+
 | Signal Name       | Bit Width + Direction          | Clock   | I/O Function and Connection Guidance |
 | -------------     | ------------------------------ | ------- | ------------------------------------ |
 |axi_clk| 1b input | axi_clk | Connect to AXI bus clock |
 |axi_resetn| 1b input | axi_clk | Connect to AXI bus reset (negative assertion)|
-|spi_clk| 1b input | spi_clk | SPI clock output from this block |
-|poci| 1b input | spi_clk | Peripheral Out, Controller In |
-|pico| 1b output | spi_clk | Peripheral In, Controller Out |
-|cs_b| 1b output | spi_clk | Chip Select (negative assertion) |
+|poci| 1b input | master_spi_clk | Peripheral Out, Controller In |
+|pico| 1b output | master_spi_clk | Peripheral In, Controller Out |
+|cs_b| 1b output | master_spi_clk | Chip Select (negative assertion) |
+|master_spi_clk| 1b input | master_spi_clk | Master clock input for this block. Remember this clock is DOUBLE the rate of the spi clock that will be generated.|
+|spi_clk_gated| 1b output | master_spi_clk | Generated SPI clock from this block. The speed of the generated clock is 1/2 the speed of master_spi_clk, and it is aligned to avoid any race condition between transitions of cs_b and rising edges of spi_clk_gated. Connect this to the DUT.|
 
 
 
@@ -64,26 +78,21 @@ Note: Assumes an AXI data width of 32b
 *BASE (IP Base Address)
 
 mem_write,0x0,0xffffffff,True,True
-
 mem_write_ptr,0x4,0xffffffff,True,False
-
 mem_write_ptr_reset,0x8,0x1,False,True
-
 mem_read,0xc,0xffffffff,True,False
-
 mem_read_ptr,0x10,0xffffffff,True,False
-
 mem_read_ptr_reset,0x14,0x1,False,True
-
 transaction_count,0x18,0xffffffff,True,False
-
-spi_len,0x1c,0xffffffff,True,True
-
-spi_strb,0x20,0x1,False,True
-
+transaction_len,0x1c,0xffffffff,True,True
+run,0x20,0x1,False,True
 status,0x24,0x7,True,False
-
-param_MEM_DEPTH,0x28,0xffffffff,True,False
+loop_pattern,0x28,0xffffffff,True,True
+loop_pattern_len,0x2c,0xff,True,True
+loop_iters,0x30,0xffffffff,True,True
+loop_mode,0x34,0x7,True,True
+loop_counter,0x38,0xffffffff,True,False
+param_MEM_DEPTH,0x3c,0xffffffff,True,False
 
 
 
