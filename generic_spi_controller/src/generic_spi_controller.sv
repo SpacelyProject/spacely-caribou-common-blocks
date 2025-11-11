@@ -186,10 +186,14 @@ module generic_spi_controller
    //    DONE state is reached), and state is synchronized to posedge(spi_clk) so a new state will
    //    always be captured by master_spi_clk on a falling edge of spi_clk.
    logic 	next_cs_b;
+   logic 	next_pico;
+   
    assign next_cs_b = ~triggered_spi_clk || (state == DONE);
    
-   always_ff @(posedge master_spi_clk)
-     cs_b <= next_cs_b;
+   always_ff @(posedge master_spi_clk) begin
+      cs_b <= next_cs_b;
+      pico <= next_pico;
+   end
    
 
    always_ff @(posedge master_spi_clk, negedge axi_resetn) begin
@@ -210,11 +214,11 @@ module generic_spi_controller
    //State-dependent pico assignment logic.
    always_comb begin
       if (state == TRANSACTION || state == READY)
-	pico = write_memory[current_word][current_bit];
+	next_pico = write_memory[current_word][current_bit];
       else if (state == LOOP)
-	pico = loop_pattern[current_bit_loop];
+	next_pico = loop_pattern[current_bit_loop];
       else //state == DONE
-	pico = 1'b0;
+	next_pico = 1'b0;
    end
 
    // next_state logic
@@ -235,7 +239,7 @@ module generic_spi_controller
 	    else next_state = LOOP;
 	 end
 	 // Case 4: If we are at DONE, stay here until no longer triggered.
-	 else if(state == DONE) next_state = DONE;
+	 else  next_state = DONE;
    end
    
    always_ff @(posedge spi_clk_gated, negedge triggered_spi_clk) begin

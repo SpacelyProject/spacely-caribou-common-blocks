@@ -1,16 +1,43 @@
 # generic_spi_controller
 
-### Block Function
+## Block Function
 This block allows simple reads and writes to the Fermilab generic_spi_peripheral ASIC IP.
 
-Operation (Read):
+**How to run a Basic SPI Transaction:**
+1. Write your SPI command + data to *mem_write* (see below).
+2. Set *transaction_len* = the number of bits in your SPI command + data
+3. Write a "1" to *run*.
+4. Wait for *status* to return to zero, indicating the transaction is complete.
+5. Read the result from *mem_read* if desired (see below).
 
-Operation (Write):
+**Interacting with the Generic SPI Controller's Memory**
+In order to allow for long uninterrupted reads/writes over SPI, the SPI controller has a memory bank where it can store write and read data.
+Each entry in the memory bank is 32 bits, and the number of entries is configured by MEM_DEPTH.
+A pointer system is used to keep track of where you are reading/writing to within the memory bank. *mem_write_ptr* tells you which write_memory entry will be written to next time you write a 32-bit word to *mem_write*. Similarly, *mem_read_ptr* tells you which read_memory word will be returned next time you read *mem_read*. Writing to *mem_write* or reading from *mem_read* will automatically advance the pointer so that sequential writes/reads return new data. To return to the start of the memory bank, simply write a "1" to the appropriate *_ptr_reset* register.
+
+**Using Loop Mode**
+If *loop_mode* is not zero, then after completing the regular transaction (of length *transaction_len*), the controller will start to loop the bit pattern you have specified in *loop_pattern*, whose length is set by *loop_pattern_len* and must be no longer than 32 cycles. If *loop_mode*=1, the looping will terminate after *loop_iters* cycles. If *loop_mode*=2, the looping will not terminate until you write something other than 2 to *loop_mode*.
+
+**Functional Documentation**
+For detailed functional documentation of the SPI transaction, see **Generic SPI Controller Functional Documentation.docx**
 
 ### Considerations for Timing Closure
-TBA
 
-### Configurable Parameters
+**IMPORTANT NOTE:** This block contains a generated clock (spi_clk_gated), which must be appropriately defined in the constraint file.
+
+Use this template to write a correct constraint, where:
+
+**\<1\>** is the name of the clock driving the master_spi_clk input of this block.
+
+**\<2\>** is the pin which generates **\<1\>**
+
+**\<3\>** is the path to the generic_spi_controller block in your block diagram, i.e. My_Firmware_bd_i/generic_spi_controll_0
+
+create_generated_clock -name spi_clk_gated -source [get_pins **\<2\>**] -divide_by 2 -add -master_clock **\<1\>** [get_pins **\<3\>**/inst/generic_spi_controller_interface_inst/generic_spi_controller_int/spi_clk_gated_reg/Q]
+
+As always, remember to define appropriate (synchronous or asynchronous) relationships between clock domains, and to define input/output delays on I/Os. spi_clk_gated is synchronous with master_spi_clk.
+
+## Configurable Parameters
 
 | Parameter     | Default Value	          | Function  |
 | ------------- | ----------------------- | ------- |
@@ -19,13 +46,13 @@ TBA
 |MEM_DEPTH | 64 | The number of 32-bit words in the memory of the controller. The longest SPI write/read you can perform with this IP in one shot is MEM_DEPTH*32 |
 
 
-### How to Instantiate
+## How to Instantiate
 generic_spi_controller_top.v is a verilog wrapper around this block, which allows it to be directly instantiated in a Vivado block diagram, and connected to the main AXI bus. Connect other I/Os as appropriate based on the I/O table below.
 
 Note that this block requires axi4lite_interface_top, which is found in the axi4lite_interface folder of spacely-caribou-common-blocks.
 
 
-### AXI Memory Table 
+## AXI Memory Table 
 
 
 
@@ -51,7 +78,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 
 
-### I/O Table 
+## I/O Table 
 
 
 
@@ -71,7 +98,7 @@ Note that this block requires axi4lite_interface_top, which is found in the axi4
 
 Note, the AXI bus is always excluded from this table because its presence is assumed by the memory architecture.
 
-### mem_map.txt
+## mem_map.txt
 
 Note: Assumes an AXI data width of 32b
 

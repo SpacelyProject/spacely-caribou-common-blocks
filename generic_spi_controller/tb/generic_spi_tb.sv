@@ -60,6 +60,8 @@ module generic_spi_tb();
       // Wait at least one spi_clk period before starting.
       @(posedge master_spi_clk);
       @(posedge master_spi_clk);
+      @(posedge master_spi_clk);
+      
 
       // *********************************
       // * Test 1: Normal read/writeback *
