@@ -11,14 +11,17 @@ This block allows simple reads and writes to the Fermilab generic_spi_peripheral
 5. Read the result from *mem_read* if desired (see below).
 
 **Interacting with the Generic SPI Controller's Memory**
+
 In order to allow for long uninterrupted reads/writes over SPI, the SPI controller has a memory bank where it can store write and read data.
 Each entry in the memory bank is 32 bits, and the number of entries is configured by MEM_DEPTH.
 A pointer system is used to keep track of where you are reading/writing to within the memory bank. *mem_write_ptr* tells you which write_memory entry will be written to next time you write a 32-bit word to *mem_write*. Similarly, *mem_read_ptr* tells you which read_memory word will be returned next time you read *mem_read*. Writing to *mem_write* or reading from *mem_read* will automatically advance the pointer so that sequential writes/reads return new data. To return to the start of the memory bank, simply write a "1" to the appropriate *_ptr_reset* register.
 
 **Using Loop Mode**
+
 If *loop_mode* is not zero, then after completing the regular transaction (of length *transaction_len*), the controller will start to loop the bit pattern you have specified in *loop_pattern*, whose length is set by *loop_pattern_len* and must be no longer than 32 cycles. If *loop_mode*=1, the looping will terminate after *loop_iters* cycles. If *loop_mode*=2, the looping will not terminate until you write something other than 2 to *loop_mode*.
 
 **Functional Documentation**
+
 For detailed functional documentation of the SPI transaction, see **Generic SPI Controller Functional Documentation.docx**
 
 ### Considerations for Timing Closure
@@ -105,21 +108,37 @@ Note: Assumes an AXI data width of 32b
 *BASE (IP Base Address)
 
 mem_write,0x0,0xffffffff,True,True
+
 mem_write_ptr,0x4,0xffffffff,True,False
+
 mem_write_ptr_reset,0x8,0x1,False,True
+
 mem_read,0xc,0xffffffff,True,False
+
 mem_read_ptr,0x10,0xffffffff,True,False
+
 mem_read_ptr_reset,0x14,0x1,False,True
+
 transaction_count,0x18,0xffffffff,True,False
+
 transaction_len,0x1c,0xffffffff,True,True
+
 run,0x20,0x1,False,True
+
 status,0x24,0x7,True,False
+
 loop_pattern,0x28,0xffffffff,True,True
+
 loop_pattern_len,0x2c,0xff,True,True
+
 loop_iters,0x30,0xffffffff,True,True
+
 loop_mode,0x34,0x7,True,True
+
 loop_counter,0x38,0xffffffff,True,False
+
 param_MEM_DEPTH,0x3c,0xffffffff,True,False
+
 
 
 
