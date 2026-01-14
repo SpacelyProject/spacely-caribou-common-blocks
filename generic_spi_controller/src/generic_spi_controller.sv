@@ -235,8 +235,11 @@ module generic_spi_controller
 	 end
 	 // Case 3: If in LOOP, continue until the last cycle of the last loop_iter, then go to DONE.
 	 else if(state == LOOP) begin
-	    if (loop_counter >= loop_iters-1 && (current_bit_loop >= 31 || current_bit_loop >= loop_pattern_len-1) && loop_mode != 2) next_state = DONE;
-	    else next_state = LOOP;
+	    if (loop_mode == 0) next_state = DONE;
+	    else begin
+	      if (loop_counter >= loop_iters-1 && (current_bit_loop >= 31 || current_bit_loop >= loop_pattern_len-1) && loop_mode == 1) next_state = DONE;
+	      else next_state = LOOP;
+	    end
 	 end
 	 // Case 4: If we are at DONE, stay here until no longer triggered.
 	 else  next_state = DONE;
