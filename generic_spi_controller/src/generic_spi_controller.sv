@@ -176,49 +176,61 @@ module generic_spi_controller
    assign bits_transmitted = current_bit + current_word*32;
    
 
-   // ** SPI_CLK GENERATION **
-   // Here we generate spi_clk_gated and cs_b synchronously.
-   // We guarantee that a rising edge of spi_clk will not coincide with any edge of cs_b because:
-   // 1. a rising edge of spi_clk cannot happen at a falling edge of cs_b b/c ~cs_b must have
-   //    been true in the previous cycle for spi_clk to be non-zero.
-   // 2. a rising edge of spi_clk cannot happen at a rising edge of cs_b b/c a rising edge of cs_b
-   //    will always be triggered by state == DONE (triggered_spi_clk will not go low until the
-   //    DONE state is reached), and state is synchronized to posedge(spi_clk) so a new state will
-   //    always be captured by master_spi_clk on a falling edge of spi_clk.
    logic 	next_cs_b;
-   logic 	next_pico;
+   //logic 	next_pico;
+   //logic 	last_poci;
+
+   logic 	spi_clk_phase;
+   logic 	next_spi_clk_phase;
+
+   assign spi_clk_gated = spi_clk_phase;
    
    assign next_cs_b = ~triggered_spi_clk || (state == DONE);
-   
-   always_ff @(posedge master_spi_clk) begin
-      cs_b <= next_cs_b;
-      pico <= next_pico;
-   end
-   
 
-   always_ff @(posedge master_spi_clk, negedge axi_resetn) begin
-      if (~axi_resetn) 
-	 spi_clk_gated <= 1'b0;
+   
+   // ** SPI_CLK GENERATION **
+   // spi_clk_phase alters between 0 and 1, unless:
+   // a) We are in reset; then we start with phase=0
+   // b) The next master_spi_clk edge will bring a cs_b transition;
+   //    in this case we force the next phase to be 0, so that there
+   //    will either be no edge during the cs_b transition or a negative
+   //    edge (but not a positive edge, which could bring a race condition.)
+  
+   always_comb begin
+      if (~axi_resetn)
+	next_spi_clk_phase = 0;
       else begin
 	 if (cs_b != next_cs_b)
-	   spi_clk_gated <= 1'b0;
+	   next_spi_clk_phase = 0;
 	 else
-	   spi_clk_gated <= ~spi_clk_gated;
+	   next_spi_clk_phase = ~spi_clk_phase;
       end
    end
 
    
+   always_ff @(posedge master_spi_clk) begin
+      cs_b <= next_cs_b;
+      spi_clk_phase <= next_spi_clk_phase;
+   end
+   
    
    // ********** SPI TRANSACTION LOGIC **********
+   // 1) Transaction starts when "triggered_spi_clk" is fired. We are guaranteed that the state of
+   //    the controller is "READY" because ~triggered_spi_clk asynchronously resets it to this state.
+   //    There may or may not be a falling edge of cs_b here, but either way it'll be ignored b/c cs_b=1
+   // 2) Exactly one master_spi_clk cycle later there will be a posedge of spi_clk_phase. Because write_memory[0]
+   //    is already available on pico in the READY state, it will be captured by the peripheral.
+   // 3) On the first falling edge where cs_b=0, we will advance to state=TRANSACTION and clock the
+   //    bit that the spi_peripheral transmitted on the first posedge. 
    
    //State-dependent pico assignment logic.
    always_comb begin
       if (state == TRANSACTION || state == READY)
-	next_pico = write_memory[current_word][current_bit];
+	pico = write_memory[current_word][current_bit];
       else if (state == LOOP)
-	next_pico = loop_pattern[current_bit_loop];
+	pico = loop_pattern[current_bit_loop];
       else //state == DONE
-	next_pico = 1'b0;
+	pico = 1'b0;
    end
 
    // next_state logic
@@ -245,7 +257,7 @@ module generic_spi_controller
 	 else  next_state = DONE;
    end
    
-   always_ff @(posedge spi_clk_gated, negedge triggered_spi_clk) begin
+   always_ff @(posedge master_spi_clk, negedge triggered_spi_clk) begin
 
       // ~~~~ State Machine Logic ~~~~
       if(~triggered_spi_clk) begin
@@ -257,44 +269,47 @@ module generic_spi_controller
 	 
       end
       else begin
-	state <= next_state;
 
-	 if (state == TRANSACTION || next_state == TRANSACTION ) 
-	    read_memory[current_word][current_bit] <= poci;
-      
-	 // ~~~~ Outputs Based on State ~~~~
-	 //If we are starting or continuing a transaction.
-	 if (next_state == TRANSACTION ) begin 
-	    
-	    if(bits_transmitted <= transaction_len) begin
-	       if(current_bit == 31) begin
-		  current_bit <= 0;
-		  current_word <= current_word + 1;
-	       end
-	       else current_bit <= current_bit + 1;
-	    end
-	    
-	 end 
-	 else if (state == LOOP) begin
-	    if (current_bit_loop >= 31 || current_bit_loop >= loop_pattern_len-1) begin
-	       current_bit_loop <= 0;
-	       loop_counter <= loop_counter + 1;
-	    end
-	    else
-	      current_bit_loop <= current_bit_loop+1;
-	 end
+	 // On each FALLING EDGE of spi_clk after the command starts (cs_b low),
+	 // we do the following...
+	 if (spi_clk_phase == 1'b1 && next_spi_clk_phase == 1'b0 && cs_b == 1'b0) begin
+	    //(1) Advance state
+	    state <= next_state;
+
+	    //(2) clock the peripheral's response into read_memory.
+	    if (state == TRANSACTION || next_state == TRANSACTION ) 
+	      read_memory[current_word][current_bit] <= poci;
 	 
-	 else begin //NO TRANSACTION (READY or DONE)
-	 current_word <= 0;
-	 current_bit <= 0;
 	    
-	 end       
+	    //(3) Update current_bit and current_word, which combinationally update PICO.
+	    if (next_state == TRANSACTION ) begin 
+	    
+	       if(bits_transmitted <= transaction_len) begin
+		  if(current_bit == 31) begin
+		     current_bit <= 0;
+		     current_word <= current_word + 1;
+		  end
+		  else current_bit <= current_bit + 1;
+	       end
+	       
+	    end 
+	    else if (state == LOOP) begin
+	       if (current_bit_loop >= 31 || current_bit_loop >= loop_pattern_len-1) begin
+		  current_bit_loop <= 0;
+		  loop_counter <= loop_counter + 1;
+	       end
+	       else
+		 current_bit_loop <= current_bit_loop+1;
+	    end
+	    
+	    else begin //NO TRANSACTION (READY or DONE)
+	       current_word <= 0;
+	       current_bit <= 0;
+	    
+	    end // else: !if(state == LOOP)
+	 end // if (spi_clk_phase == 1'b1 && next_spi_clk_phase == 1'b0)	 
       end // else: !if(~triggered_spi_clk)
    end
-
-
-
-
 
 
 endmodule // generic_spi_controller

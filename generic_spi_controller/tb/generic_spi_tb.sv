@@ -91,14 +91,14 @@ module generic_spi_tb();
       mem_write = 32'b00000000_0000_0001_00_0;
       @(posedge axi_clk) ;
       mem_write_strb = 1'b0;
-      transaction_len = 20;
+      transaction_len = 19;
 
       do_transaction();
 
-      //Remember that the first 12 bits of any read will be garbage.
-      //1b offset + 1b WnR + 10b address.
-      $display("mem_read: %b",mem_read[19:12]);
-      if(mem_read[19:12] == 8'b01010101)
+      //Remember that the first 11 bits of any read will be garbage.
+      // 1b WnR + 10b address.
+      $display("mem_read: %b",mem_read[18:11]);
+      if(mem_read[18:11] == 8'b01010101)
 	$display("Test 1 -- SUCCESS!");
       else
 	$display("Test 1 -- FAIL");
