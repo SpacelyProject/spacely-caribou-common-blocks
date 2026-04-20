@@ -3,7 +3,13 @@
 ## Block Function
 A logic-defined clock divider which is reprogrammable using AXI at runtime.
 
-output_clk frequency = (master_clk frequency) / (1 + divider_cycles)
+For divider_cycles > 0:
+
+output_clk frequency = (master_clk frequency) / (2 * divider_cycles)
+
+For divider_cycles = 0:
+
+output_clk frequency = (master_clk frequency) / 2 
 
 ### Considerations for Timing Closure
 

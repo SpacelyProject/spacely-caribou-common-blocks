@@ -37,15 +37,38 @@ module tb();
 
       #100;
 
+      divider_cycles = 0;
+
+
+      #10000;
+      
       divider_cycles = 1;
 
 
       #10000;
 
+      divider_cycles = 2;
+
+
+      #10000;
+
+      divider_cycles = 3;
+
+
+      #10000;
+
+     
+      divider_cycles = 10;
+
+
+      #10000;
+      
       divider_cycles = 17;
 
 
       #10000;
+
+      
 
       $finish();
       
